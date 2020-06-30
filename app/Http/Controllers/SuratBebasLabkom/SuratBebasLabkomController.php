@@ -4,7 +4,10 @@ namespace App\Http\Controllers\SuratBebasLabkom;
 
 use App\Http\Controllers\Controller;
 use App\SuratBebasLabkom;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class SuratBebasLabkomController extends Controller
 {
@@ -16,11 +19,11 @@ class SuratBebasLabkomController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View
      */
-    public function index()
+    public function index(): View
     {
-        //
+        return view('SuratBebasLabkom.index');
     }
 
     /**
@@ -47,10 +50,10 @@ class SuratBebasLabkomController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\SuratBebasLabkom  $suratBebasLabkom
+     * @param  \App\SuratBebasLabkom  $SuratBebasLabkom
      * @return \Illuminate\Http\Response
      */
-    public function show(SuratBebasLabkom $suratBebasLabkom)
+    public function show(SuratBebasLabkom $SuratBebasLabkom)
     {
         //
     }
@@ -58,10 +61,10 @@ class SuratBebasLabkomController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\SuratBebasLabkom  $suratBebasLabkom
+     * @param  \App\SuratBebasLabkom  $SuratBebasLabkom
      * @return \Illuminate\Http\Response
      */
-    public function edit(SuratBebasLabkom $suratBebasLabkom)
+    public function edit(SuratBebasLabkom $SuratBebasLabkom)
     {
         //
     }
@@ -70,10 +73,10 @@ class SuratBebasLabkomController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\SuratBebasLabkom  $suratBebasLabkom
+     * @param  \App\SuratBebasLabkom  $SuratBebasLabkom
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SuratBebasLabkom $suratBebasLabkom)
+    public function update(Request $request, SuratBebasLabkom $SuratBebasLabkom)
     {
         //
     }
@@ -81,10 +84,10 @@ class SuratBebasLabkomController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\SuratBebasLabkom  $suratBebasLabkom
+     * @param  \App\SuratBebasLabkom  $SuratBebasLabkom
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SuratBebasLabkom $suratBebasLabkom)
+    public function destroy(SuratBebasLabkom $SuratBebasLabkom)
     {
         //
     }
