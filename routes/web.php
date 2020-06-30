@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,10 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'WelcomeController')->name('welcome');
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'Home\HomeController')->name('home');
+Route::resource('PeminjamanLab', 'PeminjamanLab\PeminjamanLabController');
+Route::resource('PeminjamanAlat', 'PeminjamanAlat\PeminjamanAlatController');
+Route::resource('SuratBebasLabkom', 'SuratBebasLabkom\SuratBebasLabkomController');
