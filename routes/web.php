@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'WelcomeController')->name('welcome');
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 Route::get('/home', 'Home\HomeController')->name('home');
 Route::resource('PeminjamanLab', 'PeminjamanLab\PeminjamanLabController');
 Route::resource('PeminjamanAlat', 'PeminjamanAlat\PeminjamanAlatController');

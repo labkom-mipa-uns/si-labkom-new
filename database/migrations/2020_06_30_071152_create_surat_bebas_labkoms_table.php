@@ -13,7 +13,7 @@ class CreateSuratBebasLabkomsTable extends Migration
      */
     public function up()
     {
-        Schema::create('surat_bebas_labkoms', function (Blueprint $table) {
+        Schema::create('surat_bebas_labkom', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
         });
@@ -26,6 +26,6 @@ class CreateSuratBebasLabkomsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('surat_bebas_labkoms');
+        Schema::dropIfExists('surat_bebas_labkom');
     }
 }

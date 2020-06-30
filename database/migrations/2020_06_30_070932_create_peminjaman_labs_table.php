@@ -13,7 +13,7 @@ class CreatePeminjamanLabsTable extends Migration
      */
     public function up()
     {
-        Schema::create('peminjaman_labs', function (Blueprint $table) {
+        Schema::create('peminjaman_lab', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
         });
@@ -26,6 +26,6 @@ class CreatePeminjamanLabsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('peminjaman_labs');
+        Schema::dropIfExists('peminjaman_lab');
     }
 }

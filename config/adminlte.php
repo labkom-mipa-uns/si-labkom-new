@@ -30,7 +30,7 @@ return [
     |
     */
 
-    'use_ico_only' => false,
+    'use_ico_only' => true,
     'use_full_favicon' => false,
 
     /*
@@ -245,28 +245,28 @@ return [
         ['header' => 'MAIN MENU'],
         [
             'text'        => 'Dashboard',
-            'url'         => 'home',
+            'route'         => 'home',
             'icon'        => 'far fa-fw fas fa-tachometer-alt',
 //            'label'       => 4,
 //            'label_color' => 'success',
         ],
         [
             'text'        => 'Peminjaman Lab',
-            'url'         => 'admin/pages',
+            'route'         => 'PeminjamanLab.index',
             'icon'        => 'far fa-fw fas fa-desktop',
 //            'label'       => 4,
 //            'label_color' => 'success',
         ],
         [
             'text'        => 'Peminjaman Alat',
-            'url'         => 'admin/pages',
+            'route'         => 'PeminjamanAlat.index',
             'icon'        => 'far fa-fw fas fa-tools',
 //            'label'       => 4,
 //            'label_color' => 'success',
         ],
         [
             'text'        => 'Surat Bebas Labkom',
-            'url'         => 'admin/pages',
+            'route'         => 'SuratBebasLabkom.index',
             'icon'        => 'far fa-fw fa-file',
 //            'label'       => 4,
 //            'label_color' => 'success',

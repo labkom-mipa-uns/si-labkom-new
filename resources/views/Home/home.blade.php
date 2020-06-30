@@ -1,5 +1,8 @@
 @extends('adminlte::page')
-@section('title', 'Dashboard')
+@section('title', 'Labkom FMIPA UNS | Dashboard')
+@section('css')
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+@endsection
 
 @section('content_header')
     <h1>Dashboard</h1>
@@ -8,30 +11,39 @@
 @section('content')
     <div class="row">
         <div class="col-md-4">
-            <div class="card bg-light mb-3 shadow">
-                <div class="card-header">Peminjaman Lab</div>
-                <div class="card-body">
-                    <h5 class="card-title">Light card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <div class="small-box bg-light shadow">
+                <div class="inner">
+                    <h3>50</h3>
+                    <h5>Peminjaman Lab</h5>
                 </div>
+                <div class="icon">
+                    <i class="ion ion-android-apps"></i>
+                </div>
+                <a href="{{ route('PeminjamanLab.index') }}" class="small-box-footer">Info Selengkapnya <i class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card bg-light mb-3 shadow">
-                <div class="card-header">Peminjaman Alat</div>
-                <div class="card-body">
-                    <h5 class="card-title">Light card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <div class="small-box bg-light shadow">
+                <div class="inner">
+                    <h3>25</h3>
+                    <h5>Peminjaman Alat</h5>
                 </div>
+                <div class="icon">
+                    <i class="ion ion-settings"></i>
+                </div>
+                <a href="{{ route('PeminjamanAlat.index') }}" class="small-box-footer">Info Selengkapnya <i class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card bg-light mb-3 shadow">
-                <div class="card-header">Surat Bebas Labkom</div>
-                <div class="card-body">
-                    <h5 class="card-title">Light card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <div class="small-box bg-light shadow">
+                <div class="inner">
+                    <h3>30</h3>
+                    <h5>Surat Bebas Labkom</h5>
                 </div>
+                <div class="icon">
+                    <i class="ion ion-document"></i>
+                </div>
+                <a href="{{ route('SuratBebasLabkom.index') }}" class="small-box-footer">Info Selengkapnya <i class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
     </div>

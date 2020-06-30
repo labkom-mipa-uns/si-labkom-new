@@ -4,23 +4,26 @@ namespace App\Http\Controllers\PeminjamanLab;
 
 use App\Http\Controllers\Controller;
 use App\PeminjamanLab;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class PeminjamanLabController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('verified');
     }
 
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View
      */
-    public function index()
+    public function index(): View
     {
-        //
+        return view('PeminjamanLab.index');
     }
 
     /**
@@ -47,10 +50,10 @@ class PeminjamanLabController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\PeminjamanLab  $peminjamanLab
+     * @param  \App\PeminjamanLab  $PeminjamanLab
      * @return \Illuminate\Http\Response
      */
-    public function show(PeminjamanLab $peminjamanLab)
+    public function show(PeminjamanLab $PeminjamanLab)
     {
         //
     }
@@ -58,10 +61,10 @@ class PeminjamanLabController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\PeminjamanLab  $peminjamanLab
+     * @param  \App\PeminjamanLab  $PeminjamanLab
      * @return \Illuminate\Http\Response
      */
-    public function edit(PeminjamanLab $peminjamanLab)
+    public function edit(PeminjamanLab $PeminjamanLab)
     {
         //
     }
@@ -70,10 +73,10 @@ class PeminjamanLabController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\PeminjamanLab  $peminjamanLab
+     * @param  \App\PeminjamanLab  $PeminjamanLab
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, PeminjamanLab $peminjamanLab)
+    public function update(Request $request, PeminjamanLab $PeminjamanLab)
     {
         //
     }
@@ -81,10 +84,10 @@ class PeminjamanLabController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\PeminjamanLab  $peminjamanLab
+     * @param  \App\PeminjamanLab  $PeminjamanLab
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PeminjamanLab $peminjamanLab)
+    public function destroy(PeminjamanLab $PeminjamanLab)
     {
         //
     }
