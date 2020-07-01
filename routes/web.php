@@ -18,6 +18,7 @@ Route::get('/', 'WelcomeController')->name('welcome');
 
 Auth::routes(['verify' => true]);
 Route::get('/home', 'Home\HomeController')->name('home');
+Route::resource('Account', 'Account\AccountController')->except('create');
 Route::resource('PeminjamanLab', 'PeminjamanLab\PeminjamanLabController');
 Route::resource('PeminjamanAlat', 'PeminjamanAlat\PeminjamanAlatController');
 Route::resource('SuratBebasLabkom', 'SuratBebasLabkom\SuratBebasLabkomController');
