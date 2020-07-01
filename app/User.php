@@ -49,6 +49,6 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function adminlte_profile_url()
     {
-        return 'profile/username';
+        return 'Account.index';
     }
 }

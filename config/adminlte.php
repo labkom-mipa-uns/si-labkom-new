@@ -50,7 +50,7 @@ return [
     'logo_img_class' => 'brand-image img-circle',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'LabkomFMIPAUNS',
+    'logo_img_alt' => 'Labkom FMIPA UNS',
 
     /*
     |--------------------------------------------------------------------------
@@ -186,7 +186,7 @@ return [
     |
     */
 
-    'use_route_url' => false,
+    'use_route_url' => true,
 
     'dashboard_url' => 'home',
 
@@ -200,7 +200,7 @@ return [
 
     'password_email_url' => 'password/email',
 
-    'profile_url' => false,
+    'profile_url' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -242,7 +242,7 @@ return [
 //            'url'  => 'admin/blog',
 //            'can'  => 'manage-blog',
 //        ],
-        ['header' => 'MAIN MENU'],
+        'MAIN MENU',
         [
             'text'        => 'Dashboard',
             'route'         => 'home',
@@ -271,15 +271,15 @@ return [
 //            'label'       => 4,
 //            'label_color' => 'success',
         ],
-        ['header' => 'ACCOUNT SETTINGS'],
+        'ACCOUNT SETTINGS',
         [
             'text' => 'profile',
-            'url'  => 'admin/settings',
+            'route'  => 'Account.index',
             'icon' => 'fas fa-fw fa-user',
         ],
         [
             'text' => 'change_password',
-            'url'  => 'admin/settings',
+//            'url'  => 'Account.edit',
             'icon' => 'fas fa-fw fa-lock',
         ],
 //        [
