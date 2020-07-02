@@ -6,14 +6,14 @@
 
         <title>{{ config('app.name') }}</title>
 
-        <!-- Favicon -->
-        <link rel="icon" href="{{ asset('favicons/favicon.ico') }}"/>
-        <link rel="manifest" href="{{ asset('mix-manifest.json') }}">
+        <!-- Favicons -->
+        <link rel="icon" href="{{ asset('favicons/favicon.ico') }}">
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
 
         <!-- Styles -->
+        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
         <style>
             html, body {
                 background-color: #fff;
@@ -85,7 +85,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    <img src="{{ asset('img/logo.png') }}" alt="Labkom">
+                    <img src="{{ asset('img/logo.png') }}" alt="labkom" class="img-fluid">
                 </div>
             </div>
         </div>
