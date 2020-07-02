@@ -29,11 +29,11 @@ class SuratBebasLabkomController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View
      */
-    public function create()
+    public function create(): View
     {
-        //
+        return view('SuratBebasLabkom.create');
     }
 
     /**
