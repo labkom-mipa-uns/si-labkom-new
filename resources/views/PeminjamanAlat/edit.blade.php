@@ -1,21 +1,20 @@
 @extends('adminlte::page')
-@section('title', 'Labkom FMIPA UNS | Peminjaman Alat | Update')
+@section('title', 'Labkom FMIPA UNS | Peminjaman Alat | Edit Data')
 
 @section('content_header')
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Update Data Peminjam</h1>
+            <h1 class="m-0 text-dark">Edit Data Peminjam</h1>
         </div>
         <!-- /.col -->
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('PeminjamanAlat.index') }}">Peminjaman Alat</a></li>
-                <li class="breadcrumb-item active">Update</li>
+                <li class="breadcrumb-item active">Edit Data</li>
             </ol>
         </div><!-- /.col -->
     </div><!-- /.row -->
-
 @endsection
 
 @section('content')
@@ -121,7 +120,7 @@
                         <button type="submit" class="btn btn-info btn-lg float-right">
                             <a>
                                 <i class="fas fa-pen"></i>
-                                Update
+                                Update Data
                             </a>
                         </button>
                     </div>

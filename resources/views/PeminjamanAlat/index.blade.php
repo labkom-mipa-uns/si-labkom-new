@@ -47,6 +47,7 @@
                         Prodi
                     </th>
                     <th >
+                        #
                     </th>
                 </tr>
                 </thead>
@@ -95,8 +96,6 @@
 {{--                                <a class="btn btn-danger btn-sm" href="#">--}}
 {{--                                    <i class="fas fa-trash"></i>--}}
 {{--                                    <input style="margin: 0; padding: 0;" class="btn btn-danger btn-sm" type="submit" name="submit" value="Delete">--}}
-{{--                                    <input type="hidden" name="_method" value="delete">--}}
-{{--                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">--}}
 {{--                                </a>--}}
 {{--                            </form>--}}
 {{--                        </td>--}}

@@ -232,17 +232,19 @@ return [
 
     'menu' => [
         [
-            'text' => 'Search',
             'search' => true,
-            'topnav' => true,
+            'url' => 'test',                     // the form action
+            'method' => 'POST',                  // the form method
+            'input_name' => 'menu-search-input', // the input name
+            'text' => 'Search',                  // the input placeholder
         ],
-//        ['header' => 'blog'],
-//        [
-//            'text' => 'blog',
-//            'url'  => 'admin/blog',
-//            'can'  => 'manage-blog',
-//        ],
-        'MAIN MENU',
+        'BLOG',
+        [
+            'text' => 'blog',
+            'url'  => 'admin/blog',
+            'icon' => 'far fa-fw fas fa-blog',
+        ],
+        'SERVICE',
         [
             'text'        => 'Dashboard',
             'route'         => 'home',
