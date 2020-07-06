@@ -120,7 +120,7 @@
                         <button type="submit" class="btn btn-info btn-lg float-right">
                             <a>
                                 <i class="fas fa-pen"></i>
-                                Update Data
+                                Edit Data
                             </a>
                         </button>
                     </div>
