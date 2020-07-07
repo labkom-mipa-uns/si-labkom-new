@@ -284,6 +284,16 @@ return [
             'url'         => '/',
             'icon'        => 'far fas fa-fw fa-cube',
         ],
+        [
+            'text'        => 'Mahasiswa',
+            'url'         => '/',
+            'icon'        => 'far fas fa-fw fa-users',
+        ],
+        [
+            'text'        => 'Dosen',
+            'url'         => '/',
+            'icon'        => 'far fas fa-fw fa-users',
+        ],
         'ACCOUNT SETTINGS',
         [
             'text' => 'profile',

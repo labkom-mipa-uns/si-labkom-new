@@ -35,8 +35,8 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="Nama">Nama :</label>
-                            <select name="id_mahasiswa" id="Nama" class="custom-select" required>
-                                <option selected value="{{ $PeminjamanAlat->id_mahasiswa }}">{{ $PeminjamanAlat->nama_mahasiswa }}</option>
+                            <select name="id_mahasiswa" id="Nama" class="custom-select">
+                                <option disabled selected value="{{ $PeminjamanAlat->id_mahasiswa }}">{{ $PeminjamanAlat->nama_mahasiswa }}</option>
                                 @foreach($Peminjam as $elemen)
                                     <option value="{{ $elemen->id_mahasiswa }}">{{ $elemen->nama_mahasiswa }}</option>
                                 @endforeach
@@ -44,8 +44,8 @@
                         </div>
                         <div class="form-group">
                             <label for="Hari">Hari :</label>
-                            <select name="hari" id="Hari" class="custom-select" required="">
-                                <option>{{ $PeminjamanAlat->hari }}</option>
+                            <select name="hari" id="Hari" class="custom-select">
+                                <option disabled selected>{{ $PeminjamanAlat->hari }}</option>
                                 <option>Senin</option>
                                 <option>Selasa</option>
                                 <option>Rabu</option>
@@ -57,11 +57,11 @@
                         </div>
                         <div class="form-group">
                             <label for="Tanggal">Tanggal :</label>
-                            <input type="text" name="tanggal" id="Tanggal" class="form-control" placeholder="Masukkan Tanggal" maxlength="25" required="" value="{{ $PeminjamanAlat->tanggal }}">
+                            <input type="text" name="tanggal" id="Tanggal" class="form-control" placeholder="Masukkan Tanggal" onfocus="this.type = 'date'" value="{{ $PeminjamanAlat->tanggal }}">
                         </div>
                         <div class="form-group">
                             <label for="Waktu">Waktu :</label>
-                            <input type="text" name="waktu" id="Waktu" class="form-control" placeholder="Masukkan Waktu" maxlength="30" required="" value="{{ $PeminjamanAlat->waktu }}">
+                            <input type="time" name="waktu" id="Waktu" class="form-control" placeholder="Masukkan Waktu" value="{{ $PeminjamanAlat->waktu }}">
                         </div>
                     </div>
                     <!-- /.card-body -->
@@ -81,8 +81,8 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="Alat">Alat :</label>
-                            <select name="id_alat" id="Alat" class="custom-select" required="">
-                                <option selected value="{{ $PeminjamanAlat->id_alat }}">{{ $PeminjamanAlat->nama_alat }}</option>
+                            <select name="id_alat" id="Alat" class="custom-select">
+                                <option disabled selected value="{{ $PeminjamanAlat->id_alat }}">{{ $PeminjamanAlat->nama_alat }}</option>
                                 @foreach($Alat as $elemen)
                                     <option value="{{ $elemen->id_alat }}">{{ $elemen->nama_alat }}</option>
                                 @endforeach
@@ -90,12 +90,12 @@
                         </div>
                         <div class="form-group">
                             <label for="Jumlah">Jumlah :</label>
-                            <input type="number" name="jumlah" id="Jumlah" class="form-control" min="0" required="" value="{{ $PeminjamanAlat->jumlah }}">
+                            <input type="number" name="jumlah" id="Jumlah" class="form-control" min="0" value="{{ $PeminjamanAlat->jumlah }}">
                         </div>
                         <div class="form-group">
                             <label for="LamaPeminjaman">Lama Peminjaman :</label>
-                            <select name="lama_peminjaman" id="LamaPeminjaman" class="custom-select" required="">
-                                <option selected>{{ $PeminjamanAlat->lama_peminjaman }}</option>
+                            <select name="lama_peminjaman" id="LamaPeminjaman" class="custom-select">
+                                <option disabled selected>{{ $PeminjamanAlat->lama_peminjaman }}</option>
                                 <option>1 hari</option>
                                 <option>2 hari</option>
                                 <option>3 hari</option>
@@ -104,7 +104,7 @@
                         </div>
                         <div class="form-group">
                             <label for="Keperluan">Keperluan :</label>
-                            <textarea name="keperluan" cols="40" rows="4" id="Keperluan" class="form-control" placeholder="Masukkan keperluan" required="">{{ $PeminjamanAlat->keperluan }}</textarea>
+                            <textarea name="keperluan" cols="40" rows="4" id="Keperluan" class="form-control" placeholder="Masukkan keperluan">{{ $PeminjamanAlat->keperluan }}</textarea>
                         </div>
                     </div>
                     <!-- /.card-body -->

@@ -44,11 +44,22 @@
                         </div>
                         <div class="form-group">
                             <label for="Hari">Hari :</label>
-                            <input type="text" name="hari" id="Hari" class="form-control" placeholder="Masukkan hari" maxlength="10" value="{{ $PeminjamanLab->hari }}">
+                            <input type="text" name="hari" id="Hari" class="form-control" placeholder="Masukkan hari">
+                            <select name="hari" id="Hari" class="form-control custom-select">
+                                <option selected value="{{ $PeminjamanLab->hari }}">{{ $PeminjamanLab->hari }}"</option>
+                                <option value="Senin">Senin</option>
+                                <option value="Selasa">Selasa</option>
+                                <option value="Rabu">Rabu</option>
+                                <option value="Kamis">Kamis</option>
+                                <option value="Jumat">Jumat</option>
+                                <option value="Sabtu">Sabtu</option>
+                                <option value="Minggu">Minggu</option>
+                            </select>
+
                         </div>
                         <div class="form-group">
                             <label for="Tanggal">Tanggal :</label>
-                            <input type="text" name="tanggal" id="Tanggal" class="form-control" placeholder="Masukkan tanggal" maxlength="25" value="{{ $PeminjamanLab->tanggal }}">
+                            <input type="text" name="tanggal" id="Tanggal" class="form-control" placeholder="Masukkan tanggal" onfocus="this.type = 'date'" value="{{ $PeminjamanLab->tanggal }}">
                         </div>
                     </div>
                     <!-- /.card-body -->
@@ -77,11 +88,11 @@
                         </div>
                         <div class="form-group">
                             <label for="JamPinjam">Jam Pinjam :</label>
-                            <input type="text" name="jam_pinjam" id="JamPinjam" class="form-control" maxlength="50" placeholder="Masukkan jam pinjam" value="{{ $PeminjamanLab->jam_pinjam }}">
+                            <input type="time" name="jam_pinjam" id="JamPinjam" class="form-control" value="{{ $PeminjamanLab->jam_pinjam }}">
                         </div>
                         <div class="form-group">
                             <label for="JamKembali">Jam Kembali :</label>
-                            <input type="text" name="jam_kembali" id="JamKembali" class="form-control" maxlength="50" placeholder="Masukkan jam kembali" value="{{ $PeminjamanLab->jam_kembali }}">
+                            <input type="time" name="jam_kembali" id="JamKembali" class="form-control" value="{{ $PeminjamanLab->jam_kembali }}">
                         </div>
                         <div class="form-group">
                             <label for="Dosen">Dosen :</label>

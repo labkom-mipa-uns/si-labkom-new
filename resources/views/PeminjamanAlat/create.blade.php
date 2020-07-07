@@ -36,7 +36,7 @@
                         <div class="form-group">
                             <label for="Nama">Nama :</label>
                             <select name="id_mahasiswa" id="Nama" class="custom-select">
-                                <option></option>
+                                <option disabled selected>Pilih Nama Mahasiswa</option>
 {{--                                @foreach($Peminjam as $elemen)--}}
 {{--                                    <option value="{{ $elemen->id_mahasiswa }}">{{ $elemen->nama_mahasiswa }}</option>--}}
 {{--                                @endforeach--}}
@@ -45,7 +45,7 @@
                         <div class="form-group">
                             <label for="Hari">Hari :</label>
                             <select name="hari" id="Hari" class="custom-select">
-                                <option></option>
+                                <option disabled selected>Pilih Hari</option>
                                 <option>Senin</option>
                                 <option>Selasa</option>
                                 <option>Rabu</option>
@@ -57,11 +57,11 @@
                         </div>
                         <div class="form-group">
                             <label for="Tanggal">Tanggal :</label>
-                            <input type="text" name="tanggal" id="Tanggal" class="form-control" placeholder="Masukkan Tanggal" maxlength="25">
+                            <input type="text" name="tanggal" id="Tanggal" class="form-control" placeholder="Masukkan Tanggal" onfocus="this.type = 'date'">
                         </div>
                         <div class="form-group">
                             <label for="Waktu">Waktu :</label>
-                            <input type="text" name="waktu" id="Waktu" class="form-control" placeholder="Masukkan Waktu" maxlength="30">
+                            <input type="time" name="waktu" id="Waktu" class="form-control">
                         </div>
                     </div>
                     <!-- /.card-body -->
@@ -82,7 +82,7 @@
                         <div class="form-group">
                             <label for="Alat">Alat :</label>
                             <select name="id_alat" id="Alat" class="custom-select" >
-                                <option></option>
+                                <option disabled selected>Pilih Alat</option>
 {{--                                @foreach($Alat as $elemen)--}}
 {{--                                    <option value="{{ $elemen->id_alat }}">{{ $elemen->nama_alat }}</option>--}}
 {{--                                @endforeach--}}
@@ -95,7 +95,7 @@
                         <div class="form-group">
                             <label for="LamaPeminjaman">Lama Peminjaman :</label>
                             <select name="lama_peminjaman" id="LamaPeminjaman" class="custom-select">
-                                <option></option>
+                                <option disabled selected>Pilih Lama Peminjaman</option>
                                 <option value="1 hari">1 hari</option>
                                 <option value="2 hari">2 hari</option>
                                 <option value="3 hari">3 hari</option>
