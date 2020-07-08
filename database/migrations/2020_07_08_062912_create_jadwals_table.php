@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSuratBebasLabkomsTable extends Migration
+class CreateJadwalsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,13 @@ class CreateSuratBebasLabkomsTable extends Migration
      */
     public function up()
     {
-        Schema::create('surat_bebas_labkom', function (Blueprint $table) {
+        Schema::create('jadwal', function (Blueprint $table) {
             $table->id();
+            $table->string('prodi', 50);
+            $table->string('mata_kuliah', 50);
+            $table->string('dosen', 50);
+            $table->time('jam_mulai');
+            $table->time('jam_selesai');
             $table->timestamps();
         });
     }
@@ -26,6 +31,6 @@ class CreateSuratBebasLabkomsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('surat_bebas_labkom');
+        Schema::dropIfExists('jadwals');
     }
 }
