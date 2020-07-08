@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePeminjamanAlatsTable extends Migration
+class CreateSoftwareTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class CreatePeminjamanAlatsTable extends Migration
      */
     public function up()
     {
-        Schema::create('peminjaman_alat', function (Blueprint $table) {
+        Schema::create('software', function (Blueprint $table) {
             $table->id();
+            $table->string('nama', 50);
+            $table->integer('harga');
             $table->timestamps();
         });
     }
@@ -26,6 +28,6 @@ class CreatePeminjamanAlatsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('peminjaman_alat');
+        Schema::dropIfExists('software');
     }
 }
