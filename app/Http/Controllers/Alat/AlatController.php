@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Alat;
 
-use App\JasaInstallasi;
+use App\Alat;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class JasaInstallasiController extends Controller
+class AlatController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +42,10 @@ class JasaInstallasiController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\JasaInstallasi  $jasaInstallasi
+     * @param  \App\Alat  $alat
      * @return \Illuminate\Http\Response
      */
-    public function show(JasaInstallasi $jasaInstallasi)
+    public function show(Alat $alat)
     {
         //
     }
@@ -52,10 +53,10 @@ class JasaInstallasiController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\JasaInstallasi  $jasaInstallasi
+     * @param  \App\Alat  $alat
      * @return \Illuminate\Http\Response
      */
-    public function edit(JasaInstallasi $jasaInstallasi)
+    public function edit(Alat $alat)
     {
         //
     }
@@ -64,10 +65,10 @@ class JasaInstallasiController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\JasaInstallasi  $jasaInstallasi
+     * @param  \App\Alat  $alat
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, JasaInstallasi $jasaInstallasi)
+    public function update(Request $request, Alat $alat)
     {
         //
     }
@@ -75,10 +76,10 @@ class JasaInstallasiController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\JasaInstallasi  $jasaInstallasi
+     * @param  \App\Alat  $alat
      * @return \Illuminate\Http\Response
      */
-    public function destroy(JasaInstallasi $jasaInstallasi)
+    public function destroy(Alat $alat)
     {
         //
     }

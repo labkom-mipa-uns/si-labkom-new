@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Mahasiswa;
 
-use App\JasaPrint;
+use App\Http\Controllers\Controller;
+use App\Mahasiswa;
 use Illuminate\Http\Request;
 
-class JasaPrintController extends Controller
+class MahasiswaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +42,10 @@ class JasaPrintController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\JasaPrint  $jasaPrint
+     * @param  \App\Mahasiswa  $mahasiswa
      * @return \Illuminate\Http\Response
      */
-    public function show(JasaPrint $jasaPrint)
+    public function show(Mahasiswa $mahasiswa)
     {
         //
     }
@@ -52,10 +53,10 @@ class JasaPrintController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\JasaPrint  $jasaPrint
+     * @param  \App\Mahasiswa  $mahasiswa
      * @return \Illuminate\Http\Response
      */
-    public function edit(JasaPrint $jasaPrint)
+    public function edit(Mahasiswa $mahasiswa)
     {
         //
     }
@@ -64,10 +65,10 @@ class JasaPrintController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\JasaPrint  $jasaPrint
+     * @param  \App\Mahasiswa  $mahasiswa
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, JasaPrint $jasaPrint)
+    public function update(Request $request, Mahasiswa $mahasiswa)
     {
         //
     }
@@ -75,10 +76,10 @@ class JasaPrintController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\JasaPrint  $jasaPrint
+     * @param  \App\Mahasiswa  $mahasiswa
      * @return \Illuminate\Http\Response
      */
-    public function destroy(JasaPrint $jasaPrint)
+    public function destroy(Mahasiswa $mahasiswa)
     {
         //
     }

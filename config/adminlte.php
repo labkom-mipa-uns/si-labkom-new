@@ -85,8 +85,8 @@ return [
 
     'layout_topnav' => null,
     'layout_boxed' => null,
-    'layout_fixed_sidebar' => null,
-    'layout_fixed_navbar' => null,
+    'layout_fixed_sidebar' => true,
+    'layout_fixed_navbar' => true,
     'layout_fixed_footer' => null,
 
     /*
@@ -148,7 +148,7 @@ return [
     'sidebar_collapse' => true,
     'sidebar_collapse_auto_size' => true,
     'sidebar_collapse_remember' => false,
-    'sidebar_collapse_remember_no_transition' => true,
+    'sidebar_collapse_remember_no_transition' => false,
     'sidebar_scrollbar_theme' => 'os-theme-light',
     'sidebar_scrollbar_auto_hide' => 'l',
     'sidebar_nav_accordion' => true,
@@ -238,12 +238,6 @@ return [
             'input_name' => 'menu-search-input', // the input name
             'text' => 'Search',                  // the input placeholder
         ],
-        'BLOG',
-        [
-            'text' => 'blog',
-            'url'  => 'admin/blog',
-            'icon' => 'far fa-fw fas fa-blog',
-        ],
         'SERVICE',
         [
             'text'        => 'Dashboard',
@@ -273,6 +267,20 @@ return [
 //            'label'       => 4,
 //            'label_color' => 'success',
         ],
+        [
+            'text'        => 'Jasa Installasi',
+            'route'         => 'JasaInstallasi.index',
+            'icon'        => 'far fas fa-fw fa-app',
+//            'label'       => 4,
+//            'label_color' => 'success',
+        ],
+        [
+            'text'        => 'Jasa Print',
+            'route'         => 'JasaPrint.index',
+            'icon'        => 'far fas fa-fw fa-print',
+//            'label'       => 4,
+//            'label_color' => 'success',
+        ],
         'MANAGEMENT',
         [
             'text'        => 'Laboratorium',
@@ -293,6 +301,11 @@ return [
             'text'        => 'Dosen',
             'url'         => '/',
             'icon'        => 'far fas fa-fw fa-users',
+        ],
+        [
+            'text'        => 'Jadwal',
+            'url'         => '/',
+            'icon'        => 'far fas fa-fw fa-task',
         ],
         'ACCOUNT SETTINGS',
         [

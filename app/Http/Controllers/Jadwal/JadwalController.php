@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Jadwal;
 
-use App\Dosen;
+use App\Http\Controllers\Controller;
+use App\Jadwal;
 use Illuminate\Http\Request;
 
-class DosenController extends Controller
+class JadwalController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +42,10 @@ class DosenController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Dosen  $dosen
+     * @param  \App\Jadwal  $jadwal
      * @return \Illuminate\Http\Response
      */
-    public function show(Dosen $dosen)
+    public function show(Jadwal $jadwal)
     {
         //
     }
@@ -52,10 +53,10 @@ class DosenController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Dosen  $dosen
+     * @param  \App\Jadwal  $jadwal
      * @return \Illuminate\Http\Response
      */
-    public function edit(Dosen $dosen)
+    public function edit(Jadwal $jadwal)
     {
         //
     }
@@ -64,10 +65,10 @@ class DosenController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Dosen  $dosen
+     * @param  \App\Jadwal  $jadwal
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Dosen $dosen)
+    public function update(Request $request, Jadwal $jadwal)
     {
         //
     }
@@ -75,10 +76,10 @@ class DosenController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Dosen  $dosen
+     * @param  \App\Jadwal  $jadwal
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Dosen $dosen)
+    public function destroy(Jadwal $jadwal)
     {
         //
     }

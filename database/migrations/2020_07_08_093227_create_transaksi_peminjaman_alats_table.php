@@ -32,6 +32,6 @@ class CreateTransaksiPeminjamanAlatsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('transaksi_peminjaman_alats');
+        Schema::dropIfExists('transaksi_peminjaman_alat');
     }
 }

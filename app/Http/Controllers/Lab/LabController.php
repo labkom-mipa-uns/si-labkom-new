@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Lab;
 
-use App\Alat;
+use App\Http\Controllers\Controller;
+use App\Lab;
 use Illuminate\Http\Request;
 
-class AlatController extends Controller
+class LabController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +42,10 @@ class AlatController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Alat  $alat
+     * @param  \App\Lab  $lab
      * @return \Illuminate\Http\Response
      */
-    public function show(Alat $alat)
+    public function show(Lab $lab)
     {
         //
     }
@@ -52,10 +53,10 @@ class AlatController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Alat  $alat
+     * @param  \App\Lab  $lab
      * @return \Illuminate\Http\Response
      */
-    public function edit(Alat $alat)
+    public function edit(Lab $lab)
     {
         //
     }
@@ -64,10 +65,10 @@ class AlatController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Alat  $alat
+     * @param  \App\Lab  $lab
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Alat $alat)
+    public function update(Request $request, Lab $lab)
     {
         //
     }
@@ -75,10 +76,10 @@ class AlatController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Alat  $alat
+     * @param  \App\Lab  $lab
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Alat $alat)
+    public function destroy(Lab $lab)
     {
         //
     }

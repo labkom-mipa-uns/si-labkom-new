@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Software;
 
-use App\TransaksiPeminjamanAlat;
+use App\Http\Controllers\Controller;
+use App\Software;
 use Illuminate\Http\Request;
 
-class TransaksiPeminjamanAlatController extends Controller
+class SoftwareController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +42,10 @@ class TransaksiPeminjamanAlatController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\TransaksiPeminjamanAlat  $transaksiPeminjamanAlat
+     * @param  \App\Software  $software
      * @return \Illuminate\Http\Response
      */
-    public function show(TransaksiPeminjamanAlat $transaksiPeminjamanAlat)
+    public function show(Software $software)
     {
         //
     }
@@ -52,10 +53,10 @@ class TransaksiPeminjamanAlatController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\TransaksiPeminjamanAlat  $transaksiPeminjamanAlat
+     * @param  \App\Software  $software
      * @return \Illuminate\Http\Response
      */
-    public function edit(TransaksiPeminjamanAlat $transaksiPeminjamanAlat)
+    public function edit(Software $software)
     {
         //
     }
@@ -64,10 +65,10 @@ class TransaksiPeminjamanAlatController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\TransaksiPeminjamanAlat  $transaksiPeminjamanAlat
+     * @param  \App\Software  $software
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, TransaksiPeminjamanAlat $transaksiPeminjamanAlat)
+    public function update(Request $request, Software $software)
     {
         //
     }
@@ -75,10 +76,10 @@ class TransaksiPeminjamanAlatController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\TransaksiPeminjamanAlat  $transaksiPeminjamanAlat
+     * @param  \App\Software  $software
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TransaksiPeminjamanAlat $transaksiPeminjamanAlat)
+    public function destroy(Software $software)
     {
         //
     }

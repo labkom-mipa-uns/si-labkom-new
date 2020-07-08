@@ -27,6 +27,6 @@ class CreateProdisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('prodis');
+        Schema::dropIfExists('prodi');
     }
 }

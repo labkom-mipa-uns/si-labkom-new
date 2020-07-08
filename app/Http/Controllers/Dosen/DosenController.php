@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Dosen;
 
-use App\MataKuliah;
+use App\Dosen;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class MataKuliahController extends Controller
+class DosenController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +42,10 @@ class MataKuliahController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\MataKuliah  $mataKuliah
+     * @param  \App\Dosen  $dosen
      * @return \Illuminate\Http\Response
      */
-    public function show(MataKuliah $mataKuliah)
+    public function show(Dosen $dosen)
     {
         //
     }
@@ -52,10 +53,10 @@ class MataKuliahController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\MataKuliah  $mataKuliah
+     * @param  \App\Dosen  $dosen
      * @return \Illuminate\Http\Response
      */
-    public function edit(MataKuliah $mataKuliah)
+    public function edit(Dosen $dosen)
     {
         //
     }
@@ -64,10 +65,10 @@ class MataKuliahController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\MataKuliah  $mataKuliah
+     * @param  \App\Dosen  $dosen
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, MataKuliah $mataKuliah)
+    public function update(Request $request, Dosen $dosen)
     {
         //
     }
@@ -75,10 +76,10 @@ class MataKuliahController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\MataKuliah  $mataKuliah
+     * @param  \App\Dosen  $dosen
      * @return \Illuminate\Http\Response
      */
-    public function destroy(MataKuliah $mataKuliah)
+    public function destroy(Dosen $dosen)
     {
         //
     }

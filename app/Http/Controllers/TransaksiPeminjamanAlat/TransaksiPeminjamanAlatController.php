@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\TransaksiPeminjamanAlat;
 
-use App\Mahasiswa;
+use App\Http\Controllers\Controller;
+use App\TransaksiPeminjamanAlat;
 use Illuminate\Http\Request;
 
-class MahasiswaController extends Controller
+class TransaksiPeminjamanAlatController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +42,10 @@ class MahasiswaController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Mahasiswa  $mahasiswa
+     * @param  \App\TransaksiPeminjamanAlat  $transaksiPeminjamanAlat
      * @return \Illuminate\Http\Response
      */
-    public function show(Mahasiswa $mahasiswa)
+    public function show(TransaksiPeminjamanAlat $transaksiPeminjamanAlat)
     {
         //
     }
@@ -52,10 +53,10 @@ class MahasiswaController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Mahasiswa  $mahasiswa
+     * @param  \App\TransaksiPeminjamanAlat  $transaksiPeminjamanAlat
      * @return \Illuminate\Http\Response
      */
-    public function edit(Mahasiswa $mahasiswa)
+    public function edit(TransaksiPeminjamanAlat $transaksiPeminjamanAlat)
     {
         //
     }
@@ -64,10 +65,10 @@ class MahasiswaController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Mahasiswa  $mahasiswa
+     * @param  \App\TransaksiPeminjamanAlat  $transaksiPeminjamanAlat
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Mahasiswa $mahasiswa)
+    public function update(Request $request, TransaksiPeminjamanAlat $transaksiPeminjamanAlat)
     {
         //
     }
@@ -75,10 +76,10 @@ class MahasiswaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Mahasiswa  $mahasiswa
+     * @param  \App\TransaksiPeminjamanAlat  $transaksiPeminjamanAlat
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Mahasiswa $mahasiswa)
+    public function destroy(TransaksiPeminjamanAlat $transaksiPeminjamanAlat)
     {
         //
     }

@@ -15,7 +15,7 @@ class CreateJasaPrintsTable extends Migration
     {
         Schema::create('jasa_print', function (Blueprint $table) {
             $table->id();
-            $table->enum('jenis_print', ['bnw','berwarna', 'full_warna', 'scan']);
+            $table->string('jenis_print',30);
             $table->integer('harga_print');
             $table->date('tanggal_print');
             $table->timestamps();
@@ -29,6 +29,6 @@ class CreateJasaPrintsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('jasa_prints');
+        Schema::dropIfExists('jasa_print');
     }
 }

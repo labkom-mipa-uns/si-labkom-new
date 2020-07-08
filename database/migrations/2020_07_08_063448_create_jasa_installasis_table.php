@@ -15,6 +15,7 @@ class CreateJasaInstallasisTable extends Migration
     {
         Schema::create('jasa_installasi', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('id_mahasiswa');
             $table->string('laptop', 50);
             $table->string('kelengkapan', 50);
             $table->date('tanggal');
@@ -24,6 +25,7 @@ class CreateJasaInstallasisTable extends Migration
             $table->time('jam_ambil');
             $table->timestamps();
 
+            $table->foreign('id_mahasiswa')->references('id')->on('mahasiswa');
             $table->foreign('id_software')->references('id')->on('software');
         });
     }
@@ -35,6 +37,6 @@ class CreateJasaInstallasisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('jasa_installasis');
+        Schema::dropIfExists('jasa_installasi');
     }
 }

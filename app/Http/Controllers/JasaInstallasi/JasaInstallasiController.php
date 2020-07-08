@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\JasaInstallasi;
 
-use App\Lab;
+use App\Http\Controllers\Controller;
+use App\JasaInstallasi;
 use Illuminate\Http\Request;
 
-class LabController extends Controller
+class JasaInstallasiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +42,10 @@ class LabController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Lab  $lab
+     * @param  \App\JasaInstallasi  $jasaInstallasi
      * @return \Illuminate\Http\Response
      */
-    public function show(Lab $lab)
+    public function show(JasaInstallasi $jasaInstallasi)
     {
         //
     }
@@ -52,10 +53,10 @@ class LabController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Lab  $lab
+     * @param  \App\JasaInstallasi  $jasaInstallasi
      * @return \Illuminate\Http\Response
      */
-    public function edit(Lab $lab)
+    public function edit(JasaInstallasi $jasaInstallasi)
     {
         //
     }
@@ -64,10 +65,10 @@ class LabController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Lab  $lab
+     * @param  \App\JasaInstallasi  $jasaInstallasi
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Lab $lab)
+    public function update(Request $request, JasaInstallasi $jasaInstallasi)
     {
         //
     }
@@ -75,10 +76,10 @@ class LabController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Lab  $lab
+     * @param  \App\JasaInstallasi  $jasaInstallasi
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Lab $lab)
+    public function destroy(JasaInstallasi $jasaInstallasi)
     {
         //
     }

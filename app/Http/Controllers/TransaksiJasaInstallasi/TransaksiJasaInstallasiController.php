@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\TransaksiJasaInstallasi;
 
-use App\TransaksiJasaPrint;
+use App\Http\Controllers\Controller;
+use App\TransaksiJasaInstallasi;
 use Illuminate\Http\Request;
 
-class TransaksiJasaPrintController extends Controller
+class TransaksiJasaInstallasiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +42,10 @@ class TransaksiJasaPrintController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\TransaksiJasaPrint  $transaksiJasaPrint
+     * @param  \App\TransaksiJasaInstallasi  $transaksiJasaInstallasi
      * @return \Illuminate\Http\Response
      */
-    public function show(TransaksiJasaPrint $transaksiJasaPrint)
+    public function show(TransaksiJasaInstallasi $transaksiJasaInstallasi)
     {
         //
     }
@@ -52,10 +53,10 @@ class TransaksiJasaPrintController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\TransaksiJasaPrint  $transaksiJasaPrint
+     * @param  \App\TransaksiJasaInstallasi  $transaksiJasaInstallasi
      * @return \Illuminate\Http\Response
      */
-    public function edit(TransaksiJasaPrint $transaksiJasaPrint)
+    public function edit(TransaksiJasaInstallasi $transaksiJasaInstallasi)
     {
         //
     }
@@ -64,10 +65,10 @@ class TransaksiJasaPrintController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\TransaksiJasaPrint  $transaksiJasaPrint
+     * @param  \App\TransaksiJasaInstallasi  $transaksiJasaInstallasi
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, TransaksiJasaPrint $transaksiJasaPrint)
+    public function update(Request $request, TransaksiJasaInstallasi $transaksiJasaInstallasi)
     {
         //
     }
@@ -75,10 +76,10 @@ class TransaksiJasaPrintController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\TransaksiJasaPrint  $transaksiJasaPrint
+     * @param  \App\TransaksiJasaInstallasi  $transaksiJasaInstallasi
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TransaksiJasaPrint $transaksiJasaPrint)
+    public function destroy(TransaksiJasaInstallasi $transaksiJasaInstallasi)
     {
         //
     }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMahasiswasTable extends Migration
+class CreateJadwalsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,15 @@ class CreateMahasiswasTable extends Migration
      */
     public function up()
     {
-        Schema::create('mahasiswa', function (Blueprint $table) {
+        Schema::create('jadwal', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_mahasiswa', 50);
-            $table->enum('jenis_kelamin', ['L','P']);
-            $table->char('nim', 8);
-            $table->string('kelas', 5);
+            $table->unsignedBigInteger('id_dosen');
+            $table->unsignedBigInteger('id_matkul');
             $table->unsignedBigInteger('id_prodi');
-            $table->enum('angkatan', ['2016', '2017','2018','2019','2020']);
-            $table->string('no_hp');
             $table->timestamps();
 
+            $table->foreign('id_dosen')->references('id')->on('dosen');
+            $table->foreign('id_matkul')->references('id')->on('mata_kuliah');
             $table->foreign('id_prodi')->references('id')->on('prodi');
         });
     }
@@ -35,6 +33,6 @@ class CreateMahasiswasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('mahasiswa');
+        Schema::dropIfExists('jadwal');
     }
 }
