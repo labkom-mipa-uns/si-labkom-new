@@ -152,7 +152,7 @@ return [
     'sidebar_scrollbar_theme' => 'os-theme-light',
     'sidebar_scrollbar_auto_hide' => 'l',
     'sidebar_nav_accordion' => true,
-    'sidebar_nav_animation_speed' => 300,
+    'sidebar_nav_animation_speed' => 500,
 
     /*
     |--------------------------------------------------------------------------
@@ -273,16 +273,32 @@ return [
 //            'label'       => 4,
 //            'label_color' => 'success',
         ],
+        'MANAGEMENT',
+        [
+            'text'        => 'Laboratorium',
+            'url'         => '/',
+            'icon'        => 'far fas fa-fw fa-laptop',
+        ],
+        [
+            'text'        => 'Alat',
+            'url'         => '/',
+            'icon'        => 'far fas fa-fw fa-cube',
+        ],
+        [
+            'text'        => 'Mahasiswa',
+            'url'         => '/',
+            'icon'        => 'far fas fa-fw fa-users',
+        ],
+        [
+            'text'        => 'Dosen',
+            'url'         => '/',
+            'icon'        => 'far fas fa-fw fa-users',
+        ],
         'ACCOUNT SETTINGS',
         [
             'text' => 'profile',
             'route'  => 'Account.index',
             'icon' => 'fas fa-fw fa-user',
-        ],
-        [
-            'text' => 'change_password',
-//            'url'  => 'Account.edit',
-            'icon' => 'fas fa-fw fa-lock',
         ],
 //        [
 //            'text'    => 'multilevel',
