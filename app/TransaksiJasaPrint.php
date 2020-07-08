@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Jadwal extends Model
+class TransaksiJasaPrint extends Model
 {
     //
 }

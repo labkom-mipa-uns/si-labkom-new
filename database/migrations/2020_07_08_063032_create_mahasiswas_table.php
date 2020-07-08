@@ -15,13 +15,16 @@ class CreateMahasiswasTable extends Migration
     {
         Schema::create('mahasiswa', function (Blueprint $table) {
             $table->id();
-            $table->string('nama', 255);
-            $table->enum('jk', ['laki-laki','perempuan']);
-            $table->string('nim', 8);
+            $table->string('nama_mahasiswa', 50);
+            $table->enum('jenis_kelamin', ['L','P']);
+            $table->char('nim', 8);
             $table->string('kelas', 5);
-            $table->string('prodi', 20);
-            $table->string('angkatan', 4);
+            $table->unsignedBigInteger('id_prodi');
+            $table->enum('angkatan', ['2016', '2017','2018','2019','2020']);
+            $table->string('no_hp');
             $table->timestamps();
+
+            $table->foreign('id_prodi')->references('id')->on('prodi');
         });
     }
 

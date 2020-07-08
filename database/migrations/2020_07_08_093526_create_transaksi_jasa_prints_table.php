@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLabsTable extends Migration
+class CreateTransaksiJasaPrintsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,15 @@ class CreateLabsTable extends Migration
      */
     public function up()
     {
-        Schema::create('lab', function (Blueprint $table) {
+        Schema::create('transaksi_jasa_print', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_lab', 25);
+            $table->unsignedBigInteger('id_jasa_print');
+
+            $table->integer('jumlah');
+            $table->integer('total_bayar');
             $table->timestamps();
+
+            $table->foreign('id_jasa_print')->references('id')->on('jasa_print');
         });
     }
 
@@ -27,6 +32,6 @@ class CreateLabsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('lab');
+        Schema::dropIfExists('transaksi_jasa_prints');
     }
 }

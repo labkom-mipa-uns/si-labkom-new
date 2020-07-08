@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSuratBebasLabkomsTable extends Migration
+class CreateDosensTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,10 @@ class CreateSuratBebasLabkomsTable extends Migration
      */
     public function up()
     {
-        Schema::create('surat_bebas_labkom', function (Blueprint $table) {
+        Schema::create('dosen', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_mahasiswa');
-            $table->date('tanggal');
-            $table->string('keperluan', 255);
+            $table->string('nama_dosen', 50);
             $table->timestamps();
-
-            $table->foreign('id_mahasiswa')->references('id')->on('mahasiswa');
         });
     }
 
@@ -31,6 +27,6 @@ class CreateSuratBebasLabkomsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('surat_bebas_labkom');
+        Schema::dropIfExists('dosen');
     }
 }

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Jadwal;
+use App\TransaksiPeminjamanAlat;
 use Illuminate\Http\Request;
 
-class JadwalController extends Controller
+class TransaksiPeminjamanAlatController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class JadwalController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Jadwal  $jadwal
+     * @param  \App\TransaksiPeminjamanAlat  $transaksiPeminjamanAlat
      * @return \Illuminate\Http\Response
      */
-    public function show(Jadwal $jadwal)
+    public function show(TransaksiPeminjamanAlat $transaksiPeminjamanAlat)
     {
         //
     }
@@ -52,10 +52,10 @@ class JadwalController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Jadwal  $jadwal
+     * @param  \App\TransaksiPeminjamanAlat  $transaksiPeminjamanAlat
      * @return \Illuminate\Http\Response
      */
-    public function edit(Jadwal $jadwal)
+    public function edit(TransaksiPeminjamanAlat $transaksiPeminjamanAlat)
     {
         //
     }
@@ -64,10 +64,10 @@ class JadwalController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Jadwal  $jadwal
+     * @param  \App\TransaksiPeminjamanAlat  $transaksiPeminjamanAlat
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Jadwal $jadwal)
+    public function update(Request $request, TransaksiPeminjamanAlat $transaksiPeminjamanAlat)
     {
         //
     }
@@ -75,10 +75,10 @@ class JadwalController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Jadwal  $jadwal
+     * @param  \App\TransaksiPeminjamanAlat  $transaksiPeminjamanAlat
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Jadwal $jadwal)
+    public function destroy(TransaksiPeminjamanAlat $transaksiPeminjamanAlat)
     {
         //
     }

@@ -2,10 +2,10 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Transaksi;
+use App\TransaksiJasaInstallasi;
 use Faker\Generator as Faker;
 
-$factory->define(Transaksi::class, function (Faker $faker) {
+$factory->define(TransaksiJasaInstallasi::class, function (Faker $faker) {
     return [
         //
     ];

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLabsTable extends Migration
+class CreateMataKuliahsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateLabsTable extends Migration
      */
     public function up()
     {
-        Schema::create('lab', function (Blueprint $table) {
+        Schema::create('mata_kuliah', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_lab', 25);
+            $table->string('nama_matkul', 30);
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ class CreateLabsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('lab');
+        Schema::dropIfExists('mata_kuliah');
     }
 }

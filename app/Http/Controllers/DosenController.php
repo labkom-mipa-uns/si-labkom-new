@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Transaksi;
+use App\Dosen;
 use Illuminate\Http\Request;
 
-class TransaksiController extends Controller
+class DosenController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class TransaksiController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Transaksi  $transaksi
+     * @param  \App\Dosen  $dosen
      * @return \Illuminate\Http\Response
      */
-    public function show(Transaksi $transaksi)
+    public function show(Dosen $dosen)
     {
         //
     }
@@ -52,10 +52,10 @@ class TransaksiController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Transaksi  $transaksi
+     * @param  \App\Dosen  $dosen
      * @return \Illuminate\Http\Response
      */
-    public function edit(Transaksi $transaksi)
+    public function edit(Dosen $dosen)
     {
         //
     }
@@ -64,10 +64,10 @@ class TransaksiController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Transaksi  $transaksi
+     * @param  \App\Dosen  $dosen
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Transaksi $transaksi)
+    public function update(Request $request, Dosen $dosen)
     {
         //
     }
@@ -75,10 +75,10 @@ class TransaksiController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Transaksi  $transaksi
+     * @param  \App\Dosen  $dosen
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Transaksi $transaksi)
+    public function destroy(Dosen $dosen)
     {
         //
     }

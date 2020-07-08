@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class JadwalSeeder extends Seeder
+class MataKuliahSeeder extends Seeder
 {
     /**
      * Run the database seeds.
