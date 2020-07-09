@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\TransaksiJasaInstallasi;
+namespace App\Http\Controllers\Transaksi;
 
 use App\Http\Controllers\Controller;
-use App\TransaksiJasaInstallasi;
 use Illuminate\Http\Request;
 
-class TransaksiJasaInstallasiController extends Controller
+class TransaksiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -42,10 +41,10 @@ class TransaksiJasaInstallasiController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\TransaksiJasaInstallasi  $transaksiJasaInstallasi
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(TransaksiJasaInstallasi $transaksiJasaInstallasi)
+    public function show($id)
     {
         //
     }
@@ -53,10 +52,10 @@ class TransaksiJasaInstallasiController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\TransaksiJasaInstallasi  $transaksiJasaInstallasi
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(TransaksiJasaInstallasi $transaksiJasaInstallasi)
+    public function edit($id)
     {
         //
     }
@@ -65,10 +64,10 @@ class TransaksiJasaInstallasiController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\TransaksiJasaInstallasi  $transaksiJasaInstallasi
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, TransaksiJasaInstallasi $transaksiJasaInstallasi)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -76,10 +75,10 @@ class TransaksiJasaInstallasiController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\TransaksiJasaInstallasi  $transaksiJasaInstallasi
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TransaksiJasaInstallasi $transaksiJasaInstallasi)
+    public function destroy($id)
     {
         //
     }

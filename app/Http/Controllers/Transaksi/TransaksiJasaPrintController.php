@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\TransaksiPeminjamanAlat;
+namespace App\Http\Controllers\Transaksi;
 
 use App\Http\Controllers\Controller;
-use App\TransaksiPeminjamanAlat;
+use App\TransaksiJasaPrint;
 use Illuminate\Http\Request;
 
-class TransaksiPeminjamanAlatController extends Controller
+class TransaksiJasaPrintController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -42,10 +42,10 @@ class TransaksiPeminjamanAlatController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\TransaksiPeminjamanAlat  $transaksiPeminjamanAlat
+     * @param  \App\TransaksiJasaPrint  $transaksiJasaPrint
      * @return \Illuminate\Http\Response
      */
-    public function show(TransaksiPeminjamanAlat $transaksiPeminjamanAlat)
+    public function show(TransaksiJasaPrint $transaksiJasaPrint)
     {
         //
     }
@@ -53,10 +53,10 @@ class TransaksiPeminjamanAlatController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\TransaksiPeminjamanAlat  $transaksiPeminjamanAlat
+     * @param  \App\TransaksiJasaPrint  $transaksiJasaPrint
      * @return \Illuminate\Http\Response
      */
-    public function edit(TransaksiPeminjamanAlat $transaksiPeminjamanAlat)
+    public function edit(TransaksiJasaPrint $transaksiJasaPrint)
     {
         //
     }
@@ -65,10 +65,10 @@ class TransaksiPeminjamanAlatController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\TransaksiPeminjamanAlat  $transaksiPeminjamanAlat
+     * @param  \App\TransaksiJasaPrint  $transaksiJasaPrint
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, TransaksiPeminjamanAlat $transaksiPeminjamanAlat)
+    public function update(Request $request, TransaksiJasaPrint $transaksiJasaPrint)
     {
         //
     }
@@ -76,10 +76,10 @@ class TransaksiPeminjamanAlatController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\TransaksiPeminjamanAlat  $transaksiPeminjamanAlat
+     * @param  \App\TransaksiJasaPrint  $transaksiJasaPrint
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TransaksiPeminjamanAlat $transaksiPeminjamanAlat)
+    public function destroy(TransaksiJasaPrint $transaksiJasaPrint)
     {
         //
     }

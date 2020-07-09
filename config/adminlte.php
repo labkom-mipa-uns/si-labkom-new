@@ -270,7 +270,7 @@ return [
         [
             'text'        => 'Jasa Installasi',
             'route'         => 'JasaInstallasi.index',
-            'icon'        => 'far fas fa-fw fa-app',
+            'icon'        => 'far fas fa-fw fa-laptop-code',
 //            'label'       => 4,
 //            'label_color' => 'success',
         ],
@@ -284,28 +284,38 @@ return [
         'MANAGEMENT',
         [
             'text'        => 'Laboratorium',
-            'url'         => '/',
+            'route'         => 'Laboratorium.index',
             'icon'        => 'far fas fa-fw fa-laptop',
         ],
         [
             'text'        => 'Alat',
-            'url'         => '/',
+            'route'         => 'Alat.index',
             'icon'        => 'far fas fa-fw fa-cube',
         ],
         [
             'text'        => 'Mahasiswa',
-            'url'         => '/',
+            'route'         => 'Mahasiswa.index',
             'icon'        => 'far fas fa-fw fa-users',
         ],
         [
+            'text'        => 'Prodi',
+            'route'         => 'Prodi.index',
+            'icon'        => 'far fas fa-fw fa-book-reader',
+        ],
+        [
             'text'        => 'Dosen',
-            'url'         => '/',
+            'route'         => 'Dosen.index',
             'icon'        => 'far fas fa-fw fa-users',
         ],
         [
             'text'        => 'Jadwal',
-            'url'         => '/',
-            'icon'        => 'far fas fa-fw fa-task',
+            'route'         => 'Jadwal.index',
+            'icon'        => 'far fas fa-fw fa-bookmark',
+        ],
+        [
+            'text'        => 'Software',
+            'route'         => 'Software.index',
+            'icon'        => 'far fas fa-fw fa-calendar-check',
         ],
         'ACCOUNT SETTINGS',
         [

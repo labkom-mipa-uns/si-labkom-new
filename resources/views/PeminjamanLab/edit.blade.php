@@ -19,8 +19,8 @@
 
 @section()
     <form action="{{ route('PeminjamanLab.update', $PeminjamanLab->id) }}" method="post">
-        @method('put')
         @csrf
+        @method('put')
         <div class="row">
             <div class="col-md-6">
                 <div class="card card-primary">
@@ -36,10 +36,10 @@
                         <div class="form-group">
                             <label for="Nama">Nama :</label>
                             <select name="id_mahasiswa" id="Nama" class="custom-select">
-                                <option selected value="{{ $PeminjamanLab->id_mahasiswa }}">{{ $PeminjamanLab->nama_mahasiswa }}</option>
-{{--                                @foreach($Peminjam as $elemen)--}}
-{{--                                    <option value="{{ $elemen->id_mahasiswa }}">{{ $elemen->nama_mahasiswa }}</option>--}}
-{{--                                @endforeach--}}
+                                <option selected value="{{ $PeminjamanLab->id }}">{{ $PeminjamanLab->nama_mahasiswa }}</option>
+                                @foreach($Mahasiswa as $elemen)
+                                    <option value="{{ $elemen->id}}">{{ $elemen->nama_mahasiswa }}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="form-group">
@@ -59,7 +59,16 @@
                         </div>
                         <div class="form-group">
                             <label for="Tanggal">Tanggal :</label>
-                            <input type="text" name="tanggal" id="Tanggal" class="form-control" placeholder="Masukkan tanggal" onfocus="this.type = 'date'" value="{{ $PeminjamanLab->tanggal }}">
+                            <input type="date" name="tanggal" id="Tanggal" class="form-control" value="{{ $PeminjamanLab->tanggal }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="Jadwal">Jadwal :</label>
+                            <select name="id_jadwal" id="Jadwal" class="custom-select" >
+                                <option selected value="{{ $elemen->id_jadwal }}">{{ $elemen->nama_dosen }} - {{ $elemen->nama_prodi }}</option>
+                                @foreach($Jadwal as $elemen)
+                                    <option value="{{ $elemen->id }}">{{ $elemen->nama_dosen }} - {{ $elemen->nama_prodi }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     <!-- /.card-body -->
@@ -80,10 +89,10 @@
                         <div class="form-group">
                             <label for="Lab">Lab :</label>
                             <select name="id_lab" id="Lab" class="custom-select">
-{{--                                <option selected value="{{ $PeminjamanLab->id_lab }}">{{ $PeminjamanLab->nama_lab }}</option>--}}
-{{--                                @foreach($Lab as $elemen)--}}
-{{--                                    <option value="{{ $elemen->id_lab }}">{{ $elemen->nama_lab }}</option>--}}
-{{--                                @endforeach--}}
+                                <option selected value="{{ $PeminjamanLab->id_lab }}">{{ $PeminjamanLab->nama_lab }}</option>
+                                @foreach($Lab as $elemen)
+                                    <option value="{{ $elemen->id_lab }}">{{ $elemen->nama_lab }}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="form-group">
@@ -95,27 +104,26 @@
                             <input type="time" name="jam_kembali" id="JamKembali" class="form-control" value="{{ $PeminjamanLab->jam_kembali }}">
                         </div>
                         <div class="form-group">
-                            <label for="Dosen">Dosen :</label>
-                            <select name="id_dosen" id="Dosen" class="custom-select" >
-{{--                                <option selected value="{{ $PeminjamanLab->id_dosen }}">{{ $PeminjamanLab->nama_dosen }}</option>--}}
-{{--                                @foreach($Dosen as $elemen)--}}
-{{--                                    <option value="{{ $elemen->id_dosen }}">{{ $elemen->nama_dosen }}</option>--}}
-{{--                                @endforeach--}}
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="MataKuliah">Mata Kuliah :</label>
-                            <select name="id_mata_kuliah" id="MataKuliah" class="custom-select" >
-{{--                                <option selected value="{{ $PeminjamanLab->id_mata_kuliah }}">{{ $PeminjamanLab->nama_mata_kuliah }}</option>--}}
-{{--                                @foreach($MataKuliah as $elemen)--}}
-{{--                                    <option value="{{ $elemen->id_mata_kuliah }}">{{ $elemen->nama_mata_kuliah }}</option>--}}
-{{--                                @endforeach--}}
-                            </select>
-                        </div>
-                        <div class="form-group">
                             <label for="Keperluan">Keperluan :</label>
                             <textarea name="keperluan" cols="40" rows="4" id="Keperluan" class="form-control" placeholder="Masukkan keperluan">{{ $PeminjamanLab->keperluan }}</textarea>
                         </div>
+                        <div class="form-group">
+                            <label for="kategori">Kategori :</label>
+                            <select name="kategori" id="kategori" class="custom-select">
+                                <option selected value="{{ $PeminjamanLab->kategori }}">{{ $PeminjamanLab->kategori === 'didalam' ? __("Didalam Jam Kuliah") : __('Diluar Jam Kuliah') }}</option>
+                                <option value="didalam_jam">Didalam Jam Kuliah</option>
+                                <option value="diluar_jam">Diluar Jam Kuliah</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="status">Status :</label>
+                            <select name="status" id="status" class="custom-select">
+                                <option selected value="{{ $PeminjamanLab->status }}">{{ $PeminjamanLab->status === '0' ? __('Masih Dipinjam') : __('Sudah Dikembalikan') }}</option>
+                                <option value="0">Masih Dipinjam</option>
+                                <option value="1">Sudah Dikembalikan</option>
+                            </select>
+                        </div>
+
                     </div>
                     <!-- /.card-body -->
                 </div>

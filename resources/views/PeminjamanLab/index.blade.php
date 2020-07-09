@@ -38,7 +38,7 @@
                             No
                         </th>
                         <th class="text-center">
-                            Hari, Tanggal
+                            Tanggal
                         </th>
                         <th class="text-center">
                             Nama
@@ -59,71 +59,71 @@
                 </thead>
                 <tbody>
 
-{{--                @foreach($PeminjamanLab as $elemen)--}}
-{{--                    <tr>--}}
-{{--                        <td class="text-center">--}}
-{{--                            {{ $i++ }}--}}
-{{--                        </td>--}}
-{{--                        <td class="text-center">--}}
-{{--                            <a>--}}
-{{--                                {{ $elemen->hari }}, {{ $elemen->tanggal }}--}}
-{{--                            </a>--}}
-{{--                        </td>--}}
-{{--                        <td class="text-center">--}}
-{{--                            <a>--}}
-{{--                                {{ $elemen->nama_mahasiswa }}--}}
-{{--                            </a>--}}
-{{--                            <br>--}}
-{{--                            <small>--}}
-{{--                                {{ $elemen->kelas_mahasiswa }} - {{ $elemen->nim_mahasiswa }}--}}
-{{--                            </small>--}}
-{{--                            <br>--}}
-{{--                        </td>--}}
-{{--                        <td class="text-center">--}}
-{{--                            <a>--}}
-{{--                                {{ $elemen->nama_prodi }}--}}
-{{--                            </a>--}}
-{{--                            <br>--}}
-{{--                            <small>--}}
-{{--                                {{ $elemen->tahun_angkatan }}--}}
-{{--                            </small>--}}
-{{--                        </td>--}}
-{{--                        <td class="text-center">--}}
-{{--                            <a>--}}
-{{--                                {{ $elemen->nama_mata_kuliah }}--}}
-{{--                            </a>--}}
-{{--                            <a>--}}
-{{--                                {{ $elemen->nama_dosen }}--}}
-{{--                            </a>--}}
-{{--                        </td>--}}
-{{--                        <td class="text-center">--}}
-{{--                            <a>--}}
-{{--                                {{ $elemen->nama_lab }}--}}
-{{--                            </a>--}}
-{{--                            <a>--}}
-{{--                                {{ $elemen->jam_pinjam }} - {{ $elemen->jam_kembali }}--}}
-{{--                            </a>--}}
-{{--                        </td>--}}
-{{--                        <td class="project-actions text-right">--}}
-{{--                            <a class="btn btn-primary btn-sm" href="{{ route('PeminjamanLab.show') }}">--}}
-{{--                                <i class="fas fa-folder"></i>--}}
-{{--                                Detail--}}
-{{--                            </a>--}}
-{{--                            <a class="btn btn-info btn-sm" href="{{ route('PeminjamanLab.edit') }}">--}}
-{{--                                <i class="fas fa-pencil-alt"></i>--}}
-{{--                                Edit--}}
-{{--                            </a>--}}
-{{--                            <form action="{{ route('PeminjamanLab.destroy') }}" style="margin: 0; padding: 0;" method="post">--}}
-{{--                                @method('delete')--}}
-{{--                                @csrf--}}
-{{--                                <a class="btn btn-danger btn-sm" href="/PeminjamanLab/DiDalam/{{ $elemen->id }}">--}}
-{{--                                    <i class="fas fa-trash"></i>--}}
-{{--                                    <input class="btn btn-danger btn-sm" type="submit" name="submit" value="Delete">--}}
-{{--                                </a>--}}
-{{--                            </form>--}}
-{{--                        </td>--}}
-{{--                    </tr>--}}
-{{--                @endforeach--}}
+                @foreach($PeminjamanLab as $elemen)
+                    <tr>
+                        <td class="text-center">
+                            {{ $loop->iteration() }}
+                        </td>
+                        <td class="text-center">
+                            <a>
+                                {{ $elemen->tanggal }}
+                            </a>
+                        </td>
+                        <td class="text-center">
+                            <a>
+                                {{ $elemen->nama_mahasiswa }}
+                            </a>
+                            <br>
+                            <small>
+                                {{ $elemen->kelas }} - {{ $elemen->nim }}
+                            </small>
+                            <br>
+                        </td>
+                        <td class="text-center">
+                            <a>
+                                {{ $elemen->nama_prodi }}
+                            </a>
+                            <br>
+                            <small>
+                                {{ $elemen->angkatan }}
+                            </small>
+                        </td>
+                        <td class="text-center">
+                            <a>
+                                {{ $elemen->nama_matkul }}
+                            </a>
+                            <a>
+                                {{ $elemen->nama_dosen }}
+                            </a>
+                        </td>
+                        <td class="text-center">
+                            <a>
+                                {{ $elemen->nama_lab }}
+                            </a>
+                            <a>
+                                {{ $elemen->jam_pinjam }} - {{ $elemen->jam_kembali }}
+                            </a>
+                        </td>
+                        <td class="project-actions text-right">
+                            <button class="btn btn-primary btn-sm" type="button">
+                                <i class="fas fa-folder"></i>
+                                Detail
+                            </button>
+                            <a class="btn btn-info btn-sm" href="{{ route('PeminjamanLab.edit', $elemen->id) }}">
+                                <i class="fas fa-pencil-alt"></i>
+                                Edit
+                            </a>
+                            <form action="{{ route('PeminjamanLab.destroy') }}" method="post">
+                                @method('delete')
+                                @csrf
+                                <a class="btn btn-danger btn-sm" href="{{ route('PeminjamanLab.destroy', $elemen->id) }}">
+                                    <i class="fas fa-trash"></i>
+                                    <input class="btn btn-danger btn-sm" type="submit" name="submit" value="Delete">
+                                </a>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
 
                 </tbody>
             </table>

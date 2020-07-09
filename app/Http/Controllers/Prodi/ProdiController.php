@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Mahasiswa;
+namespace App\Http\Controllers\Prodi;
 
 use App\Http\Controllers\Controller;
-use App\Mahasiswa;
 use App\Prodi;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -11,7 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class MahasiswaController extends Controller
+class ProdiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,9 +20,9 @@ class MahasiswaController extends Controller
     public function index(): View
     {
         $data = [
-            'Mahasiswa' => Mahasiswa::all(),
+            'Prodi' => Prodi::all(),
         ];
-        return view('Mahasiswa.index', $data);
+        return view('Prodi.index', $data);
     }
 
     /**
@@ -33,10 +32,7 @@ class MahasiswaController extends Controller
      */
     public function create(): View
     {
-        $data = [
-            'Prodi' => Prodi::all(),
-        ];
-        return view('Mahasiswa.create', $data);
+        return view('Prodi.create');
     }
 
     /**
@@ -47,32 +43,32 @@ class MahasiswaController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        Mahasiswa::create($request->all());
-        return redirect()->route('Mahasiswa.index');
+        Prodi::create($request->all());
+        return redirect()->route('Prodi.index');
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Mahasiswa $Mahasiswa
+     * @param Prodi $Prodi
      * @return Application|Factory|View
      */
-    public function edit(Mahasiswa $Mahasiswa)
+    public function edit(Prodi $Prodi): View
     {
         $data = [
-            'Mahasiswa' => $Mahasiswa,
+            'Prodi' => $Prodi
         ];
-        return view('Mahasiswa.edit', $data);
+        return view('Prodi.edit', $data);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param  \App\Mahasiswa  $mahasiswa
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Mahasiswa $mahasiswa)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -80,10 +76,10 @@ class MahasiswaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Mahasiswa  $mahasiswa
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Mahasiswa $mahasiswa)
+    public function destroy($id)
     {
         //
     }

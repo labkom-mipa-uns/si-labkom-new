@@ -25,7 +25,7 @@
                 <button type="button" class="btn btn-tool">
                     <a href="{{ route('SuratBebasLabkom.create') }}" class="btn btn-primary btn-sm">
                         <i class="fas fa-user-plus"></i>
-                        Insert Data
+                        Insert
                     </a>
                 </button>
             </div>
