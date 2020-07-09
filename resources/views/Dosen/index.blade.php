@@ -1,16 +1,16 @@
 @extends('adminlte::page')
-@section('title', 'Labkom FMIPA UNS | Program Studi')
+@section('title', 'Labkom FMIPA UNS | Dosen ')
 
 @section('content_header')
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Daftar Program Studi</h1>
+            <h1 class="m-0 text-dark">Daftar Dosen</h1>
         </div>
         <!-- /.col -->
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                <li class="breadcrumb-item active">Program Studi</li>
+                <li class="breadcrumb-item active">Dosen</li>
             </ol>
         </div><!-- /.col -->
     </div><!-- /.row -->
@@ -20,10 +20,10 @@
     <!-- Default box -->
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Daftar Program Studi</h3>
+            <h3 class="card-title">Daftar Dosen</h3>
             <div class="card-tools">
                 <button type="button" class="btn btn-tool">
-                    <a href="{{ route('Prodi.create') }}" class="btn btn-primary btn-sm">
+                    <a href="{{ route('Dosen.create') }}" class="btn btn-primary btn-sm">
                         <i class="fas fa-user-plus"></i>
                         Insert
                     </a>
@@ -38,7 +38,7 @@
                         No
                     </th>
                     <th class="text-center">
-                        Prodi
+                        Dosen
                     </th>
                     <th>
                         #
@@ -47,14 +47,14 @@
                 </thead>
                 <tbody>
 
-                @foreach($Prodi as $elemen)
+                @foreach($Dosen as $elemen)
                     <tr>
                         <td class="text-center">
                             {{ $loop->iteration() }}
                         </td>
                         <td class="text-center">
                             <a>
-                                {{ $elemen->nama_prodi }}
+                                {{ $elemen->nama_dosen }}
                             </a>
                         </td>
                         <td class="project-actions text-right">
@@ -62,14 +62,14 @@
                                 <i class="fas fa-folder"></i>
                                 Detail
                             </button>
-                            <a class="btn btn-info btn-sm" href="{{ route('Mahasiswa.edit', $elemen->id) }}">
+                            <a class="btn btn-info btn-sm" href="{{ route('Dosen.edit', $elemen->id) }}">
                                 <i class="fas fa-pencil-alt"></i>
                                 Edit
                             </a>
-                            <form action="{{ route('Mahasiswa.destroy', $elemen->id) }}" method="post">
+                            <form action="{{ route('Dosen.destroy', $elemen->id) }}" method="post">
                                 @csrf
                                 @method('delete')
-                                <a class="btn btn-danger btn-sm" href="{{ route('Mahasiswa.destroy', $elemen->id) }}">
+                                <a class="btn btn-danger btn-sm" href="{{ route('Dosen.destroy', $elemen->id) }}">
                                     <i class="fas fa-trash"></i>
                                 </a>
                             </form>

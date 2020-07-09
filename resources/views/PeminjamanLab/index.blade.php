@@ -4,7 +4,7 @@
 @section('content_header')
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Data Peminjaman Lab</h1>
+            <h1 class="m-0 text-dark">Daftar Peminjam Lab</h1>
         </div>
         <!-- /.col -->
         <div class="col-sm-6">
@@ -20,7 +20,7 @@
     <!-- Default box -->
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Data Peminjaman Lab</h3>
+            <h3 class="card-title">Daftar Peminjam Lab</h3>
             <div class="card-tools">
                 <button type="button" class="btn btn-tool">
                     <a href="{{ route('PeminjamanLab.create') }}" class="btn btn-primary btn-sm">
@@ -105,7 +105,7 @@
                             </a>
                         </td>
                         <td class="project-actions text-right">
-                            <button class="btn btn-primary btn-sm" type="button">
+                            <button class="btn btn-secondary btn-sm" type="button">
                                 <i class="fas fa-folder"></i>
                                 Detail
                             </button>
@@ -114,8 +114,8 @@
                                 Edit
                             </a>
                             <form action="{{ route('PeminjamanLab.destroy') }}" method="post">
-                                @method('delete')
                                 @csrf
+                                @method('delete')
                                 <a class="btn btn-danger btn-sm" href="{{ route('PeminjamanLab.destroy', $elemen->id) }}">
                                     <i class="fas fa-trash"></i>
                                     <input class="btn btn-danger btn-sm" type="submit" name="submit" value="Delete">

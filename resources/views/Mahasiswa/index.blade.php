@@ -4,7 +4,7 @@
 @section('content_header')
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Data Mahasiswa</h1>
+            <h1 class="m-0 text-dark">Daftar Mahasiswa</h1>
         </div>
         <!-- /.col -->
         <div class="col-sm-6">
@@ -20,7 +20,7 @@
     <!-- Default box -->
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Data Mahasiswa</h3>
+            <h3 class="card-title">Daftar Mahasiswa</h3>
             <div class="card-tools">
                 <button type="button" class="btn btn-tool">
                     <a href="{{ route('Mahasiswa.create') }}" class="btn btn-primary btn-sm">
@@ -82,7 +82,7 @@
                             </a>
                         </td>
                         <td class="project-actions text-right">
-                            <button class="btn btn-primary btn-sm" type="button">
+                            <button class="btn btn-secondary btn-sm" type="button">
                                 <i class="fas fa-folder"></i>
                                 Detail
                             </button>

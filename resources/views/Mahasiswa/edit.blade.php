@@ -4,14 +4,14 @@
 @section('content_header')
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Mahasiswa</h1>
+            <h1 class="m-0 text-dark">Edit Data Mahasiswa</h1>
         </div>
         <!-- /.col -->
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
                 <li class="breadcrumb-item active"><a href="{{ route('Mahasiswa.index') }}"></a>Mahasiswa</li>
-                <li class="breadcrumb-item active">Update Data</li>
+                <li class="breadcrumb-item active">Edit Data</li>
             </ol>
         </div><!-- /.col -->
     </div><!-- /.row -->
@@ -44,7 +44,7 @@
                         <div class="form-group">
                             <label for="jenis_kelamin">Jenis Kelamin :</label>
                             <select name="jenis_kelamin_mahasiswa" id="jenis_kelamin" class="custom-select" required="">
-                                <option selected >{{ $Mahasiswa->jenis_kelamin_mahasiswa }}</option>
+                                <option selected >{{ $Mahasiswa->jenis_kelamin }}</option>
                                 <option>Laki-laki</option>
                                 <option>Perempuan</option>
                             </select>
@@ -88,7 +88,7 @@
                 <div class="card-body">
                     <div class="card-tools" >
                         <a href="{{ route('Mahasiswa.index') }}" class="btn btn-secondary btn-lg">Cancel</a>
-                        <button type="submit" class="btn btn-warning btn-lg float-right">
+                        <button type="submit" class="btn btn-info btn-lg float-right">
                             <a>
                                 <i class="fas fa-pen"></i>
                                 Update Data

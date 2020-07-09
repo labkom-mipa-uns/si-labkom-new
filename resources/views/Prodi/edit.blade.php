@@ -1,10 +1,10 @@
 @extends('adminlte::page')
-@section('title', 'Labkom FMIPA UNS | Surat Bebas Labkom | Edit Data')
+@section('title', 'Labkom FMIPA UNS | Program Studi | Edit Data')
 
 @section('content_header')
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Edit Program Studi</h1>
+            <h1 class="m-0 text-dark">Edit Data Program Studi</h1>
         </div>
         <!-- /.col -->
         <div class="col-sm-6">
@@ -34,8 +34,8 @@
                     </div>
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="Nama">Program Studi :</label>
-                            <input type="text" name="nama_mahasiswa" id="Nama" class="form-control" placeholder="Masukkan Program Studi" maxlength="55">
+                            <label for="Prodi">Program Studi :</label>
+                            <input type="text" name="nama_prodi" id="Prodi" class="form-control" placeholder="Masukkan Program Studi" maxlength="55" value="{{ $Prodi->nama_prodi }}">
                         </div>
                     </div>
                     <!-- /.card-body -->
@@ -47,11 +47,11 @@
             <div class="col-sm-12">
                 <div class="card-body">
                     <div class="card-tools" >
-                        <a href="{{ route('Mahasiswa.index') }}" class="btn btn-secondary btn-lg">Cancel</a>
-                        <button type="submit" class="btn btn-warning btn-lg float-right">
+                        <a href="{{ route('Prodi.index') }}" class="btn btn-secondary btn-lg">Cancel</a>
+                        <button type="submit" class="btn btn-info btn-lg float-right">
                             <a>
                                 <i class="fas fa-plus"></i>
-                                Insert Data
+                                Update Data
                             </a>
                         </button>
                     </div>

@@ -4,7 +4,7 @@
 @section('content_header')
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Mahasiswa</h1>
+            <h1 class="m-0 text-dark">Insert Data Mahasiswa</h1>
         </div>
         <!-- /.col -->
         <div class="col-sm-6">
@@ -88,7 +88,7 @@
                 <div class="card-body">
                     <div class="card-tools" >
                         <a href="{{ route('Mahasiswa.index') }}" class="btn btn-secondary btn-lg">Cancel</a>
-                        <button type="submit" class="btn btn-warning btn-lg float-right">
+                        <button type="submit" class="btn btn-primary btn-lg float-right">
                             <a>
                                 <i class="fas fa-plus"></i>
                                 Insert Data
