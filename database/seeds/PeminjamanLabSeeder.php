@@ -1,5 +1,6 @@
 <?php
 
+use App\PeminjamanLab;
 use Illuminate\Database\Seeder;
 
 class PeminjamanLabSeeder extends Seeder
@@ -11,6 +12,6 @@ class PeminjamanLabSeeder extends Seeder
      */
     public function run()
     {
-        //
+        factory(PeminjamanLab::class, 15)->create();
     }
 }

@@ -15,9 +15,9 @@ class CreateMahasiswasTable extends Migration
     {
         Schema::create('mahasiswa', function (Blueprint $table) {
             $table->id();
+            $table->char('nim', 8);
             $table->string('nama_mahasiswa', 50);
             $table->enum('jenis_kelamin', ['L','P']);
-            $table->char('nim', 8);
             $table->string('kelas', 5);
             $table->unsignedBigInteger('id_prodi');
             $table->enum('angkatan', ['2016', '2017','2018','2019','2020']);

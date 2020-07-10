@@ -1,5 +1,6 @@
 <?php
 
+use App\MataKuliah;
 use Illuminate\Database\Seeder;
 
 class MataKuliahSeeder extends Seeder
@@ -11,6 +12,6 @@ class MataKuliahSeeder extends Seeder
      */
     public function run()
     {
-        //
+        factory(MataKuliah::class, 15)->create();
     }
 }

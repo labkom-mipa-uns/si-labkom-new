@@ -1,5 +1,6 @@
 <?php
 
+use App\Prodi;
 use Illuminate\Database\Seeder;
 
 class ProdiSeeder extends Seeder
@@ -11,6 +12,6 @@ class ProdiSeeder extends Seeder
      */
     public function run()
     {
-        //
+        factory(Prodi::class, 15)->create();
     }
 }

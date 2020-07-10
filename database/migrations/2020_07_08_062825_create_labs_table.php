@@ -15,7 +15,7 @@ class CreateLabsTable extends Migration
     {
         Schema::create('lab', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_lab', 25);
+            $table->string('nama_lab', 50);
             $table->timestamps();
         });
     }
