@@ -22,3 +22,14 @@ Route::resource('Account', 'Account\AccountController')->except('create');
 Route::resource('PeminjamanLab', 'PeminjamanLab\PeminjamanLabController')->except('show');
 Route::resource('PeminjamanAlat', 'PeminjamanAlat\PeminjamanAlatController')->except('show');
 Route::resource('SuratBebasLabkom', 'SuratBebasLabkom\SuratBebasLabkomController')->except('show');
+Route::resource('JasaInstallasi', 'JasaInstallasi\JasaInstallasiController')->except('show');
+Route::resource('JasaPrint', 'JasaPrint\JasaPrintController')->except('show');
+
+Route::resource('Laboratorium', 'Lab\LabController')->except('show');
+Route::resource('Alat', 'Alat\AlatController')->except('show');
+Route::resource('Mahasiswa', 'Mahasiswa\MahasiswaController')->except('show');
+Route::resource('Prodi', 'Prodi\ProdiController')->except('show');
+Route::resource('Dosen', 'Dosen\DosenController')->except('show');
+Route::resource('Jadwal', 'Jadwal\JadwalController')->except('show');
+Route::resource('Software', 'Software\SoftwareController')->except('show');
+Route::resource('Transaksi', 'Transaksi\TransaksiController')->except('show');

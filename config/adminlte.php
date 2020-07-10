@@ -85,8 +85,8 @@ return [
 
     'layout_topnav' => null,
     'layout_boxed' => null,
-    'layout_fixed_sidebar' => null,
-    'layout_fixed_navbar' => null,
+    'layout_fixed_sidebar' => true,
+    'layout_fixed_navbar' => true,
     'layout_fixed_footer' => null,
 
     /*
@@ -148,7 +148,7 @@ return [
     'sidebar_collapse' => true,
     'sidebar_collapse_auto_size' => true,
     'sidebar_collapse_remember' => false,
-    'sidebar_collapse_remember_no_transition' => true,
+    'sidebar_collapse_remember_no_transition' => false,
     'sidebar_scrollbar_theme' => 'os-theme-light',
     'sidebar_scrollbar_auto_hide' => 'l',
     'sidebar_nav_accordion' => true,
@@ -238,12 +238,6 @@ return [
             'input_name' => 'menu-search-input', // the input name
             'text' => 'Search',                  // the input placeholder
         ],
-        'BLOG',
-        [
-            'text' => 'blog',
-            'url'  => 'admin/blog',
-            'icon' => 'far fa-fw fas fa-blog',
-        ],
         'SERVICE',
         [
             'text'        => 'Dashboard',
@@ -273,26 +267,55 @@ return [
 //            'label'       => 4,
 //            'label_color' => 'success',
         ],
+        [
+            'text'        => 'Jasa Installasi',
+            'route'         => 'JasaInstallasi.index',
+            'icon'        => 'far fas fa-fw fa-laptop-code',
+//            'label'       => 4,
+//            'label_color' => 'success',
+        ],
+        [
+            'text'        => 'Jasa Print',
+            'route'         => 'JasaPrint.index',
+            'icon'        => 'far fas fa-fw fa-print',
+//            'label'       => 4,
+//            'label_color' => 'success',
+        ],
         'MANAGEMENT',
         [
             'text'        => 'Laboratorium',
-            'url'         => '/',
+            'route'         => 'Laboratorium.index',
             'icon'        => 'far fas fa-fw fa-laptop',
         ],
         [
             'text'        => 'Alat',
-            'url'         => '/',
+            'route'         => 'Alat.index',
             'icon'        => 'far fas fa-fw fa-cube',
         ],
         [
             'text'        => 'Mahasiswa',
-            'url'         => '/',
+            'route'         => 'Mahasiswa.index',
             'icon'        => 'far fas fa-fw fa-users',
         ],
         [
+            'text'        => 'Prodi',
+            'route'         => 'Prodi.index',
+            'icon'        => 'far fas fa-fw fa-book-reader',
+        ],
+        [
             'text'        => 'Dosen',
-            'url'         => '/',
+            'route'         => 'Dosen.index',
             'icon'        => 'far fas fa-fw fa-users',
+        ],
+        [
+            'text'        => 'Jadwal',
+            'route'         => 'Jadwal.index',
+            'icon'        => 'far fas fa-fw fa-bookmark',
+        ],
+        [
+            'text'        => 'Software',
+            'route'         => 'Software.index',
+            'icon'        => 'far fas fa-fw fa-calendar-check',
         ],
         'ACCOUNT SETTINGS',
         [

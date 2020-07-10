@@ -28,6 +28,6 @@ class CreateAlatsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('alats');
+        Schema::dropIfExists('alat');
     }
 }

@@ -15,14 +15,17 @@ class CreateJasaInstallasisTable extends Migration
     {
         Schema::create('jasa_installasi', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('id_mahasiswa');
+            $table->string('laptop', 50);
+            $table->string('kelengkapan', 50);
             $table->date('tanggal');
-            $table->string('laptop', 100);
-            $table->string('kelengkapan', 255);
             $table->unsignedBigInteger('id_software');
-            $table->timestamps();
-            $table->enum('jenis', ['instal', 'service']);
+            $table->enum('jenis', ['install', 'service']);
+            $table->text('keterangan');
             $table->time('jam_ambil');
+            $table->timestamps();
 
+            $table->foreign('id_mahasiswa')->references('id')->on('mahasiswa');
             $table->foreign('id_software')->references('id')->on('software');
         });
     }
@@ -34,6 +37,6 @@ class CreateJasaInstallasisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('jasa_installasis');
+        Schema::dropIfExists('jasa_installasi');
     }
 }

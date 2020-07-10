@@ -7,6 +7,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Lab::class, function (Faker $faker) {
     return [
-        //
+        'nama_lab' => $faker->jobTitle,
+        'created_at' => now()
     ];
 });
