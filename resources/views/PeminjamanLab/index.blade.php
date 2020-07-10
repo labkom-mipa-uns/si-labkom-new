@@ -52,7 +52,7 @@
                         <th class="text-center">
                             Lab
                         </th>
-                        <th >
+                        <th>
                             #
                         </th>
                     </tr>
@@ -71,11 +71,11 @@
                         </td>
                         <td class="text-center">
                             <a>
-                                {{ $elemen->nama_mahasiswa }}
+                                {{ $elemen->mahasiswa->nama_mahasiswa }}
                             </a>
                             <br>
                             <small>
-                                {{ $elemen->kelas }} - {{ $elemen->nim }}
+                                {{ $elemen->mahasiswa->kelas }} - {{ $elemen->mahasiswa->nim }}
                             </small>
                             <br>
                         </td>
@@ -85,24 +85,26 @@
                             </a>
                             <br>
                             <small>
-                                {{ $elemen->angkatan }}
+                                {{ $elemen->mahasiswa->angkatan }}
                             </small>
                         </td>
                         <td class="text-center">
                             <a>
-                                {{ $elemen->nama_matkul }}
+                                {{ $elemen->jadwal->matakuliah->nama_matkul }}
                             </a>
-                            <a>
-                                {{ $elemen->nama_dosen }}
-                            </a>
+                            <br>
+                            <small>
+                                {{ $elemen->jadwal->dosen->nama_dosen }}
+                            </small>
                         </td>
                         <td class="text-center">
                             <a>
-                                {{ $elemen->nama_lab }}
+                                {{ $elemen->lab->nama_lab }}
                             </a>
-                            <a>
+                            <br>
+                            <small>
                                 {{ $elemen->jam_pinjam }} - {{ $elemen->jam_kembali }}
-                            </a>
+                            </small>
                         </td>
                         <td class="project-actions text-right">
                             <button class="btn btn-secondary btn-sm" type="button">

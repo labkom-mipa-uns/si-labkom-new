@@ -28,8 +28,10 @@ class PeminjamanLabController extends Controller
     public function index(): View
     {
         $data = [
-            'PeminjamanLab' => PeminjamanLab::all(),
+            'PeminjamanLab' => PeminjamanLab::with(['mahasiswa', 'lab','jadwal'])->get(),
+            'Jadwal' => Jadwal::with(['dosen','matakuliah','prodi'])->get()
         ];
+//        dd($data);
         return view('PeminjamanLab.index', $data);
     }
 

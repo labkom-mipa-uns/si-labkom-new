@@ -59,7 +59,7 @@
                 @foreach($Mahasiswa as $elemen)
                     <tr>
                         <td class="text-center">
-                            {{ $loop->iteration() }}
+                            {{ $loop->iteration }}
                         </td>
                         <td class="text-center">
                             <a>
@@ -90,12 +90,13 @@
                                 <i class="fas fa-pencil-alt"></i>
                                 Edit
                             </a>
-                            <form action="{{ route('Mahasiswa.destroy', $elemen->id) }}" method="post">
+                            <form action="{{ route('Mahasiswa.destroy', $elemen->id) }}" method="post" class="d-inline">
                                 @csrf
                                 @method('delete')
-                                <a class="btn btn-danger btn-sm" href="{{ route('Mahasiswa.destroy', $elemen->id) }}">
+                                <button class="btn btn-danger btn-sm" type="submit">
                                     <i class="fas fa-trash"></i>
-                                </a>
+                                    Delete
+                                </button>
                             </form>
                         </td>
                     </tr>
