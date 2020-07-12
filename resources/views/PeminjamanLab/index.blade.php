@@ -1,5 +1,8 @@
 @extends('adminlte::page')
 @section('title', 'Labkom FMIPA UNS | Peminjaman Lab')
+{{--@section('js')--}}
+{{--    <script src="{{ asset('js/app.js') }}"></script>--}}
+{{--@endsection--}}
 
 @section('content_header')
     <div class="row mb-2">
@@ -14,6 +17,43 @@
             </ol>
         </div><!-- /.col -->
     </div><!-- /.row -->
+{{--    <div class="flashdata-success" data-flashdata="{{ session('success') }}"></div>--}}
+{{--    <div class="flashdata-warning" data-flashdata="{{ session('warning') }}"></div>--}}
+{{--    <div class="flashdata-danger" data-flashdata="{{ session('danger') }}"></div>--}}
+    @if(session('success'))
+    <div class="row mt-2">
+        <div class="col-sm">
+            <div class="alert alert-default-success alert-dismissible fade show m-0" role="alert">
+                Data Peminjam Lab <strong>{{ session('success') }}</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    @elseif(session('warning'))
+    <div class="row mt-2">
+        <div class="col-sm">
+            <div class="alert alert-default-warning alert-dismissible fade show m-0" role="alert">
+                <strong>{{ session('warning') }}</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    @elseif(session('danger'))
+    <div class="row mt-2">
+        <div class="col-sm">
+            <div class="alert alert-default-danger alert-dismissible fade show m-0" role="alert">
+                Data Peminjam Lab <strong>{{ session('danger') }}</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    @endif
 @endsection
 
 @section('content')
@@ -81,7 +121,7 @@
                         </td>
                         <td class="text-center">
                             <a>
-                                {{ $elemen->nama_prodi }}
+                                {{ $elemen->jadwal->prodi->nama_prodi }}
                             </a>
                             <br>
                             <small>
@@ -135,4 +175,3 @@
     <!-- /.card -->
 
 @endsection
-

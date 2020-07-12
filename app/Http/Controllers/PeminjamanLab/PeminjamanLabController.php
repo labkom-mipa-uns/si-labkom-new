@@ -7,6 +7,7 @@ use App\Jadwal;
 use App\Lab;
 use App\Mahasiswa;
 use App\PeminjamanLab;
+use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
@@ -15,6 +16,9 @@ use Illuminate\View\View;
 
 class PeminjamanLabController extends Controller
 {
+    /**
+     * PeminjamanLabController constructor.
+     */
     public function __construct()
     {
         $this->middleware('verified');
@@ -23,31 +27,37 @@ class PeminjamanLabController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return Application|Factory|View
+     * @return Application|Factory|RedirectResponse|View
      */
-    public function index(): View
+    public function index()
     {
-        $data = [
-            'PeminjamanLab' => PeminjamanLab::with(['mahasiswa', 'lab','jadwal'])->get(),
-            'Jadwal' => Jadwal::with(['dosen','matakuliah','prodi'])->get()
-        ];
-//        dd($data);
-        return view('PeminjamanLab.index', $data);
+        try {
+            $data = [
+                'PeminjamanLab' => PeminjamanLab::with(['mahasiswa', 'lab','jadwal'])->get(),
+            ];
+            return view('PeminjamanLab.index', $data);
+        } catch (Exception $exception) {
+            return redirect()->route('home')->with('warning', "Silakan Coba Beberapa Saat Lagi! Problem: {$exception->getMessage()}");
+        }
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return Application|Factory|View
+     * @return Application|Factory|RedirectResponse|View
      */
-    public function create(): View
+    public function create()
     {
-        $data = [
-            'Mahasiswa' => Mahasiswa::all(),
-            'Jadwal' => Jadwal::all(),
-            'Lab' => Lab::all()
-        ];
-        return view('PeminjamanLab.create', $data);
+        try {
+            $data = [
+                'Mahasiswa' => Mahasiswa::all(),
+                'Jadwal' => Jadwal::with(['prodi','dosen','matakuliah'])->get(),
+                'Lab' => Lab::all()
+            ];
+            return view('PeminjamanLab.create', $data);
+        } catch (Exception $exception) {
+            return redirect()->route('PeminjamanLab.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! Problem: {$exception->getMessage()}");
+        }
     }
 
     /**
@@ -58,22 +68,44 @@ class PeminjamanLabController extends Controller
      */
     public function store(Request $request)
     {
-        PeminjamanLab::create($request->all());
-        return redirect()->route('PeminjamanLab.index');
+        $request->validate([
+            'id_mahasiswa' => 'required',
+            'id_lab' => 'required',
+            'id_jadwal' => 'required',
+            'tanggal' => 'required|date',
+            'jam_pinjam' => 'required',
+            'jam_kembali' => 'required',
+            'keperluan' => 'required|string',
+            'kategori' => 'required|string',
+            'status' => 'required|string',
+        ]);
+        try {
+            PeminjamanLab::create($request->all());
+            return redirect()->route('PeminjamanLab.index')->with('success', 'Berhasil Ditambahkan!');
+        } catch (Exception $exception) {
+            return redirect()->route('PeminjamanLab.create')->with('danger', "Gagal Ditambahkan! Error: {$exception->getMessage()}");
+        }
     }
 
     /**
      * Show the form for editing the specified resource.
      *
      * @param PeminjamanLab $PeminjamanLab
-     * @return Application|Factory|View
+     * @return Application|Factory|RedirectResponse|View
      */
-    public function edit(PeminjamanLab $PeminjamanLab): View
+    public function edit(PeminjamanLab $PeminjamanLab)
     {
-        $data = [
-            'PeminjamanLab' => $PeminjamanLab,
-        ];
-        return view('PeminjamanLab.edit', $data);
+        try {
+            $data = [
+                'PeminjamanLab' => $PeminjamanLab::with(['mahasiswa','lab','jadwal'])->firstWhere('id',$PeminjamanLab->id),
+                'Mahasiswa' => Mahasiswa::all(),
+                'Jadwal' => Jadwal::with(['prodi','dosen','matakuliah'])->get(),
+                'Lab' => Lab::all()
+            ];
+            return view('PeminjamanLab.edit', $data);
+        } catch (Exception $exception) {
+            return redirect()->route('PeminjamanLab.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! Problem: {$exception->getMessage()}");
+        }
     }
 
     /**
@@ -81,11 +113,16 @@ class PeminjamanLabController extends Controller
      *
      * @param Request $request
      * @param PeminjamanLab $PeminjamanLab
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
      */
-    public function update(Request $request, PeminjamanLab $PeminjamanLab)
+    public function update(Request $request, PeminjamanLab $PeminjamanLab): RedirectResponse
     {
-        //
+        try {
+            PeminjamanLab::whereId($PeminjamanLab->id)->update($request->except(['_token', '_method']));
+            return redirect()->route('PeminjamanLab.index')->with('success',"Berhasil Diupdate!");
+        } catch (Exception $exception) {
+            return redirect()->route('PeminjamanLab.index')->with('danger',"Gagal Diupdate! Error: {$exception->getMessage()}");
+        }
     }
 
     /**
@@ -96,7 +133,11 @@ class PeminjamanLabController extends Controller
      */
     public function destroy(PeminjamanLab $PeminjamanLab): RedirectResponse
     {
-        PeminjamanLab::destroy($PeminjamanLab->id);
-        return redirect()->route('PeminjamanLab.index');
+        try {
+            PeminjamanLab::destroy($PeminjamanLab->id);
+            return redirect()->route('PeminjamanLab.index')->with('success', 'Berhasil Dihapus!');
+        } catch (Exception $exception) {
+            return redirect()->route('PeminjamanLab.index')->with('danger',"Gagal dihapus! Error: {$exception->getMessage()}");
+        }
     }
 }

@@ -23,7 +23,7 @@ class JadwalController extends Controller
     public function index(): View
     {
         $data = [
-            'Jadwal' => Jadwal::all()
+            'Jadwal' => Jadwal::with(['prodi','dosen', 'matakuliah'])->get()
         ];
         return view('Jadwal.index', $data);
     }

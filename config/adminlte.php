@@ -46,8 +46,8 @@ return [
     */
 
     'logo' => 'Labkom <b>FMIPA</b> UNS',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
-    'logo_img_class' => 'brand-image img-circle',
+    'logo_img' => 'img/logo_labkom2.png',
+    'logo_img_class' => 'brand-image',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
     'logo_img_alt' => 'Labkom FMIPA UNS',
@@ -465,11 +465,11 @@ return [
         ],
         [
             'name' => 'Sweetalert2',
-            'active' => true,
+            'active' => false,
             'files' => [
                 [
                     'type' => 'js',
-                    'asset' => true,
+                    'asset' => false,
                     'location' => '//cdn.jsdelivr.net/npm/sweetalert2@8',
                 ],
             ],

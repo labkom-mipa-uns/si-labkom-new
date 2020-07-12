@@ -60,17 +60,17 @@
                         </td>
                         <td class="text-center">
                             <a>
-                                {{ $elemen->nama_prodi }}
+                                {{ $elemen->prodi->nama_prodi }}
                             </a>
                         </td>
                         <td class="text-center">
                             <a>
-                                {{ $elemen->nama_dosen }}
+                                {{ $elemen->dosen->nama_dosen }}
                             </a>
                         </td>
                         <td class="text-center">
                             <a>
-                                {{ $elemen->nama_matkul }}
+                                {{ $elemen->matakuliah->nama_matkul }}
                             </a>
                         </td>
                         <td class="project-actions text-right">
