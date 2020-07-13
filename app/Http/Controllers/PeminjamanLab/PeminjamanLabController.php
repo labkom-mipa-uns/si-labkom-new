@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\PeminjamanLab;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\PeminjamanLabResource;
 use App\Jadwal;
 use App\Lab;
 use App\Mahasiswa;
@@ -85,6 +86,17 @@ class PeminjamanLabController extends Controller
         } catch (Exception $exception) {
             return redirect()->route('PeminjamanLab.create')->with('danger', "Gagal Ditambahkan! Error: {$exception->getMessage()}");
         }
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param PeminjamanLab $PeminjamanLab
+     * @return PeminjamanLabResource
+     */
+    public function show(PeminjamanLab $PeminjamanLab): PeminjamanLabResource
+    {
+        return new PeminjamanLabResource($PeminjamanLab::with(['mahasiswa', 'lab', 'jadwal'])->firstWhere('id', $PeminjamanLab->id));
     }
 
     /**

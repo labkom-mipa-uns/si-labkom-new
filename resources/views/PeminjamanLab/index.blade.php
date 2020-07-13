@@ -1,8 +1,5 @@
 @extends('adminlte::page')
 @section('title', 'Labkom FMIPA UNS | Peminjaman Lab')
-{{--@section('js')--}}
-{{--    <script src="{{ asset('js/app.js') }}"></script>--}}
-{{--@endsection--}}
 
 @section('content_header')
     <div class="row mb-2">
@@ -17,43 +14,9 @@
             </ol>
         </div><!-- /.col -->
     </div><!-- /.row -->
-{{--    <div class="flashdata-success" data-flashdata="{{ session('success') }}"></div>--}}
-{{--    <div class="flashdata-warning" data-flashdata="{{ session('warning') }}"></div>--}}
-{{--    <div class="flashdata-danger" data-flashdata="{{ session('danger') }}"></div>--}}
-    @if(session('success'))
-    <div class="row mt-2">
-        <div class="col-sm">
-            <div class="alert alert-default-success alert-dismissible fade show m-0" role="alert">
-                Data Peminjam Lab <strong>{{ session('success') }}</strong>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        </div>
-    </div>
-    @elseif(session('warning'))
-    <div class="row mt-2">
-        <div class="col-sm">
-            <div class="alert alert-default-warning alert-dismissible fade show m-0" role="alert">
-                <strong>{{ session('warning') }}</strong>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        </div>
-    </div>
-    @elseif(session('danger'))
-    <div class="row mt-2">
-        <div class="col-sm">
-            <div class="alert alert-default-danger alert-dismissible fade show m-0" role="alert">
-                Data Peminjam Lab <strong>{{ session('danger') }}</strong>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        </div>
-    </div>
-    @endif
+    <div class="peminjamlab-success" data-flashdata="{{ session('success') }}"></div>
+    <div class="peminjamlab-warning" data-flashdata="{{ session('warning') }}"></div>
+    <div class="peminjamlab-danger" data-flashdata="{{ session('danger') }}"></div>
 @endsection
 
 @section('content')
@@ -147,7 +110,7 @@
                             </small>
                         </td>
                         <td class="project-actions text-right">
-                            <button class="btn btn-secondary btn-sm" type="button">
+                            <button class="btn btn-secondary btn-sm detail-peminjamlab-button" type="button" data-toggle="modal" data-target="#peminjamanLabModal" data-showurl="{{ route('PeminjamanLab.show', $elemen->id) }}">
                                 <i class="fas fa-folder"></i>
                                 Detail
                             </button>
@@ -158,7 +121,7 @@
                             <form action="{{ route('PeminjamanLab.destroy', $elemen->id) }}" method="post" class="d-inline">
                                 @csrf
                                 @method('delete')
-                                <button class="btn btn-danger btn-sm" type="submit">
+                                <button class="btn btn-danger btn-sm peminjamanlab-delete" type="submit">
                                     <i class="fas fa-trash"></i>
                                     Delete
                                 </button>
@@ -171,6 +134,7 @@
             </table>
         </div>
         <!-- /.card-body -->
+        <div id="detail-peminjamlab"></div>
     </div>
     <!-- /.card -->
 

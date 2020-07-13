@@ -13,4 +13,9 @@ class Mahasiswa extends Model
     {
         return $this->hasMany(PeminjamanLab::class);
     }
+
+    public function prodi()
+    {
+        return $this->belongsTo(Prodi::class, 'id_prodi');
+    }
 }

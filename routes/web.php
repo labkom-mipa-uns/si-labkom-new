@@ -19,7 +19,7 @@ Route::get('/', 'WelcomeController')->name('welcome');
 Auth::routes(['verify' => true]);
 Route::get('/home', 'Home\HomeController')->name('home');
 Route::resource('Account', 'Account\AccountController')->except('create');
-Route::resource('PeminjamanLab', 'PeminjamanLab\PeminjamanLabController')->except('show');
+Route::resource('PeminjamanLab', 'PeminjamanLab\PeminjamanLabController');
 Route::resource('PeminjamanAlat', 'PeminjamanAlat\PeminjamanAlatController')->except('show');
 Route::resource('SuratBebasLabkom', 'SuratBebasLabkom\SuratBebasLabkomController')->except('show');
 Route::resource('JasaInstallasi', 'JasaInstallasi\JasaInstallasiController')->except('show');
