@@ -67,7 +67,7 @@ class PeminjamanLabController extends Controller
      * @param Request $request
      * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): ?RedirectResponse
     {
         $request->validate([
             'id_mahasiswa' => 'required',
@@ -84,7 +84,7 @@ class PeminjamanLabController extends Controller
             PeminjamanLab::create($request->all());
             return redirect()->route('PeminjamanLab.index')->with('success', 'Berhasil Ditambahkan!');
         } catch (Exception $exception) {
-            return redirect()->route('PeminjamanLab.create')->with('danger', "Gagal Ditambahkan! Error: {$exception->getMessage()}");
+            return redirect()->route('PeminjamanLab.index')->with('danger', "Gagal Ditambahkan! Error: {$exception->getMessage()}");
         }
     }
 
@@ -127,7 +127,7 @@ class PeminjamanLabController extends Controller
      * @param PeminjamanLab $PeminjamanLab
      * @return RedirectResponse
      */
-    public function update(Request $request, PeminjamanLab $PeminjamanLab): RedirectResponse
+    public function update(Request $request, PeminjamanLab $PeminjamanLab): ?RedirectResponse
     {
         try {
             PeminjamanLab::whereId($PeminjamanLab->id)->update($request->except(['_token', '_method']));
@@ -149,7 +149,7 @@ class PeminjamanLabController extends Controller
             PeminjamanLab::destroy($PeminjamanLab->id);
             return redirect()->route('PeminjamanLab.index')->with('success', 'Berhasil Dihapus!');
         } catch (Exception $exception) {
-            return redirect()->route('PeminjamanLab.index')->with('danger',"Gagal dihapus! Error: {$exception->getMessage()}");
+            return redirect()->route('PeminjamanLab.index')->with('danger',"Gagal Dihapus! Error: {$exception->getMessage()}");
         }
     }
 }

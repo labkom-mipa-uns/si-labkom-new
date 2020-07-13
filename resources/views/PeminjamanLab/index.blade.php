@@ -121,7 +121,7 @@
                             <form action="{{ route('PeminjamanLab.destroy', $elemen->id) }}" method="post" class="d-inline">
                                 @csrf
                                 @method('delete')
-                                <button class="btn btn-danger btn-sm peminjamanlab-delete" type="submit">
+                                <button class="btn btn-danger btn-sm delete-peminjamanlab-button" type="submit">
                                     <i class="fas fa-trash"></i>
                                     Delete
                                 </button>

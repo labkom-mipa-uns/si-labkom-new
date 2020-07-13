@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Lab extends Model
 {
     protected $table = 'lab';
-    protected $guarded = 'id';
+    protected $guarded = ['id'];
 
     public function peminjamanlab()
     {

@@ -35,7 +35,12 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="Lab">Laboratorium :</label>
-                            <input type="text" name="nama_lab" id="Lab" class="form-control" placeholder="Masukkan Laboratorium" maxlength="55">
+                            <input type="text" name="nama_lab" id="Lab" class="form-control @error('nama_lab') is-invalid @enderror" placeholder="Masukkan Laboratorium" value="{{ old('nama_lab') }}" autocomplete="off">
+                            @error('nama_lab')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                     </div>
                     <!-- /.card-body -->

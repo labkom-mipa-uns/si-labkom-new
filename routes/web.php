@@ -25,9 +25,9 @@ Route::resource('SuratBebasLabkom', 'SuratBebasLabkom\SuratBebasLabkomController
 Route::resource('JasaInstallasi', 'JasaInstallasi\JasaInstallasiController')->except('show');
 Route::resource('JasaPrint', 'JasaPrint\JasaPrintController')->except('show');
 
-Route::resource('Laboratorium', 'Lab\LabController')->except('show');
+Route::resource('Laboratorium', 'Lab\LabController');
 Route::resource('Alat', 'Alat\AlatController')->except('show');
-Route::resource('Mahasiswa', 'Mahasiswa\MahasiswaController')->except('show');
+Route::resource('Mahasiswa', 'Mahasiswa\MahasiswaController');
 Route::resource('Prodi', 'Prodi\ProdiController')->except('show');
 Route::resource('Dosen', 'Dosen\DosenController')->except('show');
 Route::resource('Jadwal', 'Jadwal\JadwalController')->except('show');

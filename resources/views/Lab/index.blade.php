@@ -14,6 +14,9 @@
             </ol>
         </div><!-- /.col -->
     </div><!-- /.row -->
+    <div class="lab-success" data-flashdata="{{ session('success') }}"></div>
+    <div class="lab-warning" data-flashdata="{{ session('warning') }}"></div>
+    <div class="lab-danger" data-flashdata="{{ session('danger') }}"></div>
 @endsection
 
 @section('content')
@@ -23,7 +26,7 @@
             <h3 class="card-title">Daftar Laboratorium</h3>
             <div class="card-tools">
                 <button type="button" class="btn btn-tool">
-                    <a href="{{ route('Prodi.create') }}" class="btn btn-primary btn-sm">
+                    <a href="{{ route('Laboratorium.create') }}" class="btn btn-primary btn-sm">
                         <i class="fas fa-user-plus"></i>
                         Insert
                     </a>
@@ -58,7 +61,7 @@
                             </a>
                         </td>
                         <td class="project-actions text-right">
-                            <button class="btn btn-secondary btn-sm" type="button">
+                            <button class="btn btn-secondary btn-sm detail-lab-button" type="button" data-toggle="modal" data-target="#labModal" data-showurl="{{ route('Laboratorium.show', $elemen->id) }}">
                                 <i class="fas fa-folder"></i>
                                 Detail
                             </button>
@@ -69,7 +72,7 @@
                             <form action="{{ route('Laboratorium.destroy', $elemen->id) }}" method="post" class="d-inline">
                                 @csrf
                                 @method('delete')
-                                <button class="btn btn-danger btn-sm" type="submit">
+                                <button class="btn btn-danger btn-sm delete-lab-button" type="submit">
                                     <i class="fas fa-trash"></i>
                                     Delete
                                 </button>
@@ -82,6 +85,7 @@
             </table>
         </div>
         <!-- /.card-body -->
+        <div id="detail-lab"></div>
     </div>
     <!-- /.card -->
 @endsection

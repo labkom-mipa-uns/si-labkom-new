@@ -10,7 +10,7 @@
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                <li class="breadcrumb-item active"><a href="{{ route('Mahasiswa.index') }}"></a>Mahasiswa</li>
+                <li class="breadcrumb-item active"><a href="{{ route('Mahasiswa.index') }}">Mahasiswa</a></li>
                 <li class="breadcrumb-item active">Edit Data</li>
             </ol>
         </div><!-- /.col -->
@@ -35,47 +35,91 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="Nama">Nama :</label>
-                            <input type="text" name="nama_mahasiswa" id="Nama" class="form-control" placeholder="Masukkan nama" maxlength="100" required="" value="{{ $Mahasiswa->nama_mahasiswa }}">
+                            <input type="text" name="nama_mahasiswa" id="Nama" class="form-control @error('nama_mahasiswa') is-invalid @enderror" placeholder="Masukkan nama" value="{{ $Mahasiswa->nama_mahasiswa }}" autocomplete="off">
+                            @error('nama_mahasiswa')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="NIM">NIM :</label>
-                            <input type="text" name="nim_mahasiswa" id="NIM" class="form-control" placeholder="Masukkan NIM" maxlength="10" required="" value="{{ $Mahasiswa->nim_mahasiswa }}">
+                            <input type="text" name="nim" id="NIM" class="form-control @error('nim') is-invalid @enderror" placeholder="Masukkan NIM" value="{{ $Mahasiswa->nim }}" autocomplete="off">
+                            @error('nim')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="jenis_kelamin">Jenis Kelamin :</label>
-                            <select name="jenis_kelamin_mahasiswa" id="jenis_kelamin" class="custom-select" required="">
-                                <option selected >{{ $Mahasiswa->jenis_kelamin }}</option>
-                                <option>Laki-laki</option>
-                                <option>Perempuan</option>
+                            <select name="jenis_kelamin" id="jenis_kelamin" class="custom-select @error('jenis_kelamin') is-invalid @enderror">
+                                @if($Mahasiswa->jenis_kelamin === 'L')
+                                    <option selected value="L">Laki-laki</option>
+                                    <option value="P">Perempuan</option>
+                                @else
+                                    <option value="L">Laki-laki</option>
+                                    <option selected value="P">Perempuan</option>
+                                @endif
                             </select>
+                            @error('jenis_kelamin')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="Kelas">Kelas :</label>
-                            <input type="text" name="kelas_mahasiswa" id="Kelas" class="form-control" placeholder="Masukkan kelas" maxlength="10" required value="{{ $Mahasiswa->kelas_mahasiswa }}">
+                            <input type="text" name="kelas" id="Kelas" class="form-control @error('kelas') is-invalid @enderror" placeholder="Masukkan kelas" value="{{ $Mahasiswa->kelas }}" autocomplete="off">
+                            @error('kelas')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="ProgramStudi">Program Studi :</label>
-                            <select name="id_prodi" id="ProgramStudi" class="custom-select" required="">
-                                <option selected value="{{ $Mahasiswa->id_prodi }}">{{ $Mahasiswa->nama_prodi }}</option>
+                            <select name="id_prodi" id="ProgramStudi" class="custom-select @error('id_prodi') is-invalid @enderror">
                                 @foreach($Prodi as $elemen)
-                                    <option value="{{ $elemen->id_prodi }}">{{ $elemen->nama_prodi }}</option>
+                                    @if($elemen->id === $Mahasiswa->id_prodi)
+                                        <option selected value="{{ $Mahasiswa->id_prodi }}">{{ $Mahasiswa->prodi->nama_prodi }}</option>
+                                    @else
+                                        <option value="{{ $elemen->id_prodi }}">{{ $elemen->nama_prodi }}</option>
+                                    @endif
                                 @endforeach
                             </select>
+                            @error('id_prodi')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="Angkatan">Angkatan :</label>
-                            <select name="angkatan" id="Angkatan" class="custom-select">
-                                <option selected value="{{ $Mahasiswa->angkatan }}">{{ $Mahasiswa->angkatan }}</option>
-                                <option value="2016">2016</option>
-                                <option value="2017">2017</option>
-                                <option value="2018">2018</option>
-                                <option value="2019">2019</option>
-                                <option value="2020">2020</option>
+                            <select name="angkatan" id="Angkatan" class="custom-select @error('angkatan') is-invalid @enderror">
+                                <?php $array_angkatan = ['2016','2017','2018','2019','2020'] ?>
+                                @foreach($array_angkatan as $year)
+                                    @if($Mahasiswa->angkatan === $year)
+                                        <option selected value="{{ $Mahasiswa->angkatan }}">{{ $Mahasiswa->angkatan }}</option>
+                                    @else
+                                        <option value="{{ $year }}">{{ $year }}</option>
+                                    @endif
+                                @endforeach
                             </select>
+                            @error('angkatan')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="no_hp">No HP :</label>
-                            <input type="number" name="no_hp" id="no_hp" class="form-control" min="0" value="{{ $Mahasiswa->no_hp }}">
+                            <input type="number" name="no_hp" id="no_hp" class="form-control" min="0" value="{{ $Mahasiswa->no_hp }}" autocomplete="off">
+                            @error('no_hp')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                     </div>
                     <!-- /.card-body -->

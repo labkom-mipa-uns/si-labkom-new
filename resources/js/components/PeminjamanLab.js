@@ -27,11 +27,11 @@ class PeminjamanLab extends Component {
             })
         }
 
-        $('.peminjamanlab-delete').click(function (event) {
+        $('.delete-peminjamanlab-button').click(function (event) {
             event.preventDefault();
             Swal.fire({
                 title: 'Apakah Kamu Yakin?',
-                text: "Data Peminjam Lab Akan Dihapus!",
+                text: "Data Peminjam Lab Akan Segera Dihapus!",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
