@@ -35,7 +35,7 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="Nama">Nama :</label>
-                            <select name="id_mahasiswa" id="Nama" class="custom-select">
+                            <select name="id_mahasiswa" id="Nama" class="custom-select @error('id_mahasiswa') is-invalid @enderror">
                             @foreach($Mahasiswa as $elemen)
                                 @if($elemen->id === $PeminjamanLab->id_mahasiswa)
                                     <option selected value="{{ $PeminjamanLab->id }}">{{ $PeminjamanLab->mahasiswa->nama_mahasiswa }}</option>
@@ -44,14 +44,24 @@
                                 @endif
                             @endforeach
                             </select>
+                            @error('id_mahasiswa')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="Tanggal">Tanggal :</label>
-                            <input type="date" name="tanggal" id="Tanggal" class="form-control" value="{{ $PeminjamanLab->tanggal }}">
+                            <input type="date" name="tanggal" id="Tanggal" class="form-control @error('tanggal') is-invalid @enderror" value="{{ $PeminjamanLab->tanggal }}">
+                            @error('tanggal')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="Jadwal">Jadwal :</label>
-                            <select name="id_jadwal" id="Jadwal" class="custom-select" >
+                            <select name="id_jadwal" id="Jadwal" class="custom-select @error('id_jadwal') is-invalid @enderror" >
                             @foreach($Jadwal as $elemen)
                                 @if($elemen->id === $PeminjamanLab->id_jadwal)
                                     <option selected value="{{ $PeminjamanLab->id_jadwal }}">{{ $PeminjamanLab->jadwal->dosen->nama_dosen }} - {{ $PeminjamanLab->jadwal->matakuliah->nama_matkul }} - {{ $PeminjamanLab->jadwal->prodi->nama_prodi }}</option>
@@ -60,6 +70,12 @@
                                 @endif
                             @endforeach
                             </select>
+                            @error('id_jadwal')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+
                         </div>
                     </div>
                     <!-- /.card-body -->
@@ -79,53 +95,82 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="Lab">Lab :</label>
-                            <select name="id_lab" id="Lab" class="custom-select">
+                            <select name="id_lab" id="Lab" class="custom-select @error('id_lab') is-invalid @enderror">
                                 @foreach($Lab as $elemen)
                                     @if($elemen->id === $PeminjamanLab->id_lab)
-                                    <option selected value="{{ $PeminjamanLab->id_lab }}">{{ $PeminjamanLab->lab->nama_lab }}</option>
+                                        <option selected value="{{ $PeminjamanLab->id_lab }}">{{ $PeminjamanLab->lab->nama_lab }}</option>
                                     @else
-                                    <option value="{{ $elemen->id }}">{{ $elemen->nama_lab }}</option>
+                                        <option value="{{ $elemen->id }}">{{ $elemen->nama_lab }}</option>
                                     @endif
                                 @endforeach
                             </select>
+                            @error('id_lab')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="JamPinjam">Jam Pinjam :</label>
-                            <input type="time" name="jam_pinjam" id="JamPinjam" class="form-control" value="{{ $PeminjamanLab->jam_pinjam }}">
+                            <input type="time" name="jam_pinjam" id="JamPinjam" class="form-control @error('jam_pinjam') is-invalid @enderror" value="{{ $PeminjamanLab->jam_pinjam }}">
+                            @error('jam_pinjam')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="JamKembali">Jam Kembali :</label>
-                            <input type="time" name="jam_kembali" id="JamKembali" class="form-control" value="{{ $PeminjamanLab->jam_kembali }}">
+                            <input type="time" name="jam_kembali" id="JamKembali" class="form-control @error('jam_kembali') is-invalid @enderror" value="{{ $PeminjamanLab->jam_kembali }}">
+                            @error('jam_kembali')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="Keperluan">Keperluan :</label>
-                            <textarea name="keperluan" cols="40" rows="4" id="Keperluan" class="form-control" placeholder="Masukkan keperluan">{{ $PeminjamanLab->keperluan }}</textarea>
+                            <textarea name="keperluan" cols="40" rows="4" id="Keperluan" class="form-control @error('keperluan') is-invalid @enderror" placeholder="Masukkan keperluan">{{ $PeminjamanLab->keperluan }}</textarea>
+                            @error('keperluan')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="kategori">Kategori :</label>
-                            <select name="kategori" id="kategori" class="custom-select">
+                            <select name="kategori" id="kategori" class="custom-select @error('kategori') is-invalid @enderror">
                                 @if($PeminjamanLab->kategori === 'didalam_jam')
-                                <option selected value="{{ $PeminjamanLab->kategori }}">Didalam Jam Kuliah</option>
-                                <option value="diluar_jam">Diluar Jam Kuliah</option>
+                                    <option selected value="{{ $PeminjamanLab->kategori }}">Didalam Jam Kuliah</option>
+                                    <option value="diluar_jam">Diluar Jam Kuliah</option>
                                 @else
-                                <option selected value="{{ $PeminjamanLab->kategori }}">Diluar Jam Kuliah</option>
-                                <option value="didalam_jam">Didalam Jam Kuliah</option>
+                                    <option selected value="{{ $PeminjamanLab->kategori }}">Diluar Jam Kuliah</option>
+                                    <option value="didalam_jam">Didalam Jam Kuliah</option>
                                 @endif
                             </select>
+                            @error('kategori')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="status">Status :</label>
-                            <select name="status" id="status" class="custom-select">
+                            <select name="status" id="status" class="custom-select @error('status') is-invalid @enderror">
                                 @if($PeminjamanLab->status === '0')
-                                <option selected value="{{ $PeminjamanLab->status }}">Masih Dipinjam</option>
-                                <option value="1">Sudah Dikembalikan</option>
+                                    <option selected value="{{ $PeminjamanLab->status }}">Masih Dipinjam</option>
+                                    <option value="1">Sudah Dikembalikan</option>
                                 @else
-                                <option value="{{ $PeminjamanLab->status }}">Sudah Dikembalikan</option>
-                                <option value="0">Masih Dipinjam</option>
+                                    <option value="{{ $PeminjamanLab->status }}">Sudah Dikembalikan</option>
+                                    <option value="0">Masih Dipinjam</option>
                                 @endif
                             </select>
                         </div>
-
+                        @error('status')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
                     <!-- /.card-body -->
                 </div>

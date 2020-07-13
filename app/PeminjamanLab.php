@@ -11,7 +11,7 @@ class PeminjamanLab extends Model
 
     public function mahasiswa()
     {
-        return $this->belongsTo(Mahasiswa::class, 'id_mahasiswa');
+        return $this->belongsTo(Mahasiswa::class, 'id_mahasiswa')->with('prodi');
     }
 
     public function lab()

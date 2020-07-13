@@ -15,3 +15,5 @@ require('./bootstrap');
 require('./components/PeminjamanAlat');
 require('./components/PeminjamanLab');
 require('./components/SuratBebasLabkom');
+require('./components/Lab');
+require('./components/Mahasiswa');

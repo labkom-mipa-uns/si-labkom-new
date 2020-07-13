@@ -14,6 +14,9 @@
             </ol>
         </div><!-- /.col -->
     </div><!-- /.row -->
+    <div class="mahasiswa-success" data-flashdata="{{ session('success') }}"></div>
+    <div class="mahasiswa-warning" data-flashdata="{{ session('warning') }}"></div>
+    <div class="mahasiswa-danger" data-flashdata="{{ session('danger') }}"></div>
 @endsection
 
 @section('content')
@@ -73,16 +76,16 @@
                         </td>
                         <td class="text-center">
                             <a>
-                                {{ $elemen->nama_prodi }}
+                                {{ $elemen->prodi->nama_prodi }}
                             </a>
                         </td>
                         <td class="text-center">
                             <a>
-                                {{ $elemen->tahun_angkatan }}
+                                {{ $elemen->angkatan }}
                             </a>
                         </td>
                         <td class="project-actions text-right">
-                            <button class="btn btn-secondary btn-sm" type="button">
+                            <button class="btn btn-secondary btn-sm detail-mahasiswa-button" type="button" data-toggle="modal" data-target="#mahasiswaModal" data-showurl="{{ route('Mahasiswa.show',$elemen->id ) }}">
                                 <i class="fas fa-folder"></i>
                                 Detail
                             </button>
@@ -93,7 +96,7 @@
                             <form action="{{ route('Mahasiswa.destroy', $elemen->id) }}" method="post" class="d-inline">
                                 @csrf
                                 @method('delete')
-                                <button class="btn btn-danger btn-sm" type="submit">
+                                <button class="btn btn-danger btn-sm delete-mahasiswa-button" type="submit">
                                     <i class="fas fa-trash"></i>
                                     Delete
                                 </button>
@@ -106,6 +109,7 @@
             </table>
         </div>
         <!-- /.card-body -->
+        <div id="detail-mahasiswa"></div>
     </div>
     <!-- /.card -->
 @endsection
