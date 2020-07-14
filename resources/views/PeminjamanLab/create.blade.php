@@ -194,10 +194,8 @@
                     <div class="card-tools" >
                         <a href="{{ route('PeminjamanLab.index') }}" class="btn btn-secondary btn-lg">Cancel</a>
                         <button type="submit" class="btn btn-primary btn-lg float-right">
-                            <a>
-                                <i class="fas fa-plus"></i>
-                                Insert Data
-                            </a>
+                            <i class="fas fa-plus"></i>
+                            Insert Data
                         </button>
                     </div>
                 </div>

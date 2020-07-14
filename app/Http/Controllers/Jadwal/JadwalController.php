@@ -4,43 +4,62 @@ namespace App\Http\Controllers\Jadwal;
 
 use App\Dosen;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\JadwalResource;
 use App\Jadwal;
 use App\MataKuliah;
 use App\Prodi;
+use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\View\View;
 
 class JadwalController extends Controller
 {
     /**
+     * JadwalController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('verified');
+    }
+
+    /**
      * Display a listing of the resource.
      *
-     * @return Application|Factory|View
+     * @return Application|Factory|RedirectResponse|View
      */
-    public function index(): View
+    public function index()
     {
-        $data = [
-            'Jadwal' => Jadwal::with(['prodi','dosen', 'matakuliah'])->get()
-        ];
-        return view('Jadwal.index', $data);
+        try {
+            $data = [
+                'Jadwal' => Jadwal::with(['prodi','dosen', 'matakuliah'])->get()
+            ];
+            return view('Jadwal.index', $data);
+        } catch (Exception $exception) {
+            return redirect()->route('home')->with('warning', "Silakan Coba Beberapa Saat Lagi! Problem: {$exception->getMessage()}");
+        }
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return Application|Factory|View
+     * @return Application|Factory|RedirectResponse|View
      */
-    public function create(): View
+    public function create()
     {
-        $data = [
-            'Prodi' => Prodi::all(),
-            'Dosen' => Dosen::all(),
-            'MataKuliah' => MataKuliah::all(),
-        ];
-        return view('Jadwal.create', $data);
+        try {
+            $data = [
+                'Prodi' => Prodi::all(),
+                'Dosen' => Dosen::all(),
+                'MataKuliah' => MataKuliah::all(),
+            ];
+            return view('Jadwal.create', $data);
+        } catch (Exception $exception) {
+            return redirect()->route('Jadwal.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! Problem: {$exception->getMessage()}");
+        }
     }
 
     /**
@@ -49,55 +68,88 @@ class JadwalController extends Controller
      * @param Request $request
      * @return RedirectResponse
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request): ?RedirectResponse
     {
-        Jadwal::create($request->all());
-        return redirect()->route('Jadwal.index');
+        $request->validate([
+            'id_prodi' => 'required',
+            'id_dosen' => 'required',
+            'id_matkul' => 'required',
+        ]);
+        try {
+            Jadwal::create($request->all());
+            return redirect()->route('Jadwal.index')->with('success', 'Berhasil Ditambahkan!');
+        } catch (Exception $exception) {
+            return redirect()->route('Jadwal.index')->with('danger', "Gagal Ditambahkan! Error: {$exception->getMessage()}");
+        }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param Jadwal $jadwal
-     * @return \Illuminate\Http\Response
+     * @param Jadwal $Jadwal
+     * @return JadwalResource
      */
-    public function show(Jadwal $Jadwal)
+    public function show(Jadwal $Jadwal): JadwalResource
     {
-        //
+        return new JadwalResource($Jadwal::with(['prodi', 'dosen', 'matakuliah'])->firstWhere('id',$Jadwal->id));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Jadwal $jadwal
-     * @return \Illuminate\Http\Response
+     * @param Jadwal $Jadwal
+     * @return Application|Factory|RedirectResponse|Response|View
      */
-    public function edit(Jadwal $jadwal)
+    public function edit(Jadwal $Jadwal)
     {
-        //
+        try {
+            $data = [
+                'Jadwal' => $Jadwal::with(['prodi', 'dosen', 'matakuliah'])->firstWhere('id', $Jadwal->id),
+                'Prodi' => Prodi::all(),
+                'Dosen' => Dosen::all(),
+                'MataKuliah' => MataKuliah::all()
+            ];
+            return view('Jadwal.edit', $data);
+        } catch (Exception $exception) {
+            return redirect()->route('Jadwal.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! Problem: {$exception->getMessage()}");
+        }
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param Jadwal $jadwal
-     * @return \Illuminate\Http\Response
+     * @param Jadwal $Jadwal
+     * @return RedirectResponse
      */
-    public function update(Request $request, Jadwal $jadwal)
+    public function update(Request $request, Jadwal $Jadwal): ?RedirectResponse
     {
-        //
+        $request->validate([
+            'id_prodi' => 'required',
+            'id_dosen' => 'required',
+            'id_matkul' => 'required',
+        ]);
+        try {
+            Jadwal::whereId($Jadwal->id)->update($request->except('_token', '_method'));
+            return redirect()->route('Jadwal.index')->with('success', "Berhasil Diupdate!");
+        } catch (Exception $exception) {
+            return redirect()->route('Jadwal.index')->with('danger', "Gagal Diupdate! Error: {$exception->getMessage()}");
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param Jadwal $jadwal
+     * @param Jadwal $Jadwal
      * @return RedirectResponse
      */
-    public function destroy(Jadwal $Jadwal): RedirectResponse
+    public function destroy(Jadwal $Jadwal): ?RedirectResponse
     {
-        Jadwal::destroy($Jadwal->id);
-        return redirect()->route('Jadwal.index');
+        try {
+            Jadwal::destroy($Jadwal->id);
+            return redirect()->route('Jadwal.index')->with('success', "Berhasil Dihapus!");
+        } catch (Exception $exception) {
+            return redirect()->route('Jadwal.index')->with('danger', "Gagal Dihapus! Error: {$exception->getMessage()}");
+        }
     }
 }

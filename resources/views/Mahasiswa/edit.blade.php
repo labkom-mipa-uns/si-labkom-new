@@ -133,10 +133,8 @@
                     <div class="card-tools" >
                         <a href="{{ route('Mahasiswa.index') }}" class="btn btn-secondary btn-lg">Cancel</a>
                         <button type="submit" class="btn btn-info btn-lg float-right">
-                            <a>
-                                <i class="fas fa-pen"></i>
-                                Update Data
-                            </a>
+                            <i class="fas fa-pen"></i>
+                            Update Data
                         </button>
                     </div>
                 </div>

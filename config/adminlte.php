@@ -298,7 +298,7 @@ return [
             'icon'        => 'far fas fa-fw fa-users',
         ],
         [
-            'text'        => 'Prodi',
+            'text'        => 'Program Studi',
             'route'         => 'Prodi.index',
             'icon'        => 'far fas fa-fw fa-book-reader',
         ],
@@ -306,6 +306,11 @@ return [
             'text'        => 'Dosen',
             'route'         => 'Dosen.index',
             'icon'        => 'far fas fa-fw fa-users',
+        ],
+        [
+            'text'        => 'Mata Kuliah',
+            'route'         => 'MataKuliah.index',
+            'icon'        => 'far fas fa-fw fa-book-open',
         ],
         [
             'text'        => 'Jadwal',

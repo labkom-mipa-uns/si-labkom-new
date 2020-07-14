@@ -23,7 +23,7 @@
         <div class="col-md-4">
             <div class="small-box bg-light shadow">
                 <div class="inner">
-                    <h3>50</h3>
+                    <h3>{{ $PeminjamanLab }}</h3>
                     <h5>Peminjaman Lab</h5>
                 </div>
                 <div class="icon">

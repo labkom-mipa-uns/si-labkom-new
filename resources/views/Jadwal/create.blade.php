@@ -4,14 +4,14 @@
 @section('content_header')
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Insert Jadwal</h1>
+            <h1 class="m-0 text-dark">Insert Data Jadwal</h1>
         </div>
         <!-- /.col -->
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('Jadwal.index') }}">Jadwal</a></li>
-                <li class="breadcrumb-item active">Insert Jadwal</li>
+                <li class="breadcrumb-item active">Insert Data</li>
             </ol>
         </div><!-- /.col -->
     </div><!-- /.row -->
@@ -35,30 +35,57 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="Prodi">Program Studi :</label>
-                            <select name="id_prodi" id="Prodi" class="form-control custom-select">
-                                <option disabled selected>Pilih Program Studi</option>
+                            <select name="id_prodi" id="Prodi" class="form-control custom-select @error('id_prodi') is-invalid @enderror">
+                                <option disabled @if(!old('id_prodi')) selected @endif>Pilih Program Studi</option>
                                 @foreach($Prodi as $elemen)
-                                    <option value="{{ $elemen->id }}">{{ $elemen->nama_prodi }}</option>
+                                    @if(old('id_prodi') == $elemen->id)
+                                        <option selected value="{{ old('id_prodi') }}">{{ $elemen->nama_prodi }}</option>
+                                    @else
+                                        <option value="{{ $elemen->id }}">{{ $elemen->nama_prodi }}</option>
+                                    @endif
                                 @endforeach
                             </select>
+                            @error('id_prodi')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="Dosen">Dosen :</label>
-                            <select name="id_dosen" id="Dosen" class="form-control custom-select">
-                                <option disabled selected>Pilih Nama Dosen</option>
+                            <select name="id_dosen" id="Dosen" class="form-control custom-select @error('id_dosen') is-invalid @enderror">
+                                <option disabled @if(!old('id_dosen')) selected @endif>Pilih Nama Dosen</option>
                                 @foreach($Dosen as $elemen)
-                                    <option value="{{ $elemen->id }}">{{ $elemen->nama_dosen }}</option>
+                                    @if(old('id_dosen') == $elemen->id)
+                                        <option selected value="{{ old('id_dosen') }}">{{ $elemen->nama_dosen }}</option>
+                                    @else
+                                        <option value="{{ $elemen->id }}">{{ $elemen->nama_dosen }}</option>
+                                    @endif
                                 @endforeach
                             </select>
+                            @error('id_dosen')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="MataKuliah">Mata Kuliah :</label>
-                            <select name="id_matkul" id="MataKuliah" class="form-control custom-select">
-                                <option disabled selected>Pilih Mata Kuliah</option>
+                            <select name="id_matkul" id="MataKuliah" class="form-control custom-select @error('id_matkul') is-invalid @enderror">
+                                <option disabled @if(!old('id_matkul')) selected @endif>Pilih Mata Kuliah</option>
                                 @foreach($MataKuliah as $elemen)
-                                    <option value="{{ $elemen->id }}">{{ $elemen->nama_matkul }}</option>
+                                    @if(old('id_matkul') == $elemen->id)
+                                        <option selected value="{{ old('id_matkul') }}">{{ $elemen->nama_matkul }}</option>
+                                    @else
+                                        <option value="{{ $elemen->id }}">{{ $elemen->nama_matkul }}</option>
+                                    @endif
                                 @endforeach
                             </select>
+                            @error('id_matkul')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                     </div>
                     <!-- /.card-body -->

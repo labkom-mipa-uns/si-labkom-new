@@ -17,3 +17,6 @@ require('./components/PeminjamanLab');
 require('./components/SuratBebasLabkom');
 require('./components/Lab');
 require('./components/Mahasiswa');
+require('./components/Dosen');
+require('./components/MataKuliah');
+require('./components/Jadwal');
