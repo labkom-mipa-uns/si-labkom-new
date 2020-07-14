@@ -137,5 +137,4 @@
         <div id="detail-peminjamlab"></div>
     </div>
     <!-- /.card -->
-
 @endsection

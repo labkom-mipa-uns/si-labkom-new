@@ -35,7 +35,12 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="Dosen">Nama Dosen :</label>
-                            <input type="text" name="nama_dosen" id="Dosen" class="form-control" placeholder="Masukkan Nama Dosen" maxlength="55">
+                            <input type="text" name="nama_dosen" id="Dosen" class="form-control @error('nama_dosen') is-invalid @enderror" placeholder="Masukkan Nama Dosen" value="{{ old("nama_dosen") }}" autocomplete="off">
+                            @error('nama_dosen')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                     </div>
                     <!-- /.card-body -->
@@ -49,10 +54,8 @@
                     <div class="card-tools" >
                         <a href="{{ route('Dosen.index') }}" class="btn btn-secondary btn-lg">Cancel</a>
                         <button type="submit" class="btn btn-primary btn-lg float-right">
-                            <a>
-                                <i class="fas fa-plus"></i>
-                                Insert Data
-                            </a>
+                            <i class="fas fa-plus"></i>
+                            Insert Data
                         </button>
                     </div>
                 </div>

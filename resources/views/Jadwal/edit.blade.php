@@ -18,7 +18,7 @@
 @endsection
 
 @section('content')
-    <form action="{{ route('Jadwal.update') }}" method="post">
+    <form action="{{ route('Jadwal.update', $Jadwal->id) }}" method="post">
         @csrf
         @method('put')
         <div class="row">
@@ -35,30 +35,54 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="Prodi">Program Studi :</label>
-                            <select name="id_prodi" id="Prodi" class="form-control custom-select">
-                                <option selected value="{{ $Jadwal->id_prodi }}">{{ $Jadwal->nama_prodi }}</option>
+                            <select name="id_prodi" id="Prodi" class="form-control custom-select @error('id_prodi') is-invalid @enderror">
                                 @foreach($Prodi as $elemen)
-                                    <option value="{{ $elemen->id }}">{{ $elemen->nama_prodi }}</option>
+                                    @if($Jadwal->id_prodi === $elemen->id)
+                                        <option selected value="{{ $Jadwal->id_prodi }}">{{ $elemen->nama_prodi }}</option>
+                                    @else
+                                        <option value="{{ $elemen->id }}">{{ $elemen->nama_prodi }}</option>
+                                    @endif
                                 @endforeach
                             </select>
+                            @error('id_prodi')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="Dosen">Dosen :</label>
-                            <select name="id_dosen" id="Dosen" class="form-control custom-select">
-                                <option selected value="{{ $Jadwal->id_dosen }}">{{ $Jadwal->nama_dosen }}</option>
+                            <select name="id_dosen" id="Dosen" class="form-control custom-select @error('id_dosen') is-invalid @enderror">
                                 @foreach($Dosen as $elemen)
-                                    <option value="{{ $elemen->id }}">{{ $elemen->nama_dosen }}</option>
+                                    @if($Jadwal->id_dosen === $elemen->id)
+                                        <option selected value="{{ $Jadwal->id_dosen }}">{{ $elemen->nama_dosen }}</option>
+                                    @else
+                                        <option value="{{ $elemen->id }}">{{ $elemen->nama_dosen }}</option>
+                                    @endif
                                 @endforeach
                             </select>
+                            @error('id_dosen')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="MataKuliah">Mata Kuliah :</label>
-                            <select name="id_matkul" id="MataKuliah" class="form-control custom-select">
-                                <option selected value="{{ $Jadwal->id_matkul }}">{{ $Jadwal->nama_matkul }}</option>
+                            <select name="id_matkul" id="MataKuliah" class="form-control custom-select @error('id_matkul') is-invalid @enderror">
                                 @foreach($MataKuliah as $elemen)
-                                    <option value="{{ $elemen->id }}">{{ $elemen->nama_matkul }}</option>
+                                    @if($Jadwal->id_matkul == $elemen->id)
+                                        <option selected value="{{ $Jadwal->id_matkul }}">{{ $elemen->nama_matkul }}</option>
+                                    @else
+                                        <option value="{{ $elemen->id }}">{{ $elemen->nama_matkul }}</option>
+                                    @endif
                                 @endforeach
                             </select>
+                            @error('id_matkul')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                     </div>
                     <!-- /.card-body -->
@@ -71,7 +95,7 @@
                 <div class="card-body">
                     <div class="card-tools" >
                         <a href="{{ route('Jadwal.index') }}" class="btn btn-secondary btn-lg">Cancel</a>
-                        <button type="submit" class="btn btn-primary btn-lg float-right">
+                        <button type="submit" class="btn btn-info btn-lg float-right">
                             <a>
                                 <i class="fas fa-plus"></i>
                                 Update Data

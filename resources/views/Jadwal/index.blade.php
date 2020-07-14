@@ -4,7 +4,7 @@
 @section('content_header')
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Jadwal</h1>
+            <h1 class="m-0 text-dark">Daftar Jadwal</h1>
         </div>
         <!-- /.col -->
         <div class="col-sm-6">
@@ -14,6 +14,9 @@
             </ol>
         </div><!-- /.col -->
     </div><!-- /.row -->
+    <div class="jadwal-success" data-flashdata="{{ session('success') }}"></div>
+    <div class="jadwal-warning" data-flashdata="{{ session('warning') }}"></div>
+    <div class="jadwal-danger" data-flashdata="{{ session('danger') }}"></div>
 @endsection
 
 @section('content')
@@ -74,7 +77,7 @@
                             </a>
                         </td>
                         <td class="project-actions text-right">
-                            <button class="btn btn-secondary btn-sm" type="button">
+                            <button class="btn btn-secondary btn-sm detail-jadwal-button" type="button" data-toggle="modal" data-target="#jadwalModal" data-showurl="{{ route('Jadwal.show', $elemen->id) }}">
                                 <i class="fas fa-folder"></i>
                                 Detail
                             </button>
@@ -85,7 +88,7 @@
                             <form action="{{ route('Jadwal.destroy', $elemen->id) }}" method="post" class="d-inline">
                                 @csrf
                                 @method('delete')
-                                <button class="btn btn-danger btn-sm" type="submit">
+                                <button class="btn btn-danger btn-sm delete-jadwal-button" type="submit">
                                     <i class="fas fa-trash"></i>
                                     Delete
                                 </button>
@@ -98,6 +101,7 @@
             </table>
         </div>
         <!-- /.card-body -->
+        <div id="detail-jadwal"></div>
     </div>
     <!-- /.card -->
 
