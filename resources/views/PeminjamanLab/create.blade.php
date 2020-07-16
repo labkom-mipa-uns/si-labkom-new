@@ -165,10 +165,10 @@
                             <label for="status">Status :</label>
                             <select name="status" id="status" class="custom-select @error('status') is-invalid @enderror">
                                 <option disabled @if(!old('status')) selected @endif>Pilih Status</option>
-                                @if(old('status') == 0)
+                                @if(old('status') === "0")
                                     <option selected value="0">Masih Dipinjam</option>
                                     <option value="1">Sudah Dikembalikan</option>
-                                @elseif(old('status') == 1)
+                                @elseif(old('status') === "1")
                                     <option selected value="1">Sudah Dikembalikan</option>
                                     <option value="0">Masih Dipinjam</option>
                                 @else

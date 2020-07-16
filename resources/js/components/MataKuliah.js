@@ -24,7 +24,7 @@ class MataKuliah extends Component {
             Swal.fire({
                 title: `Data Mata Kuliah`,
                 text: `${matakuliah_danger}`,
-                icon: 'danger'
+                icon: 'error'
             })
         }
 

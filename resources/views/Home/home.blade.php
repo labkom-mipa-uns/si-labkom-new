@@ -16,6 +16,9 @@
             </ol>
         </div><!-- /.col -->
     </div><!-- /.row -->
+    <div class="home-success" data-flashdata="{{ session('success') }}"></div>
+    <div class="home-warning" data-flashdata="{{ session('warning') }}"></div>
+    <div class="home-danger" data-flashdata="{{ session('danger') }}"></div>
 @endsection
 
 @section('content')
@@ -35,7 +38,7 @@
         <div class="col-md-4">
             <div class="small-box bg-light shadow">
                 <div class="inner">
-                    <h3>25</h3>
+                    <h3>{{ $PeminjamanAlat }}</h3>
                     <h5>Peminjaman Alat</h5>
                 </div>
                 <div class="icon">
@@ -47,7 +50,7 @@
         <div class="col-md-4">
             <div class="small-box bg-light shadow">
                 <div class="inner">
-                    <h3>30</h3>
+                    <h3>{{ $SuratBebasLabkom }}</h3>
                     <h5>Surat Bebas Labkom</h5>
                 </div>
                 <div class="icon">
@@ -56,5 +59,30 @@
                 <a href="{{ route('SuratBebasLabkom.index') }}" class="small-box-footer">Info Selengkapnya <i class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
+        <div class="col-md-6">
+            <div class="small-box bg-light shadow">
+                <div class="inner">
+                    <h3>{{ $JasaPrint }}</h3>
+                    <h5>Jasa Print</h5>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-printer"></i>
+                </div>
+                <a href="{{ route('JasaPrint.index') }}" class="small-box-footer">Info Selengkapnya <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="small-box bg-light shadow">
+                <div class="inner">
+                    <h3>{{ $JasaInstallasi }}</h3>
+                    <h5>Jasa Installasi</h5>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-laptop"></i>
+                </div>
+                <a href="{{ route('JasaInstallasi.index') }}" class="small-box-footer">Info Selengkapnya <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
     </div>
+    <div id="home"></div>
 @endsection

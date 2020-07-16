@@ -120,7 +120,7 @@
                         </div>
                         <div class="form-group">
                             <label for="no_hp">No HP :</label>
-                            <input type="number" name="no_hp" id="no_hp" class="form-control @error('no_hp') is-invalid @enderror" min="0" value="{{ old('no_hp') }}" autocomplete="off">
+                            <input type="tel" name="no_hp" id="no_hp" class="form-control @error('no_hp') is-invalid @enderror" min="0" value="{{ old('no_hp') }}" autocomplete="off">
                             @error('no_hp')
                                 <div class="invalid-feedback">
                                     {{ $message }}

@@ -24,7 +24,7 @@ class Mahasiswa extends Component {
             Swal.fire({
                 title: 'Data Mahasiswa',
                 text: `${mahasiswa_danger}`,
-                icon: "danger"
+                icon: "error"
             })
         }
 

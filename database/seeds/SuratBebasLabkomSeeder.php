@@ -1,5 +1,6 @@
 <?php
 
+use App\SuratBebasLabkom;
 use Illuminate\Database\Seeder;
 
 class SuratBebasLabkomSeeder extends Seeder
@@ -11,6 +12,6 @@ class SuratBebasLabkomSeeder extends Seeder
      */
     public function run()
     {
-        //
+        factory(SuratBebasLabkom::class, 15)->create();
     }
 }

@@ -20,13 +20,13 @@ Auth::routes(['verify' => true]);
 Route::get('/home', 'Home\HomeController')->name('home');
 Route::resource('Account', 'Account\AccountController')->except('create');
 Route::resource('PeminjamanLab', 'PeminjamanLab\PeminjamanLabController');
-Route::resource('PeminjamanAlat', 'PeminjamanAlat\PeminjamanAlatController')->except('show');
-Route::resource('SuratBebasLabkom', 'SuratBebasLabkom\SuratBebasLabkomController')->except('show');
+Route::resource('PeminjamanAlat', 'PeminjamanAlat\PeminjamanAlatController');
+Route::resource('SuratBebasLabkom', 'SuratBebasLabkom\SuratBebasLabkomController');
 Route::resource('JasaInstallasi', 'JasaInstallasi\JasaInstallasiController')->except('show');
 Route::resource('JasaPrint', 'JasaPrint\JasaPrintController')->except('show');
 
 Route::resource('Laboratorium', 'Lab\LabController');
-Route::resource('Alat', 'Alat\AlatController')->except('show');
+Route::resource('Alat', 'Alat\AlatController');
 Route::resource('Mahasiswa', 'Mahasiswa\MahasiswaController');
 Route::resource('Prodi', 'Prodi\ProdiController')->except('show');
 Route::resource('Dosen', 'Dosen\DosenController');

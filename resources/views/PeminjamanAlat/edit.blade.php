@@ -19,8 +19,8 @@
 
 @section('content')
     <form action="{{ route('PeminjamanAlat.update', $PeminjamanAlat->id) }}" method="post">
-        @method('put')
         @csrf
+        @method('put')
         <div class="row">
             <div class="col-md-6">
                 <div class="card card-primary">
@@ -35,33 +35,38 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="Nama">Nama :</label>
-                            <select name="id_mahasiswa" id="Nama" class="custom-select">
-                                <option disabled selected value="{{ $PeminjamanAlat->id_mahasiswa }}">{{ $PeminjamanAlat->nama_mahasiswa }}</option>
-                                @foreach($Peminjam as $elemen)
-                                    <option value="{{ $elemen->id_mahasiswa }}">{{ $elemen->nama_mahasiswa }}</option>
+                            <select name="id_mahasiswa" id="Nama" class="custom-select @error('id_mahasiswa') is-invalid @enderror">
+                                @foreach($Mahasiswa as $elemen)
+                                    @if($PeminjamanAlat->id_mahasiswa == $elemen->id)
+                                        <option selected value="{{ $PeminjamanAlat->id_mahasiswa }}">{{ $elemen->nama_mahasiswa }}</option>
+                                    @else
+                                        <option value="{{ $elemen->id }}">{{ $elemen->nama_mahasiswa }}</option>
+                                    @endif
                                 @endforeach
                             </select>
+                            @error('id_mahasiswa')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                         <div class="form-group">
-                            <label for="Hari">Hari :</label>
-                            <select name="hari" id="Hari" class="custom-select">
-                                <option disabled selected>{{ $PeminjamanAlat->hari }}</option>
-                                <option>Senin</option>
-                                <option>Selasa</option>
-                                <option>Rabu</option>
-                                <option>Kamis</option>
-                                <option>Jum'at</option>
-                                <option>Sabtu</option>
-                                <option>Minggu</option>
-                            </select>
+                            <label for="Tanggal_Pinjam">Tanggal Pinjam :</label>
+                            <input type="text" name="tanggal_pinjam" id="Tanggal_Pinjam" class="form-control @error('tanggal_pinjam') is-invalid @enderror" placeholder="Masukkan tanggal" onfocus="this.type = 'date'" value="{{ $PeminjamanAlat->tanggal_pinjam }}">
+                            @error('tanggal_pinjam')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                         <div class="form-group">
-                            <label for="Tanggal">Tanggal :</label>
-                            <input type="text" name="tanggal" id="Tanggal" class="form-control" placeholder="Masukkan Tanggal" onfocus="this.type = 'date'" value="{{ $PeminjamanAlat->tanggal }}">
-                        </div>
-                        <div class="form-group">
-                            <label for="Waktu">Waktu :</label>
-                            <input type="time" name="waktu" id="Waktu" class="form-control" placeholder="Masukkan Waktu" value="{{ $PeminjamanAlat->waktu }}">
+                            <label for="Tanggal_Kembali">Tanggal Kembali :</label>
+                            <input type="text" name="tanggal_kembali" id="Tanggal_Kembali" class="form-control @error('tanggal_kembali') is-invalid @enderror" placeholder="Masukkan tanggal" onfocus="this.type = 'date'" value="{{ $PeminjamanAlat->tanggal_kembali }}">
+                            @error('tanggal_kembali')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                     </div>
                     <!-- /.card-body -->
@@ -80,31 +85,51 @@
                     </div>
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="Alat">Alat :</label>
-                            <select name="id_alat" id="Alat" class="custom-select">
-                                <option disabled selected value="{{ $PeminjamanAlat->id_alat }}">{{ $PeminjamanAlat->nama_alat }}</option>
+                            <label for="alat">Alat :</label>
+                            <select name="id_alat" id="alat" class="custom-select @error('id_alat') is-invalid @enderror">
                                 @foreach($Alat as $elemen)
-                                    <option value="{{ $elemen->id_alat }}">{{ $elemen->nama_alat }}</option>
+                                    @if($PeminjamanAlat->id_alat == $elemen->id)
+                                        <option selected value="{{ $PeminjamanAlat->id_alat }}">{{ $elemen->nama_alat }}</option>
+                                    @else
+                                        <option value="{{ $elemen->id }}">{{ $elemen->nama_alat }}</option>
+                                    @endif
                                 @endforeach
                             </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="Jumlah">Jumlah :</label>
-                            <input type="number" name="jumlah" id="Jumlah" class="form-control" min="0" value="{{ $PeminjamanAlat->jumlah }}">
-                        </div>
-                        <div class="form-group">
-                            <label for="LamaPeminjaman">Lama Peminjaman :</label>
-                            <select name="lama_peminjaman" id="LamaPeminjaman" class="custom-select">
-                                <option disabled selected>{{ $PeminjamanAlat->lama_peminjaman }}</option>
-                                <option>1 hari</option>
-                                <option>2 hari</option>
-                                <option>3 hari</option>
-                                <option>4 hari</option>
-                            </select>
+                            @error('id_alat')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="Keperluan">Keperluan :</label>
-                            <textarea name="keperluan" cols="40" rows="4" id="Keperluan" class="form-control" placeholder="Masukkan keperluan">{{ $PeminjamanAlat->keperluan }}</textarea>
+                            <textarea name="keperluan" cols="40" rows="4" id="Keperluan" class="form-control @error('keperluan') is-invalid @enderror"
+                                      placeholder="Masukkan keperluan">{{ $PeminjamanAlat->keperluan }}</textarea>
+                            @error('keperluan')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="status">Status :</label>
+                            <select name="status" id="status" class="custom-select @error('status') is-invalid @enderror">
+                                @if($PeminjamanAlat->status === "0")
+                                    <option selected value="0">Masih Dipinjam</option>
+                                    <option value="1">Sudah Dikembalikan</option>
+                                @elseif($PeminjamanAlat->status === "1")
+                                    <option selected value="1">Sudah Dikembalikan</option>
+                                    <option value="0">Masih Dipinjam</option>
+                                @else
+                                    <option value="0">Masih Dipinjam</option>
+                                    <option value="1">Sudah Dikembalikan</option>
+                                @endif
+                            </select>
+                            @error('status')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @enderror
                         </div>
                     </div>
                     <!-- /.card-body -->

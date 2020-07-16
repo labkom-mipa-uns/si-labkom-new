@@ -8,13 +8,13 @@ use Faker\Generator as Faker;
 
 $factory->define(Mahasiswa::class, function (Faker $faker) {
     return [
-        'nim' => $faker->randomDigit,
+        'nim' => $faker->randomNumber(8),
         'nama_mahasiswa' => $faker->name,
-        'jenis_kelamin' => 'L',
-        'kelas' => $faker->randomDigit,
+        'jenis_kelamin' => $faker->randomElement(['L','P']),
+        'kelas' => $faker->randomElement(['TIA','TIB','TID']),
         'id_prodi' => factory(Prodi::class),
-        'angkatan' => '2019',
-        'no_hp' => $faker->randomDigit,
+        'angkatan' => $faker->randomElement(['2016','2017','2018','2019','2020']),
+        'no_hp' => $faker->phoneNumber,
         'created_at' => now()
     ];
 });

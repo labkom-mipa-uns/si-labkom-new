@@ -1,37 +1,38 @@
 import React, {Component, useEffect, useState} from 'react'
 import ReactDOM from 'react-dom'
+import $ from 'jquery'
 import Swal from 'sweetalert2'
 
-class Lab extends Component {
+class Alat extends Component {
     componentDidMount() {
-        const lab_success = $('.lab-success').data('flashdata')
-        const lab_warning = $('.lab-warning').data('flashdata')
-        const lab_danger = $('.lab-danger').data('flashdata')
-        if (lab_success) {
+        const alat_success = $('.alat-success').data('flashdata')
+        const alat_warning = $('.alat-warning').data('flashdata')
+        const alat_danger = $('.alat-danger').data('flashdata')
+        if (alat_success) {
             Swal.fire({
-                title: `Data Laboratorium`,
-                text: `${lab_success}`,
+                title: `Data Alat`,
+                text: `${alat_success}`,
                 icon: `success`
             })
-        } else if (lab_warning) {
+        } else if (alat_warning) {
             Swal.fire({
-                title: `Mohon Maaf`,
-                text: `${lab_warning}`,
+                title: `Mohon Maat`,
+                text: `${alat_warning}`,
                 icon: `warning`
             })
-        } else if (lab_danger) {
+        } else if (alat_danger) {
             Swal.fire({
-                title: `Data Peminjam Lab`,
-                text: `${lab_danger}`,
+                title: `Data Alat`,
+                text: `${alat_danger}`,
                 icon: `error`
             })
         }
 
-        $('.delete-lab-button').click(function (event) {
-            event.preventDefault();
+        $('.delete-alat-button').click(function (event) {
+            event.preventDefault()
             Swal.fire({
                 title: 'Apakah Kamu Yakin?',
-                text: "Data Laboratorium Akan Segera Dihapus!",
+                text: "Data Alat Akan Segera Dihapus!",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -39,7 +40,7 @@ class Lab extends Component {
                 confirmButtonText: 'Yes'
             }).then((result) => {
                 if (result.value) {
-                    $(this).parent().submit()
+                    $(this).parent().submit();
                 }
             })
         })
@@ -48,18 +49,18 @@ class Lab extends Component {
     render() {
         return (
             <React.Fragment>
-                <div className="modal fade" id="labModal" tabIndex="-1" role="dialog"
-                     aria-labelledby="labModalLabel" aria-hidden="true">
+                <div className="modal fade" id="alatModal" tabIndex="-1" role="dialog"
+                     aria-labelledby="alatModalLabel" aria-hidden="true">
                     <div className="modal-dialog modal-lg">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h5 className="modal-title" id="labModalLabel">Data Laboratorium</h5>
+                                <h5 className="modal-title" id="alatModalLabel">Data Alat</h5>
                                 <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div className="modal-body d-flex flex-column justify-content-center align-items-center">
-                                <DataLab/>
+                                <DataAlat/>
                             </div>
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -68,22 +69,22 @@ class Lab extends Component {
                     </div>
                 </div>
             </React.Fragment>
-        )
+        );
     }
 }
 
-function DataLab() {
-    const [lab, setLab] = useState({})
+function DataAlat() {
+    const [alat, setAlat] = useState({})
 
     useEffect(() => {
-        $('.detail-lab-button').click(async function () {
-            await fetch(`${$(this).data('showurl')}`,{
+        $('.detail-alat-button').click(async function() {
+            await fetch(`${$(this).data('showurl')}`, {
                 method: 'GET',
                 mode: "same-origin",
                 credentials: "same-origin",
                 headers: {
                     'Content-Type': 'application/json',
-                    'Accept': 'application/json',
+                    'Accept': 'application/json'
                 }
             }).then(response => {
                 if (response.ok) {
@@ -91,22 +92,24 @@ function DataLab() {
                 }
                 throw new Error(response.statusText)
             }).then(response => {
-                setLab({
-                    nama_lab: response.data.nama_lab
+                setAlat({
+                    nama: response.data.nama_alat,
+                    harga: response.data.harga_alat
                 })
             }).catch(error => console.error(error))
-        });
+        })
     })
 
     return (
         <React.Fragment>
-            <div className="card-title m-0"><h1 className='m-0 font-weight-bold'>{lab.nama_lab}</h1></div>
+            <div className="card-title m-0"><h1 className='m-0 font-weight-bold'>{alat.nama}</h1></div>
+            <div className="card-title m-0"><h2>Rp.{alat.harga}</h2></div>
         </React.Fragment>
     )
 }
 
-export default Lab
+export default Alat
 
-if (document.getElementById('detail-lab')) {
-    ReactDOM.render(<Lab/>, document.getElementById('detail-lab'));
+if (document.getElementById('detail-alat')) {
+    ReactDOM.render(<Alat/>, document.getElementById('detail-alat'))
 }

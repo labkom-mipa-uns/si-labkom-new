@@ -16,9 +16,9 @@ $factory->define(PeminjamanLab::class, function (Faker $faker) {
         'tanggal' => $faker->dateTime,
         'jam_pinjam' => $faker->time(),
         'jam_kembali' => $faker->time(),
-        'keperluan' => $faker->paragraph,
-        'kategori' => 'didalam_jam',
-        'status' => '0',
+        'keperluan' => $faker->paragraph(5),
+        'kategori' => $faker->randomElement(['didalam_jam','diluar_jam']),
+        'status' => $faker->randomElement(['0','1']),
         'created_at' => now()
     ];
 });

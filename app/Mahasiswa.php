@@ -18,4 +18,9 @@ class Mahasiswa extends Model
     {
         return $this->belongsTo(Prodi::class, 'id_prodi');
     }
+
+    public function suratbebaslabkom()
+    {
+        return $this->hasMany(SuratBebasLabkom::class);
+    }
 }

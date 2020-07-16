@@ -1,5 +1,6 @@
 <?php
 
+use App\PeminjamanAlat;
 use Illuminate\Database\Seeder;
 
 class PeminjamanAlatSeeder extends Seeder
@@ -11,6 +12,6 @@ class PeminjamanAlatSeeder extends Seeder
      */
     public function run()
     {
-        //
+        factory(PeminjamanAlat::class, 15)->create();
     }
 }
