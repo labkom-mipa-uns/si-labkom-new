@@ -1,5 +1,6 @@
 <?php
 
+use App\JasaInstallasi;
 use Illuminate\Database\Seeder;
 
 class JasaInstallasiSeeder extends Seeder
@@ -11,6 +12,6 @@ class JasaInstallasiSeeder extends Seeder
      */
     public function run()
     {
-        //
+        factory(JasaInstallasi::class, 15)->create();
     }
 }

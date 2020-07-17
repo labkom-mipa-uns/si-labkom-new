@@ -14,6 +14,9 @@
             </ol>
         </div><!-- /.col -->
     </div><!-- /.row -->
+    <div class="prodi-success" data-flashdata="{{ session('success') }}"></div>
+    <div class="prodi-warning" data-flashdata="{{ session('warning') }}"></div>
+    <div class="prodi-danger" data-flashdata="{{ session('danger') }}"></div>
 @endsection
 
 @section('content')
@@ -58,18 +61,18 @@
                             </a>
                         </td>
                         <td class="project-actions text-right">
-                            <button class="btn btn-secondary btn-sm" type="button">
+                            <button class="btn btn-secondary btn-sm detail-prodi-button" type="button" data-toggle="modal" data-target="#prodiModal" data-showurl="{{ route('Prodi.show', $elemen->id) }}">
                                 <i class="fas fa-folder"></i>
                                 Detail
                             </button>
-                            <a class="btn btn-info btn-sm" href="{{ route('Mahasiswa.edit', $elemen->id) }}">
+                            <a class="btn btn-info btn-sm" href="{{ route('Prodi.edit', $elemen->id) }}">
                                 <i class="fas fa-pencil-alt"></i>
                                 Edit
                             </a>
-                            <form action="{{ route('Mahasiswa.destroy', $elemen->id) }}" method="post" class="d-inline">
+                            <form action="{{ route('Prodi.destroy', $elemen->id) }}" method="post" class="d-inline">
                                 @csrf
                                 @method('delete')
-                                <button class="btn btn-danger btn-sm" href="{{ route('Mahasiswa.destroy', $elemen->id) }}">
+                                <button class="btn btn-danger btn-sm delete-prodi-button" href="{{ route('Prodi.destroy', $elemen->id) }}">
                                     <i class="fas fa-trash"></i>
                                     Delete
                                 </button>
@@ -82,6 +85,7 @@
             </table>
         </div>
         <!-- /.card-body -->
+        <div id="detail-prodi"></div>
     </div>
     <!-- /.card -->
 

@@ -24,7 +24,7 @@ class Dosen extends Component {
             Swal.fire({
                 title: `Data Dosen`,
                 text: `${dosen_success}`,
-                icon: 'danger'
+                icon: 'error'
             })
         }
 

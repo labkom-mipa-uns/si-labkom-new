@@ -25,7 +25,7 @@ class Jadwal extends Component {
             Swal.fire({
                 title: `Data Jadwal`,
                 text: `${jadwal_danger}`,
-                icon: `danger`
+                icon: `error`
             })
         }
 

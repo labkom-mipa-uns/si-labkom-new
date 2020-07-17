@@ -23,7 +23,7 @@ class PeminjamanLab extends Component {
             Swal.fire({
                 title: `Data Peminjam Lab`,
                 text: `${peminjamLab_danger}`,
-                icon: `danger`
+                icon: `error`
             })
         }
 

@@ -23,7 +23,7 @@
     <!-- Default box -->
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Jadwal</h3>
+            <h3 class="card-title">Daftar Jadwal</h3>
             <div class="card-tools">
                 <button type="button" class="btn btn-tool">
                     <a href="{{ route('Jadwal.create') }}" class="btn btn-primary btn-sm">

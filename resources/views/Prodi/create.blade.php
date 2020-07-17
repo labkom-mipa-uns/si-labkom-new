@@ -10,7 +10,7 @@
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                <li class="breadcrumb-item active"><a href="{{ route('Mahasiswa.index') }}">Program Studi</a></li>
+                <li class="breadcrumb-item active"><a href="{{ route('Prodi.index') }}">Program Studi</a></li>
                 <li class="breadcrumb-item active">Insert Data</li>
             </ol>
         </div><!-- /.col -->
@@ -34,8 +34,13 @@
                     </div>
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="Prodi">Program Studi :</label>
-                            <input type="text" name="nama_prodi" id="Prodi" class="form-control" placeholder="Masukkan Program Studi" maxlength="55">
+                            <label for="Prodi">Nama Prodi :</label>
+                            <input type="text" name="nama_prodi" id="Prodi" class="form-control @error('nama_prodi') is-invalid @enderror" placeholder="Masukkan Program Studi" value="{{ old('nama_prodi') }}" autocomplete="off">
+                            @error('nama_prodi')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                     </div>
                     <!-- /.card-body -->
@@ -49,10 +54,8 @@
                     <div class="card-tools" >
                         <a href="{{ route('Prodi.index') }}" class="btn btn-secondary btn-lg">Cancel</a>
                         <button type="submit" class="btn btn-primary btn-lg float-right">
-                            <a>
-                                <i class="fas fa-plus"></i>
-                                Insert Data
-                            </a>
+                            <i class="fas fa-plus"></i>
+                            Insert Data
                         </button>
                     </div>
                 </div>

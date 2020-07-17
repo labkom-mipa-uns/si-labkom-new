@@ -38,7 +38,7 @@ class PeminjamanLabController extends Controller
             ];
             return view('PeminjamanLab.index', $data);
         } catch (Exception $exception) {
-            return redirect()->route('home')->with('warning', "Silakan Coba Beberapa Saat Lagi! Problem: {$exception->getMessage()}");
+            return redirect()->home()->with('warning', "Silakan Coba Beberapa Saat Lagi! Problem: {$exception->getMessage()}");
         }
     }
 
@@ -129,6 +129,17 @@ class PeminjamanLabController extends Controller
      */
     public function update(Request $request, PeminjamanLab $PeminjamanLab): ?RedirectResponse
     {
+        $request->validate([
+            'id_mahasiswa' => 'required',
+            'id_lab' => 'required',
+            'id_jadwal' => 'required',
+            'tanggal' => 'required|date',
+            'jam_pinjam' => 'required',
+            'jam_kembali' => 'required',
+            'keperluan' => 'required|string',
+            'kategori' => 'required|string',
+            'status' => 'required|string',
+        ]);
         try {
             PeminjamanLab::whereId($PeminjamanLab->id)->update($request->except(['_token', '_method']));
             return redirect()->route('PeminjamanLab.index')->with('success',"Berhasil Diupdate!");

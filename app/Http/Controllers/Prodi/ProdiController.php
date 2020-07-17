@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Prodi;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ProdiResource;
 use App\Prodi;
+use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
@@ -15,24 +17,32 @@ class ProdiController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return Application|Factory|View
+     * @return Application|Factory|RedirectResponse|View
      */
-    public function index(): View
+    public function index()
     {
-        $data = [
-            'Prodi' => Prodi::all(),
-        ];
-        return view('Prodi.index', $data);
+        try {
+            $data = [
+                'Prodi' => Prodi::all(),
+            ];
+            return view('Prodi.index', $data);
+        } catch (Exception $exception) {
+            return redirect()->home()->with('warning', "Silakan Coba Beberapa Saat Lagi! Problem: {$exception->getMessage()}");
+        }
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return Application|Factory|View
+     * @return Application|Factory|RedirectResponse|View
      */
-    public function create(): View
+    public function create()
     {
-        return view('Prodi.create');
+        try {
+            return view('Prodi.create');
+        } catch (Exception $exception) {
+            return redirect()->route('Prodi.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! Problem: {$exception->getMessage()}");
+        }
     }
 
     /**
@@ -43,44 +53,77 @@ class ProdiController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        Prodi::create($request->all());
-        return redirect()->route('Prodi.index');
+        $request->validate([
+            'nama_prodi' => 'required|string'
+        ]);
+        try {
+            Prodi::create($request->all());
+            return redirect()->route('Prodi.index')->with('success', "Berhasil Ditambahkan!");
+        } catch (Exception $exception) {
+            return redirect()->route('Prodi.index')->with('danger',"Gagal Ditambahkan! Error: {$exception->getMessage()}");
+        }
+    }
+
+    /**
+     * @param Prodi $Prodi
+     * @return ProdiResource
+     */
+    public function show(Prodi $Prodi): ProdiResource
+    {
+        return new ProdiResource($Prodi);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
      * @param Prodi $Prodi
-     * @return Application|Factory|View
+     * @return Application|Factory|RedirectResponse|View
      */
-    public function edit(Prodi $Prodi): View
+    public function edit(Prodi $Prodi)
     {
-        $data = [
-            'Prodi' => $Prodi
-        ];
-        return view('Prodi.edit', $data);
+        try {
+            $data = [
+                'Prodi' => $Prodi
+            ];
+            return view('Prodi.edit', $data);
+        } catch (Exception $exception) {
+            return redirect()->route('Prodi.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! Problem: {$exception->getMessage()}");
+        }
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Prodi $Prodi
+     * @return RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Prodi $Prodi): ?RedirectResponse
     {
-        //
+        $request->validate([
+            'nama_prodi' => 'required|string'
+        ]);
+        try {
+            Prodi::whereId($Prodi->id)->update($request->except(['_token', '_method']));
+            return redirect()->route('Prodi.index')->with('success', "Berhasil Diupdate!");
+        } catch (Exception $exception) {
+            return redirect()->route('Prodi.index')->with('danger', "Gagal Diupdate! Error: {$exception->getMessage()}");
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Prodi $Prodi
+     * @return RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Prodi $Prodi): ?RedirectResponse
     {
-        //
+        try {
+            Prodi::destroy($Prodi->id);
+            return redirect()->route('Prodi.index')->with('success', "Berhasil Dihapus!");
+        } catch (Exception $exception) {
+            return redirect()->route('Prodi.index')->with('danger', "Gagal Dihapus! Error: {$exception->getMessage()}");
+        }
     }
 }

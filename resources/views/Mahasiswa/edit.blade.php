@@ -114,7 +114,7 @@
                         </div>
                         <div class="form-group">
                             <label for="no_hp">No HP :</label>
-                            <input type="number" name="no_hp" id="no_hp" class="form-control" min="0" value="{{ $Mahasiswa->no_hp }}" autocomplete="off">
+                            <input type="tel" name="no_hp" id="no_hp" class="form-control" min="0" value="{{ $Mahasiswa->no_hp }}" autocomplete="off">
                             @error('no_hp')
                                 <div class="invalid-feedback">
                                     {{ $message }}

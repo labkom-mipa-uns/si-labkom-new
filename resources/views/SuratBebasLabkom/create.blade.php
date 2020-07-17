@@ -20,6 +20,7 @@
 @section('content')
     <form action="{{ route('SuratBebasLabkom.store') }}" method="post">
         @csrf
+        @method('post')
         <div class="row">
             <div class="col-md-12">
                 <div class="card card-primary">
@@ -34,24 +35,40 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="Nama">Nama :</label>
-                            <select name="id_mahasiswa" id="Nama" class="custom-select" required>
-                                <option></option>
-{{--                                @foreach($Mahasiswa as $elemen)--}}
-{{--                                    <option value="{{ $elemen->id_mahasiswa }}">{{ $elemen->nama_mahasiswa }}</option>--}}
-{{--                                @endforeach--}}
+                            <select name="id_mahasiswa" id="Nama" class="custom-select @error('id_mahasiswa') is-invalid @enderror">
+                                <option disabled @if(!old('id_mahasiswa')) selected @endif>Pilih Nama Mahasiswa</option>
+                                @foreach($Mahasiswa as $elemen)
+                                    @if(old('id_mahasiswa') == $elemen->id)
+                                        <option selected value="{{ old('id_mahasiswa') }}">{{ $elemen->nama_mahasiswa }}</option>
+                                    @else
+                                        <option value="{{ $elemen->id }}">{{ $elemen->nama_mahasiswa }}</option>
+                                    @endif
+                                @endforeach
                             </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="Hari">Hari :</label>
-                            <input type="text" name="hari" id="Hari" class="form-control" placeholder="Masukkan hari" maxlength="7" required="">
+                            @error('id_mahasiswa')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="Tanggal">Tanggal :</label>
-                            <input type="text" name="tanggal" id="Tanggal" class="form-control" placeholder="Masukkan tanggal" maxlength="25" required="">
+                            <input type="text" name="tanggal" id="Tanggal" class="form-control @error('tanggal') is-invalid @enderror" placeholder="Masukkan tanggal" onfocus="this.type = 'date'" value="{{ old('tanggal') }}">
+                            @error('tanggal')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="Keperluan">Keperluan :</label>
-                            <textarea class="form-control" name="keperluan" id="Keperluan" cols="30" rows="4" placeholder="Masukkan keperluan" required></textarea>
+                            <textarea name="keperluan" cols="40" rows="4" id="Keperluan" class="form-control @error('keperluan') is-invalid @enderror"
+                                      placeholder="Masukkan keperluan">{{ old('keperluan') }}</textarea>
+                            @error('keperluan')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                     </div>
                     <!-- /.card-body -->
@@ -67,10 +84,8 @@
                     <div class="card-tools">
                         <a href="{{ route('SuratBebasLabkom.index') }}" class="btn btn-secondary btn-lg">Cancel</a>
                         <button type="submit" class="btn btn-primary btn-lg float-right">
-                            <a>
-                                <i class="fas fa-plus"></i>
-                                Insert Data
-                            </a>
+                            <i class="fas fa-plus"></i>
+                            Insert Data
                         </button>
                     </div>
                 </div>

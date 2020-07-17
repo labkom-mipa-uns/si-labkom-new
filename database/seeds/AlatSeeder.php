@@ -1,5 +1,6 @@
 <?php
 
+use App\Alat;
 use Illuminate\Database\Seeder;
 
 class AlatSeeder extends Seeder
@@ -11,6 +12,6 @@ class AlatSeeder extends Seeder
      */
     public function run()
     {
-        //
+        factory(Alat::class, 15)->create();
     }
 }

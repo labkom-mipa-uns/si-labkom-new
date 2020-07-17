@@ -12,6 +12,7 @@ require('./bootstrap');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+require('./components/Home');
 require('./components/PeminjamanAlat');
 require('./components/PeminjamanLab');
 require('./components/SuratBebasLabkom');
@@ -19,4 +20,8 @@ require('./components/Lab');
 require('./components/Mahasiswa');
 require('./components/Dosen');
 require('./components/MataKuliah');
+require('./components/Prodi');
 require('./components/Jadwal');
+require('./components/Alat');
+require('./components/Software');
+require('./components/JasaInstallasi');
