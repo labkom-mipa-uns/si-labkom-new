@@ -1,32 +1,32 @@
 @extends('adminlte::page')
-@section('title', 'Labkom FMIPA UNS | Program Studi')
+@section('title', 'Labkom FMIPA UNS | Software')
 
 @section('content_header')
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Daftar Program Studi</h1>
+            <h1 class="m-0 text-dark">Daftar Software</h1>
         </div>
         <!-- /.col -->
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                <li class="breadcrumb-item active">Program Studi</li>
+                <li class="breadcrumb-item active">Software</li>
             </ol>
         </div><!-- /.col -->
     </div><!-- /.row -->
-    <div class="prodi-success" data-flashdata="{{ session('success') }}"></div>
-    <div class="prodi-warning" data-flashdata="{{ session('warning') }}"></div>
-    <div class="prodi-danger" data-flashdata="{{ session('danger') }}"></div>
+    <div class="software-success" data-flashdata="{{ session('success') }}"></div>
+    <div class="software-warning" data-flashdata="{{ session('warning') }}"></div>
+    <div class="software-danger" data-flashdata="{{ session('danger') }}"></div>
 @endsection
 
 @section('content')
     <!-- Default box -->
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Daftar Program Studi</h3>
+            <h3 class="card-title">Daftar Software</h3>
             <div class="card-tools">
                 <button type="button" class="btn btn-tool">
-                    <a href="{{ route('Prodi.create') }}" class="btn btn-primary btn-sm">
+                    <a href="{{ route('Software.create') }}" class="btn btn-primary btn-sm">
                         <i class="fas fa-user-plus"></i>
                         Insert
                     </a>
@@ -41,7 +41,10 @@
                         No
                     </th>
                     <th class="text-center">
-                        Prodi
+                        Nama Software
+                    </th>
+                    <th class="text-center">
+                        Harga Software
                     </th>
                     <th>
                         #
@@ -50,29 +53,34 @@
                 </thead>
                 <tbody>
 
-                @foreach($Prodi as $elemen)
+                @foreach($Software as $elemen)
                     <tr>
                         <td class="text-center">
                             {{ $loop->iteration }}
                         </td>
                         <td class="text-center">
                             <a>
-                                {{ $elemen->nama_prodi }}
+                                {{ $elemen->nama_software }}
+                            </a>
+                        </td>
+                        <td class="text-center">
+                            <a>
+                                Rp.{{ $elemen->harga_software }}
                             </a>
                         </td>
                         <td class="project-actions text-right">
-                            <button class="btn btn-secondary btn-sm detail-prodi-button" type="button" data-toggle="modal" data-target="#prodiModal" data-showurl="{{ route('Prodi.show', $elemen->id) }}">
+                            <button class="btn btn-secondary btn-sm detail-software-button" type="button" data-toggle="modal" data-target="#softwareModal" data-showurl="{{ route('Software.show', $elemen->id) }}">
                                 <i class="fas fa-folder"></i>
                                 Detail
                             </button>
-                            <a class="btn btn-info btn-sm" href="{{ route('Prodi.edit', $elemen->id) }}">
+                            <a class="btn btn-info btn-sm" href="{{ route('Software.edit', $elemen->id) }}">
                                 <i class="fas fa-pencil-alt"></i>
                                 Edit
                             </a>
-                            <form action="{{ route('Prodi.destroy', $elemen->id) }}" method="post" class="d-inline">
+                            <form action="{{ route('Software.destroy', $elemen->id) }}" method="post" class="d-inline">
                                 @csrf
                                 @method('delete')
-                                <button class="btn btn-danger btn-sm delete-prodi-button" href="{{ route('Prodi.destroy', $elemen->id) }}">
+                                <button class="btn btn-danger btn-sm delete-software-button" type="submit">
                                     <i class="fas fa-trash"></i>
                                     Delete
                                 </button>
@@ -85,8 +93,7 @@
             </table>
         </div>
         <!-- /.card-body -->
-        <div id="detail-prodi"></div>
+        <div id="detail-software"></div>
     </div>
     <!-- /.card -->
-
 @endsection

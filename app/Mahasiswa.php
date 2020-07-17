@@ -23,4 +23,9 @@ class Mahasiswa extends Model
     {
         return $this->hasMany(SuratBebasLabkom::class);
     }
+
+    public function jasainstallasi()
+    {
+        return $this->hasMany(JasaInstallasi::class);
+    }
 }

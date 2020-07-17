@@ -20,5 +20,8 @@ require('./components/Lab');
 require('./components/Mahasiswa');
 require('./components/Dosen');
 require('./components/MataKuliah');
+require('./components/Prodi');
 require('./components/Jadwal');
 require('./components/Alat');
+require('./components/Software');
+require('./components/JasaInstallasi');
