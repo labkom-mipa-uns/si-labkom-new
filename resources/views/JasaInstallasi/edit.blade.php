@@ -38,7 +38,7 @@
                             <select name="id_mahasiswa" id="Nama" class="custom-select @error('id_mahasiswa') is-invalid @enderror">
                                 @foreach($Mahasiswa as $elemen)
                                     @if($JasaInstallasi->id_mahasiswa == $elemen->id)
-                                        <option selected value="{{ old('id_mahasiswa') }}">{{ $elemen->nama_mahasiswa }}</option>
+                                        <option selected value="{{ $JasaInstallasi->id_mahasiswa }}">{{ $elemen->nama_mahasiswa }}</option>
                                     @else
                                         <option value="{{ $elemen->id }}">{{ $elemen->nama_mahasiswa }}</option>
                                     @endif
@@ -52,7 +52,7 @@
                         </div>
                         <div class="form-group">
                             <label for="laptop">Laptop :</label>
-                            <input type="text" name="laptop" id="laptop" class="form-control @error('laptop') is-invalid @enderror" placeholder="Masukkan Merk Laptop" value="{{ $JasaInstallasi->laptop }}">
+                            <input type="text" name="laptop" id="laptop" class="form-control @error('laptop') is-invalid @enderror" placeholder="Masukkan Merk Laptop" value="{{ $JasaInstallasi->laptop }}" autocomplete="off">
                             @error('laptop')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -61,7 +61,7 @@
                         </div>
                         <div class="form-group">
                             <label for="kelengkapan">Kelengkapan :</label>
-                            <textarea name="kelengkapan" cols="40" rows="4" id="kelengkapan" class="form-control @error('kelengkapan') is-invalid @enderror" placeholder="Masukkan Kelengkapan Laptop">{{ $JasaInstallasi->kelengkapan }}</textarea>
+                            <textarea name="kelengkapan" cols="40" rows="4" id="kelengkapan" class="form-control @error('kelengkapan') is-invalid @enderror" placeholder="Masukkan Kelengkapan Laptop" autocomplete="off">{{ $JasaInstallasi->kelengkapan }}</textarea>
                             @error('kelengkapan')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -99,7 +99,7 @@
                                 <option>Service</option>
                                 @foreach($Software as $elemen)
                                     @if($JasaInstallasi->id_software == $elemen->id)
-                                        <option selected value="{{ old('id_software') }}">{{ $elemen->nama_software }}</option>
+                                        <option selected value="{{ $JasaInstallasi->id_software }}">{{ $elemen->nama_software }}</option>
                                     @else
                                         <option value="{{ $elemen->id }}">{{ $elemen->nama_software }}</option>
                                     @endif
@@ -114,7 +114,7 @@
                         <div class="form-group">
                             <label for="Keterangan">Keterangan :</label>
                             <textarea name="keterangan" cols="40" rows="4" id="Keterangan" class="form-control @error('keterangan') is-invalid @enderror"
-                                      placeholder="Masukkan keterangan">{{ $JasaInstallasi->keterangan }}</textarea>
+                                      placeholder="Masukkan keterangan" autocomplete="off">{{ $JasaInstallasi->keterangan }}</textarea>
                             @error('keterangan')
                                 <div class="invalid-feedback">
                                     {{ $message }}

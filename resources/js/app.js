@@ -25,3 +25,4 @@ require('./components/Jadwal');
 require('./components/Alat');
 require('./components/Software');
 require('./components/JasaInstallasi');
+require('./components/JasaPrint');

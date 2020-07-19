@@ -76,7 +76,7 @@ class JasaInstallasiController extends Controller
             'id_software' => 'required',
             'jenis' => 'required',
             'keterangan' => 'required',
-            'jam_ambil' => 'required|time'
+            'jam_ambil' => 'required'
         ]);
         try {
             JasaInstallasi::create($request->all());
@@ -94,7 +94,7 @@ class JasaInstallasiController extends Controller
      */
     public function show(JasaInstallasi $JasaInstallasi): JasaInstallasiResource
     {
-        return new JasaInstallasiResource($JasaInstallasi::with(['mahasiswa', 'software']));
+        return new JasaInstallasiResource($JasaInstallasi::with(['mahasiswa', 'software'])->firstWhere('id',$JasaInstallasi->id));
     }
 
     /**
@@ -107,7 +107,7 @@ class JasaInstallasiController extends Controller
     {
         try {
             $data = [
-                'JasaInstallasi' => $JasaInstallasi::with(['mahasiswa', 'software']),
+                'JasaInstallasi' => $JasaInstallasi::with(['mahasiswa', 'software'])->firstWhere('id',$JasaInstallasi->id),
                 'Mahasiswa' => Mahasiswa::all(),
                 'Software' => Software::all()
             ];
@@ -134,7 +134,7 @@ class JasaInstallasiController extends Controller
             'id_software' => 'required',
             'jenis' => 'required',
             'keterangan' => 'required',
-            'jam_ambil' => 'required|time'
+            'jam_ambil' => 'required'
         ]);
         try {
             JasaInstallasi::whereId($JasaInstallasi->id)->update($request->except(['_method','_token']));

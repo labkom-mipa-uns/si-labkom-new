@@ -23,7 +23,7 @@ Route::resource('PeminjamanLab', 'PeminjamanLab\PeminjamanLabController');
 Route::resource('PeminjamanAlat', 'PeminjamanAlat\PeminjamanAlatController');
 Route::resource('SuratBebasLabkom', 'SuratBebasLabkom\SuratBebasLabkomController');
 Route::resource('JasaInstallasi', 'JasaInstallasi\JasaInstallasiController');
-Route::resource('JasaPrint', 'JasaPrint\JasaPrintController')->except('show');
+Route::resource('JasaPrint', 'JasaPrint\JasaPrintController');
 
 Route::resource('Laboratorium', 'Lab\LabController');
 Route::resource('Alat', 'Alat\AlatController');

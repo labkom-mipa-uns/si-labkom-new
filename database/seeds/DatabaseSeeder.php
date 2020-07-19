@@ -22,5 +22,7 @@ class DatabaseSeeder extends Seeder
         $this->call(AlatSeeder::class);
         $this->call(PeminjamanAlatSeeder::class);
         $this->call(SuratBebasLabkomSeeder::class);
+        $this->call(JasaInstallasiSeeder::class);
+        $this->call(JasaPrintSeeder::class);
     }
 }

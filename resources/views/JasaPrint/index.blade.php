@@ -1,32 +1,32 @@
 @extends('adminlte::page')
-@section('title', 'Labkom FMIPA UNS | Jasa Installasi')
+@section('title', 'Labkom FMIPA UNS | Jasa Print')
 
 @section('content_header')
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Daftar Customer Jasa Installasi</h1>
+            <h1 class="m-0 text-dark">Daftar Print</h1>
         </div>
         <!-- /.col -->
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                <li class="breadcrumb-item active">Jasa Installasi</li>
+                <li class="breadcrumb-item active">Jasa Print</li>
             </ol>
         </div><!-- /.col -->
     </div><!-- /.row -->
-    <div class="jasainstallasi-success" data-flashdata="{{ session('success') }}"></div>
-    <div class="jasainstallasi-warning" data-flashdata="{{ session('warning') }}"></div>
-    <div class="jasainstallasi-danger" data-flashdata="{{ session('danger') }}"></div>
+    <div class="jasaprint-success" data-flashdata="{{ session('success') }}"></div>
+    <div class="jasaprint-warning" data-flashdata="{{ session('warning') }}"></div>
+    <div class="jasaprint-danger" data-flashdata="{{ session('danger') }}"></div>
 @endsection
 
 @section('content')
     <!-- Default box -->
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Daftar Customer Jasa Installasi</h3>
+            <h3 class="card-title">Daftar Print</h3>
             <div class="card-tools">
                 <button type="button" class="btn btn-tool">
-                    <a href="{{ route('JasaInstallasi.create') }}" class="btn btn-primary btn-sm">
+                    <a href="{{ route('JasaPrint.create') }}" class="btn btn-primary btn-sm">
                         <i class="fas fa-user-plus"></i>
                         Insert
                     </a>
@@ -44,13 +44,10 @@
                         Tanggal
                     </th>
                     <th class="text-center">
-                        Nama
+                        Jenis Print
                     </th>
                     <th class="text-center">
-                        Laptop
-                    </th>
-                    <th class="text-center">
-                        Software
+                        Harga Print
                     </th>
                     <th>
                         #
@@ -59,53 +56,39 @@
                 </thead>
                 <tbody>
 
-                @foreach($JasaInstallasi as $elemen)
+                @foreach($JasaPrint as $elemen)
                     <tr>
                         <td class="text-center">
                             {{ $loop->iteration }}
                         </td>
                         <td class="text-center">
                             <a>
-                                {{ $elemen->tanggal }}
+                                {{ $elemen->tanggal_print }}
                             </a>
                         </td>
                         <td class="text-center">
                             <a>
-                                {{ $elemen->mahasiswa->nama_mahasiswa }}
-                            </a>
-                            <br>
-                            <small>
-                                {{ $elemen->mahasiswa->kelas }} - {{ $elemen->mahasiswa->nim }}
-                            </small>
-                            <br>
-                        </td>
-                        <td class="text-center">
-                            <a>
-                                {{ $elemen->laptop }}
+                                {{ $elemen->jenis_print }}
                             </a>
                         </td>
                         <td class="text-center">
                             <a>
-                                {{ $elemen->software->nama_software }}
+                                Rp.{{ $elemen->harga_print }}
                             </a>
-                            <br>
-                            <small>
-                                {{ $elemen->jam_ambil }}
-                            </small>
                         </td>
                         <td class="project-actions text-right">
-                            <button class="btn btn-secondary btn-sm detail-jasainstallasi-button" type="button" data-toggle="modal" data-target="#jasainstallasiModal" data-showurl="{{ route('JasaInstallasi.show', $elemen->id) }}">
+                            <button class="btn btn-secondary btn-sm detail-jasaprint-button" type="button" data-toggle="modal" data-target="#jasaprintModal" data-showurl="{{ route('JasaPrint.show', $elemen->id) }}">
                                 <i class="fas fa-folder"></i>
                                 Detail
                             </button>
-                            <a class="btn btn-info btn-sm" href="{{ route('JasaInstallasi.edit', $elemen->id) }}">
+                            <a class="btn btn-info btn-sm" href="{{ route('JasaPrint.edit', $elemen->id) }}">
                                 <i class="fas fa-pencil-alt"></i>
                                 Edit
                             </a>
-                            <form action="{{ route('JasaInstallasi.destroy', $elemen->id) }}" method="post" class="d-inline">
+                            <form action="{{ route('JasaPrint.destroy', $elemen->id) }}" method="post" class="d-inline">
                                 @csrf
                                 @method('delete')
-                                <button class="btn btn-danger btn-sm delete-peminjamanlab-button" type="submit">
+                                <button class="btn btn-danger btn-sm delete-jasaprint-button" type="submit">
                                     <i class="fas fa-trash"></i>
                                     Delete
                                 </button>
@@ -118,7 +101,7 @@
             </table>
         </div>
         <!-- /.card-body -->
-        <div id="detail-jasainstallasi"></div>
+        <div id="detail-jasaprint"></div>
     </div>
     <!-- /.card -->
 @endsection

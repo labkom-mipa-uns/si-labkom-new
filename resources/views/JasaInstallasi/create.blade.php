@@ -10,7 +10,7 @@
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('JasaInstallasi.index') }}">Jasa Installasi</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('JasaInstallasi.index') }}">Jasa Installasq</a></li>
                 <li class="breadcrumb-item active">Insert Data</li>
             </ol>
         </div><!-- /.col -->
@@ -53,7 +53,7 @@
                         </div>
                         <div class="form-group">
                             <label for="laptop">Laptop :</label>
-                            <input type="text" name="laptop" id="laptop" class="form-control @error('laptop') is-invalid @enderror" placeholder="Masukkan Merk Laptop" value="{{ old('laptop') }}">
+                            <input type="text" name="laptop" id="laptop" class="form-control @error('laptop') is-invalid @enderror" placeholder="Masukkan Merk Laptop" value="{{ old('laptop') }}" autocomplete="off">
                             @error('laptop')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -62,7 +62,7 @@
                         </div>
                         <div class="form-group">
                             <label for="kelengkapan">Kelengkapan :</label>
-                            <textarea name="kelengkapan" cols="40" rows="4" id="kelengkapan" class="form-control @error('kelengkapan') is-invalid @enderror" placeholder="Masukkan Kelengkapan Laptop">{{ old('kelengkapan') }}</textarea>
+                            <textarea name="kelengkapan" cols="40" rows="4" id="kelengkapan" class="form-control @error('kelengkapan') is-invalid @enderror" placeholder="Masukkan Kelengkapan Laptop" autocomplete="off">{{ old('kelengkapan') }}</textarea>
                             @error('kelengkapan')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -116,11 +116,11 @@
                         <div class="form-group">
                             <label for="Keterangan">Keterangan :</label>
                             <textarea name="keterangan" cols="40" rows="4" id="Keterangan" class="form-control @error('keterangan') is-invalid @enderror"
-                                      placeholder="Masukkan keterangan">{{ old('keterangan') }}</textarea>
+                                      placeholder="Masukkan keterangan" autocomplete="off">{{ old('keterangan') }}</textarea>
                             @error('keterangan')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
                             @enderror
                         </div>
                         <div class="form-group">
