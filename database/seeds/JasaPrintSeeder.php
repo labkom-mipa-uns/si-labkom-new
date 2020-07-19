@@ -1,5 +1,6 @@
 <?php
 
+use App\JasaPrint;
 use Illuminate\Database\Seeder;
 
 class JasaPrintSeeder extends Seeder
@@ -11,6 +12,6 @@ class JasaPrintSeeder extends Seeder
      */
     public function run()
     {
-        //
+        factory(JasaPrint::class, 15)->create();
     }
 }

@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Component, useEffect, useState} from 'react'
 import ReactDOM from 'react-dom'
 import $ from 'jquery'
 import Swal from 'sweetalert2'
@@ -102,7 +102,7 @@ function DataCustomer() {
                     tanggal: response.data.tanggal,
                     jam_ambil: response.data.jam_ambil,
                     kelengkapan: response.data.kelengkapan,
-                    software: response.data.software,
+                    software: response.data.software.nama_software,
                     keterangan: response.data.keterangan,
                     jenis: response.data.jenis,
                 })
