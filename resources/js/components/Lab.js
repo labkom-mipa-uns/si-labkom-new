@@ -21,7 +21,7 @@ class Lab extends Component {
             })
         } else if (lab_danger) {
             Swal.fire({
-                title: `Data Peminjam Lab`,
+                title: `Data Laboratorium`,
                 text: `${lab_danger}`,
                 icon: `error`
             })

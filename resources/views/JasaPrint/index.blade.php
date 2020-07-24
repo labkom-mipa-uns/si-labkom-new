@@ -59,7 +59,7 @@
                 @foreach($JasaPrint as $elemen)
                     <tr>
                         <td class="text-center">
-                            {{ $loop->iteration }}
+                            {{ ($JasaPrint->currentPage() - 1) * $JasaPrint->perPage() + $loop->index + 1 }}
                         </td>
                         <td class="text-center">
                             <a>
@@ -88,7 +88,7 @@
                             <form action="{{ route('JasaPrint.destroy', $elemen->id) }}" method="post" class="d-inline">
                                 @csrf
                                 @method('delete')
-                                <button class="btn btn-danger btn-sm delete-jasaprint-button" type="submit">
+                                <button class="btn btn-danger btn-sm delete-jasaprint-button d" type="submit">
                                     <i class="fas fa-trash"></i>
                                     Delete
                                 </button>
@@ -99,6 +99,9 @@
 
                 </tbody>
             </table>
+            <section class="d-flex align-items-center justify-content-center mt-3">
+                {{ $JasaPrint->links() }}
+            </section>
         </div>
         <!-- /.card-body -->
         <div id="detail-jasaprint"></div>

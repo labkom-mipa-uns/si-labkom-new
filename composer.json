@@ -10,6 +10,7 @@
     "require": {
         "php": "^7.2.5",
         "aws/aws-sdk-php": "^3.143",
+        "barryvdh/laravel-dompdf": "^0.8.6",
         "doctrine/annotations": "^1.10",
         "doctrine/couchdb": "^1.0@beta",
         "elasticsearch/elasticsearch": "^7.8",

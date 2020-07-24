@@ -62,7 +62,7 @@
                 @foreach($JasaInstallasi as $elemen)
                     <tr>
                         <td class="text-center">
-                            {{ $loop->iteration }}
+                            {{ ($JasaInstallasi->currentPage() - 1) * $JasaInstallasi->perPage() + $loop->index + 1 }}
                         </td>
                         <td class="text-center">
                             <a>
@@ -116,6 +116,9 @@
 
                 </tbody>
             </table>
+            <section class="d-flex align-items-center justify-content-center mt-3">
+                {{ $JasaInstallasi->links() }}
+            </section>
         </div>
         <!-- /.card-body -->
         <div id="detail-jasainstallasi"></div>

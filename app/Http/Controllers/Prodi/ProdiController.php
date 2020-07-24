@@ -10,10 +10,19 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 class ProdiController extends Controller
 {
+    /**
+     * ProdiController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('verified');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -23,7 +32,7 @@ class ProdiController extends Controller
     {
         try {
             $data = [
-                'Prodi' => Prodi::all(),
+                'Prodi' => Prodi::orderBy('created_at', 'desc')->paginate(8),
             ];
             return view('Prodi.index', $data);
         } catch (Exception $exception) {
@@ -120,6 +129,7 @@ class ProdiController extends Controller
     public function destroy(Prodi $Prodi): ?RedirectResponse
     {
         try {
+            Gate::authorize('delete-data');
             Prodi::destroy($Prodi->id);
             return redirect()->route('Prodi.index')->with('success', "Berhasil Dihapus!");
         } catch (Exception $exception) {

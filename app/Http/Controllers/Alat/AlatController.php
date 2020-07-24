@@ -11,6 +11,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 class AlatController extends Controller
@@ -32,7 +33,7 @@ class AlatController extends Controller
     {
         try {
             $data= [
-                'Alat' => Alat::all()
+                'Alat' => Alat::orderBy('created_at', 'desc')->paginate(8)
             ];
             return view('Alat.index', $data);
         } catch (Exception $exception) {
@@ -133,6 +134,7 @@ class AlatController extends Controller
     public function destroy(Alat $Alat): ?RedirectResponse
     {
         try {
+            Gate::authorize('delete-data');
             Alat::destroy($Alat->id);
             return redirect()->route('Alat.index')->with('success', "Berhasil Dihapus!");
         } catch (Exception $exception) {

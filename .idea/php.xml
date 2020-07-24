@@ -105,7 +105,6 @@
       <path value="$PROJECT_DIR$/vendor/true/punycode" />
       <path value="$PROJECT_DIR$/vendor/phpunit/php-invoker" />
       <path value="$PROJECT_DIR$/vendor/ircmaxell/security-lib" />
-      <path value="$PROJECT_DIR$/vendor/php-amqplib/php-amqplib" />
       <path value="$PROJECT_DIR$/vendor/psr/cache" />
       <path value="$PROJECT_DIR$/vendor/psr/http-server-handler" />
       <path value="$PROJECT_DIR$/vendor/rollbar/rollbar" />
@@ -148,11 +147,15 @@
       <path value="$PROJECT_DIR$/vendor/whoops/soap" />
       <path value="$PROJECT_DIR$/vendor/ezimuel/ringphp" />
       <path value="$PROJECT_DIR$/vendor/ezimuel/guzzlestreams" />
-      <path value="$PROJECT_DIR$/vendor/mongodb/mongodb" />
       <path value="$PROJECT_DIR$/vendor/mtdowling/jmespath.php" />
       <path value="$PROJECT_DIR$/vendor/react/promise" />
       <path value="$PROJECT_DIR$/vendor/almasaeed2010/adminlte" />
       <path value="$PROJECT_DIR$/vendor/jeroennoten/laravel-adminlte" />
+      <path value="$PROJECT_DIR$/vendor/phenx/php-svg-lib" />
+      <path value="$PROJECT_DIR$/vendor/phenx/php-font-lib" />
+      <path value="$PROJECT_DIR$/vendor/dompdf/dompdf" />
+      <path value="$PROJECT_DIR$/vendor/barryvdh/laravel-dompdf" />
+      <path value="$PROJECT_DIR$/vendor/sabberworm/php-css-parser" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.2" />

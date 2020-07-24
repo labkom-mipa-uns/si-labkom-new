@@ -59,7 +59,7 @@
                 @foreach($Jadwal as $elemen)
                     <tr>
                         <td class="text-center">
-                            {{ $loop->iteration }}
+                            {{ ($Jadwal->currentPage() - 1) * $Jadwal->perPage() + $loop->index + 1 }}
                         </td>
                         <td class="text-center">
                             <a>
@@ -99,6 +99,9 @@
 
                 </tbody>
             </table>
+            <section class="d-flex align-items-center justify-content-center mt-3">
+                {{ $Jadwal->links() }}
+            </section>
         </div>
         <!-- /.card-body -->
         <div id="detail-jadwal"></div>

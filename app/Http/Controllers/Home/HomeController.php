@@ -28,11 +28,11 @@ class HomeController extends Controller
     public function __invoke()
     {
         $data = [
-            'PeminjamanLab' => count(PeminjamanLab::all()),
-            'PeminjamanAlat' => count(PeminjamanAlat::all()),
-            'SuratBebasLabkom' => count(SuratBebasLabkom::all()),
-            'JasaPrint' => count(JasaPrint::all()),
-            'JasaInstallasi' => count(JasaInstallasi::all()),
+            'PeminjamanLab' => PeminjamanLab::all()->count(),
+            'PeminjamanAlat' => PeminjamanAlat::all()->count(),
+            'SuratBebasLabkom' => SuratBebasLabkom::all()->count(),
+            'JasaPrint' => JasaPrint::all()->count(),
+            'JasaInstallasi' => JasaInstallasi::all()->count(),
         ];
         return view('Home.home', $data);
     }

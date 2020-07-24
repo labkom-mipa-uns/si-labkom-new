@@ -33,4 +33,3 @@ Route::resource('Dosen', 'Dosen\DosenController');
 Route::resource('MataKuliah', 'MataKuliah\MataKuliahController');
 Route::resource('Jadwal', 'Jadwal\JadwalController');
 Route::resource('Software', 'Software\SoftwareController');
-Route::resource('Transaksi', 'Transaksi\TransaksiController')->except('show');

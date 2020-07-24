@@ -17,13 +17,13 @@ class Dosen extends Component {
         } else if (dosen_warning) {
             Swal.fire({
                 title: `Mohon Maaf`,
-                text: `${dosen_success}`,
+                text: `${dosen_warning}`,
                 icon: 'warning'
             })
         } else if (dosen_danger) {
             Swal.fire({
                 title: `Data Dosen`,
-                text: `${dosen_success}`,
+                text: `${dosen_danger}`,
                 icon: 'error'
             })
         }

@@ -14,6 +14,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 class JadwalController extends Controller
@@ -35,7 +36,7 @@ class JadwalController extends Controller
     {
         try {
             $data = [
-                'Jadwal' => Jadwal::with(['prodi','dosen', 'matakuliah'])->get()
+                'Jadwal' => Jadwal::with(['prodi','dosen', 'matakuliah'])->orderBy('created_at','desc')->paginate(8)
             ];
             return view('Jadwal.index', $data);
         } catch (Exception $exception) {
@@ -52,9 +53,9 @@ class JadwalController extends Controller
     {
         try {
             $data = [
-                'Prodi' => Prodi::all(),
-                'Dosen' => Dosen::all(),
-                'MataKuliah' => MataKuliah::all(),
+                'Prodi' => Prodi::orderBy('nama_prodi', 'asc')->get(),
+                'Dosen' => Dosen::orderBy('nama_dosen', 'asc')->get(),
+                'MataKuliah' => MataKuliah::orderBy('nama_matkul', 'asc')->get()
             ];
             return view('Jadwal.create', $data);
         } catch (Exception $exception) {
@@ -105,9 +106,9 @@ class JadwalController extends Controller
         try {
             $data = [
                 'Jadwal' => $Jadwal::with(['prodi', 'dosen', 'matakuliah'])->firstWhere('id', $Jadwal->id),
-                'Prodi' => Prodi::all(),
-                'Dosen' => Dosen::all(),
-                'MataKuliah' => MataKuliah::all()
+                'Prodi' => Prodi::orderBy('nama_prodi', 'asc')->get(),
+                'Dosen' => Dosen::orderBy('nama_dosen', 'asc')->get(),
+                'MataKuliah' => MataKuliah::orderBy('nama_matkul', 'asc')->get()
             ];
             return view('Jadwal.edit', $data);
         } catch (Exception $exception) {
@@ -146,6 +147,7 @@ class JadwalController extends Controller
     public function destroy(Jadwal $Jadwal): ?RedirectResponse
     {
         try {
+            Gate::authorize('delete-data');
             Jadwal::destroy($Jadwal->id);
             return redirect()->route('Jadwal.index')->with('success', "Berhasil Dihapus!");
         } catch (Exception $exception) {

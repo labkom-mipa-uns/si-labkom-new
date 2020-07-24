@@ -17,13 +17,13 @@ class PeminjamanAlat extends Component {
             Swal.fire({
                 title: `Mohon Maaf`,
                 text: `${peminjamalat_warning}`,
-                icon: `success`
+                icon: `warning`
             })
         } else if (peminjamalat_danger) {
             Swal.fire({
                 title: `Data Peminjaman Alat`,
                 text: `${peminjamalat_danger}`,
-                icon: `success`
+                icon: `error`
             })
         }
 

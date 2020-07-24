@@ -11,6 +11,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 class SuratBebasLabkomController extends Controller
@@ -32,7 +33,7 @@ class SuratBebasLabkomController extends Controller
     {
         try {
             $data = [
-                'SuratBebasLabkom' => SuratBebasLabkom::with('mahasiswa')->get()
+                'SuratBebasLabkom' => SuratBebasLabkom::with('mahasiswa')->orderBy('created_at', 'desc')->paginate(8)
             ];
             return view('SuratBebasLabkom.index', $data);
         } catch (Exception $exception) {
@@ -49,7 +50,7 @@ class SuratBebasLabkomController extends Controller
     {
         try {
             $data = [
-                'Mahasiswa' => Mahasiswa::all()
+                'Mahasiswa' => Mahasiswa::orderBy('nama_mahasiswa','asc')->get()
             ];
             return view('SuratBebasLabkom.create', $data);
         } catch (Exception $exception) {
@@ -100,7 +101,7 @@ class SuratBebasLabkomController extends Controller
         try {
             $data = [
                 'SuratBebasLabkom' => $SuratBebasLabkom::with(['mahasiswa'])->firstWhere('id', $SuratBebasLabkom->id),
-                'Mahasiswa' => Mahasiswa::all()
+                'Mahasiswa' => Mahasiswa::orderBy('nama_mahasiswa', 'asc')->get()
             ];
             return view('SuratBebasLabkom.edit', $data);
         } catch (Exception $exception) {
@@ -139,6 +140,7 @@ class SuratBebasLabkomController extends Controller
     public function destroy(SuratBebasLabkom $SuratBebasLabkom): ?RedirectResponse
     {
         try {
+            Gate::authorize('delete-data');
             SuratBebasLabkom::destroy($SuratBebasLabkom->id);
             return redirect()->route('SuratBebasLabkom.index')->with('success', "Berhasil Dihapus!");
         } catch (Exception $exception) {

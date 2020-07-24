@@ -13,6 +13,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 class JasaInstallasiController extends Controller
@@ -34,7 +35,7 @@ class JasaInstallasiController extends Controller
     {
         try {
             $data = [
-                'JasaInstallasi' => JasaInstallasi::with(['mahasiswa', 'software'])->get()
+                'JasaInstallasi' => JasaInstallasi::with(['mahasiswa', 'software'])->orderBy('created_at', 'desc')->paginate(8)
             ];
             return view('JasaInstallasi.index', $data);
         } catch (Exception $exception) {
@@ -51,8 +52,8 @@ class JasaInstallasiController extends Controller
     {
         try {
             $data = [
-                'Mahasiswa' => Mahasiswa::all(),
-                'Software' => Software::all()
+                'Mahasiswa' => Mahasiswa::orderBy('nama_mahasiswa', 'asc')->get(),
+                'Software' => Software::orderBy('nama_software', 'asc')->get()
             ];
             return view('JasaInstallasi.create', $data);
         } catch (Exception $exception) {
@@ -108,8 +109,8 @@ class JasaInstallasiController extends Controller
         try {
             $data = [
                 'JasaInstallasi' => $JasaInstallasi::with(['mahasiswa', 'software'])->firstWhere('id',$JasaInstallasi->id),
-                'Mahasiswa' => Mahasiswa::all(),
-                'Software' => Software::all()
+                'Mahasiswa' => Mahasiswa::orderBy('nama_mahasiswa', 'asc')->get(),
+                'Software' => Software::orderBy('nama_software', 'asc')->get()
             ];
             return view('JasaInstallasi.edit', $data);
         } catch (Exception $exception) {
@@ -153,6 +154,7 @@ class JasaInstallasiController extends Controller
     public function destroy(JasaInstallasi $JasaInstallasi): ?RedirectResponse
     {
         try {
+            Gate::authorize('delete-data');
             JasaInstallasi::destroy($JasaInstallasi->id);
             return redirect()->route('JasaInstallasi.index')->with('success', "Berhasil Dihapus!");
         } catch (Exception $exception) {

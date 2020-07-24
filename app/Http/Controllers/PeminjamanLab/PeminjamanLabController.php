@@ -13,6 +13,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 class PeminjamanLabController extends Controller
@@ -34,7 +35,7 @@ class PeminjamanLabController extends Controller
     {
         try {
             $data = [
-                'PeminjamanLab' => PeminjamanLab::with(['mahasiswa', 'lab','jadwal'])->get(),
+                'PeminjamanLab' => PeminjamanLab::with(['mahasiswa', 'lab','jadwal'])->orderBy('created_at','desc')->paginate(8),
             ];
             return view('PeminjamanLab.index', $data);
         } catch (Exception $exception) {
@@ -51,9 +52,9 @@ class PeminjamanLabController extends Controller
     {
         try {
             $data = [
-                'Mahasiswa' => Mahasiswa::all(),
                 'Jadwal' => Jadwal::with(['prodi','dosen','matakuliah'])->get(),
-                'Lab' => Lab::all()
+                'Mahasiswa' => Mahasiswa::orderBy('nama_mahasiswa', 'asc')->get(),
+                'Lab' => Lab::orderBy('nama_lab', 'asc')->get()
             ];
             return view('PeminjamanLab.create', $data);
         } catch (Exception $exception) {
@@ -110,9 +111,9 @@ class PeminjamanLabController extends Controller
         try {
             $data = [
                 'PeminjamanLab' => $PeminjamanLab::with(['mahasiswa','lab','jadwal'])->firstWhere('id',$PeminjamanLab->id),
-                'Mahasiswa' => Mahasiswa::all(),
                 'Jadwal' => Jadwal::with(['prodi','dosen','matakuliah'])->get(),
-                'Lab' => Lab::all()
+                'Mahasiswa' => Mahasiswa::orderBy('nama_mahasiswa', 'asc')->get(),
+                'Lab' => Lab::orderBy('nama_lab', 'asc')->get()
             ];
             return view('PeminjamanLab.edit', $data);
         } catch (Exception $exception) {
@@ -157,6 +158,7 @@ class PeminjamanLabController extends Controller
     public function destroy(PeminjamanLab $PeminjamanLab): RedirectResponse
     {
         try {
+            Gate::authorize('delete-data');
             PeminjamanLab::destroy($PeminjamanLab->id);
             return redirect()->route('PeminjamanLab.index')->with('success', 'Berhasil Dihapus!');
         } catch (Exception $exception) {
