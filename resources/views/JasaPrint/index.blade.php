@@ -88,7 +88,7 @@
                             <form action="{{ route('JasaPrint.destroy', $elemen->id) }}" method="post" class="d-inline">
                                 @csrf
                                 @method('delete')
-                                <button class="btn btn-danger btn-sm delete-jasaprint-button" type="submit">
+                                <button class="btn btn-danger btn-sm delete-jasaprint-button d" type="submit">
                                     <i class="fas fa-trash"></i>
                                     Delete
                                 </button>
