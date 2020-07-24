@@ -33,7 +33,3 @@ Route::resource('Dosen', 'Dosen\DosenController');
 Route::resource('MataKuliah', 'MataKuliah\MataKuliahController');
 Route::resource('Jadwal', 'Jadwal\JadwalController');
 Route::resource('Software', 'Software\SoftwareController');
-
-Route::resource('TransaksiPeminjamanAlat','Transaksi\TransaksiPeminjamanAlatController');
-Route::resource('TransaksiJasaInstallasi', 'Transaksi\TransaksiJasaInstallasiController');
-Route::resource('TransaksiJasaPrint', 'Transaksi\TransaksiJasaPrintController');

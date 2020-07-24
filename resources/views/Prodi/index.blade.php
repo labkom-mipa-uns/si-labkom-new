@@ -53,7 +53,7 @@
                 @foreach($Prodi as $elemen)
                     <tr>
                         <td class="text-center">
-                            {{ $loop->iteration }}
+                            {{ ($Prodi->currentPage() - 1) * $Prodi->perPage() + $loop->index + 1 }}
                         </td>
                         <td class="text-center">
                             <a>
@@ -83,6 +83,9 @@
 
                 </tbody>
             </table>
+            <section class="d-flex align-items-center justify-content-center mt-3">
+                {{ $Prodi->links() }}
+            </section>
         </div>
         <!-- /.card-body -->
         <div id="detail-prodi"></div>

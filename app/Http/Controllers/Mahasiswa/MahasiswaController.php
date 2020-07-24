@@ -11,6 +11,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 class MahasiswaController extends Controller
@@ -32,7 +33,7 @@ class MahasiswaController extends Controller
     {
         try {
             $data = [
-                'Mahasiswa' => Mahasiswa::with(['prodi'])->get(),
+                'Mahasiswa' => Mahasiswa::with(['prodi'])->orderBy('created_at', 'desc')->paginate(8),
             ];
             return view('Mahasiswa.index', $data);
         } catch (Exception $exception) {
@@ -49,7 +50,7 @@ class MahasiswaController extends Controller
     {
         try {
             $data = [
-                'Prodi' => Prodi::all(),
+                'Prodi' => Prodi::orderBy('nama_prodi', 'asc')->get(),
             ];
             return view('Mahasiswa.create', $data);
         } catch (Exception $exception) {
@@ -105,7 +106,7 @@ class MahasiswaController extends Controller
         try {
             $data = [
                 'Mahasiswa' => $Mahasiswa::with(['prodi'])->firstWhere('id', $Mahasiswa->id),
-                'Prodi' => Prodi::all()
+                'Prodi' => Prodi::orderBy('nama_prodi','asc')->get()
             ];
             return view('Mahasiswa.edit', $data);
         } catch (Exception $exception) {
@@ -148,6 +149,7 @@ class MahasiswaController extends Controller
     public function destroy(Mahasiswa $Mahasiswa): ?RedirectResponse
     {
         try {
+            Gate::authorize('delete-data');
             Mahasiswa::destroy($Mahasiswa->id);
             return redirect()->route('Mahasiswa.index')->with('success', 'Berhasil Dihapus!');
         } catch (Exception $exception) {

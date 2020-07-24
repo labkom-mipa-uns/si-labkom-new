@@ -35,7 +35,7 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="matkul">Nama Mata Kuliah:</label>
-                            <input type="text" id="matkul" name="nama_matkul" class="custom-select @error('nama_matkul') is-invalid @enderror" value="{{ $MataKuliah->nama_matkul }}" autocomplete="off">
+                            <input type="text" id="matkul" name="nama_matkul" class="form-control @error('nama_matkul') is-invalid @enderror" value="{{ $MataKuliah->nama_matkul }}" autocomplete="off">
                             @error('nama_matkul')
                                 <div class="invalid-feedback">
                                     {{ $message }}

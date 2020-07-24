@@ -62,7 +62,7 @@
                 @foreach($Mahasiswa as $elemen)
                     <tr>
                         <td class="text-center">
-                            {{ $loop->iteration }}
+                            {{ ($Mahasiswa->currentPage() - 1) * $Mahasiswa->perPage() + $loop->index + 1 }}
                         </td>
                         <td class="text-center">
                             <a>
@@ -107,6 +107,9 @@
 
                 </tbody>
             </table>
+            <section class="d-flex align-items-center justify-content-center mt-3">
+                {{ $Mahasiswa->links() }}
+            </section>
         </div>
         <!-- /.card-body -->
         <div id="detail-mahasiswa"></div>

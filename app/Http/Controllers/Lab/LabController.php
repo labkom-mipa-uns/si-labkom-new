@@ -10,6 +10,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 class LabController extends Controller
@@ -31,7 +32,7 @@ class LabController extends Controller
     {
         try {
             $data = [
-                'Laboratorium' => Lab::all(),
+                'Laboratorium' => Lab::orderBy('created_at', 'desc')->paginate(8),
             ];
             return view('Lab.index', $data);
         } catch (Exception $exception) {
@@ -130,6 +131,7 @@ class LabController extends Controller
     public function destroy(Lab $Laboratorium): RedirectResponse
     {
         try {
+            Gate::authorize('delete-data');
             Lab::destroy($Laboratorium->id);
             return redirect()->route('Laboratorium.index')->with('success', 'Berhasil Dihapus!');
         } catch (Exception $exception) {

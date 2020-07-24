@@ -65,7 +65,7 @@
                 @foreach($PeminjamanLab as $elemen)
                     <tr>
                         <td class="text-center">
-                            {{ $loop->iteration }}
+                            {{ ($PeminjamanLab->currentPage() - 1) * $PeminjamanLab->perPage() + $loop->index + 1 }}
                         </td>
                         <td class="text-center">
                             <a>
@@ -132,6 +132,9 @@
 
                 </tbody>
             </table>
+            <section class="d-flex align-items-center justify-content-center mt-3">
+                {{ $PeminjamanLab->links() }}
+            </section>
         </div>
         <!-- /.card-body -->
         <div id="detail-peminjamlab"></div>

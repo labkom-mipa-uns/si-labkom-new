@@ -76731,13 +76731,13 @@ var Dosen = /*#__PURE__*/function (_Component) {
       } else if (dosen_warning) {
         sweetalert2__WEBPACK_IMPORTED_MODULE_4___default.a.fire({
           title: "Mohon Maaf",
-          text: "".concat(dosen_success),
+          text: "".concat(dosen_warning),
           icon: 'warning'
         });
       } else if (dosen_danger) {
         sweetalert2__WEBPACK_IMPORTED_MODULE_4___default.a.fire({
           title: "Data Dosen",
-          text: "".concat(dosen_success),
+          text: "".concat(dosen_danger),
           icon: 'error'
         });
       }
@@ -77776,7 +77776,7 @@ var Lab = /*#__PURE__*/function (_Component) {
         });
       } else if (lab_danger) {
         sweetalert2__WEBPACK_IMPORTED_MODULE_3___default.a.fire({
-          title: "Data Peminjam Lab",
+          title: "Data Laboratorium",
           text: "".concat(lab_danger),
           icon: "error"
         });
@@ -78447,13 +78447,13 @@ var PeminjamanAlat = /*#__PURE__*/function (_Component) {
         sweetalert2__WEBPACK_IMPORTED_MODULE_3___default.a.fire({
           title: "Mohon Maaf",
           text: "".concat(peminjamalat_warning),
-          icon: "success"
+          icon: "warning"
         });
       } else if (peminjamalat_danger) {
         sweetalert2__WEBPACK_IMPORTED_MODULE_3___default.a.fire({
           title: "Data Peminjaman Alat",
           text: "".concat(peminjamalat_danger),
-          icon: "success"
+          icon: "error"
         });
       }
 

@@ -59,7 +59,7 @@
                 @foreach($JasaPrint as $elemen)
                     <tr>
                         <td class="text-center">
-                            {{ $loop->iteration }}
+                            {{ ($JasaPrint->currentPage() - 1) * $JasaPrint->perPage() + $loop->index + 1 }}
                         </td>
                         <td class="text-center">
                             <a>
@@ -99,6 +99,9 @@
 
                 </tbody>
             </table>
+            <section class="d-flex align-items-center justify-content-center mt-3">
+                {{ $JasaPrint->links() }}
+            </section>
         </div>
         <!-- /.card-body -->
         <div id="detail-jasaprint"></div>

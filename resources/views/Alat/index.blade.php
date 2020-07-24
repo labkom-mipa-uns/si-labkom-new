@@ -56,7 +56,7 @@
                 @foreach($Alat as $elemen)
                     <tr>
                         <td class="text-center">
-                            {{ $loop->iteration }}
+                            {{ ($Alat->currentPage() - 1) * $Alat->perPage() + $loop->index + 1 }}
                         </td>
                         <td class="text-center">
                             <a>
@@ -91,6 +91,9 @@
 
                 </tbody>
             </table>
+            <section class="d-flex align-items-center justify-content-center mt-3">
+                {{ $Alat->links() }}
+            </section>
         </div>
         <!-- /.card-body -->
         <div id="detail-alat"></div>

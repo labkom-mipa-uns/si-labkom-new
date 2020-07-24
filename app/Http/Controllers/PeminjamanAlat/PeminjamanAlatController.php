@@ -13,6 +13,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 class PeminjamanAlatController extends Controller
@@ -34,11 +35,10 @@ class PeminjamanAlatController extends Controller
     {
         try {
             $data = [
-                'PeminjamanAlat' => PeminjamanAlat::with(['alat','mahasiswa'])->get()
+                'PeminjamanAlat' => PeminjamanAlat::with(['alat','mahasiswa'])->orderBy('created_at', 'desc')->paginate(8)
             ];
             return view('PeminjamanAlat.index', $data);
         } catch (Exception $exception) {
-            dd($exception);
             return redirect()->home()->with('warning', "Silakan Coba Beberapa Saat Lagi! Problem: {$exception->getMessage()}");
         }
     }
@@ -52,8 +52,8 @@ class PeminjamanAlatController extends Controller
     {
         try {
             $data = [
-                'Mahasiswa' => Mahasiswa::all(),
-                'Alat' => Alat::all()
+                'Mahasiswa' => Mahasiswa::orderBy('nama_mahasiswa', 'asc')->get(),
+                'Alat' => Alat::orderBy('nama_alat', 'asc')->get()
             ];
             return view('PeminjamanAlat.create', $data);
         } catch (Exception $exception) {
@@ -107,8 +107,8 @@ class PeminjamanAlatController extends Controller
         try {
             $data = [
                 'PeminjamanAlat' => $PeminjamanAlat::with(['alat','mahasiswa'])->firstWhere('id',$PeminjamanAlat->id),
-                'Mahasiswa' => Mahasiswa::all(),
-                'Alat' => Alat::all()
+                'Mahasiswa' => Mahasiswa::orderBy('nama_mahasiswa', 'asc')->get(),
+                'Alat' => Alat::orderBy('nama_alat', 'asc')->get()
             ];
             return view('PeminjamanAlat.edit', $data);
         } catch (Exception $exception) {
@@ -150,6 +150,7 @@ class PeminjamanAlatController extends Controller
     public function destroy(PeminjamanAlat $PeminjamanAlat): ?RedirectResponse
     {
         try {
+            Gate::authorize('delete-data');
             PeminjamanAlat::destroy($PeminjamanAlat->id);
             return redirect()->route('PeminjamanAlat.index')->with('success', "Berhasil Dihapus!");
         } catch (Exception $exception) {

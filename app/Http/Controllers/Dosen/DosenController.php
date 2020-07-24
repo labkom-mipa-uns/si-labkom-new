@@ -10,7 +10,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 class DosenController extends Controller
@@ -32,7 +32,7 @@ class DosenController extends Controller
     {
         try {
             $data = [
-                'Dosen' => Dosen::all(),
+                'Dosen' => Dosen::orderBy('created_at', 'desc')->paginate(8),
             ];
             return view('Dosen.index', $data);
         } catch (Exception $exception) {
@@ -107,9 +107,9 @@ class DosenController extends Controller
      *
      * @param Request $request
      * @param Dosen $Dosen
-     * @return RedirectResponse|Response
+     * @return RedirectResponse
      */
-    public function update(Request $request, Dosen $Dosen)
+    public function update(Request $request, Dosen $Dosen): ?RedirectResponse
     {
         $request->validate([
             'nama_dosen' => 'required|string|max:60'
@@ -128,9 +128,10 @@ class DosenController extends Controller
      * @param Dosen $Dosen
      * @return RedirectResponse
      */
-    public function destroy(Dosen $Dosen): RedirectResponse
+    public function destroy(Dosen $Dosen): ?RedirectResponse
     {
         try {
+            Gate::authorize('delete-data');
             Dosen::destroy($Dosen->id);
             return redirect()->route('Dosen.index')->with('success', "Berhasil Dihapus!");
         } catch (Exception $exception) {

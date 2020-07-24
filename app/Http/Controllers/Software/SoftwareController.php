@@ -11,6 +11,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 class SoftwareController extends Controller
@@ -32,7 +33,7 @@ class SoftwareController extends Controller
     {
         try {
             $data = [
-                'Software' => Software::all()
+                'Software' => Software::orderBy('created_at','desc')->paginate(8)
             ];
             return view('Software.index', $data);
         } catch (Exception $exception) {
@@ -133,6 +134,7 @@ class SoftwareController extends Controller
     public function destroy(Software $Software): ?RedirectResponse
     {
         try {
+            Gate::authorize('delete-data');
             Software::destroy($Software->id);
             return redirect()->route('Software.index')->with('success', "Berhasil Dihapus!");
         } catch (Exception $exception) {

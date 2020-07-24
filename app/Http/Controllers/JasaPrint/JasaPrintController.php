@@ -11,10 +11,19 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 class JasaPrintController extends Controller
 {
+    /**
+     * JasaPrintController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('verified');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -24,7 +33,7 @@ class JasaPrintController extends Controller
     {
         try {
             $data = [
-                'JasaPrint' => JasaPrint::all()
+                'JasaPrint' => JasaPrint::orderBy('created_at', 'desc')->paginate(8)
             ];
             return view('JasaPrint.index', $data);
         } catch (Exception $exception) {
@@ -127,6 +136,7 @@ class JasaPrintController extends Controller
     public function destroy(JasaPrint $JasaPrint): ?RedirectResponse
     {
         try {
+            Gate::authorize('delete-data');
             JasaPrint::destroy($JasaPrint->id);
             return redirect()->route('JasaPrint.index')->with('success', "Berhasil Dihapus!");
         } catch (Exception $exception) {

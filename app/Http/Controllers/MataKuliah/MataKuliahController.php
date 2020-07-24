@@ -11,6 +11,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 class MataKuliahController extends Controller
@@ -29,7 +30,7 @@ class MataKuliahController extends Controller
     {
         try {
             $data = [
-                'MataKuliah' => MataKuliah::all()
+                'MataKuliah' => MataKuliah::orderBy('created_at', 'desc')->paginate(8)
             ];
             return view('MataKuliah.index', $data);
         } catch (Exception $exception) {
@@ -128,6 +129,7 @@ class MataKuliahController extends Controller
     public function destroy(MataKuliah $MataKuliah): ?RedirectResponse
     {
         try {
+            Gate::authorize('delete-data');
             MataKuliah::destroy($MataKuliah->id);
             return redirect()->route('MataKuliah.index')->with('success', 'Berhasil Dihapus!');
         } catch (Exception $exception) {
