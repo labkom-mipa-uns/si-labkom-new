@@ -10,7 +10,6 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 class ProdiController extends Controller
@@ -36,7 +35,7 @@ class ProdiController extends Controller
             ];
             return view('Prodi.index', $data);
         } catch (Exception $exception) {
-            return redirect()->home()->with('warning', "Silakan Coba Beberapa Saat Lagi! Problem: {$exception->getMessage()}");
+            return redirect()->home()->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }
 
@@ -50,7 +49,7 @@ class ProdiController extends Controller
         try {
             return view('Prodi.create');
         } catch (Exception $exception) {
-            return redirect()->route('Prodi.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! Problem: {$exception->getMessage()}");
+            return redirect()->route('Prodi.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }
 
@@ -69,7 +68,7 @@ class ProdiController extends Controller
             Prodi::create($request->all());
             return redirect()->route('Prodi.index')->with('success', "Berhasil Ditambahkan!");
         } catch (Exception $exception) {
-            return redirect()->route('Prodi.index')->with('danger',"Gagal Ditambahkan! Error: {$exception->getMessage()}");
+            return redirect()->route('Prodi.index')->with('danger',"Gagal Ditambahkan! {$exception->getMessage()}");
         }
     }
 
@@ -96,7 +95,7 @@ class ProdiController extends Controller
             ];
             return view('Prodi.edit', $data);
         } catch (Exception $exception) {
-            return redirect()->route('Prodi.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! Problem: {$exception->getMessage()}");
+            return redirect()->route('Prodi.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }
 
@@ -116,7 +115,7 @@ class ProdiController extends Controller
             Prodi::whereId($Prodi->id)->update($request->except(['_token', '_method']));
             return redirect()->route('Prodi.index')->with('success', "Berhasil Diupdate!");
         } catch (Exception $exception) {
-            return redirect()->route('Prodi.index')->with('danger', "Gagal Diupdate! Error: {$exception->getMessage()}");
+            return redirect()->route('Prodi.index')->with('danger', "Gagal Diupdate! {$exception->getMessage()}");
         }
     }
 
@@ -129,11 +128,11 @@ class ProdiController extends Controller
     public function destroy(Prodi $Prodi): ?RedirectResponse
     {
         try {
-            Gate::authorize('delete-data');
+            $this->authorize('delete-data');
             Prodi::destroy($Prodi->id);
             return redirect()->route('Prodi.index')->with('success', "Berhasil Dihapus!");
         } catch (Exception $exception) {
-            return redirect()->route('Prodi.index')->with('danger', "Gagal Dihapus! Error: {$exception->getMessage()}");
+            return redirect()->route('Prodi.index')->with('danger', "Gagal Dihapus! {$exception->getMessage()}");
         }
     }
 }

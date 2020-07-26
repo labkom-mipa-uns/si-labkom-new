@@ -11,7 +11,6 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 class SuratBebasLabkomController extends Controller
@@ -37,7 +36,7 @@ class SuratBebasLabkomController extends Controller
             ];
             return view('SuratBebasLabkom.index', $data);
         } catch (Exception $exception) {
-            return redirect()->home()->with('warning', "Silakan Coba Beberapa Saat Lagi! Problem: {$exception->getMessage()}");
+            return redirect()->home()->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }
 
@@ -54,7 +53,7 @@ class SuratBebasLabkomController extends Controller
             ];
             return view('SuratBebasLabkom.create', $data);
         } catch (Exception $exception) {
-            return redirect()->route('SuratBebasLabkom.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! Problem: {$exception->getMessage()}");
+            return redirect()->route('SuratBebasLabkom.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }
 
@@ -75,7 +74,7 @@ class SuratBebasLabkomController extends Controller
             SuratBebasLabkom::create($request->all());
             return redirect()->route('SuratBebasLabkom.index')->with('success', "Berhasil Ditambahkan!");
         } catch (Exception $exception) {
-            return redirect()->route('SuratBebasLabkom.index')->with('danger', "Gagal Ditambahkan! Error: {$exception->getMessage()}");
+            return redirect()->route('SuratBebasLabkom.index')->with('danger', "Gagal Ditambahkan! {$exception->getMessage()}");
         }
     }
 
@@ -105,7 +104,7 @@ class SuratBebasLabkomController extends Controller
             ];
             return view('SuratBebasLabkom.edit', $data);
         } catch (Exception $exception) {
-            return redirect()->route('SuratBebasLabkom.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! Problem: {$exception->getMessage()}");
+            return redirect()->route('SuratBebasLabkom.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }
 
@@ -127,7 +126,7 @@ class SuratBebasLabkomController extends Controller
             SuratBebasLabkom::whereId($SuratBebasLabkom->id)->update($request->except('_method','_token'));
             return redirect()->route('SuratBebasLabkom.index')->with('success', "Berhasil Diupdate!");
         } catch (Exception $exception) {
-            return redirect()->route('SuratBebasLabkom.index')->with('danger', "Gagal Diupdate! Error: {$exception->getMessage()}");
+            return redirect()->route('SuratBebasLabkom.index')->with('danger', "Gagal Diupdate! {$exception->getMessage()}");
         }
     }
 
@@ -140,11 +139,11 @@ class SuratBebasLabkomController extends Controller
     public function destroy(SuratBebasLabkom $SuratBebasLabkom): ?RedirectResponse
     {
         try {
-            Gate::authorize('delete-data');
+            $this->authorize('delete-data');
             SuratBebasLabkom::destroy($SuratBebasLabkom->id);
             return redirect()->route('SuratBebasLabkom.index')->with('success', "Berhasil Dihapus!");
         } catch (Exception $exception) {
-            return redirect()->route('SuratBebasLabkom.index')->with('danger', "Gagal Dihapus! Error: {$exception->getMessage()}");
+            return redirect()->route('SuratBebasLabkom.index')->with('danger', "Gagal Dihapus! {$exception->getMessage()}");
         }
     }
 }

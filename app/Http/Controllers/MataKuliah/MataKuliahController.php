@@ -34,7 +34,7 @@ class MataKuliahController extends Controller
             ];
             return view('MataKuliah.index', $data);
         } catch (Exception $exception) {
-            return redirect()->route('home')->with('warning', "Silakan Coba Beberapa Saat Lagi! Problem: {$exception->getMessage()}");
+            return redirect()->route('home')->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }
 
@@ -48,7 +48,7 @@ class MataKuliahController extends Controller
         try {
             return view('MataKuliah.create');
         } catch (Exception $exception) {
-            return redirect()->route('MataKuliah.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! Problem: {$exception->getMessage()}");
+            return redirect()->route('MataKuliah.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }
 
@@ -67,7 +67,7 @@ class MataKuliahController extends Controller
             MataKuliah::create($request->all());
             return redirect()->route('MataKuliah.index')->with('success', "Berhasil Ditambahkan!");
         } catch (Exception $exception) {
-            return redirect()->route('MataKuliah.index')->with('danger', "Gagal Ditambahkan! Error: {$exception->getMessage()}");
+            return redirect()->route('MataKuliah.index')->with('danger', "Gagal Ditambahkan! {$exception->getMessage()}");
         }
     }
 
@@ -96,7 +96,7 @@ class MataKuliahController extends Controller
             ];
             return view('MataKuliah.edit', $data);
         } catch (Exception $exception) {
-            return redirect()->route('MataKuliah.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! Problem: {$exception->getMessage()}");
+            return redirect()->route('MataKuliah.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }
 
@@ -116,7 +116,7 @@ class MataKuliahController extends Controller
             MataKuliah::whereId($MataKuliah->id)->update($request->except(['_token','_method']));
             return redirect()->route('MataKuliah.index')->with('success', "Berhasil Diupdate!");
         } catch (Exception $exception) {
-            return redirect()->route('MataKuliah.index')->with('danger', "Gagal Diupdate! Error: {$exception->getMessage()}");
+            return redirect()->route('MataKuliah.index')->with('danger', "Gagal Diupdate! {$exception->getMessage()}");
         }
     }
 
@@ -129,11 +129,11 @@ class MataKuliahController extends Controller
     public function destroy(MataKuliah $MataKuliah): ?RedirectResponse
     {
         try {
-            Gate::authorize('delete-data');
+            $this->authorize('delete-data');
             MataKuliah::destroy($MataKuliah->id);
             return redirect()->route('MataKuliah.index')->with('success', 'Berhasil Dihapus!');
         } catch (Exception $exception) {
-            return redirect()->route('MataKuliah.index')->with('danger', "Gagal Dihapus! Error: {$exception->getMessage()}");
+            return redirect()->route('MataKuliah.index')->with('danger', "Gagal Dihapus! {$exception->getMessage()}");
         }
     }
 }
