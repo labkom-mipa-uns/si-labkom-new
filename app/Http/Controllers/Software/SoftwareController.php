@@ -37,7 +37,7 @@ class SoftwareController extends Controller
             ];
             return view('Software.index', $data);
         } catch (Exception $exception) {
-            return redirect()->home()->with('warning', "Silakan Coba Beberapa Saat Lagi! Problem: {$exception->getMessage()}");
+            return redirect()->home()->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }
 
@@ -51,7 +51,7 @@ class SoftwareController extends Controller
         try {
             return view('Software.create');
         } catch (Exception $exception) {
-            return redirect()->route('Software.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! Problem: {$exception->getMessage()}");
+            return redirect()->route('Software.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }
 
@@ -71,7 +71,7 @@ class SoftwareController extends Controller
             Software::create($request->all());
             return redirect()->route('Software.index')->with('success', "Berhasil Ditambahkan!");
         } catch (Exception $exception) {
-            return redirect()->route('Software.index')->with('danger', "Gagal Ditambahkan! Error: {$exception->getMessage()}");
+            return redirect()->route('Software.index')->with('danger', "Gagal Ditambahkan! {$exception->getMessage()}");
         }
     }
 
@@ -100,7 +100,7 @@ class SoftwareController extends Controller
             ];
             return view('Software.edit', $data);
         } catch (Exception $exception) {
-            return redirect()->route('Software.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! Problem: {$exception->getMessage()}");
+            return redirect()->route('Software.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }
 
@@ -121,7 +121,7 @@ class SoftwareController extends Controller
             Software::whereId($Software->id)->update($request->except(['_method', '_token']));
             return redirect()->route('Software.index')->with('success', "Berhasil Diupdate!");
         } catch (Exception $exception) {
-            return redirect()->route('Software.index')->with('danger', "Gagal Diupdate! Error: {$exception->getMessage()}");
+            return redirect()->route('Software.index')->with('danger', "Gagal Diupdate! {$exception->getMessage()}");
         }
     }
 
@@ -134,11 +134,11 @@ class SoftwareController extends Controller
     public function destroy(Software $Software): ?RedirectResponse
     {
         try {
-            Gate::authorize('delete-data');
+            $this->authorize('delete-data');
             Software::destroy($Software->id);
             return redirect()->route('Software.index')->with('success', "Berhasil Dihapus!");
         } catch (Exception $exception) {
-            return redirect()->route('Software.index')->with('danger', "Gagal Dihapus! Error: {$exception->getMessage()}");
+            return redirect()->route('Software.index')->with('danger', "Gagal Dihapus! {$exception->getMessage()}");
         }
     }
 }

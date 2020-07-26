@@ -37,7 +37,7 @@ class MahasiswaController extends Controller
             ];
             return view('Mahasiswa.index', $data);
         } catch (Exception $exception) {
-            return redirect()->route('home')->with('warning',"Silakan Coba Beberapa Saat! Problem: {$exception->getMessage()}");
+            return redirect()->route('home')->with('warning',"Silakan Coba Beberapa Saat! {$exception->getMessage()}");
         }
     }
 
@@ -54,7 +54,7 @@ class MahasiswaController extends Controller
             ];
             return view('Mahasiswa.create', $data);
         } catch (Exception $exception) {
-            return redirect()->route('Mahasiswa.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! Problem: {$exception->getMessage()}");
+            return redirect()->route('Mahasiswa.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }
 
@@ -79,7 +79,7 @@ class MahasiswaController extends Controller
             Mahasiswa::create($request->all());
             return redirect()->route('Mahasiswa.index')->with('success','Berhasil Ditambahkan!');
         } catch (Exception $exception) {
-            return redirect()->route('Mahasiswa.index')->with('danger',"Gagal Ditambahkan! Error: {$exception->getMessage()}");
+            return redirect()->route('Mahasiswa.index')->with('danger',"Gagal Ditambahkan! {$exception->getMessage()}");
         }
     }
 
@@ -110,7 +110,7 @@ class MahasiswaController extends Controller
             ];
             return view('Mahasiswa.edit', $data);
         } catch (Exception $exception) {
-            return redirect()->route('Mahasiswa.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! Problem: {$exception->getMessage()}");
+            return redirect()->route('Mahasiswa.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }
 
@@ -136,7 +136,7 @@ class MahasiswaController extends Controller
             Mahasiswa::whereId($Mahasiswa->id)->update($request->except(['_token', '_method']));
             return redirect()->route('Mahasiswa.index')->with('success', "Berhasil Diupdate!");
         } catch (Exception $exception) {
-            return redirect()->route('Mahasiswa.index')->with('danger',"Gagal Diupdate! Error: {$exception->getMessage()}");
+            return redirect()->route('Mahasiswa.index')->with('danger',"Gagal Diupdate! {$exception->getMessage()}");
         }
     }
 
@@ -149,11 +149,11 @@ class MahasiswaController extends Controller
     public function destroy(Mahasiswa $Mahasiswa): ?RedirectResponse
     {
         try {
-            Gate::authorize('delete-data');
+            $this->authorize('delete-data');
             Mahasiswa::destroy($Mahasiswa->id);
             return redirect()->route('Mahasiswa.index')->with('success', 'Berhasil Dihapus!');
         } catch (Exception $exception) {
-            return redirect()->route('Mahasiswa.index')->with('danger',"Gagal Dihapus! Error: {$exception->getMessage()}");
+            return redirect()->route('Mahasiswa.index')->with('danger',"Gagal Dihapus! {$exception->getMessage()}");
         }
     }
 }

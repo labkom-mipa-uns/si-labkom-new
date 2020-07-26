@@ -37,7 +37,7 @@ class JasaPrintController extends Controller
             ];
             return view('JasaPrint.index', $data);
         } catch (Exception $exception) {
-            return redirect()->home()->with('warning', "Silakan Coba Beberapa Saat Lagi! Problem: {$exception->getMessage()}");
+            return redirect()->home()->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }
 
@@ -51,7 +51,7 @@ class JasaPrintController extends Controller
         try {
             return view('JasaPrint.create');
         } catch (Exception $exception) {
-            return redirect()->route('JasaPrint.index')->with('waning', "Silakan Coba Beberapa Saat Lagi! Problem: {$exception->getMessage()}");
+            return redirect()->route('JasaPrint.index')->with('waning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }
 
@@ -72,7 +72,7 @@ class JasaPrintController extends Controller
             JasaPrint::create($request->all());
             return redirect()->route('JasaPrint.index')->with('success', "Berhasil Ditambahkan!");
         } catch (Exception $exception) {
-            return redirect()->route('JasaPrint.index')->with('danger', "Gagal Ditambahkan! Error: {$exception->getMessage()}");
+            return redirect()->route('JasaPrint.index')->with('danger', "Gagal Ditambahkan! {$exception->getMessage()}");
         }
     }
 
@@ -101,7 +101,7 @@ class JasaPrintController extends Controller
             ];
             return view('JasaPrint.edit', $data);
         } catch (Exception $exception) {
-            return redirect()->route('JasaPrint.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! Problem: {$exception->getMessage()}");
+            return redirect()->route('JasaPrint.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }
 
@@ -123,7 +123,7 @@ class JasaPrintController extends Controller
             JasaPrint::whereId($JasaPrint->id)->update($request->except('_method', '_token'));
             return redirect()->route('JasaPrint.index')->with('success', "Berhasil Diupdate!");
         } catch (Exception $exception) {
-            return redirect()->route('JasaPrint.index')->with('danger', "Gagal Diupdate! Error: {$exception->getMessage()}");
+            return redirect()->route('JasaPrint.index')->with('danger', "Gagal Diupdate! {$exception->getMessage()}");
         }
     }
 
@@ -140,7 +140,7 @@ class JasaPrintController extends Controller
             JasaPrint::destroy($JasaPrint->id);
             return redirect()->route('JasaPrint.index')->with('success', "Berhasil Dihapus!");
         } catch (Exception $exception) {
-            return redirect()->route('JasaPrint.index')->with('danger', "Gagal Dihapus! Error: {$exception->getMessage()}");
+            return redirect()->route('JasaPrint.index')->with('danger', "Gagal Dihapus! {$exception->getMessage()}");
         }
     }
 }

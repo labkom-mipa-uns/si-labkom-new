@@ -322,6 +322,11 @@ return [
             'route'         => 'Software.index',
             'icon'        => 'far fas fa-fw fa-calendar-check',
         ],
+        [
+            'text'        => 'User',
+            'route'         => 'User.index',
+            'icon'        => 'far fas fa-fw fa-users',
+        ],
         'ACCOUNT SETTINGS',
         [
             'text' => 'profile',

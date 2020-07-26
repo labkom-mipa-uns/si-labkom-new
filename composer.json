@@ -1,7 +1,7 @@
 {
-    "name": "laravel/laravel",
+    "name": "Labkom FMIPA UNS",
     "type": "project",
-    "description": "The Laravel Framework.",
+    "description": "Sistem Informasi untuk Labkom FMIPA UNS",
     "keywords": [
         "framework",
         "laravel"

@@ -39,7 +39,7 @@ class PeminjamanAlatController extends Controller
             ];
             return view('PeminjamanAlat.index', $data);
         } catch (Exception $exception) {
-            return redirect()->home()->with('warning', "Silakan Coba Beberapa Saat Lagi! Problem: {$exception->getMessage()}");
+            return redirect()->home()->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }
 
@@ -57,7 +57,7 @@ class PeminjamanAlatController extends Controller
             ];
             return view('PeminjamanAlat.create', $data);
         } catch (Exception $exception) {
-            return redirect()->route('PeminjamanAlat.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! Problem: {$exception->getMessage()}");
+            return redirect()->route('PeminjamanAlat.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }
 
@@ -81,7 +81,7 @@ class PeminjamanAlatController extends Controller
             PeminjamanAlat::create($request->all());
             return redirect()->route('PeminjamanAlat.index')->with('success', "Berhasil Ditambahkan!");
         } catch (Exception $exception) {
-            return redirect()->route('PeminjamanAlat.index')->with('danger', "Gagal Ditambahkan! Error: {$exception->getMessage()}");
+            return redirect()->route('PeminjamanAlat.index')->with('danger', "Gagal Ditambahkan! {$exception->getMessage()}");
         }
     }
 
@@ -112,7 +112,7 @@ class PeminjamanAlatController extends Controller
             ];
             return view('PeminjamanAlat.edit', $data);
         } catch (Exception $exception) {
-            return redirect()->route('PeminjamanAlat.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! Problem: {$exception->getMessage()}");
+            return redirect()->route('PeminjamanAlat.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }
 
@@ -137,7 +137,7 @@ class PeminjamanAlatController extends Controller
             PeminjamanAlat::whereId($PeminjamanAlat->id)->update($request->except(['_method','_token']));
             return redirect()->route('PeminjamanAlat.index')->with('success', "Berhasil Diupdate!");
         } catch (Exception $exception) {
-            return redirect()->route('PeminjamanAlat.index')->with('danger', "Gagal Diupdate! Error: {$exception->getMessage()}");
+            return redirect()->route('PeminjamanAlat.index')->with('danger', "Gagal Diupdate! {$exception->getMessage()}");
         }
     }
 
@@ -150,11 +150,11 @@ class PeminjamanAlatController extends Controller
     public function destroy(PeminjamanAlat $PeminjamanAlat): ?RedirectResponse
     {
         try {
-            Gate::authorize('delete-data');
+            $this->authorize('delete-data');
             PeminjamanAlat::destroy($PeminjamanAlat->id);
             return redirect()->route('PeminjamanAlat.index')->with('success', "Berhasil Dihapus!");
         } catch (Exception $exception) {
-            return redirect()->route('PeminjamanAlat.index')->with('danger', "Gagal Dihapus! Error: {$exception->getMessage()}");
+            return redirect()->route('PeminjamanAlat.index')->with('danger', "Gagal Dihapus! {$exception->getMessage()}");
         }
     }
 }

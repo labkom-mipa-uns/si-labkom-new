@@ -26,3 +26,5 @@ require('./components/Alat');
 require('./components/Software');
 require('./components/JasaInstallasi');
 require('./components/JasaPrint');
+require('./components/User');
+require('./components/Account');

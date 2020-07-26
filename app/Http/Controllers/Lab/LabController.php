@@ -36,7 +36,7 @@ class LabController extends Controller
             ];
             return view('Lab.index', $data);
         } catch (Exception $exception) {
-            return redirect()->route('home')->with('warning',"Silakan Coba Beberapa Saat Lagi! Problem: {$exception->getMessage()}");
+            return redirect()->route('home')->with('warning',"Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }
 
@@ -50,7 +50,7 @@ class LabController extends Controller
         try {
             return view('Lab.create');
         } catch (Exception $exception) {
-            return redirect()->route('Laboratorium.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! Problem: {$exception->getMessage()}");
+            return redirect()->route('Laboratorium.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }
 
@@ -69,7 +69,7 @@ class LabController extends Controller
             Lab::create($request->all());
             return redirect()->route('Laboratorium.index')->with('success', 'Berhasil Ditambahkan!');
         } catch (Exception $exception) {
-            return redirect()->route('Laboratorium.index')->with('danger', "Gagal Ditambahkan! Error: {$exception->getMessage()}");
+            return redirect()->route('Laboratorium.index')->with('danger', "Gagal Ditambahkan! {$exception->getMessage()}");
         }
     }
 
@@ -98,7 +98,7 @@ class LabController extends Controller
             ];
             return view('Lab.edit', $data);
         } catch (Exception $exception) {
-            return redirect()->route("Laboratorium.index")->with('warning', "Silakan Coba Beberapa Saat Lagi! Problem: {$exception->getMessage()}");
+            return redirect()->route("Laboratorium.index")->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }
 
@@ -118,7 +118,7 @@ class LabController extends Controller
             Lab::whereId($Laboratorium->id)->update($request->except(['_token', '_method']));
             return redirect()->route('Laboratorium.index')->with('success', "Berhasil Diupdate!");
         } catch (Exception $exception) {
-            return redirect()->route('Laboratorium.index')->with('danger', "Gagal Diupdate! Error: {$exception->getMessage()}");
+            return redirect()->route('Laboratorium.index')->with('danger', "Gagal Diupdate! {$exception->getMessage()}");
         }
     }
 
@@ -131,11 +131,11 @@ class LabController extends Controller
     public function destroy(Lab $Laboratorium): RedirectResponse
     {
         try {
-            Gate::authorize('delete-data');
+            $this->authorize('delete-data');
             Lab::destroy($Laboratorium->id);
             return redirect()->route('Laboratorium.index')->with('success', 'Berhasil Dihapus!');
         } catch (Exception $exception) {
-            return redirect()->route("Laboratorium.index")->with('danger', "Gagal Dihapus! Error: {$exception->getMessage()}");
+            return redirect()->route("Laboratorium.index")->with('danger', "Gagal Dihapus! {$exception->getMessage()}");
         }
     }
 }

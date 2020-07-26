@@ -10,7 +10,6 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 class DosenController extends Controller
@@ -36,7 +35,7 @@ class DosenController extends Controller
             ];
             return view('Dosen.index', $data);
         } catch (Exception $exception) {
-            return redirect()->route('home')->with('warning', "Silakan Coba Beberapa Saat Lagi! Problem: {$exception->getMessage()}");
+            return redirect()->route('home')->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }
 
@@ -69,7 +68,7 @@ class DosenController extends Controller
             Dosen::create($request->all());
             return redirect()->route('Dosen.index')->with('success',"Berhasil Ditambahkan!");
         } catch (Exception $exception) {
-            return redirect()->route('Dosen.index')->with('danger',"Gagal Ditambahkan! Error: {$exception->getMessage()}");
+            return redirect()->route('Dosen.index')->with('danger',"Gagal Ditambahkan! {$exception->getMessage()}");
         }
     }
 
@@ -98,7 +97,7 @@ class DosenController extends Controller
             ];
             return view('Dosen.edit', $data);
         } catch (Exception $exception) {
-            return redirect()->route('Dosen.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! Problem: {$exception->getMessage()}");
+            return redirect()->route('Dosen.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }
 
@@ -118,7 +117,7 @@ class DosenController extends Controller
             Dosen::whereId($Dosen->id)->update($request->except(['_token', '_method']));
             return redirect()->route('Dosen.index')->with('success', "Berhasil Diupdate!");
         } catch (Exception $exception) {
-            return redirect()->route('Dosen.index')->with('danger', "Gagal Diupdate! Error: {$exception->getMessage()}");
+            return redirect()->route('Dosen.index')->with('danger', "Gagal Diupdate! {$exception->getMessage()}");
         }
     }
 
@@ -131,11 +130,11 @@ class DosenController extends Controller
     public function destroy(Dosen $Dosen): ?RedirectResponse
     {
         try {
-            Gate::authorize('delete-data');
+            $this->authorize('delete-data');
             Dosen::destroy($Dosen->id);
             return redirect()->route('Dosen.index')->with('success', "Berhasil Dihapus!");
         } catch (Exception $exception) {
-            return redirect()->route('Dosen.index')->with('danger', "Gagal Dihapus! Error: {$exception->getMessage()}");
+            return redirect()->route('Dosen.index')->with('danger', "Gagal Dihapus! {$exception->getMessage()}");
         }
     }
 }

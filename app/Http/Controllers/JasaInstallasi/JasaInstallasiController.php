@@ -13,7 +13,6 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 class JasaInstallasiController extends Controller
@@ -39,7 +38,7 @@ class JasaInstallasiController extends Controller
             ];
             return view('JasaInstallasi.index', $data);
         } catch (Exception $exception) {
-            return redirect()->home()->with('warning', "Silakan Coba Beberapa Saat Lagi! Problem: {$exception->getMessage()}");
+            return redirect()->home()->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }
 
@@ -57,7 +56,7 @@ class JasaInstallasiController extends Controller
             ];
             return view('JasaInstallasi.create', $data);
         } catch (Exception $exception) {
-            return redirect()->route('JasaInstallasi.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! Problem: {$exception->getMessage()}");
+            return redirect()->route('JasaInstallasi.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }
 
@@ -83,7 +82,7 @@ class JasaInstallasiController extends Controller
             JasaInstallasi::create($request->all());
             return redirect()->route('JasaInstallasi.index')->with('success', "Berhasil Ditambahkan!");
         } catch (Exception $exception) {
-            return redirect()->route('JasaInstallasi.index')->with('danger', "Gagal Ditambahkan! Error: {$exception->getMessage()}");
+            return redirect()->route('JasaInstallasi.index')->with('danger', "Gagal Ditambahkan! {$exception->getMessage()}");
         }
     }
 
@@ -114,7 +113,7 @@ class JasaInstallasiController extends Controller
             ];
             return view('JasaInstallasi.edit', $data);
         } catch (Exception $exception) {
-            return redirect()->route('JasaInstallasi.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! Problem: {$exception->getMessage()}");
+            return redirect()->route('JasaInstallasi.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }
 
@@ -141,7 +140,7 @@ class JasaInstallasiController extends Controller
             JasaInstallasi::whereId($JasaInstallasi->id)->update($request->except(['_method','_token']));
             return redirect()->route('JasaInstallasi.index')->with('success', "Berhasil Diupdate!");
         } catch (Exception $exception) {
-            return redirect()->route('JasaInstallasi.index')->with('danger', "Gagal Diupdate! Error: {$exception->getMessage()}");
+            return redirect()->route('JasaInstallasi.index')->with('danger', "Gagal Diupdate! {$exception->getMessage()}");
         }
     }
 
@@ -154,11 +153,11 @@ class JasaInstallasiController extends Controller
     public function destroy(JasaInstallasi $JasaInstallasi): ?RedirectResponse
     {
         try {
-            Gate::authorize('delete-data');
+            $this->authorize('delete-data');
             JasaInstallasi::destroy($JasaInstallasi->id);
             return redirect()->route('JasaInstallasi.index')->with('success', "Berhasil Dihapus!");
         } catch (Exception $exception) {
-            return redirect()->route('JasaInstallasi.index')->with('danger', "Gagal Dihapus! Error: {$exception->getMessage()}");
+            return redirect()->route('JasaInstallasi.index')->with('danger', "Gagal Dihapus! {$exception->getMessage()}");
         }
     }
 }

@@ -14,7 +14,6 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 class JadwalController extends Controller
@@ -40,7 +39,7 @@ class JadwalController extends Controller
             ];
             return view('Jadwal.index', $data);
         } catch (Exception $exception) {
-            return redirect()->route('home')->with('warning', "Silakan Coba Beberapa Saat Lagi! Problem: {$exception->getMessage()}");
+            return redirect()->route('home')->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }
 
@@ -59,7 +58,7 @@ class JadwalController extends Controller
             ];
             return view('Jadwal.create', $data);
         } catch (Exception $exception) {
-            return redirect()->route('Jadwal.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! Problem: {$exception->getMessage()}");
+            return redirect()->route('Jadwal.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }
 
@@ -80,7 +79,7 @@ class JadwalController extends Controller
             Jadwal::create($request->all());
             return redirect()->route('Jadwal.index')->with('success', 'Berhasil Ditambahkan!');
         } catch (Exception $exception) {
-            return redirect()->route('Jadwal.index')->with('danger', "Gagal Ditambahkan! Error: {$exception->getMessage()}");
+            return redirect()->route('Jadwal.index')->with('danger', "Gagal Ditambahkan! {$exception->getMessage()}");
         }
     }
 
@@ -112,7 +111,7 @@ class JadwalController extends Controller
             ];
             return view('Jadwal.edit', $data);
         } catch (Exception $exception) {
-            return redirect()->route('Jadwal.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! Problem: {$exception->getMessage()}");
+            return redirect()->route('Jadwal.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }
 
@@ -134,7 +133,7 @@ class JadwalController extends Controller
             Jadwal::whereId($Jadwal->id)->update($request->except('_token', '_method'));
             return redirect()->route('Jadwal.index')->with('success', "Berhasil Diupdate!");
         } catch (Exception $exception) {
-            return redirect()->route('Jadwal.index')->with('danger', "Gagal Diupdate! Error: {$exception->getMessage()}");
+            return redirect()->route('Jadwal.index')->with('danger', "Gagal Diupdate! {$exception->getMessage()}");
         }
     }
 
@@ -147,11 +146,11 @@ class JadwalController extends Controller
     public function destroy(Jadwal $Jadwal): ?RedirectResponse
     {
         try {
-            Gate::authorize('delete-data');
+            $this->authorize('delete-data');
             Jadwal::destroy($Jadwal->id);
             return redirect()->route('Jadwal.index')->with('success', "Berhasil Dihapus!");
         } catch (Exception $exception) {
-            return redirect()->route('Jadwal.index')->with('danger', "Gagal Dihapus! Error: {$exception->getMessage()}");
+            return redirect()->route('Jadwal.index')->with('danger', "Gagal Dihapus! {$exception->getMessage()}");
         }
     }
 }
