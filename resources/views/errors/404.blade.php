@@ -1,5 +1,5 @@
 @extends('adminlte::page')
-@section('title', 'Labkom FMIPA UNS | Peminjaman Alat | 404 Page not found')
+@section('title', 'Labkom FMIPA UNS | 404 Page not found')
 
 @section('content_header')
     <div class="row mb-2">

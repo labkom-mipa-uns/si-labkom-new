@@ -1,5 +1,5 @@
 @extends('adminlte::page')
-@section('title', 'Labkom FMIPA UNS | Peminjaman Alat | 500 Error')
+@section('title', 'Labkom FMIPA UNS | 500 Error')
 
 @section('content_header')
     <div class="row mb-2">

@@ -55,6 +55,9 @@
                         <th class="text-center">
                             Lab
                         </th>
+                        <th class="text-center">
+                            Keadaan
+                        </th>
                         <th>
                             #
                         </th>
@@ -107,6 +110,19 @@
                             <br>
                             <small>
                                 {{ $elemen->jam_pinjam }} - {{ $elemen->jam_kembali }}
+                            </small>
+                        </td>
+                        <td class="text-center">
+                            <a>
+                                {{ ($elemen->kategori === "didalam_jam") ? __("Didalam Jam Kuliah") : __("Diluar Jam Kuliah") }}
+                            </a>
+                            <br>
+                            <small>
+                                @if($elemen->status === '0')
+                                    <i class="fas fa-circle-notch fa-2x"></i>
+                                @else
+                                    <i class="fas fa-check-circle fa-2x"></i>
+                                @endif
                             </small>
                         </td>
                         <td class="project-actions text-right">

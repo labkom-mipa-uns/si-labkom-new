@@ -97,6 +97,7 @@ class PeminjamanLabController extends Controller
     public function show(PeminjamanLab $PeminjamanLab): PeminjamanLabResource
     {
         return new PeminjamanLabResource($PeminjamanLab::with(['mahasiswa', 'lab', 'jadwal'])->firstWhere('id', $PeminjamanLab->id));
+
     }
 
     /**
