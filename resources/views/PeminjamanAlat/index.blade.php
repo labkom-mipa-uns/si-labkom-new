@@ -52,6 +52,9 @@
                     <th class="text-center">
                         Alat
                     </th>
+                    <th class="text-center">
+                        Status
+                    </th>
                     <th >
                         #
                     </th>
@@ -95,6 +98,15 @@
                             <small>
                                 Rp.{{ $elemen->alat->harga_alat }}
                             </small>
+                        </td>
+                        <td class="text-center">
+                            <a>
+                                @if($elemen->status === '0')
+                                    <i class="fas fa-circle-notch fa-2x"></i>
+                                @else
+                                    <i class="fas fa-check-circle fa-2x"></i>
+                                @endif
+                            </a>
                         </td>
                         <td class="project-actions text-right">
                             <button class="btn btn-secondary btn-sm detail-peminjamanalat-button" type="button" data-toggle="modal" data-target="#peminjamanalatModal" data-showurl="{{ route('PeminjamanAlat.show', $elemen->id) }}">
