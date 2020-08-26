@@ -9,12 +9,13 @@ use App\Mahasiswa;
 use App\PeminjamanAlat;
 use App\Transaksi;
 use Exception;
+use Illuminate\View\Factory;
+use Illuminate\View\View;
 use PDF;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\View\View;
 
 class PeminjamanAlatController extends Controller
 {
@@ -166,9 +167,9 @@ class PeminjamanAlatController extends Controller
     public function invoice(Request $request): Response
     {
         $data = [
-            'Transaksi' => Transaksi::with(['peminjamanalat', 'jasainstallasi', 'jasaprint'])->firstWhere('tanggal', $request->tanggal)->get()
+            'Transaksi' => Transaksi::with(['peminjamanalat', 'jasainstallasi', 'jasaprint'])->where('tanggal', $request->tanggal)->get()
         ];
         $pdf = PDF::loadView('Invoice.PeminjamanAlat', $data)->setPaper('a4', 'landscape');
-        return $pdf->stream('Peminjaman_Alat_Invoice.pdf', ['Attachment' => false]);
+        return $pdf->stream('Peminjaman_Alat_Invoice.pdf');
     }
 }

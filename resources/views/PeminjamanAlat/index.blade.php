@@ -25,7 +25,7 @@
         <div class="card-header">
             <h3 class="card-title">Daftar Peminjam Alat</h3>
             <div class="card-tools">
-                <form class="form-inline" method="post" action="{{ route('PeminjamanAlat.invoice') }}">
+                <form class="form-inline d-inline" method="post" action="{{ route('PeminjamanAlat.invoice') }}">
                     @csrf
                     @method('post')
                     <input type="hidden" name="kategori" value="peminjaman_alat">
@@ -36,13 +36,14 @@
                         </div>
                     @enderror
                     <button type="submit" class="btn btn-dark btn-sm ml-2 mr-2">
+                        <i class="fas fa-file-pdf"></i>
                         Cetak
                     </button>
-                    <a href="{{ route('PeminjamanAlat.create') }}" class="btn btn-primary btn-sm">
-                        <i class="fas fa-user-plus"></i>
-                        Insert
-                    </a>
                 </form>
+                <a href="{{ route('PeminjamanAlat.create') }}" class="btn btn-primary btn-sm">
+                    <i class="fas fa-user-plus"></i>
+                    Insert
+                </a>
             </div>
         </div>
         <div class="card-body p-0">

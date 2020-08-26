@@ -16,8 +16,11 @@ class CreateTransaksisTable extends Migration
         Schema::create('transaksi', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_peminjaman_alat')->nullable();
+            $table->unsignedBigInteger('id_alat')->nullable();
             $table->unsignedBigInteger('id_jasa_installasi')->nullable();
+            $table->unsignedBigInteger('id_software')->nullable();
             $table->unsignedBigInteger('id_jasa_print')->nullable();
+            $table->string('jenis_print')->nullable();
             $table->enum('kategori', ['peminjaman_alat', 'jasa_installasi', 'jasa_print']);
             $table->integer('harga');
             $table->integer('jumlah');
@@ -26,7 +29,9 @@ class CreateTransaksisTable extends Migration
             $table->timestamps();
 
             $table->foreign('id_peminjaman_alat')->references('id')->on('peminjaman_alat');
+            $table->foreign('id_alat')->references('id')->on('alat');
             $table->foreign('id_jasa_installasi')->references('id')->on('jasa_installasi');
+            $table->foreign('id_software')->references('id')->on('software');
             $table->foreign('id_jasa_print')->references('id')->on('jasa_print');
         });
     }

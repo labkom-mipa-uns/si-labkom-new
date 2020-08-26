@@ -28,14 +28,19 @@ class PeminjamanAlatListener
     public function handle(EventPeminjamanAlat $event): void
     {
         $peminjamanAlat = $event->getPeminjamanAlat();
-        Transaksi::create([
+        $transaksi = Transaksi::with(['peminjamanalat'])->firstWhere('id_alat', $peminjamanAlat->alat->id);
+        Transaksi::updateOrCreate([
+            'id_alat' => $peminjamanAlat->alat->id
+        ],[
             'id_peminjaman_alat' => $peminjamanAlat->id,
             'id_jasa_installasi' => null,
+            'id_software' => null,
             'id_jasa_print' => null,
+            'jenis_print' => null,
             'kategori' => 'peminjaman_alat',
             'harga' => $peminjamanAlat->alat->harga_alat,
-            'jumlah' => $peminjamanAlat->jumlah_pinjam,
-            'total_bayar' => (int)$peminjamanAlat->jumlah_pinjam * (int)$peminjamanAlat->alat->harga_alat,
+            'jumlah' => (int)$peminjamanAlat->jumlah_pinjam + ((is_null($transaksi)) ? 0 : (int)$transaksi->jumlah),
+            'total_bayar' => (int)$peminjamanAlat->jumlah_pinjam * (int)$peminjamanAlat->alat->harga_alat + ((is_null($transaksi)) ? 0 : (int)$transaksi->total_bayar),
             'tanggal' => $peminjamanAlat->tanggal_pinjam,
         ]);
     }

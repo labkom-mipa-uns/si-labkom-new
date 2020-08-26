@@ -59,19 +59,23 @@
             </tr>
         </thead>
         <tbody>
+        <?php
+        $total_semua = 0 ?>
         @foreach($Transaksi as $elemen)
             <tr>
                 <td>{{ $elemen->peminjamanalat->alat->nama_alat }}</td>
-                <td>{{ $elemen->peminjamanalat->alat->harga_alat }}</td>
+                <td>Rp.{{ number_format($elemen->peminjamanalat->alat->harga_alat) }}</td>
                 <td>{{ $elemen->jumlah }}</td>
-                <td>{{ $elemen->total_bayar }}</td>
+                <td>Rp.{{ number_format($elemen->total_bayar) }}</td>
             </tr>
+            <?php /** @var $elemen */
+            $total_semua += (int)$elemen->total_bayar ?>
         @endforeach
         </tbody>
         <tfoot>
         <tr>
             <th colspan="3">Total</th>
-            <td>Rp </td>
+            <td>Rp.<?= number_format($total_semua) ?></td>
         </tr>
         </tfoot>
     </table>
