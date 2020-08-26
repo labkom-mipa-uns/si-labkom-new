@@ -25,12 +25,24 @@
         <div class="card-header">
             <h3 class="card-title">Daftar Peminjam Alat</h3>
             <div class="card-tools">
-                <button type="button" class="btn btn-tool">
+                <form class="form-inline" method="post" action="{{ route('PeminjamanAlat.invoice') }}">
+                    @csrf
+                    @method('post')
+                    <input type="hidden" name="kategori" value="peminjaman_alat">
+                    <input type="date" name="tanggal" class="form-control @error('tanggal') is-invalid @enderror" placeholder="Masukkan Nama Dosen" value="{{ old("tanggal") }}" autocomplete="off">
+                    @error('tanggal')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                    <button type="submit" class="btn btn-dark btn-sm ml-2 mr-2">
+                        Cetak
+                    </button>
                     <a href="{{ route('PeminjamanAlat.create') }}" class="btn btn-primary btn-sm">
                         <i class="fas fa-user-plus"></i>
                         Insert
                     </a>
-                </button>
+                </form>
             </div>
         </div>
         <div class="card-body p-0">

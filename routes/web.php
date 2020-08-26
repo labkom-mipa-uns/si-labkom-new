@@ -21,10 +21,10 @@ Route::get('/home', 'Home\HomeController')->name('home');
 Route::resource('Account', 'Account\AccountController');
 Route::resource('PeminjamanLab', 'PeminjamanLab\PeminjamanLabController');
 Route::resource('PeminjamanAlat', 'PeminjamanAlat\PeminjamanAlatController');
+Route::post('/PeminjamanAlat/invoice', 'PeminjamanAlat\PeminjamanAlatController@invoice')->name('PeminjamanAlat.invoice');
 Route::resource('SuratBebasLabkom', 'SuratBebasLabkom\SuratBebasLabkomController');
 Route::resource('JasaInstallasi', 'JasaInstallasi\JasaInstallasiController');
 Route::resource('JasaPrint', 'JasaPrint\JasaPrintController');
-
 Route::resource('Laboratorium', 'Lab\LabController');
 Route::resource('Alat', 'Alat\AlatController');
 Route::resource('Mahasiswa', 'Mahasiswa\MahasiswaController');

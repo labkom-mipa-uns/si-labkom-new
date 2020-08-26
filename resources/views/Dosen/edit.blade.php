@@ -34,6 +34,17 @@
                     </div>
                     <div class="card-body">
                         <div class="form-group">
+                            <label for="NIDN">NIDN :</label>
+                            <input type="text" name="nidn" id="NIDN" class="form-control @error('nidn') is-invalid @enderror" placeholder="Masukkan NIDN" value="{{ $Dosen->nidn  }}" autocomplete="off">
+                            @error('nidn')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
                             <label for="Dosen">Nama Dosen :</label>
                             <input type="text" name="nama_dosen" id="Dosen" class="form-control @error('nama_dosen') is-invalid @enderror" placeholder="Masukkan Nama Dosen" value="{{ $Dosen->nama_dosen }}" autocomplete="off">
                             @error('nama_dosen')

@@ -62,6 +62,7 @@ class DosenController extends Controller
     public function store(Request $request): ?RedirectResponse
     {
         $request->validate([
+            'nidn' => 'required|string',
             'nama_dosen' => 'required|string|max:60'
         ]);
         try {
@@ -111,6 +112,7 @@ class DosenController extends Controller
     public function update(Request $request, Dosen $Dosen): ?RedirectResponse
     {
         $request->validate([
+            'nidn' => 'required|string',
             'nama_dosen' => 'required|string|max:60'
         ]);
         try {

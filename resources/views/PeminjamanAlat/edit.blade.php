@@ -112,6 +112,15 @@
                             @enderror
                         </div>
                         <div class="form-group">
+                            <label for="jumlah_pinjam">Jumlah Pinjam :</label>
+                            <input name="jumlah_pinjam" type="number" id="jumlah_pinjam" min="0" class="form-control @error('jumlah_pinjam') is-invalid @enderror" value="{{ $PeminjamanAlat->jumlah_pinjam }}">
+                            @error('jumlah_pinjam')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
                             <label for="status">Status :</label>
                             <select name="status" id="status" class="custom-select @error('status') is-invalid @enderror">
                                 @if($PeminjamanAlat->status === "0")

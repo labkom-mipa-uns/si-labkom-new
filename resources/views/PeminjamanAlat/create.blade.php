@@ -98,9 +98,9 @@
                                 @endforeach
                             </select>
                             @error('id_alat')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
                             @enderror
                         </div>
                         <div class="form-group">
@@ -108,6 +108,15 @@
                             <textarea name="keperluan" cols="40" rows="4" id="Keperluan" class="form-control @error('keperluan') is-invalid @enderror"
                                       placeholder="Masukkan keperluan">{{ old('keperluan') }}</textarea>
                             @error('keperluan')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="jumlah_pinjam">Jumlah Pinjam :</label>
+                            <input name="jumlah_pinjam" type="number" id="jumlah_pinjam" min="0" class="form-control @error('jumlah_pinjam') is-invalid @enderror" value="{{ old('jumlah_pinjam') }}">
+                            @error('jumlah_pinjam')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>

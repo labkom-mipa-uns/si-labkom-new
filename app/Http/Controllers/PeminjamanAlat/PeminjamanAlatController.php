@@ -7,13 +7,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\PeminjamanAlatResource;
 use App\Mahasiswa;
 use App\PeminjamanAlat;
+use App\Transaksi;
 use Exception;
+use PDF;
 use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 class PeminjamanAlatController extends Controller
@@ -71,9 +71,10 @@ class PeminjamanAlatController extends Controller
     {
         $request->validate([
             'id_mahasiswa' => 'required',
+            'id_alat' => 'required',
             'tanggal_pinjam' => 'required|date',
             'tanggal_kembali' => 'required|date',
-            'id_alat' => 'required',
+            'jumlah_pinjam' => 'required|numeric',
             'keperluan' => 'required|string',
             'status' => 'required'
         ]);
@@ -156,5 +157,18 @@ class PeminjamanAlatController extends Controller
         } catch (Exception $exception) {
             return redirect()->route('PeminjamanAlat.index')->with('danger', "Gagal Dihapus! {$exception->getMessage()}");
         }
+    }
+
+    /**
+     * @param Request $request
+     * @return Response
+     */
+    public function invoice(Request $request): Response
+    {
+        $data = [
+            'Transaksi' => Transaksi::with(['peminjamanalat', 'jasainstallasi', 'jasaprint'])->firstWhere('tanggal', $request->tanggal)->get()
+        ];
+        $pdf = PDF::loadView('Invoice.PeminjamanAlat', $data)->setPaper('a4', 'landscape');
+        return $pdf->stream('Peminjaman_Alat_Invoice.pdf', ['Attachment' => false]);
     }
 }

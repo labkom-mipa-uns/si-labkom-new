@@ -18,4 +18,9 @@ class JasaInstallasi extends Model
     {
         return $this->belongsTo(Mahasiswa::class, 'id_mahasiswa')->with(['prodi']);
     }
+
+    public function transaksi()
+    {
+        return $this->hasMany(Transaksi::class);
+    }
 }

@@ -12,6 +12,7 @@ $factory->define(PeminjamanAlat::class, function (Faker $faker) {
         'id_mahasiswa' => factory(Mahasiswa::class),
         'tanggal_pinjam' => $faker->dateTime,
         'tanggal_kembali' => $faker->dateTime,
+        'jumlah_pinjam' => $faker->randomNumber(1),
         'id_alat' => factory(Alat::class),
         'keperluan' => $faker->paragraph(5),
         'status' => $faker->randomElement(['0','1'])

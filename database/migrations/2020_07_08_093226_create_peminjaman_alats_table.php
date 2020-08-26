@@ -16,14 +16,16 @@ class CreatePeminjamanAlatsTable extends Migration
         Schema::create('peminjaman_alat', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_mahasiswa');
+            $table->unsignedBigInteger('id_alat');
             $table->dateTime('tanggal_pinjam');
             $table->dateTime('tanggal_kembali');
-            $table->unsignedBigInteger('id_alat');
+            $table->integer('jumlah_pinjam');
             $table->text('keperluan');
             $table->enum('status', ['0', '1']);
             $table->timestamps();
 
             $table->foreign('id_alat')->references('id')->on('alat');
+            $table->foreign('id_mahasiswa')->references('id')->on('mahasiswa');
         });
     }
 
