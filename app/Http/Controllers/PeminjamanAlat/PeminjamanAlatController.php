@@ -17,6 +17,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use RuntimeException;
+use Throwable;
 
 class PeminjamanAlatController extends Controller
 {
@@ -75,6 +76,8 @@ class PeminjamanAlatController extends Controller
             'id_mahasiswa' => 'required',
             'id_alat' => 'required',
             'tanggal_pinjam' => 'required|date',
+            'jam_pinjam' => 'required',
+            'jam_kembali' => 'required',
             'tanggal_kembali' => 'required|date',
             'jumlah_pinjam' => 'required|numeric',
             'keperluan' => 'required|string',
@@ -85,9 +88,21 @@ class PeminjamanAlatController extends Controller
             if ($alat->stok_alat < $request->jumlah_pinjam):
                 throw new RuntimeException('Stok alat tidak mencukupi!');
             endif;
-            PeminjamanAlat::create($request->all());
+            $peminjamanAlat = new PeminjamanAlat();
+            $peminjamanAlat->id_mahasiswa = $request->id_mahasiswa;
+            $peminjamanAlat->tanggal_pinjam = $request->tanggal_pinjam;
+            $peminjamanAlat->jam_pinjam = $request->jam_pinjam;
+            $peminjamanAlat->tanggal_kembali = $request->tanggal_kembali;
+            $peminjamanAlat->jam_kembali = $request->jam_kembali;
+            $peminjamanAlat->jumlah_pinjam = $request->jumlah_pinjam;
+            $peminjamanAlat->id_alat = $request->id_alat;
+            $peminjamanAlat->keperluan = $request->keperluan;
+            $peminjamanAlat->status = $request->status;
+            $peminjamanAlat->saveOrFail();
             return redirect()->route('PeminjamanAlat.index')->with('success', "Berhasil Ditambahkan!");
         } catch (Exception $exception) {
+            return redirect()->route('PeminjamanAlat.index')->with('danger', "Gagal Ditambahkan! {$exception->getMessage()}");
+        } catch (Throwable $exception) {
             return redirect()->route('PeminjamanAlat.index')->with('danger', "Gagal Ditambahkan! {$exception->getMessage()}");
         }
     }
@@ -136,12 +151,24 @@ class PeminjamanAlatController extends Controller
             'id_mahasiswa' => 'required',
             'tanggal_pinjam' => 'required|date',
             'tanggal_kembali' => 'required|date',
+            'jam_pinjam' => 'required',
+            'jam_kembali' => 'required',
             'id_alat' => 'required',
             'keperluan' => 'required|string',
             'status' => 'required'
         ]);
         try {
-            PeminjamanAlat::whereId($PeminjamanAlat->id)->update($request->except(['_method','_token']));
+            $peminjamanAlat = PeminjamanAlat::findOrFail($PeminjamanAlat->id);
+            $peminjamanAlat->id_mahasiswa = $request->id_mahasiswa;
+            $peminjamanAlat->tanggal_pinjam = $request->tanggal_pinjam;
+            $peminjamanAlat->jam_pinjam = $request->jam_pinjam;
+            $peminjamanAlat->tanggal_kembali = $request->tanggal_kembali;
+            $peminjamanAlat->jam_kembali = $request->jam_kembali;
+            $peminjamanAlat->jumlah_pinjam = $request->jumlah_pinjam;
+            $peminjamanAlat->id_alat = $request->id_alat;
+            $peminjamanAlat->keperluan = $request->keperluan;
+            $peminjamanAlat->status = $request->status;
+            $peminjamanAlat->saveOrFail();
             return redirect()->route('PeminjamanAlat.index')->with('success', "Berhasil Diupdate!");
         } catch (Exception $exception) {
             return redirect()->route('PeminjamanAlat.index')->with('danger', "Gagal Diupdate! {$exception->getMessage()}");

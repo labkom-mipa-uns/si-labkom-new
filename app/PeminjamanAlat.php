@@ -13,7 +13,7 @@ class PeminjamanAlat extends Model
     protected $table = 'peminjaman_alat';
     protected $guarded = ['id'];
     protected $dispatchesEvents = [
-        'saved' => EventPeminjamanAlatSaved::class,
+        'created' => EventPeminjamanAlatSaved::class,
         'updated' => EventPeminjamanAlatUpdated::class
     ];
 
