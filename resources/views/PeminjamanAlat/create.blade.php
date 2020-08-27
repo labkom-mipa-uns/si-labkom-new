@@ -69,6 +69,24 @@
                                 </div>
                             @enderror
                         </div>
+                        <div class="form-group">
+                            <label for="JamPinjam">Jam Pinjam :</label>
+                            <input type="time" name="jam_pinjam" id="JamPinjam" class="form-control @error('jam_pinjam') is-invalid @enderror" value="{{ old('jam_pinjam') }}">
+                            @error('jam_pinjam')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="JamKembali">Jam Kembali :</label>
+                            <input type="time" name="jam_kembali" id="JamKembali" class="form-control @error('jam_kembali') is-invalid @enderror" value="{{ old('jam_kembali') }}">
+                            @error('jam_kembali')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
                     </div>
                     <!-- /.card-body -->
                 </div>

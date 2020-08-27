@@ -25,19 +25,48 @@
         <div class="card-header">
             <h3 class="card-title">Daftar Peminjam Alat</h3>
             <div class="card-tools">
-                <form class="form-inline d-inline" method="post" action="{{ route('PeminjamanAlat.invoice') }}">
+                <form class="form-inline d-inline" method="post" action="{{ route('PeminjamanAlat.daily_report') }}">
                     @csrf
                     @method('post')
                     <input type="hidden" name="kategori" value="peminjaman_alat">
                     <input type="date" name="tanggal" class="form-control @error('tanggal') is-invalid @enderror" placeholder="Masukkan Nama Dosen" value="{{ old("tanggal") }}" autocomplete="off">
                     @error('tanggal')
-                        <div class="invalid-feedback">
+                        <div class="invalid-feedback d-inline">
                             {{ $message }}
                         </div>
                     @enderror
-                    <button type="submit" class="btn btn-dark btn-sm ml-2 mr-2">
+                    <button type="submit" class="btn btn-outline-dark btn-sm ml-2 mr-2">
                         <i class="fas fa-file-pdf"></i>
-                        Cetak
+                        Cetak per hari
+                    </button>
+                </form>
+                <form action="{{ route('PeminjamanAlat.monthly_report') }}" method="post" class="form-inline d-inline">
+                    @csrf
+                    @method('post')
+                    <input type="hidden" name="kategori" value="peminjaman_alat">
+                    <select class="form-control custom-select @error('bulan') is-invalid @enderror" name="bulan">
+                        <option disabled selected>-</option>
+                        <option value="01">Januari</option>
+                        <option value="02">Februari</option>
+                        <option value="03">Maret</option>
+                        <option value="04">April</option>
+                        <option value="05">Mei</option>
+                        <option value="06">Juni</option>
+                        <option value="07">Juli</option>
+                        <option value="08">Agustus</option>
+                        <option value="09">September</option>
+                        <option value="10">Oktober</option>
+                        <option value="11">November</option>
+                        <option value="12">Desember</option>
+                    </select>
+                    @error('bulan')
+                        <div class="invalid-feedback d-inline">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                    <button type="submit" class="btn btn-outline-dark btn-sm ml-2 mr-2">
+                        <i class="fas fa-file-pdf"></i>
+                        Cetak per bulan
                     </button>
                 </form>
                 <a href="{{ route('PeminjamanAlat.create') }}" class="btn btn-primary btn-sm">
@@ -81,33 +110,33 @@
                             {{ ($PeminjamanAlat->currentPage() - 1) * $PeminjamanAlat->perPage() + $loop->index + 1 }}
                         </td>
                         <td class="text-center">
-                            <a>
+                            <a class="d-block">
                                 {{ $elemen->tanggal_pinjam }} - {{ $elemen->tanggal_kembali }}
                             </a>
+                            <small>
+                                {{ $elemen->jam_pinjam }} - {{ $elemen->jam_kembali }}
+                            </small>
                         </td>
                         <td class="text-center">
-                            <a>
+                            <a class="d-block">
                                 {{ $elemen->mahasiswa->nama_mahasiswa }}
                             </a>
-                            <br>
                             <small>
                                 {{ $elemen->mahasiswa->kelas }} - {{ $elemen->mahasiswa->nim }}
                             </small>
                         </td>
                         <td class="text-center">
-                            <a>
+                            <a class="d-block">
                                 {{ $elemen->mahasiswa->prodi->nama_prodi }}
                             </a>
-                            <br>
                             <small>
                                 {{ $elemen->mahasiswa->tahun_angkatan }}
                             </small>
                         </td>
                         <td class="text-center">
-                            <a>
+                            <a class="d-block">
                                 {{ $elemen->alat->nama_alat }}
                             </a>
-                            <br>
                             <small>
                                 Rp.{{ $elemen->alat->harga_alat }}
                             </small>

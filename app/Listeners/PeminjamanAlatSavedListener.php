@@ -2,12 +2,13 @@
 
 namespace App\Listeners;
 
-use App\Events\EventPeminjamanAlat;
+use App\Alat;
+use App\Events\EventPeminjamanAlatSaved;
 use App\Transaksi;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
-class PeminjamanAlatListener
+class PeminjamanAlatSavedListener
 {
     /**
      * Create the event listener.
@@ -22,13 +23,16 @@ class PeminjamanAlatListener
     /**
      * Handle the event.
      *
-     * @param EventPeminjamanAlat $event
+     * @param EventPeminjamanAlatSaved $event
      * @return void
      */
-    public function handle(EventPeminjamanAlat $event): void
+    public function handle(EventPeminjamanAlatSaved $event): void
     {
-        $peminjamanAlat = $event->getPeminjamanAlat();
+        $peminjamanAlat = $event->peminjamanAlat;
         $transaksi = Transaksi::with(['peminjamanalat'])->firstWhere('id_alat', $peminjamanAlat->alat->id);
+        Alat::whereId($peminjamanAlat->alat->id)->update([
+            'stok_alat' => (int)$peminjamanAlat->alat->stok_alat - (int)$peminjamanAlat->jumlah_pinjam,
+        ]);
         Transaksi::updateOrCreate([
             'id_alat' => $peminjamanAlat->alat->id
         ],[

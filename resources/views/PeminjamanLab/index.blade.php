@@ -25,12 +25,10 @@
         <div class="card-header">
             <h3 class="card-title">Daftar Peminjam Lab</h3>
             <div class="card-tools">
-                <button type="button" class="btn btn-tool">
-                    <a href="{{ route('PeminjamanLab.create') }}" class="btn btn-primary btn-sm">
-                        <i class="fas fa-user-plus"></i>
-                        Insert
-                    </a>
-                </button>
+                <a href="{{ route('PeminjamanLab.create') }}" class="btn btn-primary btn-sm">
+                    <i class="fas fa-user-plus"></i>
+                    Insert
+                </a>
             </div>
         </div>
         <div class="card-body p-0">
@@ -76,47 +74,41 @@
                             </a>
                         </td>
                         <td class="text-center">
-                            <a>
+                            <a class="d-block">
                                 {{ $elemen->mahasiswa->nama_mahasiswa }}
                             </a>
-                            <br>
                             <small>
                                 {{ $elemen->mahasiswa->kelas }} - {{ $elemen->mahasiswa->nim }}
                             </small>
-                            <br>
                         </td>
                         <td class="text-center">
-                            <a>
+                            <a class="d-block">
                                 {{ $elemen->jadwal->prodi->nama_prodi }}
                             </a>
-                            <br>
                             <small>
                                 {{ $elemen->mahasiswa->angkatan }}
                             </small>
                         </td>
                         <td class="text-center">
-                            <a>
+                            <a class="d-block">
                                 {{ $elemen->jadwal->matakuliah->nama_matkul }}
                             </a>
-                            <br>
                             <small>
                                 {{ $elemen->jadwal->dosen->nama_dosen }}
                             </small>
                         </td>
                         <td class="text-center">
-                            <a>
+                            <a class="d-block">
                                 {{ $elemen->lab->nama_lab }}
                             </a>
-                            <br>
                             <small>
                                 {{ $elemen->jam_pinjam }} - {{ $elemen->jam_kembali }}
                             </small>
                         </td>
                         <td class="text-center">
-                            <a>
+                            <a class="d-block">
                                 {{ ($elemen->kategori === "didalam_jam") ? __("Didalam Jam Kuliah") : __("Diluar Jam Kuliah") }}
                             </a>
-                            <br>
                             <small>
                                 @if($elemen->status === '0')
                                     <i class="fas fa-circle-notch fa-2x"></i>

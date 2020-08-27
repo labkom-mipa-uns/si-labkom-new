@@ -2,7 +2,8 @@
 
 namespace App;
 
-use App\Events\EventPeminjamanAlat;
+use App\Events\EventPeminjamanAlatSaved;
+use App\Events\EventPeminjamanAlatUpdated;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -12,7 +13,8 @@ class PeminjamanAlat extends Model
     protected $table = 'peminjaman_alat';
     protected $guarded = ['id'];
     protected $dispatchesEvents = [
-        'saved' => EventPeminjamanAlat::class
+        'saved' => EventPeminjamanAlatSaved::class,
+        'updated' => EventPeminjamanAlatUpdated::class
     ];
 
     /**

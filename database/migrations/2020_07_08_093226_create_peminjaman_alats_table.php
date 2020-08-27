@@ -17,8 +17,10 @@ class CreatePeminjamanAlatsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('id_mahasiswa');
             $table->unsignedBigInteger('id_alat');
-            $table->dateTime('tanggal_pinjam');
-            $table->dateTime('tanggal_kembali');
+            $table->date('tanggal_pinjam');
+            $table->date('tanggal_kembali');
+            $table->time('jam_pinjam');
+            $table->time('jam_kembali');
             $table->integer('jumlah_pinjam');
             $table->text('keperluan');
             $table->enum('status', ['0', '1']);

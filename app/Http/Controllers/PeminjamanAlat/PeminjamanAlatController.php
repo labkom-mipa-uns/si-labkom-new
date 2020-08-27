@@ -16,6 +16,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use RuntimeException;
 
 class PeminjamanAlatController extends Controller
 {
@@ -79,7 +80,11 @@ class PeminjamanAlatController extends Controller
             'keperluan' => 'required|string',
             'status' => 'required'
         ]);
+        $alat = Alat::firstWhere('id', $request->id_alat);
         try {
+            if ($alat->stok_alat < $request->jumlah_pinjam):
+                throw new RuntimeException('Stok alat tidak mencukupi!');
+            endif;
             PeminjamanAlat::create($request->all());
             return redirect()->route('PeminjamanAlat.index')->with('success', "Berhasil Ditambahkan!");
         } catch (Exception $exception) {
@@ -162,14 +167,43 @@ class PeminjamanAlatController extends Controller
 
     /**
      * @param Request $request
-     * @return Response
+     * @return RedirectResponse|Response
      */
-    public function invoice(Request $request): Response
+    public function daily_report(Request $request)
     {
-        $data = [
-            'Transaksi' => Transaksi::with(['peminjamanalat', 'jasainstallasi', 'jasaprint'])->where('tanggal', $request->tanggal)->get()
-        ];
-        $pdf = PDF::loadView('Invoice.PeminjamanAlat', $data)->setPaper('a4', 'landscape');
-        return $pdf->stream('Peminjaman_Alat_Invoice.pdf');
+        $request->validate([
+            'tanggal' => 'required|date'
+        ]);
+        try {
+            $data = [
+                'Transaksi' => Transaksi::with(['peminjamanalat', 'jasainstallasi', 'jasaprint'])->whereDate('tanggal', $request->tanggal)->get(),
+                'tanggal' => $request->tanggal
+            ];
+            $pdf = PDF::loadView('Invoice.Daily.PeminjamanAlat', $data)->setPaper('a4', 'landscape');
+            return $pdf->stream("Peminjaman_Alat_Daily_Report_{$request->tanggal}.pdf");
+        } catch (Exception $exception) {
+            return redirect()->route('PeminjamanAlat.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return RedirectResponse|Response
+     */
+    public function monthly_report(Request $request)
+    {
+        $request->validate([
+            'bulan' => 'required'
+        ]);
+        try {
+            $data = [
+                'Transaksi' => Transaksi::with(['peminjamanalat', 'jasainstallasi', 'jasaprint'])->whereMonth('tanggal', $request->bulan)->get(),
+                'bulan' => $request->bulan
+            ];
+            $pdf = PDF::loadView('Invoice.Monthly.PeminjamanAlat', $data)->setPaper('a4', 'landscape');
+            return $pdf->stream("Peminjaman_Alat_Monthly_Report_{$request->tanggal}.pdf");
+        } catch (Exception $exception) {
+            return redirect()->route('PeminjamanAlat.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
+        }
     }
 }

@@ -11,10 +11,10 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class EventPeminjamanAlat
+class EventPeminjamanAlatUpdated
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-    private $peminjamanAlat;
+    public $peminjamanAlat;
 
     /**
      * Create a new event instance.
@@ -33,15 +33,6 @@ class EventPeminjamanAlat
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('peminjaman-alat');
+        return new PrivateChannel('channel-name');
     }
-
-    /**
-     * @return PeminjamanAlat
-     */
-    public function getPeminjamanAlat(): PeminjamanAlat
-    {
-        return $this->peminjamanAlat;
-    }
-
 }

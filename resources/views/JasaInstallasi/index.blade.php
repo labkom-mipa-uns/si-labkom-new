@@ -25,12 +25,10 @@
         <div class="card-header">
             <h3 class="card-title">Daftar Customer Jasa Installasi</h3>
             <div class="card-tools">
-                <button type="button" class="btn btn-tool">
-                    <a href="{{ route('JasaInstallasi.create') }}" class="btn btn-primary btn-sm">
-                        <i class="fas fa-user-plus"></i>
-                        Insert
-                    </a>
-                </button>
+                <a href="{{ route('JasaInstallasi.create') }}" class="btn btn-primary btn-sm">
+                    <i class="fas fa-user-plus"></i>
+                    Insert
+                </a>
             </div>
         </div>
         <div class="card-body p-0">
@@ -70,14 +68,12 @@
                             </a>
                         </td>
                         <td class="text-center">
-                            <a>
+                            <a class="d-block">
                                 {{ $elemen->mahasiswa->nama_mahasiswa }}
                             </a>
-                            <br>
                             <small>
                                 {{ $elemen->mahasiswa->kelas }} - {{ $elemen->mahasiswa->nim }}
                             </small>
-                            <br>
                         </td>
                         <td class="text-center">
                             <a>
@@ -85,10 +81,9 @@
                             </a>
                         </td>
                         <td class="text-center">
-                            <a>
+                            <a class="d-block">
                                 {{ $elemen->software->nama_software }}
                             </a>
-                            <br>
                             <small>
                                 {{ $elemen->jam_ambil }}
                             </small>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Invoice - Peminjaman Alat</title>
+    <title>Peminjaman Alat - Invoice - Daily</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <style>
         body{
@@ -15,9 +15,8 @@
             margin:0;
         }
         .container{
-            margin: 35px auto 0;
-            padding:40px;
-            width:750px;
+            margin: 40px;
+            width:75%;
             height:auto;
             background-color:#fff;
         }
@@ -40,7 +39,7 @@
             background-color: #f0f0f0;
         }
         h4, p{
-            margin:0px;
+            margin: 0;
         }
     </style>
 </head>
@@ -48,7 +47,7 @@
 <div class="container">
     <table>
         <caption>
-            Invoice Peminjaman Alat
+            Peminjaman Alat - Daily Report | {{ $tanggal }}
         </caption>
         <thead>
             <tr>
