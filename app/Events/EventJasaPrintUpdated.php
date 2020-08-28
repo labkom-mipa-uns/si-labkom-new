@@ -2,7 +2,7 @@
 
 namespace App\Events;
 
-use App\PeminjamanAlat;
+use App\JasaPrint;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -11,19 +11,19 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class EventPeminjamanAlatUpdated
+class EventJasaPrintUpdated
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-    public $peminjamanAlat;
+    public $jasaPrint;
 
     /**
      * Create a new event instance.
      *
-     * @param PeminjamanAlat $peminjamanAlat
+     * @return void
      */
-    public function __construct(PeminjamanAlat $peminjamanAlat)
+    public function __construct(JasaPrint $jasaPrint)
     {
-        $this->peminjamanAlat = $peminjamanAlat;
+        $this->jasaPrint = $jasaPrint;
     }
 
     /**
@@ -33,6 +33,6 @@ class EventPeminjamanAlatUpdated
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('peminjaman-alat');
+        return new PrivateChannel('jasa-print');
     }
 }

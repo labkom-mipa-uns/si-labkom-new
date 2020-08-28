@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Peminjaman Alat - Invoice - Monthly</title>
+    <title>Jasa Installasi - Invoice - Daily</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <style>
         body{
@@ -33,7 +33,7 @@
         td, tr, th{
             padding:12px;
             border:1px solid #333;
-            width:160px;
+            width:185px;
         }
         th{
             background-color: #f0f0f0;
@@ -47,25 +47,23 @@
 <div class="container">
     <table>
         <caption>
-            Peminjaman Alat - Monthly Report | Bulan ke-{{ $bulan }}
+            Jasa Installasi - Daily Report | {{ $tanggal }}
         </caption>
         <thead>
-            <tr>
-                <th>Tanggal</th>
-                <th>Nama Alat</th>
-                <th>Harga per satuan</th>
-                <th>Qty</th>
-                <th>Total Bayar</th>
-            </tr>
+        <tr>
+            <th>Nama Software</th>
+            <th>Harga per satuan</th>
+            <th>Qty</th>
+            <th>Total Bayar</th>
+        </tr>
         </thead>
         <tbody>
         <?php
         $total_semua = 0 ?>
         @foreach($Transaksi as $elemen)
             <tr>
-                <td>{{ $elemen->tanggal }}</td>
-                <td>{{ $elemen->peminjamanalat->alat->nama_alat }}</td>
-                <td>Rp.{{ number_format($elemen->peminjamanalat->alat->harga_alat) }}</td>
+                <td>{{ $elemen->jasainstallasi->software->nama_software }}</td>
+                <td>Rp.{{ number_format($elemen->jasainstallasi->software->harga_software) }}</td>
                 <td>{{ $elemen->jumlah }}</td>
                 <td>Rp.{{ number_format($elemen->total_bayar) }}</td>
             </tr>
@@ -75,7 +73,7 @@
         </tbody>
         <tfoot>
         <tr>
-            <th colspan="4">Total</th>
+            <th colspan="3">Total</th>
             <td>Rp.<?= number_format($total_semua) ?></td>
         </tr>
         </tfoot>

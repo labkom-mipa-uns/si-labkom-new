@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Peminjaman Alat - Invoice - Monthly</title>
+    <title>Jasa Installasi - Invoice - Monthly</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <style>
         body{
@@ -47,16 +47,16 @@
 <div class="container">
     <table>
         <caption>
-            Peminjaman Alat - Monthly Report | Bulan ke-{{ $bulan }}
+            Jasa Installasi - Monthly Report | Bulan ke-{{ $bulan }}
         </caption>
         <thead>
-            <tr>
-                <th>Tanggal</th>
-                <th>Nama Alat</th>
-                <th>Harga per satuan</th>
-                <th>Qty</th>
-                <th>Total Bayar</th>
-            </tr>
+        <tr>
+            <th>Tanggal</th>
+            <th>Nama Software</th>
+            <th>Harga per satuan</th>
+            <th>Qty</th>
+            <th>Total Bayar</th>
+        </tr>
         </thead>
         <tbody>
         <?php
@@ -64,8 +64,8 @@
         @foreach($Transaksi as $elemen)
             <tr>
                 <td>{{ $elemen->tanggal }}</td>
-                <td>{{ $elemen->peminjamanalat->alat->nama_alat }}</td>
-                <td>Rp.{{ number_format($elemen->peminjamanalat->alat->harga_alat) }}</td>
+                <td>{{ $elemen->jasainstallasi->software->nama_software }}</td>
+                <td>Rp.{{ number_format($elemen->jasainstallasi->software->harga_software) }}</td>
                 <td>{{ $elemen->jumlah }}</td>
                 <td>Rp.{{ number_format($elemen->total_bayar) }}</td>
             </tr>

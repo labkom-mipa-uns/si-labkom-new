@@ -2,14 +2,31 @@
 
 namespace App;
 
+use App\Events\EventJasaInstallasiSaved;
+use App\Events\EventJasaInstallasiUpdated;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class JasaInstallasi extends Model
 {
+    /**
+     * @var string
+     */
     protected $table = 'jasa_installasi';
+
+    /**
+     * @var string[]
+     */
     protected $guarded = ['id'];
+
+    /**
+     * @var string[]
+     */
+    protected $dispatchesEvents = [
+        'created' => EventJasaInstallasiSaved::class,
+        'updated' => EventJasaInstallasiUpdated::class,
+    ];
 
     /**
      * @return BelongsTo

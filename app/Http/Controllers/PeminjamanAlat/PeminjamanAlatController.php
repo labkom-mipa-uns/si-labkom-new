@@ -38,7 +38,9 @@ class PeminjamanAlatController extends Controller
     {
         try {
             $data = [
-                'PeminjamanAlat' => PeminjamanAlat::with(['alat','mahasiswa'])->orderBy('created_at', 'desc')->paginate(8)
+                'PeminjamanAlat' => PeminjamanAlat::with(['alat','mahasiswa'])
+                    ->orderBy('created_at', 'desc')
+                    ->paginate(8)
             ];
             return view('PeminjamanAlat.index', $data);
         } catch (Exception $exception) {
@@ -60,7 +62,8 @@ class PeminjamanAlatController extends Controller
             ];
             return view('PeminjamanAlat.create', $data);
         } catch (Exception $exception) {
-            return redirect()->route('PeminjamanAlat.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
+            return redirect()->route('PeminjamanAlat.index')
+                ->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }
 
@@ -101,9 +104,11 @@ class PeminjamanAlatController extends Controller
             $peminjamanAlat->saveOrFail();
             return redirect()->route('PeminjamanAlat.index')->with('success', "Berhasil Ditambahkan!");
         } catch (Exception $exception) {
-            return redirect()->route('PeminjamanAlat.index')->with('danger', "Gagal Ditambahkan! {$exception->getMessage()}");
+            return redirect()->route('PeminjamanAlat.index')
+                ->with('danger', "Gagal Ditambahkan! {$exception->getMessage()}");
         } catch (Throwable $exception) {
-            return redirect()->route('PeminjamanAlat.index')->with('danger', "Gagal Ditambahkan! {$exception->getMessage()}");
+            return redirect()->route('PeminjamanAlat.index')
+                ->with('danger', "Gagal Ditambahkan! {$exception->getMessage()}");
         }
     }
 
@@ -115,7 +120,8 @@ class PeminjamanAlatController extends Controller
      */
     public function show(PeminjamanAlat $PeminjamanAlat): PeminjamanAlatResource
     {
-        return new PeminjamanAlatResource($PeminjamanAlat::with(['mahasiswa','alat'])->firstWhere('id',$PeminjamanAlat->id));
+        return new PeminjamanAlatResource($PeminjamanAlat::with(['mahasiswa','alat'])
+            ->firstWhere('id',$PeminjamanAlat->id));
     }
 
     /**
@@ -128,13 +134,15 @@ class PeminjamanAlatController extends Controller
     {
         try {
             $data = [
-                'PeminjamanAlat' => $PeminjamanAlat::with(['alat','mahasiswa'])->firstWhere('id',$PeminjamanAlat->id),
+                'PeminjamanAlat' => $PeminjamanAlat::with(['alat','mahasiswa'])
+                    ->firstWhere('id',$PeminjamanAlat->id),
                 'Mahasiswa' => Mahasiswa::orderBy('nama_mahasiswa', 'asc')->get(),
                 'Alat' => Alat::orderBy('nama_alat', 'asc')->get()
             ];
             return view('PeminjamanAlat.edit', $data);
         } catch (Exception $exception) {
-            return redirect()->route('PeminjamanAlat.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
+            return redirect()->route('PeminjamanAlat.index')
+                ->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }
 
@@ -203,13 +211,16 @@ class PeminjamanAlatController extends Controller
         ]);
         try {
             $data = [
-                'Transaksi' => Transaksi::with(['peminjamanalat', 'jasainstallasi', 'jasaprint'])->whereDate('tanggal', $request->tanggal)->get(),
+                'Transaksi' => Transaksi::with(['peminjamanalat', 'jasainstallasi', 'jasaprint'])
+                    ->whereDate('tanggal', $request->tanggal)
+                    ->where('kategori', $request->kategori)->get(),
                 'tanggal' => $request->tanggal
             ];
             $pdf = PDF::loadView('Invoice.Daily.PeminjamanAlat', $data)->setPaper('a4', 'landscape');
             return $pdf->stream("Peminjaman_Alat_Daily_Report_{$request->tanggal}.pdf");
         } catch (Exception $exception) {
-            return redirect()->route('PeminjamanAlat.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
+            return redirect()->route('PeminjamanAlat.index')
+                ->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }
 
@@ -224,13 +235,16 @@ class PeminjamanAlatController extends Controller
         ]);
         try {
             $data = [
-                'Transaksi' => Transaksi::with(['peminjamanalat', 'jasainstallasi', 'jasaprint'])->whereMonth('tanggal', $request->bulan)->get(),
+                'Transaksi' => Transaksi::with(['peminjamanalat', 'jasainstallasi', 'jasaprint'])
+                    ->whereMonth('tanggal', $request->bulan)
+                    ->where('kategori', $request->kategori)->get(),
                 'bulan' => $request->bulan
             ];
             $pdf = PDF::loadView('Invoice.Monthly.PeminjamanAlat', $data)->setPaper('a4', 'landscape');
             return $pdf->stream("Peminjaman_Alat_Monthly_Report_{$request->tanggal}.pdf");
         } catch (Exception $exception) {
-            return redirect()->route('PeminjamanAlat.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
+            return redirect()->route('PeminjamanAlat.index')
+                ->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }
 }

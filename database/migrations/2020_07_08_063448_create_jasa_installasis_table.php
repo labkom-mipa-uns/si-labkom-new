@@ -19,8 +19,8 @@ class CreateJasaInstallasisTable extends Migration
             $table->string('laptop');
             $table->text('kelengkapan');
             $table->date('tanggal');
-            $table->unsignedBigInteger('id_software');
-            $table->enum('jenis', ['install', 'service','lainnya']);
+            $table->unsignedBigInteger('id_software')->nullable();
+            $table->enum('jenis', ['install', 'service']);
             $table->text('keterangan');
             $table->time('jam_ambil');
             $table->timestamps();

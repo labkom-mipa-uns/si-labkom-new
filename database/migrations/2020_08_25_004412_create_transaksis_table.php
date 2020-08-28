@@ -20,7 +20,7 @@ class CreateTransaksisTable extends Migration
             $table->unsignedBigInteger('id_jasa_installasi')->nullable();
             $table->unsignedBigInteger('id_software')->nullable();
             $table->unsignedBigInteger('id_jasa_print')->nullable();
-            $table->string('jenis_print')->nullable();
+            $table->enum('jenis_print', ['Hitam Putih', 'Warna', 'Warna-full'])->nullable();
             $table->enum('kategori', ['peminjaman_alat', 'jasa_installasi', 'jasa_print']);
             $table->integer('harga');
             $table->integer('jumlah');

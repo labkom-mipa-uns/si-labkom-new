@@ -10,8 +10,19 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class PeminjamanAlat extends Model
 {
+    /**
+     * @var string
+     */
     protected $table = 'peminjaman_alat';
+
+    /**
+     * @var string[]
+     */
     protected $guarded = ['id'];
+
+    /**
+     * @var string[]
+     */
     protected $dispatchesEvents = [
         'created' => EventPeminjamanAlatSaved::class,
         'updated' => EventPeminjamanAlatUpdated::class

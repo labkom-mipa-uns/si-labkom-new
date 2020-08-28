@@ -7,7 +7,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Transaksi extends Model
 {
+    /**
+     * @var string
+     */
     protected $table = 'transaksi';
+
+    /**
+     * @var string[]
+     */
     protected $guarded = ['id'];
 
     /**
@@ -23,7 +30,7 @@ class Transaksi extends Model
      */
     public function jasainstallasi(): BelongsTo
     {
-        return $this->belongsTo(JasaInstallasi::class, 'id_jasa_installasi');
+        return $this->belongsTo(JasaInstallasi::class, 'id_jasa_installasi')->with(['software']);
     }
 
     /**

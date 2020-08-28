@@ -7,7 +7,14 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Software extends Model
 {
+    /**
+     * @var string
+     */
     protected $table = 'software';
+
+    /**
+     * @var string[]
+     */
     protected $guarded = ['id'];
 
     /**

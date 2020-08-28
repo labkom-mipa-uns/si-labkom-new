@@ -98,7 +98,7 @@
                             <label for="Software">Software :</label>
                             <select name="id_software" id="Software" class="custom-select @error('id_software') is-invalid @enderror">
                                 <option disabled @if(!old('id_software')) selected @endif>Pilih Software</option>
-                                <option>Service</option>
+                                <option>-</option>
                                 @foreach($Software as $elemen)
                                     @if(old('id_software') == $elemen->id)
                                         <option selected value="{{ old('id_software') }}">{{ $elemen->nama_software }}</option>

@@ -8,7 +8,14 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Mahasiswa extends Model
 {
+    /**
+     * @var string
+     */
     protected $table = 'mahasiswa';
+
+    /**
+     * @var string[]
+     */
     protected $guarded = ['id'];
 
     /**

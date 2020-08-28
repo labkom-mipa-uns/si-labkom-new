@@ -25,7 +25,11 @@ Route::post('/PeminjamanAlat/DailyReport', 'PeminjamanAlat\PeminjamanAlatControl
 Route::post('/PeminjamanAlat/MonthlyReport', 'PeminjamanAlat\PeminjamanAlatController@monthly_report')->name('PeminjamanAlat.monthly_report');
 Route::resource('SuratBebasLabkom', 'SuratBebasLabkom\SuratBebasLabkomController');
 Route::resource('JasaInstallasi', 'JasaInstallasi\JasaInstallasiController');
+Route::post('/JasaInstallasi/DailyReport', 'JasaInstallasi\JasaInstallasiController@daily_report')->name('JasaInstallasi.daily_report');
+Route::post('/JasaInstallasi/MonthlyReport', 'JasaInstallasi\JasaInstallasiController@monthly_report')->name('JasaInstallasi.monthly_report');
 Route::resource('JasaPrint', 'JasaPrint\JasaPrintController');
+Route::post('/JasaPrint/DailyReport', 'JasaPrint\JasaPrintController@daily_report')->name('JasaPrint.daily_report');
+Route::post('/JasaPrint/MonthlyReport', 'JasaPrint\JasaPrintController@monthly_report')->name('JasaPrint.monthly_report');
 Route::resource('Laboratorium', 'Lab\LabController');
 Route::resource('Alat', 'Alat\AlatController');
 Route::resource('Mahasiswa', 'Mahasiswa\MahasiswaController');

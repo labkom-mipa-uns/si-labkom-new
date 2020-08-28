@@ -7,7 +7,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class SuratBebasLabkom extends Model
 {
+    /**
+     * @var string
+     */
     protected $table = 'surat_bebas_labkom';
+
+    /**
+     * @var string[]
+     */
     protected $guarded = ['id'];
 
     /**

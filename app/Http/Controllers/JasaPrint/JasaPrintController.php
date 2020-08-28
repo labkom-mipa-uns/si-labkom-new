@@ -5,14 +5,15 @@ namespace App\Http\Controllers\JasaPrint;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\JasaPrintResource;
 use App\JasaPrint;
+use App\Transaksi;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
+use PDF;
 
 class JasaPrintController extends Controller
 {
@@ -51,7 +52,8 @@ class JasaPrintController extends Controller
         try {
             return view('JasaPrint.create');
         } catch (Exception $exception) {
-            return redirect()->route('JasaPrint.index')->with('waning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
+            return redirect()->route('JasaPrint.index')
+                ->with('waning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }
 
@@ -72,7 +74,8 @@ class JasaPrintController extends Controller
             JasaPrint::create($request->all());
             return redirect()->route('JasaPrint.index')->with('success', "Berhasil Ditambahkan!");
         } catch (Exception $exception) {
-            return redirect()->route('JasaPrint.index')->with('danger', "Gagal Ditambahkan! {$exception->getMessage()}");
+            return redirect()->route('JasaPrint.index')
+                ->with('danger', "Gagal Ditambahkan! {$exception->getMessage()}");
         }
     }
 
@@ -101,7 +104,8 @@ class JasaPrintController extends Controller
             ];
             return view('JasaPrint.edit', $data);
         } catch (Exception $exception) {
-            return redirect()->route('JasaPrint.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
+            return redirect()->route('JasaPrint.index')
+                ->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }
 
@@ -123,7 +127,8 @@ class JasaPrintController extends Controller
             JasaPrint::whereId($JasaPrint->id)->update($request->except('_method', '_token'));
             return redirect()->route('JasaPrint.index')->with('success', "Berhasil Diupdate!");
         } catch (Exception $exception) {
-            return redirect()->route('JasaPrint.index')->with('danger', "Gagal Diupdate! {$exception->getMessage()}");
+            return redirect()->route('JasaPrint.index')
+                ->with('danger', "Gagal Diupdate! {$exception->getMessage()}");
         }
     }
 
@@ -136,11 +141,60 @@ class JasaPrintController extends Controller
     public function destroy(JasaPrint $JasaPrint): ?RedirectResponse
     {
         try {
-            Gate::authorize('delete-data');
+            $this->authorize('delete-data');
             JasaPrint::destroy($JasaPrint->id);
             return redirect()->route('JasaPrint.index')->with('success', "Berhasil Dihapus!");
         } catch (Exception $exception) {
-            return redirect()->route('JasaPrint.index')->with('danger', "Gagal Dihapus! {$exception->getMessage()}");
+            return redirect()->route('JasaPrint.index')
+                ->with('danger', "Gagal Dihapus! {$exception->getMessage()}");
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return RedirectResponse|Response
+     */
+    public function daily_report(Request $request)
+    {
+        $request->validate([
+            'tanggal' => 'required|date'
+        ]);
+        try {
+            $data = [
+                'Transaksi' => Transaksi::with(['peminjamanalat', 'jasainstallasi', 'jasaprint'])
+                    ->whereDate('tanggal', $request->tanggal)
+                    ->where('kategori', $request->kategori)->get(),
+                'tanggal' => $request->tanggal
+            ];
+            $pdf = PDF::loadView('Invoice.Daily.JasaPrint', $data)->setPaper('a4', 'landscape');
+            return $pdf->stream("Jasa_Installasi_Daily_Report_{$request->tanggal}.pdf");
+        } catch (Exception $exception) {
+            return redirect()->route('JasaPrint.index')
+                ->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return RedirectResponse|Response
+     */
+    public function monthly_report(Request $request)
+    {
+        $request->validate([
+            'bulan' => 'required'
+        ]);
+        try {
+            $data = [
+                'Transaksi' => Transaksi::with(['peminjamanalat', 'jasainstallasi', 'jasaprint'])
+                    ->whereMonth('tanggal', $request->bulan)
+                    ->where('kategori', $request->kategori)->get(),
+                'bulan' => $request->bulan
+            ];
+            $pdf = PDF::loadView('Invoice.Monthly.JasaPrint', $data)->setPaper('a4', 'landscape');
+            return $pdf->stream("Jasa_Installasi_Monthly_Report_{$request->tanggal}.pdf");
+        } catch (Exception $exception) {
+            return redirect()->route('JasaPrint.index')
+                ->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }
 }

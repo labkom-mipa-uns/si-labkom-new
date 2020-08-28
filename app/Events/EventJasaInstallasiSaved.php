@@ -2,7 +2,7 @@
 
 namespace App\Events;
 
-use App\PeminjamanAlat;
+use App\JasaInstallasi;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -11,28 +11,28 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class EventPeminjamanAlatUpdated
+class EventJasaInstallasiSaved
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-    public $peminjamanAlat;
+    public $jasaInstallasi;
 
     /**
      * Create a new event instance.
      *
-     * @param PeminjamanAlat $peminjamanAlat
+     * @param JasaInstallasi $jasaInstallasi
      */
-    public function __construct(PeminjamanAlat $peminjamanAlat)
+    public function __construct(JasaInstallasi $jasaInstallasi)
     {
-        $this->peminjamanAlat = $peminjamanAlat;
+        $this->jasaInstallasi = $jasaInstallasi;
     }
 
     /**
      * Get the channels the event should broadcast on.
      *
-     * @return Channel|array
+     * @return \Illuminate\Broadcasting\Channel|array
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('peminjaman-alat');
+        return new PrivateChannel('jasa-installasi');
     }
 }

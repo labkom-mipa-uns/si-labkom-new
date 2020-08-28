@@ -29,7 +29,7 @@
                     @csrf
                     @method('post')
                     <input type="hidden" name="kategori" value="peminjaman_alat">
-                    <input type="date" name="tanggal" class="form-control @error('tanggal') is-invalid @enderror" placeholder="Masukkan Nama Dosen" value="{{ old("tanggal") }}" autocomplete="off">
+                    <input type="date" name="tanggal" class="form-control @error('tanggal') is-invalid @enderror" value="{{ old("tanggal") }}" autocomplete="off">
                     @error('tanggal')
                         <div class="invalid-feedback d-inline">
                             {{ $message }}
