@@ -25,12 +25,55 @@
         <div class="card-header">
             <h3 class="card-title">Daftar Print</h3>
             <div class="card-tools">
-                <button type="button" class="btn btn-tool">
+                <div class="card-tools">
+                    <form class="form-inline d-inline" method="post" action="{{ route('JasaPrint.daily_report') }}">
+                        @csrf
+                        @method('post')
+                        <input type="hidden" name="kategori" value="jasa_print">
+                        <input type="date" name="tanggal" class="form-control @error('tanggal') is-invalid @enderror" value="{{ old("tanggal") }}" autocomplete="off">
+                        @error('tanggal')
+                        <div class="invalid-feedback d-inline">
+                            {{ $message }}
+                        </div>
+                        @enderror
+                        <button type="submit" class="btn btn-outline-dark btn-sm ml-2 mr-2">
+                            <i class="fas fa-file-pdf"></i>
+                            Cetak per hari
+                        </button>
+                    </form>
+                    <form action="{{ route('JasaPrint.monthly_report') }}" method="post" class="form-inline d-inline">
+                        @csrf
+                        @method('post')
+                        <input type="hidden" name="kategori" value="jasa_print">
+                        <select class="form-control custom-select @error('bulan') is-invalid @enderror" name="bulan">
+                            <option disabled selected>-</option>
+                            <option value="01">Januari</option>
+                            <option value="02">Februari</option>
+                            <option value="03">Maret</option>
+                            <option value="04">April</option>
+                            <option value="05">Mei</option>
+                            <option value="06">Juni</option>
+                            <option value="07">Juli</option>
+                            <option value="08">Agustus</option>
+                            <option value="09">September</option>
+                            <option value="10">Oktober</option>
+                            <option value="11">November</option>
+                            <option value="12">Desember</option>
+                        </select>
+                        @error('bulan')
+                        <div class="invalid-feedback d-inline">
+                            {{ $message }}
+                        </div>
+                        @enderror
+                        <button type="submit" class="btn btn-outline-dark btn-sm ml-2 mr-2">
+                            <i class="fas fa-file-pdf"></i>
+                            Cetak per bulan
+                        </button>
+                    </form>
                     <a href="{{ route('JasaPrint.create') }}" class="btn btn-primary btn-sm">
-                        <i class="fas fa-user-plus"></i>
-                        Insert
-                    </a>
-                </button>
+                    <i class="fas fa-user-plus"></i>
+                    Insert
+                </a>
             </div>
         </div>
         <div class="card-body p-0">

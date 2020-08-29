@@ -25,12 +25,10 @@
         <div class="card-header">
             <h3 class="card-title">Daftar Alat</h3>
             <div class="card-tools">
-                <button type="button" class="btn btn-tool">
-                    <a href="{{ route('Alat.create') }}" class="btn btn-primary btn-sm">
-                        <i class="fas fa-user-plus"></i>
-                        Insert
-                    </a>
-                </button>
+                <a href="{{ route('Alat.create') }}" class="btn btn-primary btn-sm">
+                    <i class="fas fa-user-plus"></i>
+                    Insert
+                </a>
             </div>
         </div>
         <div class="card-body p-0">
@@ -45,6 +43,9 @@
                     </th>
                     <th class="text-center">
                         Harga Alat
+                    </th>
+                    <th class="text-center">
+                        Stok
                     </th>
                     <th>
                         #
@@ -65,7 +66,12 @@
                         </td>
                         <td class="text-center">
                             <a>
-                                Rp. {{ $elemen->harga_alat }}
+                                Rp. {{ number_format($elemen->harga_alat) }}
+                            </a>
+                        </td>
+                        <td class="text-center">
+                            <a>
+                                {{ $elemen->stok_alat }}
                             </a>
                         </td>
                         <td class="project-actions text-right">

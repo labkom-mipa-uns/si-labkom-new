@@ -37,9 +37,9 @@
                             <label for="Tanggal">Tanggal Print :</label>
                             <input type="text" name="tanggal_print" id="Tanggal" class="form-control @error('tanggal_print') is-invalid @enderror" placeholder="Masukkan Tanggal Print" onfocus="this.type = 'date'" value="{{ $JasaPrint->tanggal_print }}">
                             @error('tanggal_print')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
                             @enderror
                         </div>
                         <div class="form-group">
@@ -55,18 +55,27 @@
                                 @endforeach
                             </select>
                             @error('jenis_print')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="harga">Harga Print :</label>
                             <input type="number" name="harga_print" id="harga" class="form-control @error('harga_print') is-invalid @enderror" value="{{ $JasaPrint->harga_print }}" autocomplete="off">
                             @error('harga_print')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="jumlah">Jumlah Print :</label>
+                            <input type="number" name="jumlah_print" id="jumlah" class="form-control @error('jumlah_print') is-invalid @enderror" value="{{ $JasaPrint->jumlah_print }}" autocomplete="off">
+                            @error('jumlah_print')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
                             @enderror
                         </div>
                     </div>

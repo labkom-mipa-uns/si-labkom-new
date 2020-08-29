@@ -25,12 +25,10 @@
         <div class="card-header">
             <h3 class="card-title">Daftar Laboratorium</h3>
             <div class="card-tools">
-                <button type="button" class="btn btn-tool">
-                    <a href="{{ route('Laboratorium.create') }}" class="btn btn-primary btn-sm">
-                        <i class="fas fa-user-plus"></i>
-                        Insert
-                    </a>
-                </button>
+                <a href="{{ route('Laboratorium.create') }}" class="btn btn-primary btn-sm">
+                    <i class="fas fa-user-plus"></i>
+                    Insert
+                </a>
             </div>
         </div>
         <div class="card-body p-0">

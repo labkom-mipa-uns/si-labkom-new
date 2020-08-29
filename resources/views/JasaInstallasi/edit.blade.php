@@ -96,7 +96,7 @@
                         <div class="form-group">
                             <label for="Software">Software :</label>
                             <select name="id_software" id="Software" class="custom-select @error('id_software') is-invalid @enderror">
-                                <option>Service</option>
+                                <option>-</option>
                                 @foreach($Software as $elemen)
                                     @if($JasaInstallasi->id_software == $elemen->id)
                                         <option selected value="{{ $JasaInstallasi->id_software }}">{{ $elemen->nama_software }}</option>

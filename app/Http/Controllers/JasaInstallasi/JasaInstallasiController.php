@@ -7,6 +7,7 @@ use App\Http\Resources\JasaInstallasiResource;
 use App\JasaInstallasi;
 use App\Mahasiswa;
 use App\Software;
+use App\Transaksi;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -14,6 +15,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
+use PDF;
+use Throwable;
 
 class JasaInstallasiController extends Controller
 {
@@ -34,7 +37,9 @@ class JasaInstallasiController extends Controller
     {
         try {
             $data = [
-                'JasaInstallasi' => JasaInstallasi::with(['mahasiswa', 'software'])->orderBy('created_at', 'desc')->paginate(8)
+                'JasaInstallasi' => JasaInstallasi::with(['mahasiswa', 'software'])
+                    ->orderBy('created_at', 'desc')
+                    ->paginate(8)
             ];
             return view('JasaInstallasi.index', $data);
         } catch (Exception $exception) {
@@ -56,7 +61,8 @@ class JasaInstallasiController extends Controller
             ];
             return view('JasaInstallasi.create', $data);
         } catch (Exception $exception) {
-            return redirect()->route('JasaInstallasi.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
+            return redirect()->route('JasaInstallasi.index')
+                ->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }
 
@@ -79,10 +85,23 @@ class JasaInstallasiController extends Controller
             'jam_ambil' => 'required'
         ]);
         try {
-            JasaInstallasi::create($request->all());
+            $jasaInstallasi = new JasaInstallasi();
+            $jasaInstallasi->id_mahasiswa = $request->id_mahasiswa;
+            $jasaInstallasi->laptop = $request->laptop;
+            $jasaInstallasi->kelengkapan = $request->kelengkapan;
+            $jasaInstallasi->tanggal = $request->tanggal;
+            $jasaInstallasi->id_software = $request->id_software;
+            $jasaInstallasi->jenis = $request->jenis;
+            $jasaInstallasi->keterangan = $request->keterangan;
+            $jasaInstallasi->jam_ambil = $request->jam_ambil;
+            $jasaInstallasi->saveOrFail();
             return redirect()->route('JasaInstallasi.index')->with('success', "Berhasil Ditambahkan!");
         } catch (Exception $exception) {
-            return redirect()->route('JasaInstallasi.index')->with('danger', "Gagal Ditambahkan! {$exception->getMessage()}");
+            return redirect()->route('JasaInstallasi.index')
+                ->with('danger', "Gagal Ditambahkan! {$exception->getMessage()}");
+        } catch (Throwable $exception) {
+            return redirect()->route('JasaInstallasi.index')
+                ->with('danger', "Gagal Ditambahkan! {$exception->getMessage()}");
         }
     }
 
@@ -94,7 +113,8 @@ class JasaInstallasiController extends Controller
      */
     public function show(JasaInstallasi $JasaInstallasi): JasaInstallasiResource
     {
-        return new JasaInstallasiResource($JasaInstallasi::with(['mahasiswa', 'software'])->firstWhere('id',$JasaInstallasi->id));
+        return new JasaInstallasiResource($JasaInstallasi::with(['mahasiswa', 'software'])
+            ->firstWhere('id',$JasaInstallasi->id));
     }
 
     /**
@@ -107,13 +127,15 @@ class JasaInstallasiController extends Controller
     {
         try {
             $data = [
-                'JasaInstallasi' => $JasaInstallasi::with(['mahasiswa', 'software'])->firstWhere('id',$JasaInstallasi->id),
+                'JasaInstallasi' => $JasaInstallasi::with(['mahasiswa', 'software'])
+                    ->firstWhere('id',$JasaInstallasi->id),
                 'Mahasiswa' => Mahasiswa::orderBy('nama_mahasiswa', 'asc')->get(),
                 'Software' => Software::orderBy('nama_software', 'asc')->get()
             ];
             return view('JasaInstallasi.edit', $data);
         } catch (Exception $exception) {
-            return redirect()->route('JasaInstallasi.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
+            return redirect()->route('JasaInstallasi.index')
+                ->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }
 
@@ -137,10 +159,20 @@ class JasaInstallasiController extends Controller
             'jam_ambil' => 'required'
         ]);
         try {
-            JasaInstallasi::whereId($JasaInstallasi->id)->update($request->except(['_method','_token']));
+            $jasaInstallasi = JasaInstallasi::findOrFail($JasaInstallasi->id);
+            $jasaInstallasi->id_mahasiswa = $request->id_mahasiswa;
+            $jasaInstallasi->laptop = $request->laptop;
+            $jasaInstallasi->kelengkapan = $request->kelengkapan;
+            $jasaInstallasi->tanggal = $request->tanggal;
+            $jasaInstallasi->id_software = $request->id_software;
+            $jasaInstallasi->jenis = $request->jenis;
+            $jasaInstallasi->keterangan = $request->keterangan;
+            $jasaInstallasi->jam_ambil = $request->jam_ambil;
+            $jasaInstallasi->saveOrFail();
             return redirect()->route('JasaInstallasi.index')->with('success', "Berhasil Diupdate!");
         } catch (Exception $exception) {
-            return redirect()->route('JasaInstallasi.index')->with('danger', "Gagal Diupdate! {$exception->getMessage()}");
+            return redirect()->route('JasaInstallasi.index')
+                ->with('danger', "Gagal Diupdate! {$exception->getMessage()}");
         }
     }
 
@@ -157,7 +189,56 @@ class JasaInstallasiController extends Controller
             JasaInstallasi::destroy($JasaInstallasi->id);
             return redirect()->route('JasaInstallasi.index')->with('success', "Berhasil Dihapus!");
         } catch (Exception $exception) {
-            return redirect()->route('JasaInstallasi.index')->with('danger', "Gagal Dihapus! {$exception->getMessage()}");
+            return redirect()->route('JasaInstallasi.index')
+                ->with('danger', "Gagal Dihapus! {$exception->getMessage()}");
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return RedirectResponse|Response
+     */
+    public function daily_report(Request $request)
+    {
+        $request->validate([
+            'tanggal' => 'required|date'
+        ]);
+        try {
+            $data = [
+                'Transaksi' => Transaksi::with(['peminjamanalat', 'jasainstallasi', 'jasaprint'])
+                    ->whereDate('tanggal', $request->tanggal)
+                    ->where('kategori', $request->kategori)->get(),
+                'tanggal' => $request->tanggal
+            ];
+            $pdf = PDF::loadView('Invoice.Daily.JasaInstallasi', $data)->setPaper('a4', 'landscape');
+            return $pdf->stream("Jasa_Installasi_Daily_Report_{$request->tanggal}.pdf");
+        } catch (Exception $exception) {
+            return redirect()->route('JasaInstallasi.index')
+                ->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return RedirectResponse|Response
+     */
+    public function monthly_report(Request $request)
+    {
+        $request->validate([
+            'bulan' => 'required'
+        ]);
+        try {
+            $data = [
+                'Transaksi' => Transaksi::with(['peminjamanalat', 'jasainstallasi', 'jasaprint'])
+                    ->whereMonth('tanggal', $request->bulan)
+                    ->where('kategori', $request->kategori)->get(),
+                'bulan' => $request->bulan
+            ];
+            $pdf = PDF::loadView('Invoice.Monthly.JasaInstallasi', $data)->setPaper('a4', 'landscape');
+            return $pdf->stream("Jasa_Installasi_Monthly_Report_{$request->tanggal}.pdf");
+        } catch (Exception $exception) {
+            return redirect()->route('JasaInstallasi.index')
+                ->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }
 }

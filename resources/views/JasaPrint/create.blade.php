@@ -46,7 +46,7 @@
                             <label for="Jenis_Print">Jenis Print :</label>
                             <select name="jenis_print" id="Jenis_Print" class="custom-select @error('jenis_print') is-invalid @enderror">
                                 <option disabled @if(!old('jenis_print')) selected @endif>Pilih Jenis Print</option>
-                                <?php $arrayJenis = ['Hitam Putih', 'Warna', 'Warna-full'] ?>
+                                <?php $arrayJenis = ['Hitam Putih', 'Warna', 'Warna-full']?>
                                 @foreach($arrayJenis as $elemen)
                                     @if(old('jenis_print') == $elemen)
                                         <option selected value="{{ old('jenis_print')  }}">{{ $elemen }}</option>
@@ -65,6 +65,15 @@
                             <label for="harga">Harga Print :</label>
                             <input type="number" name="harga_print" id="harga" class="form-control @error('harga_print') is-invalid @enderror" value="{{ old('harga_print') }}" autocomplete="off">
                             @error('harga_print')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="jumlah">Jumlah Print :</label>
+                            <input type="number" name="jumlah_print" id="jumlah" class="form-control @error('jumlah_print') is-invalid @enderror" value="{{ old('jumlah_print') }}" autocomplete="off">
+                            @error('jumlah_print')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>

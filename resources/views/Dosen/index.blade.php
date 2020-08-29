@@ -26,12 +26,10 @@
         <div class="card-header">
             <h3 class="card-title">Daftar Dosen</h3>
             <div class="card-tools">
-                <button type="button" class="btn btn-tool">
-                    <a href="{{ route('Dosen.create') }}" class="btn btn-primary btn-sm">
-                        <i class="fas fa-user-plus"></i>
-                        Insert
-                    </a>
-                </button>
+                <a href="{{ route('Dosen.create') }}" class="btn btn-primary btn-sm">
+                    <i class="fas fa-user-plus"></i>
+                    Insert
+                </a>
             </div>
         </div>
         <div class="card-body p-0">
@@ -57,9 +55,12 @@
                             {{ ($Dosen->currentPage() - 1) * $Dosen->perPage() + $loop->index + 1 }}
                         </td>
                         <td class="text-center">
-                            <a>
+                            <a class="d-block">
                                 {{ $elemen->nama_dosen }}
                             </a>
+                            <small>
+                                {{ $elemen->nidn }}
+                            </small>
                         </td>
                         <td class="project-actions text-right">
                             <button class="btn btn-secondary btn-sm detail-dosen-button" type="button" data-toggle="modal" data-target="#dosenModal" data-showurl="{{ route('Dosen.show', $elemen->id) }}">

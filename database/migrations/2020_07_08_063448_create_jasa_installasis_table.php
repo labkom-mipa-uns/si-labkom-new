@@ -16,10 +16,10 @@ class CreateJasaInstallasisTable extends Migration
         Schema::create('jasa_installasi', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_mahasiswa');
-            $table->string('laptop', 70);
+            $table->string('laptop');
             $table->text('kelengkapan');
             $table->date('tanggal');
-            $table->unsignedBigInteger('id_software');
+            $table->unsignedBigInteger('id_software')->nullable();
             $table->enum('jenis', ['install', 'service']);
             $table->text('keterangan');
             $table->time('jam_ambil');

@@ -25,12 +25,10 @@
         <div class="card-header">
             <h3 class="card-title">Daftar Jadwal</h3>
             <div class="card-tools">
-                <button type="button" class="btn btn-tool">
-                    <a href="{{ route('Jadwal.create') }}" class="btn btn-primary btn-sm">
-                        <i class="fas fa-user-plus"></i>
-                        Insert
-                    </a>
-                </button>
+                <a href="{{ route('Jadwal.create') }}" class="btn btn-primary btn-sm">
+                    <i class="fas fa-user-plus"></i>
+                    Insert
+                </a>
             </div>
         </div>
         <div class="card-body p-0">
@@ -67,9 +65,12 @@
                             </a>
                         </td>
                         <td class="text-center">
-                            <a>
+                            <a class="d-block">
                                 {{ $elemen->dosen->nama_dosen }}
                             </a>
+                            <small>
+                                {{ $elemen->dosen->nidn }}
+                            </small>
                         </td>
                         <td class="text-center">
                             <a>

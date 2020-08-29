@@ -25,12 +25,10 @@
         <div class="card-header">
             <h3 class="card-title">Daftar Surat Bebas Labkom</h3>
             <div class="card-tools">
-                <button type="button" class="btn btn-tool">
-                    <a href="{{ route('SuratBebasLabkom.create') }}" class="btn btn-primary btn-sm">
-                        <i class="fas fa-user-plus"></i>
-                        Insert
-                    </a>
-                </button>
+                <a href="{{ route('SuratBebasLabkom.create') }}" class="btn btn-primary btn-sm">
+                    <i class="fas fa-user-plus"></i>
+                    Insert
+                </a>
             </div>
         </div>
         <div class="card-body p-0">
@@ -67,19 +65,17 @@
                             </a>
                         </td>
                         <td class="text-center">
-                            <a>
+                            <a class="d-inline">
                                 {{ $elemen->mahasiswa->nama_mahasiswa }}
                             </a>
-                            <br>
                             <small>
                                 {{ $elemen->mahasiswa->kelas }} | {{ $elemen->mahasiswa->nim }}
                             </small>
                         </td>
                         <td class="text-center">
-                            <a>
+                            <a class="d-inline">
                                 {{ $elemen->mahasiswa->prodi->nama_prodi }}
                             </a>
-                            <br>
                             <small>
                                 {{ $elemen->mahasiswa->angkatan }}
                             </small>

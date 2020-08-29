@@ -3,28 +3,49 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Mahasiswa extends Model
 {
+    /**
+     * @var string
+     */
     protected $table = 'mahasiswa';
+
+    /**
+     * @var string[]
+     */
     protected $guarded = ['id'];
 
-    public function peminjamanlab()
+    /**
+     * @return HasMany
+     */
+    public function peminjamanlab(): HasMany
     {
         return $this->hasMany(PeminjamanLab::class);
     }
 
-    public function prodi()
+    /**
+     * @return BelongsTo
+     */
+    public function prodi(): BelongsTo
     {
         return $this->belongsTo(Prodi::class, 'id_prodi');
     }
 
-    public function suratbebaslabkom()
+    /**
+     * @return HasMany
+     */
+    public function suratbebaslabkom(): HasMany
     {
         return $this->hasMany(SuratBebasLabkom::class);
     }
 
-    public function jasainstallasi()
+    /**
+     * @return HasMany
+     */
+    public function jasainstallasi(): HasMany
     {
         return $this->hasMany(JasaInstallasi::class);
     }

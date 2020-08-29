@@ -8,6 +8,7 @@ use Faker\Generator as Faker;
 $factory->define(Alat::class, function (Faker $faker) {
     return [
         'nama_alat' => $faker->company,
-        'harga_alat' => $faker->randomNumber()
+        'harga_alat' => $faker->randomNumber(6),
+        'stok_alat' => $faker->randomNumber(2)
     ];
 });

@@ -15,7 +15,7 @@ class CreateMataKuliahsTable extends Migration
     {
         Schema::create('mata_kuliah', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_matkul', 70);
+            $table->string('nama_matkul');
             $table->timestamps();
         });
     }

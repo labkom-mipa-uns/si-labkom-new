@@ -15,8 +15,9 @@ class CreateAlatsTable extends Migration
     {
         Schema::create('alat', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_alat', 70);
+            $table->string('nama_alat');
             $table->integer('harga_alat');
+            $table->string('stok_alat');
             $table->timestamps();
         });
     }

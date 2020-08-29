@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class TransaksiJasaPrintSeeder extends Seeder
+class TransaksiSeeder extends Seeder
 {
     /**
      * Run the database seeds.

@@ -37,17 +37,26 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-    public function adminlte_image()
+    /**
+     * @return string
+     */
+    public function adminlte_image(): string
     {
         return 'https://picsum.photos/300/300';
     }
 
-    public function adminlte_desc()
+    /**
+     * @return string
+     */
+    public function adminlte_desc(): string
     {
         return 'Hello, World';
     }
 
-    public function adminlte_profile_url()
+    /**
+     * @return string
+     */
+    public function adminlte_profile_url(): string
     {
         return 'Account.index';
     }
