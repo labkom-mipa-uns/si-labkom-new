@@ -24,7 +24,7 @@ class CreateTransaksisTable extends Migration
             $table->enum('kategori', ['peminjaman_alat', 'jasa_installasi', 'jasa_print']);
             $table->integer('harga');
             $table->integer('jumlah');
-            $table->integer('total_bayar');
+            $table->unsignedBigInteger('total_bayar');
             $table->date('tanggal');
             $table->timestamps();
 

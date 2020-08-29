@@ -42,8 +42,8 @@ class JasaPrintSavedListener
             'id_software' => null,
             'kategori' => 'jasa_print',
             'harga' => $jasaPrint->harga_print,
-            'jumlah' => 1 + ((is_null($transaksi)) ? 0 : (int)$transaksi->jumlah),
-            'total_bayar' => 1 * (int)$jasaPrint->software->harga_software + ((is_null($transaksi)) ? 0 : (int)$transaksi->total_bayar),
+            'jumlah' => (int)$jasaPrint->jumlah_print + ((is_null($transaksi)) ? 0 : (int)$transaksi->jumlah),
+            'total_bayar' => (int)$jasaPrint->jumlah_print * (int)$jasaPrint->harga_print + ((is_null($transaksi)) ? 0 : (int)$transaksi->total_bayar),
         ]);
     }
 }
