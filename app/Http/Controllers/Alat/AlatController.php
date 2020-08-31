@@ -4,12 +4,12 @@ namespace App\Http\Controllers\Alat;
 
 use App\Alat;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AlatRequest;
 use App\Http\Resources\AlatResource;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
 
@@ -50,27 +50,26 @@ class AlatController extends Controller
         try {
             return view('Alat.create');
         } catch (Exception $exception) {
-            return redirect()->route('Alat.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
+            return redirect()->route('Alat.index')
+                ->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param AlatRequest $request
      * @return RedirectResponse|Response
      */
-    public function store(Request $request)
+    public function store(AlatRequest $request)
     {
-        $request->validate([
-            'nama_alat' => 'required|string|max:50',
-            'harga_alat' => 'required|numeric'
-        ]);
         try {
-            Alat::create($request->all());
-            return redirect()->route('Alat.index')->with('success', "Berhasil Ditambahkan!");
+            Alat::create($request->validated());
+            return redirect()->route('Alat.index')
+                ->with('success', "Berhasil Ditambahkan!");
         } catch (Exception $exception) {
-            return redirect()->route('Alat.index')->with('danger', "Gagal Ditambahkan! {$exception->getMessage()}");
+            return redirect()->route('Alat.index')
+                ->with('danger', "Gagal Ditambahkan! {$exception->getMessage()}");
         }
     }
 
@@ -99,28 +98,27 @@ class AlatController extends Controller
             ];
             return view('Alat.edit', $data);
         } catch (Exception $exception) {
-            return redirect()->route('Alat.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
+            return redirect()->route('Alat.index')
+                ->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param AlatRequest $request
      * @param Alat $Alat
      * @return RedirectResponse
      */
-    public function update(Request $request, Alat $Alat): ?RedirectResponse
+    public function update(AlatRequest $request, Alat $Alat): ?RedirectResponse
     {
-        $request->validate([
-            'nama_alat' => 'required|string|max:50',
-            'harga_alat' => 'required|numeric'
-        ]);
         try {
-            Alat::whereId($Alat->id)->update($request->except(['_method', '_token']));
-            return redirect()->route('Alat.index')->with('success', "Berhasil Diupdate!");
+            $Alat->update($request->validated());
+            return redirect()->route('Alat.index')
+                ->with('success', "Berhasil Diupdate!");
         } catch (Exception $exception) {
-            return redirect()->route('Alat.index')->with('danger', "Gagal Diupdate! {$exception->getMessage()}");
+            return redirect()->route('Alat.index')
+                ->with('danger', "Gagal Diupdate! {$exception->getMessage()}");
         }
     }
 
@@ -135,9 +133,11 @@ class AlatController extends Controller
         try {
             $this->authorize('delete-data');
             Alat::destroy($Alat->id);
-            return redirect()->route('Alat.index')->with('success', "Berhasil Dihapus!");
+            return redirect()->route('Alat.index')
+                ->with('success', "Berhasil Dihapus!");
         } catch (Exception $exception) {
-            return redirect()->route('Alat.index')->with('danger', "Gagal Dihapus! {$exception->getMessage()}");
+            return redirect()->route('Alat.index')
+                ->with('danger', "Gagal Dihapus! {$exception->getMessage()}");
         }
     }
 }

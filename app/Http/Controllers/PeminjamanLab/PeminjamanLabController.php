@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\PeminjamanLab;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PeminjamanLabRequest;
 use App\Http\Resources\PeminjamanLabResource;
 use App\Jadwal;
 use App\Lab;
@@ -12,7 +13,6 @@ use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class PeminjamanLabController extends Controller
@@ -34,7 +34,9 @@ class PeminjamanLabController extends Controller
     {
         try {
             $data = [
-                'PeminjamanLab' => PeminjamanLab::with(['mahasiswa', 'lab','jadwal'])->orderBy('created_at','desc')->paginate(8),
+                'PeminjamanLab' => PeminjamanLab::with(['mahasiswa', 'lab','jadwal'])
+                    ->orderBy('created_at','desc')
+                    ->paginate(8),
             ];
             return view('PeminjamanLab.index', $data);
         } catch (Exception $exception) {
@@ -57,34 +59,26 @@ class PeminjamanLabController extends Controller
             ];
             return view('PeminjamanLab.create', $data);
         } catch (Exception $exception) {
-            return redirect()->route('PeminjamanLab.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
+            return redirect()->route('PeminjamanLab.index')
+                ->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param PeminjamanLabRequest $request
      * @return RedirectResponse
      */
-    public function store(Request $request): ?RedirectResponse
+    public function store(PeminjamanLabRequest $request): ?RedirectResponse
     {
-        $request->validate([
-            'id_mahasiswa' => 'required',
-            'id_lab' => 'required',
-            'id_jadwal' => 'required',
-            'tanggal' => 'required|date',
-            'jam_pinjam' => 'required',
-            'jam_kembali' => 'required',
-            'keperluan' => 'required|string',
-            'kategori' => 'required|string',
-            'status' => 'required|string',
-        ]);
         try {
-            PeminjamanLab::create($request->all());
-            return redirect()->route('PeminjamanLab.index')->with('success', 'Berhasil Ditambahkan!');
+            PeminjamanLab::create($request->validated());
+            return redirect()->route('PeminjamanLab.index')
+                ->with('success', 'Berhasil Ditambahkan!');
         } catch (Exception $exception) {
-            return redirect()->route('PeminjamanLab.index')->with('danger', "Gagal Ditambahkan! {$exception->getMessage()}");
+            return redirect()->route('PeminjamanLab.index')
+                ->with('danger', "Gagal Ditambahkan! {$exception->getMessage()}");
         }
     }
 
@@ -96,7 +90,8 @@ class PeminjamanLabController extends Controller
      */
     public function show(PeminjamanLab $PeminjamanLab): PeminjamanLabResource
     {
-        return new PeminjamanLabResource($PeminjamanLab::with(['mahasiswa', 'lab', 'jadwal'])->firstWhere('id', $PeminjamanLab->id));
+        return new PeminjamanLabResource($PeminjamanLab::with(['mahasiswa', 'lab', 'jadwal'])
+            ->firstWhere('id', $PeminjamanLab->id));
 
     }
 
@@ -110,42 +105,35 @@ class PeminjamanLabController extends Controller
     {
         try {
             $data = [
-                'PeminjamanLab' => $PeminjamanLab::with(['mahasiswa','lab','jadwal'])->firstWhere('id',$PeminjamanLab->id),
+                'PeminjamanLab' => $PeminjamanLab::with(['mahasiswa','lab','jadwal'])
+                    ->firstWhere('id',$PeminjamanLab->id),
                 'Jadwal' => Jadwal::with(['prodi','dosen','matakuliah'])->get(),
                 'Mahasiswa' => Mahasiswa::orderBy('nama_mahasiswa', 'asc')->get(),
                 'Lab' => Lab::orderBy('nama_lab', 'asc')->get()
             ];
             return view('PeminjamanLab.edit', $data);
         } catch (Exception $exception) {
-            return redirect()->route('PeminjamanLab.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
+            return redirect()->route('PeminjamanLab.index')
+                ->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param PeminjamanLabRequest $request
      * @param PeminjamanLab $PeminjamanLab
      * @return RedirectResponse
      */
-    public function update(Request $request, PeminjamanLab $PeminjamanLab): ?RedirectResponse
+    public function update(PeminjamanLabRequest $request, PeminjamanLab $PeminjamanLab): ?RedirectResponse
     {
-        $request->validate([
-            'id_mahasiswa' => 'required',
-            'id_lab' => 'required',
-            'id_jadwal' => 'required',
-            'tanggal' => 'required|date',
-            'jam_pinjam' => 'required',
-            'jam_kembali' => 'required',
-            'keperluan' => 'required|string',
-            'kategori' => 'required|string',
-            'status' => 'required|string',
-        ]);
         try {
-            PeminjamanLab::whereId($PeminjamanLab->id)->update($request->except(['_token', '_method']));
-            return redirect()->route('PeminjamanLab.index')->with('success',"Berhasil Diupdate!");
+            $PeminjamanLab->update($request->validated());
+            return redirect()->route('PeminjamanLab.index')
+                ->with('success',"Berhasil Diupdate!");
         } catch (Exception $exception) {
-            return redirect()->route('PeminjamanLab.index')->with('danger',"Gagal Diupdate! {$exception->getMessage()}");
+            return redirect()->route('PeminjamanLab.index')
+                ->with('danger',"Gagal Diupdate! {$exception->getMessage()}");
         }
     }
 
@@ -160,9 +148,11 @@ class PeminjamanLabController extends Controller
         try {
             $this->authorize('delete-data');
             PeminjamanLab::destroy($PeminjamanLab->id);
-            return redirect()->route('PeminjamanLab.index')->with('success', 'Berhasil Dihapus!');
+            return redirect()->route('PeminjamanLab.index')
+                ->with('success', 'Berhasil Dihapus!');
         } catch (Exception $exception) {
-            return redirect()->route('PeminjamanLab.index')->with('danger',"Gagal Dihapus! {$exception->getMessage()}");
+            return redirect()->route('PeminjamanLab.index')
+                ->with('danger',"Gagal Dihapus! {$exception->getMessage()}");
         }
     }
 }

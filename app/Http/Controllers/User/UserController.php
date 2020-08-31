@@ -52,7 +52,8 @@ class UserController extends Controller
         try {
             return view('User.create');
         } catch (Exception $exception) {
-            return redirect()->route('User.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
+            return redirect()->route('User.index')
+                ->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }
 
@@ -75,9 +76,11 @@ class UserController extends Controller
                 'email' => $request['email'],
                 'password' => Hash::make($request['password']),
             ]);
-            return redirect()->route('User.index')->with('success', "Berhasil Ditambahkan!");
+            return redirect()->route('User.index')
+                ->with('success', "Berhasil Ditambahkan!");
         } catch (Exception $exception) {
-            return redirect()->route('User.index')->with('danger', "Gagal Ditambahkan! {$exception->getMessage()}");
+            return redirect()->route('User.index')
+                ->with('danger', "Gagal Ditambahkan! {$exception->getMessage()}");
         }
     }
 
@@ -107,9 +110,11 @@ class UserController extends Controller
             ];
             return view('User.edit', $data);
         } catch (AuthorizationException $exception){
-            return redirect()->route('User.index')->with('danger', $exception->getMessage());
+            return redirect()->route('User.index')
+                ->with('danger', $exception->getMessage());
         } catch (Exception $exception) {
-            return redirect()->route('User.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
+            return redirect()->route('User.index')
+                ->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }
 
@@ -131,12 +136,15 @@ class UserController extends Controller
             User::whereId($User->id)->update([
                 'name' => $request['name'],
                 'email' => $request['email'],
-                'password' => (empty($request['newPassword'])) ? $request['password'] : Hash::make($request['newPassword']),
+                'password' => (empty($request['newPassword'])) ?
+                    $request['password'] : Hash::make($request['newPassword']),
                 'role' => $request['role']
             ]);
-            return redirect()->route('User.index')->with('success', "Berhasil Diupdate!");
+            return redirect()->route('User.index')
+                ->with('success', "Berhasil Diupdate!");
         } catch (Exception $exception) {
-            return redirect()->route('User.index')->with('danger', "Gagal Diupdate! {$exception->getMessage()}");
+            return redirect()->route('User.index')
+                ->with('danger', "Gagal Diupdate! {$exception->getMessage()}");
         }
     }
 
@@ -151,9 +159,11 @@ class UserController extends Controller
         try {
             $this->authorize('delete-data');
             User::destroy($User->id);
-            return redirect()->route('User.index')->with('success', "Berhasil Dihapus!");
+            return redirect()->route('User.index')
+                ->with('success', "Berhasil Dihapus!");
         } catch (Exception $exception) {
-            return redirect()->route('User.index')->with('danger', "Gagal Dihapus! {$exception->getMessage()}");
+            return redirect()->route('User.index')
+                ->with('danger', "Gagal Dihapus! {$exception->getMessage()}");
         }
     }
 }

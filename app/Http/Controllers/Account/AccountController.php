@@ -37,7 +37,8 @@ class AccountController extends Controller
             ];
             return view('Account.index', $data);
         } catch (Exception $exception) {
-            return redirect()->route('Account.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
+            return redirect()->route('Account.index')
+                ->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }
 
@@ -88,7 +89,8 @@ class AccountController extends Controller
             ];
             return view('Account.edit', $data);
         } catch (Exception $exception) {
-            return redirect()->route('Account.index')->with("Gagal Diupdate! {$exception->getMessage()}");
+            return redirect()->route('Account.index')
+                ->with("Gagal Diupdate! {$exception->getMessage()}");
         }
     }
 
@@ -113,9 +115,11 @@ class AccountController extends Controller
                 'password' => (empty($request['newPassword'])) ? $request['password'] : Hash::make($request['newPassword']),
                 'role' => $request['role']
             ]);
-            return redirect()->route('Account.index')->with('success', "Berhasil Diupdate!");
+            return redirect()->route('Account.index')
+                ->with('success', "Berhasil Diupdate!");
         } catch (Exception $exception) {
-            return redirect()->route('Account.index')->with('danger', "Gagal Diupdate! {$exception->getMessage()}");
+            return redirect()->route('Account.index')
+                ->with('danger', "Gagal Diupdate! {$exception->getMessage()}");
         }
 
     }
@@ -132,7 +136,8 @@ class AccountController extends Controller
             User::destroy($Account->id);
             return redirect()->route('welcome');
         } catch (Exception $exception) {
-            return redirect()->route('Account.index')->with('danger', "Gagal Dihapus! {$exception->getMessage()}");
+            return redirect()->route('Account.index')
+                ->with('danger', "Gagal Dihapus! {$exception->getMessage()}");
         }
     }
 }

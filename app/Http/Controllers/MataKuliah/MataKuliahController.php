@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\MataKuliah;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\MataKuliahRequest;
 use App\Http\Resources\MataKuliahResource;
 use App\MataKuliah;
 use Exception;
@@ -11,11 +12,13 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 class MataKuliahController extends Controller
 {
+    /**
+     * MataKuliahController constructor.
+     */
     public function __construct()
     {
         $this->middleware('verified');
@@ -34,7 +37,7 @@ class MataKuliahController extends Controller
             ];
             return view('MataKuliah.index', $data);
         } catch (Exception $exception) {
-            return redirect()->route('home')->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
+            return redirect()->home()->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }
 
@@ -48,26 +51,26 @@ class MataKuliahController extends Controller
         try {
             return view('MataKuliah.create');
         } catch (Exception $exception) {
-            return redirect()->route('MataKuliah.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
+            return redirect()->route('MataKuliah.index')
+                ->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param MataKuliahRequest $request
      * @return RedirectResponse
      */
-    public function store(Request $request): ?RedirectResponse
+    public function store(MataKuliahRequest $request): ?RedirectResponse
     {
-        $request->validate([
-            'nama_matkul' => 'required|string|max:55'
-        ]);
         try {
-            MataKuliah::create($request->all());
-            return redirect()->route('MataKuliah.index')->with('success', "Berhasil Ditambahkan!");
+            MataKuliah::create($request->validated());
+            return redirect()->route('MataKuliah.index')
+                ->with('success', "Berhasil Ditambahkan!");
         } catch (Exception $exception) {
-            return redirect()->route('MataKuliah.index')->with('danger', "Gagal Ditambahkan! {$exception->getMessage()}");
+            return redirect()->route('MataKuliah.index')
+                ->with('danger', "Gagal Ditambahkan! {$exception->getMessage()}");
         }
     }
 
@@ -96,27 +99,27 @@ class MataKuliahController extends Controller
             ];
             return view('MataKuliah.edit', $data);
         } catch (Exception $exception) {
-            return redirect()->route('MataKuliah.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
+            return redirect()->route('MataKuliah.index')
+                ->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param MataKuliahRequest $request
      * @param MataKuliah $MataKuliah
      * @return RedirectResponse
      */
-    public function update(Request $request, MataKuliah $MataKuliah): ?RedirectResponse
+    public function update(MataKuliahRequest $request, MataKuliah $MataKuliah): ?RedirectResponse
     {
-        $request->validate([
-            'nama_matkul' => 'required|string|max:60'
-        ]);
         try {
-            MataKuliah::whereId($MataKuliah->id)->update($request->except(['_token','_method']));
-            return redirect()->route('MataKuliah.index')->with('success', "Berhasil Diupdate!");
+            $MataKuliah->update($request->validated());
+            return redirect()->route('MataKuliah.index')
+                ->with('success', "Berhasil Diupdate!");
         } catch (Exception $exception) {
-            return redirect()->route('MataKuliah.index')->with('danger', "Gagal Diupdate! {$exception->getMessage()}");
+            return redirect()->route('MataKuliah.index')
+                ->with('danger', "Gagal Diupdate! {$exception->getMessage()}");
         }
     }
 
@@ -131,9 +134,11 @@ class MataKuliahController extends Controller
         try {
             $this->authorize('delete-data');
             MataKuliah::destroy($MataKuliah->id);
-            return redirect()->route('MataKuliah.index')->with('success', 'Berhasil Dihapus!');
+            return redirect()->route('MataKuliah.index')
+                ->with('success', 'Berhasil Dihapus!');
         } catch (Exception $exception) {
-            return redirect()->route('MataKuliah.index')->with('danger', "Gagal Dihapus! {$exception->getMessage()}");
+            return redirect()->route('MataKuliah.index')
+                ->with('danger', "Gagal Dihapus! {$exception->getMessage()}");
         }
     }
 }
