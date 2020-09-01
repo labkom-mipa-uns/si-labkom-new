@@ -3,14 +3,13 @@
 namespace App\Http\Controllers\Lab;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LabRequest;
 use App\Http\Resources\LabResource;
 use App\Lab;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 class LabController extends Controller
@@ -36,7 +35,7 @@ class LabController extends Controller
             ];
             return view('Lab.index', $data);
         } catch (Exception $exception) {
-            return redirect()->route('home')->with('warning',"Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
+            return redirect()->home()->with('warning',"Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }
 
@@ -50,26 +49,26 @@ class LabController extends Controller
         try {
             return view('Lab.create');
         } catch (Exception $exception) {
-            return redirect()->route('Laboratorium.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
+            return redirect()->route('Laboratorium.index')
+                ->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param LabRequest $request
      * @return RedirectResponse
      */
-    public function store(Request $request): ?RedirectResponse
+    public function store(LabRequest $request): ?RedirectResponse
     {
-        $request->validate([
-            'nama_lab' => 'required|max:50'
-        ]);
         try {
-            Lab::create($request->all());
-            return redirect()->route('Laboratorium.index')->with('success', 'Berhasil Ditambahkan!');
+            Lab::create($request->validated());
+            return redirect()->route('Laboratorium.index')
+                ->with('success', 'Berhasil Ditambahkan!');
         } catch (Exception $exception) {
-            return redirect()->route('Laboratorium.index')->with('danger', "Gagal Ditambahkan! {$exception->getMessage()}");
+            return redirect()->route('Laboratorium.index')
+                ->with('danger', "Gagal Ditambahkan! {$exception->getMessage()}");
         }
     }
 
@@ -98,24 +97,22 @@ class LabController extends Controller
             ];
             return view('Lab.edit', $data);
         } catch (Exception $exception) {
-            return redirect()->route("Laboratorium.index")->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
+            return redirect()->route("Laboratorium.index")
+                ->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param LabRequest $request
      * @param Lab $Laboratorium
      * @return RedirectResponse
      */
-    public function update(Request $request, Lab $Laboratorium): ?RedirectResponse
+    public function update(LabRequest $request, Lab $Laboratorium): ?RedirectResponse
     {
-        $request->validate([
-            'nama_lab' => 'required|max:50'
-        ]);
         try {
-            Lab::whereId($Laboratorium->id)->update($request->except(['_token', '_method']));
+            $Laboratorium->update($request->validated());
             return redirect()->route('Laboratorium.index')->with('success', "Berhasil Diupdate!");
         } catch (Exception $exception) {
             return redirect()->route('Laboratorium.index')->with('danger', "Gagal Diupdate! {$exception->getMessage()}");

@@ -4,12 +4,12 @@ namespace App\Http\Controllers\Dosen;
 
 use App\Dosen;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\DosenRequest;
 use App\Http\Resources\DosenResource;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class DosenController extends Controller
@@ -35,7 +35,7 @@ class DosenController extends Controller
             ];
             return view('Dosen.index', $data);
         } catch (Exception $exception) {
-            return redirect()->route('home')->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
+            return redirect()->home()->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }
 
@@ -49,27 +49,26 @@ class DosenController extends Controller
         try {
             return view('Dosen.create');
         } catch (Exception $exception) {
-            return redirect()->route('Dosen.index')->with('warning', "Silakan Coba Beberapa Saat Lagi!");
+            return redirect()->route('Dosen.index')
+                ->with('warning', "Silakan Coba Beberapa Saat Lagi!");
         }
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param DosenRequest $request
      * @return RedirectResponse
      */
-    public function store(Request $request): ?RedirectResponse
+    public function store(DosenRequest $request): ?RedirectResponse
     {
-        $request->validate([
-            'nidn' => 'required|string',
-            'nama_dosen' => 'required|string|max:60'
-        ]);
         try {
-            Dosen::create($request->all());
-            return redirect()->route('Dosen.index')->with('success',"Berhasil Ditambahkan!");
+            Dosen::create($request->validated());
+            return redirect()->route('Dosen.index')
+                ->with('success',"Berhasil Ditambahkan!");
         } catch (Exception $exception) {
-            return redirect()->route('Dosen.index')->with('danger',"Gagal Ditambahkan! {$exception->getMessage()}");
+            return redirect()->route('Dosen.index')
+                ->with('danger',"Gagal Ditambahkan! {$exception->getMessage()}");
         }
     }
 
@@ -98,28 +97,27 @@ class DosenController extends Controller
             ];
             return view('Dosen.edit', $data);
         } catch (Exception $exception) {
-            return redirect()->route('Dosen.index')->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
+            return redirect()->route('Dosen.index')
+                ->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param DosenRequest $request
      * @param Dosen $Dosen
      * @return RedirectResponse
      */
-    public function update(Request $request, Dosen $Dosen): ?RedirectResponse
+    public function update(DosenRequest $request, Dosen $Dosen): ?RedirectResponse
     {
-        $request->validate([
-            'nidn' => 'required|string',
-            'nama_dosen' => 'required|string|max:60'
-        ]);
         try {
-            Dosen::whereId($Dosen->id)->update($request->except(['_token', '_method']));
-            return redirect()->route('Dosen.index')->with('success', "Berhasil Diupdate!");
+            $Dosen->update($request->validated());
+            return redirect()->route('Dosen.index')
+                ->with('success', "Berhasil Diupdate!");
         } catch (Exception $exception) {
-            return redirect()->route('Dosen.index')->with('danger', "Gagal Diupdate! {$exception->getMessage()}");
+            return redirect()->route('Dosen.index')
+                ->with('danger', "Gagal Diupdate! {$exception->getMessage()}");
         }
     }
 
@@ -134,9 +132,11 @@ class DosenController extends Controller
         try {
             $this->authorize('delete-data');
             Dosen::destroy($Dosen->id);
-            return redirect()->route('Dosen.index')->with('success', "Berhasil Dihapus!");
+            return redirect()->route('Dosen.index')
+                ->with('success', "Berhasil Dihapus!");
         } catch (Exception $exception) {
-            return redirect()->route('Dosen.index')->with('danger', "Gagal Dihapus! {$exception->getMessage()}");
+            return redirect()->route('Dosen.index')
+                ->with('danger', "Gagal Dihapus! {$exception->getMessage()}");
         }
     }
 }
