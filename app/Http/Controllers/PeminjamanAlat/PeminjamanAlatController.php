@@ -201,6 +201,14 @@ class PeminjamanAlatController extends Controller
     }
 
     /**
+     * @return PeminjamanAlatResource
+     */
+    public function all(): PeminjamanAlatResource
+    {
+        return new PeminjamanAlatResource(PeminjamanAlat::with(['alat','mahasiswa'])->get());
+    }
+
+    /**
      * @param Request $request
      * @return RedirectResponse|Response
      */

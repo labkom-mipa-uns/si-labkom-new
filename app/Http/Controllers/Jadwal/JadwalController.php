@@ -155,4 +155,12 @@ class JadwalController extends Controller
                 ->with('danger', "Gagal Dihapus! {$exception->getMessage()}");
         }
     }
+
+    /**
+     * @return JadwalResource
+     */
+    public function all(): JadwalResource
+    {
+        return new JadwalResource(Jadwal::with(['prodi', 'dosen', 'matakuliah'])->get());
+    }
 }

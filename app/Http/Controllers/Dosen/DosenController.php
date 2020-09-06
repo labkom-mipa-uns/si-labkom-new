@@ -139,4 +139,12 @@ class DosenController extends Controller
                 ->with('danger', "Gagal Dihapus! {$exception->getMessage()}");
         }
     }
+
+    /**
+     * @return DosenResource
+     */
+    public function all(): DosenResource
+    {
+        return new DosenResource(Dosen::all());
+    }
 }
