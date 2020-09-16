@@ -2,8 +2,6 @@
 
 namespace Tests\Feature;
 
-use App\Http\Resources\PeminjamanAlatResource;
-use App\PeminjamanAlat;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -48,11 +46,69 @@ class ResultTest extends TestCase
         $response->assertSuccessful();
     }
 
-    public function testJadwal()
+    /**
+     * @return void
+     */
+    public function testJadwal(): void
     {
         $this->user = User::firstWhere('role', 'super admin');
         $response = $this->actingAs($this->user)
             ->getJson(route('Jadwal.all'));
+        $response->assertSuccessful();
+    }
+
+    /**
+     * @return void
+     */
+    public function testJasaInstallasi(): void
+    {
+        $this->user = User::firstWhere('role', 'super admin');
+        $response = $this->actingAs($this->user)
+            ->getJson(route('JasaInstallasi.all'));
+        $response->assertSuccessful();
+    }
+
+    /**
+     * @return void
+     */
+    public function testJasaPrint(): void
+    {
+        $this->user = User::firstWhere('role', 'super admin');
+        $response = $this->actingAs($this->user)
+            ->getJson(route('JasaPrint.all'));
+        $response->assertSuccessful();
+    }
+
+    /**
+     * @return void
+     */
+    public function testLab(): void
+    {
+        $this->user = User::firstWhere('role', 'super admin');
+        $response = $this->actingAs($this->user)
+            ->getJson(route('Laboratorium.all'));
+        $response->assertSuccessful();
+    }
+
+    /**
+     * @return void
+     */
+    public function testMahasiswa(): void
+    {
+        $this->user = User::firstWhere('role', 'super admin');
+        $response = $this->actingAs($this->user)
+            ->getJson(route('Mahasiswa.all'));
+        $response->assertSuccessful();
+    }
+
+    /**
+     * @return void
+     */
+    public function testMataKuliah(): void
+    {
+        $this->user = User::firstWhere('role', 'super admin');
+        $response = $this->actingAs($this->user)
+            ->getJson(route('MataKuliah.all'));
         $response->assertSuccessful();
     }
 
@@ -78,4 +134,36 @@ class ResultTest extends TestCase
         $response->assertSuccessful();
     }
 
+    /**
+     * @return void
+     */
+    public function testProdi(): void
+    {
+        $this->user = User::firstWhere('role', 'super admin');
+        $response = $this->actingAs($this->user)
+            ->getJson(route('Prodi.all'));
+        $response->assertSuccessful();
+    }
+
+    /**
+     * @return void
+     */
+    public function testSoftware(): void
+    {
+        $this->user = User::firstWhere('role', 'super admin');
+        $response = $this->actingAs($this->user)
+            ->getJson(route('Software.all'));
+        $response->assertSuccessful();
+    }
+
+    /**
+     * @return void
+     */
+    public function testSuratBebasLabkom(): void
+    {
+        $this->user = User::firstWhere('role', 'super admin');
+        $response = $this->actingAs($this->user)
+            ->getJson(route('SuratBebasLabkom.all'));
+        $response->assertSuccessful();
+    }
 }

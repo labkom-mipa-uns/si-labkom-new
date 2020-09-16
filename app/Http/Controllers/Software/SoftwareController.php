@@ -140,4 +140,12 @@ class SoftwareController extends Controller
                 ->with('danger', "Gagal Dihapus! {$exception->getMessage()}");
         }
     }
+
+    /**
+     * @return SoftwareResource
+     */
+    public function all(): SoftwareResource
+    {
+        return new SoftwareResource(Software::all());
+    }
 }

@@ -135,4 +135,12 @@ class LabController extends Controller
             return redirect()->route("Laboratorium.index")->with('danger', "Gagal Dihapus! {$exception->getMessage()}");
         }
     }
+
+    /**
+     * @return LabResource
+     */
+    public function all(): LabResource
+    {
+        return new LabResource(Lab::all());
+    }
 }

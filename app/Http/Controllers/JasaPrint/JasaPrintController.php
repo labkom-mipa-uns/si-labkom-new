@@ -151,6 +151,14 @@ class JasaPrintController extends Controller
     }
 
     /**
+     * @return JasaPrintResource
+     */
+    public function all(): JasaPrintResource
+    {
+        return new JasaPrintResource(JasaPrint::all());
+    }
+
+    /**
      * @param Request $request
      * @return RedirectResponse|Response
      */

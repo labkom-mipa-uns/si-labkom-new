@@ -42,8 +42,6 @@
                                 </div>
                             @enderror
                         </div>
-                    </div>
-                    <div class="card-body">
                         <div class="form-group">
                             <label for="Dosen">Nama Dosen :</label>
                             <input type="text" name="nama_dosen" id="Dosen" class="form-control @error('nama_dosen') is-invalid @enderror" placeholder="Masukkan Nama Dosen" value="{{ old("nama_dosen") }}" autocomplete="off">

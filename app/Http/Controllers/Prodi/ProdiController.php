@@ -10,7 +10,6 @@ use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class ProdiController extends Controller
@@ -137,5 +136,13 @@ class ProdiController extends Controller
             return redirect()->route('Prodi.index')
                 ->with('danger', "Gagal Dihapus! {$exception->getMessage()}");
         }
+    }
+
+    /**
+     * @return ProdiResource
+     */
+    public function all(): ProdiResource
+    {
+        return new ProdiResource(Prodi::all());
     }
 }

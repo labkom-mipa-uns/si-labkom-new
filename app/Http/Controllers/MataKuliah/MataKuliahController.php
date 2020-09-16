@@ -141,4 +141,12 @@ class MataKuliahController extends Controller
                 ->with('danger', "Gagal Dihapus! {$exception->getMessage()}");
         }
     }
+
+    /**
+     * @return MataKuliah
+     */
+    public function all(): MataKuliah
+    {
+        return new MataKuliah(MataKuliah::all());
+    }
 }
