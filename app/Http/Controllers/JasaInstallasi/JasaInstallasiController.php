@@ -195,6 +195,14 @@ class JasaInstallasiController extends Controller
     }
 
     /**
+     * @return JasaInstallasiResource
+     */
+    public function all(): JasaInstallasiResource
+    {
+        return new JasaInstallasiResource(JasaInstallasi::with(['mahasiswa', 'software'])->get());
+    }
+
+    /**
      * @param Request $request
      * @return RedirectResponse|Response
      */

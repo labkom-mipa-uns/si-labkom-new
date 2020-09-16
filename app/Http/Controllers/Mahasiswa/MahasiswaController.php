@@ -151,4 +151,12 @@ class MahasiswaController extends Controller
                 ->with('danger',"Gagal Dihapus! {$exception->getMessage()}");
         }
     }
+
+    /**
+     * @return MahasiswaResource
+     */
+    public function all(): MahasiswaResource
+    {
+        return new MahasiswaResource(Mahasiswa::with(['prodi'])->get());
+    }
 }

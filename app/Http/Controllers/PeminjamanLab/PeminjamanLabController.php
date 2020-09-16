@@ -155,4 +155,12 @@ class PeminjamanLabController extends Controller
                 ->with('danger',"Gagal Dihapus! {$exception->getMessage()}");
         }
     }
+
+    /**
+     * @return PeminjamanLabResource
+     */
+    public function all(): PeminjamanLabResource
+    {
+        return new PeminjamanLabResource(PeminjamanLab::with(['mahasiswa', 'lab', 'jadwal'])->get());
+    }
 }

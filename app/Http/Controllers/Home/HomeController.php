@@ -10,6 +10,7 @@ use App\PeminjamanLab;
 use App\SuratBebasLabkom;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class HomeController extends Controller

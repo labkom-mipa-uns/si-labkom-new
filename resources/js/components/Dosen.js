@@ -93,7 +93,8 @@ function DataDosen() {
                 throw new Error(response.statusText)
             }).then(response => {
                 setDosen({
-                    nama: response.data.nama_dosen
+                    nama: response.data.nama_dosen,
+                    nidn: response.data.nidn
                 })
             }).catch(error => console.error(error))
         })
@@ -102,6 +103,7 @@ function DataDosen() {
     return (
         <React.Fragment>
             <div className="card-title m-0"><h2>{dosen.nama}</h2></div>
+            <div className="card-title m-0"><h3>{dosen.nidn}</h3></div>
         </React.Fragment>
     )
 }
