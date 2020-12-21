@@ -1,11 +1,29 @@
 <?php
 
-/** @var Factory $factory */
+namespace Database\Factories;
 
 use App\Transaksi;
-use Faker\Generator as Faker;
-use Illuminate\Database\Eloquent\Factory;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(Transaksi::class, function (Faker $faker) {
+class TransaksiFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Transaksi::class;
 
-});
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition(): array
+    {
+        return [
+        ];
+    }
+}
+
+

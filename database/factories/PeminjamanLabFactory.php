@@ -1,24 +1,39 @@
 <?php
-
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace Database\Factories;
 
 use App\Jadwal;
 use App\Lab;
 use App\Mahasiswa;
 use App\PeminjamanLab;
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(PeminjamanLab::class, function (Faker $faker) {
-    return [
-        'id_mahasiswa' => factory(Mahasiswa::class),
-        'id_lab' => factory(Lab::class),
-        'id_jadwal' => factory(Jadwal::class),
-        'tanggal' => $faker->dateTime,
-        'jam_pinjam' => $faker->time(),
-        'jam_kembali' => $faker->time(),
-        'keperluan' => $faker->paragraph(5),
-        'kategori' => $faker->randomElement(['didalam_jam','diluar_jam']),
-        'status' => $faker->randomElement(['0','1']),
-        'created_at' => now()
-    ];
-});
+class PeminjamanLabFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = PeminjamanLab::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition(): array
+    {
+        return [
+            'id_mahasiswa' => Mahasiswa::factory()->count(1)->create(),
+            'id_lab' => Lab::factory()->count(1)->create(),
+            'id_jadwal' => Jadwal::factory()->count()->create(),
+            'tanggal' => $this->faker->dateTime,
+            'jam_pinjam' => $this->faker->time(),
+            'jam_kembali' => $this->faker->time(),
+            'keperluan' => $this->faker->paragraph(5),
+            'kategori' => $this->faker->randomElement(['didalam_jam','diluar_jam']),
+            'status' => $this->faker->randomElement(['0','1']),
+            'created_at' => now()
+        ];
+    }
+}

@@ -1,13 +1,28 @@
 <?php
-
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace Database\Factories;
 
 use App\MataKuliah;
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(MataKuliah::class, function (Faker $faker) {
-    return [
-        'nama_matkul' => $faker->jobTitle,
-        'created_at' => now()
-    ];
-});
+class MataKuliahFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = MataKuliah::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition(): array
+    {
+        return [
+            'nama_matkul' => $this->faker->jobTitle,
+            'created_at' => now()
+        ];
+    }
+}

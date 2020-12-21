@@ -243,6 +243,7 @@ return [
             'text'        => 'Dashboard',
             'route'         => 'home',
             'icon'        => 'far fa-fw fas fa-tachometer-alt',
+            'can' => 'current-user'
 //            'label'       => 4,
 //            'label_color' => 'success',
         ],
@@ -250,6 +251,7 @@ return [
             'text'        => 'Peminjaman Lab',
             'route'         => 'PeminjamanLab.index',
             'icon'        => 'far fa-fw fas fa-desktop',
+            'can' => 'current-user'
 //            'label'       => 4,
 //            'label_color' => 'success',
         ],
@@ -257,6 +259,7 @@ return [
             'text'        => 'Peminjaman Alat',
             'route'         => 'PeminjamanAlat.index',
             'icon'        => 'far fa-fw fas fa-tools',
+            'can' => 'current-user'
 //            'label'       => 4,
 //            'label_color' => 'success',
         ],
@@ -264,6 +267,7 @@ return [
             'text'        => 'Surat Bebas Labkom',
             'route'         => 'SuratBebasLabkom.index',
             'icon'        => 'far fa-fw fa-file',
+            'can' => 'current-user'
 //            'label'       => 4,
 //            'label_color' => 'success',
         ],
@@ -271,6 +275,7 @@ return [
             'text'        => 'Jasa Installasi',
             'route'         => 'JasaInstallasi.index',
             'icon'        => 'far fas fa-fw fa-laptop-code',
+            'can' => 'current-user'
 //            'label'       => 4,
 //            'label_color' => 'success',
         ],
@@ -278,6 +283,7 @@ return [
             'text'        => 'Jasa Print',
             'route'         => 'JasaPrint.index',
             'icon'        => 'far fas fa-fw fa-print',
+            'can' => 'current-user'
 //            'label'       => 4,
 //            'label_color' => 'success',
         ],
@@ -286,52 +292,63 @@ return [
             'text'        => 'Laboratorium',
             'route'         => 'Laboratorium.index',
             'icon'        => 'far fas fa-fw fa-laptop',
+            'can' => 'current-user'
         ],
         [
             'text'        => 'Alat',
             'route'         => 'Alat.index',
             'icon'        => 'far fas fa-fw fa-cube',
+            'can' => 'current-user'
         ],
         [
             'text'        => 'Mahasiswa',
             'route'         => 'Mahasiswa.index',
             'icon'        => 'far fas fa-fw fa-users',
+            'can' => 'current-user'
         ],
         [
             'text'        => 'Program Studi',
             'route'         => 'Prodi.index',
             'icon'        => 'far fas fa-fw fa-book-reader',
+            'can' => 'current-user'
+
         ],
         [
             'text'        => 'Dosen',
             'route'         => 'Dosen.index',
             'icon'        => 'far fas fa-fw fa-users',
+            'can' => 'current-user'
         ],
         [
             'text'        => 'Mata Kuliah',
             'route'         => 'MataKuliah.index',
             'icon'        => 'far fas fa-fw fa-book-open',
+            'can' => 'current-user'
         ],
         [
             'text'        => 'Jadwal',
             'route'         => 'Jadwal.index',
             'icon'        => 'far fas fa-fw fa-bookmark',
+            'can' => 'current-user'
         ],
         [
             'text'        => 'Software',
             'route'         => 'Software.index',
             'icon'        => 'far fas fa-fw fa-calendar-check',
+            'can' => 'current-user'
         ],
         [
             'text'        => 'User',
             'route'         => 'User.index',
             'icon'        => 'far fas fa-fw fa-users',
+            'can' => 'current-user'
         ],
         'ACCOUNT SETTINGS',
         [
             'text' => 'profile',
             'route'  => 'Account.index',
             'icon' => 'fas fa-fw fa-user',
+            'can' => 'current-user'
         ],
 //        [
 //            'text'    => 'multilevel',

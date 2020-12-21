@@ -1,0 +1,12 @@
+/* Reset */
+@import 'reset';
+@tailwind base;
+@tailwind components;
+
+/* Components */
+@import 'buttons';
+@import 'form';
+@import 'nprogress';
+
+/* Utilities */
+@tailwind utilities;

@@ -1,14 +1,29 @@
 <?php
-
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace Database\Factories;
 
 use App\Dosen;
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(Dosen::class, function (Faker $faker) {
-    return [
-        'nidn' => $faker->randomNumber(8),
-        'nama_dosen' => $faker->name,
-        'created_at' => now()
-    ];
-});
+class DosenFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Dosen::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition(): array
+    {
+        return [
+            'nidn' => $this->faker->randomNumber(8),
+            'nama_dosen' => $this->faker->name,
+            'created_at' => now()
+        ];
+    }
+}

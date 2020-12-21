@@ -1,5 +1,22 @@
 <?php
 
+use App\Http\Controllers\Admin\Account\AccountController;
+use App\Http\Controllers\Admin\Alat\AlatController;
+use App\Http\Controllers\Admin\Dosen\DosenController;
+use App\Http\Controllers\Admin\Home\HomeController;
+use App\Http\Controllers\Admin\Jadwal\JadwalController;
+use App\Http\Controllers\Admin\JasaInstallasi\JasaInstallasiController;
+use App\Http\Controllers\Admin\JasaPrint\JasaPrintController;
+use App\Http\Controllers\Admin\Lab\LabController;
+use App\Http\Controllers\Admin\Mahasiswa\MahasiswaController;
+use App\Http\Controllers\Admin\MataKuliah\MataKuliahController;
+use App\Http\Controllers\Admin\PeminjamanLab\PeminjamanLabController;
+use App\Http\Controllers\Admin\Prodi\ProdiController;
+use App\Http\Controllers\Admin\Software\SoftwareController;
+use App\Http\Controllers\Admin\SuratBebasLabkom\SuratBebasLabkomController;
+use App\Http\Controllers\Admin\PeminjamanAlat\PeminjamanAlatController;
+use App\Http\Controllers\Admin\User\UserController;
+use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -14,42 +31,30 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'WelcomeController')->name('welcome');
-
+Route::get('/', WelcomeController::class)->name('welcome');
+Route::redirect('admin', '/admin/Dashboard');
 Auth::routes(['verify' => true]);
-Route::get('/home', 'Home\HomeController')->name('home');
-Route::get('/Account/all', 'Account\AccountController@all')->name('Account.all');
-Route::resource('Account', 'Account\AccountController');
-Route::get('/PeminjamanLab/all', 'PeminjamanLab\PeminjamanLabController@all')->name('PeminjamanLab.all');
-Route::resource('PeminjamanLab', 'PeminjamanLab\PeminjamanLabController');
-Route::get('/PeminjamanAlat/all', 'PeminjamanAlat\PeminjamanAlatController@all')->name('PeminjamanAlat.all');
-Route::resource('PeminjamanAlat', 'PeminjamanAlat\PeminjamanAlatController');
-Route::post('/PeminjamanAlat/DailyReport', 'PeminjamanAlat\PeminjamanAlatController@daily_report')->name('PeminjamanAlat.daily_report');
-Route::post('/PeminjamanAlat/MonthlyReport', 'PeminjamanAlat\PeminjamanAlatController@monthly_report')->name('PeminjamanAlat.monthly_report');
-Route::get('/SuratBebasLabkom/all', 'SuratBebasLabkom\SuratBebasLabkom@all')->name('SuratBebasLabkom.all');
-Route::resource('SuratBebasLabkom', 'SuratBebasLabkom\SuratBebasLabkomController');
-Route::get('/JasaInstallasi/all', 'JasaInstallasi\JasaInstallasiController@al')->name('JasaInstallasi.all');
-Route::resource('JasaInstallasi', 'JasaInstallasi\JasaInstallasiController');
-Route::post('/JasaInstallasi/DailyReport', 'JasaInstallasi\JasaInstallasiController@daily_report')->name('JasaInstallasi.daily_report');
-Route::post('/JasaInstallasi/MonthlyReport', 'JasaInstallasi\JasaInstallasiController@monthly_report')->name('JasaInstallasi.monthly_report');
-Route::get('/JasaPrint/all', 'JasaPrint\JasaPrintController@all')->name('JasaPrint.all');
-Route::resource('JasaPrint', 'JasaPrint\JasaPrintController');
-Route::post('/JasaPrint/DailyReport', 'JasaPrint\JasaPrintController@daily_report')->name('JasaPrint.daily_report');
-Route::post('/JasaPrint/MonthlyReport', 'JasaPrint\JasaPrintController@monthly_report')->name('JasaPrint.monthly_report');
-Route::get('/Laboratorium/all', 'Lab\LabController@all')->name('Laboratorium.all');
-Route::resource('Laboratorium', 'Lab\LabController');
-Route::get('/Alat/all', 'Alat\AlatController@all')->name('Alat.all');
-Route::resource('Alat', 'Alat\AlatController');
-Route::get('/Mahasiswa/all', 'Mahasiswa\MahasiswaController@all')->name('Mahasiswa.all');
-Route::resource('Mahasiswa', 'Mahasiswa\MahasiswaController');
-Route::get('/Prodi/all', 'Prodi\ProdiController@all')->name('Prodi.all');
-Route::resource('Prodi', 'Prodi\ProdiController');
-Route::get('/Dosen/all', 'Dosen\DosenController@all')->name('Dosen.all');
-Route::resource('Dosen', 'Dosen\DosenController');
-Route::get('/MataKuliah/all', 'MataKuliah\MataKuliahController@all')->name('MataKuliah.all');
-Route::resource('MataKuliah', 'MataKuliah\MataKuliahController');
-Route::get('/Jadwal/all', 'Jadwal\JadwalController@all')->name('Jadwal.all');
-Route::resource('Jadwal', 'Jadwal\JadwalController');
-Route::get('/Software/all', 'Software\SoftwareController@all')->name('Software.all');
-Route::resource('Software', 'Software\SoftwareController');
-Route::resource('User', 'User\UserController');
+Route::prefix('admin')->middleware(['verified'])->group(static function () {
+    Route::get('Dashboard', HomeController::class)->name('home');
+    Route::resource('Account', AccountController::class);
+    Route::resource('PeminjamanLab', PeminjamanLabController::class);
+    Route::resource('PeminjamanAlat', PeminjamanAlatController::class);
+    Route::post('PeminjamanAlat/DailyReport', [PeminjamanAlatController::class,'daily_report'])->name('PeminjamanAlat.daily_report');
+    Route::post('PeminjamanAlat/MonthlyReport', [PeminjamanAlatController::class, 'monthly_report'])->name('PeminjamanAlat.monthly_report');
+    Route::resource('SuratBebasLabkom', SuratBebasLabkomController::class);
+    Route::resource('JasaInstallasi', JasaInstallasiController::class);
+    Route::post('JasaInstallasi/DailyReport', [JasaInstallasiController::class,'daily_report'])->name('JasaInstallasi.daily_report');
+    Route::post('JasaInstallasi/MonthlyReport', [JasaInstallasiController::class, 'monthly_report'])->name('JasaInstallasi.monthly_report');
+    Route::resource('JasaPrint', JasaPrintController::class);
+    Route::post('JasaPrint/DailyReport', [JasaPrintController::class, 'daily_report'])->name('JasaPrint.daily_report');
+    Route::post('JasaPrint/MonthlyReport', [JasaPrintController::class, 'monthly_report'])->name('JasaPrint.monthly_report');
+    Route::resource('Laboratorium', LabController::class);
+    Route::resource('Alat', AlatController::class);
+    Route::resource('Mahasiswa', MahasiswaController::class);
+    Route::resource('Prodi', ProdiController::class);
+    Route::resource('Dosen', DosenController::class);
+    Route::resource('MataKuliah', MataKuliahController::class);
+    Route::resource('Jadwal', JadwalController::class);
+    Route::resource('Software', SoftwareController::class);
+    Route::resource('User', UserController::class);
+});

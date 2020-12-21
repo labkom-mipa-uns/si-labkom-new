@@ -1,10 +1,15 @@
 /node_modules
+/public/css
 /public/hot
+/public/js
+/public/mix-manifest.json
 /public/storage
 /storage/*.key
+/database/*.sqlite
 /vendor
+.DS_Store
 .env
-.env.backup
+.php_cs.dist
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml

@@ -1,17 +1,32 @@
 <?php
-
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace Database\Factories;
 
 use App\Dosen;
 use App\Jadwal;
 use App\MataKuliah;
 use App\Prodi;
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(Jadwal::class, function () {
-    return [
-        'id_dosen' => factory(Dosen::class),
-        'id_matkul' => factory(MataKuliah::class),
-        'id_prodi' => factory(Prodi::class),
-    ];
-});
+class JadwalFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Jadwal::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition(): array
+    {
+        return [
+            'id_dosen' => Dosen::factory()->count(1)->create(),
+            'id_matkul' => MataKuliah::factory()->count(1)->create(),
+            'id_prodi' => Prodi::factory()->count(1)->create(),
+        ];
+    }
+}

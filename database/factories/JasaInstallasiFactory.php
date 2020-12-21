@@ -1,21 +1,36 @@
 <?php
-
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace Database\Factories;
 
 use App\JasaInstallasi;
 use App\Mahasiswa;
 use App\Software;
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(JasaInstallasi::class, function (Faker $faker) {
-    return [
-        'id_mahasiswa' => factory(Mahasiswa::class),
-        'laptop' => $faker->century,
-        'kelengkapan' => $faker->text(40),
-        'tanggal' => $faker->date(),
-        'id_software' => factory(Software::class),
-        'jenis' => $faker->randomElement(['install', 'service']),
-        'keterangan' => $faker->paragraph(10),
-        'jam_ambil' => $faker->time()
-    ];
-});
+class JasaInstallasiFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = JasaInstallasi::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition(): array
+    {
+        return [
+            'id_mahasiswa' => Mahasiswa::factory()->count(1)->create(),
+            'laptop' => $this->faker->century,
+            'kelengkapan' => $this->faker->text(40),
+            'tanggal' => $this->faker->date(),
+            'id_software' => Software::factory()->count()->create(),
+            'jenis' => $this->faker->randomElement(['install', 'service']),
+            'keterangan' => $this->faker->paragraph(10),
+            'jam_ambil' => $this->faker->time()
+        ];
+    }
+}
