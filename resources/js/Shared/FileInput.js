@@ -6,6 +6,7 @@ const Button = ({ text, onClick }) => (
         type="button"
         className="focus:outline-none px-4 py-1 bg-gray-600 hover:bg-gray-700 rounded-sm text-xs font-medium text-white"
         onClick={onClick}
+
     >
         {text}
     </button>

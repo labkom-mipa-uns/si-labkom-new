@@ -3,71 +3,88 @@
 namespace App\Http\Controllers\Admin\JasaPrint;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\JasaPrintRequest;
 use App\Http\Resources\JasaPrintResource;
-use App\JasaPrint;
-use App\Transaksi;
+use App\Models\JasaPrint;
+use App\Models\Transaksi;
 use Exception;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\View\View;
+use Illuminate\Http\Response as HttpResponse;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request as HttpRequest;
+use Inertia\Inertia;
+use Inertia\Response as InertiaResponse;
 use PDF;
+use Throwable;
 
 class JasaPrintController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return Application|Factory|RedirectResponse|Response|View
+     * @return InertiaResponse
      */
-    public function index()
+    public function index(): InertiaResponse
     {
-        try {
-            $data = [
-                'JasaPrint' => JasaPrint::orderBy('created_at', 'desc')->paginate(8)
-            ];
-            return view('JasaPrint.index', $data);
-        } catch (Exception $exception) {
-            return redirect()->home()->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
-        }
+        return Inertia::render('JasaPrint/Index', [
+            'filters' => Request::all(['search', 'trashed']),
+            'jasaprint' => JasaPrint::orderBy('created_at', 'desc')
+                ->filter(Request::only(['search', 'trashed']))
+                ->paginate()
+                ->transform(function ($jasaprint) {
+                    return [
+                        'id' => $jasaprint->id,
+                        'jenis_print' => $jasaprint->jenis_print,
+                        'harga_print' => number_format($jasaprint->harga_print),
+                        'jumlah_print' => $jasaprint->jumlah_print,
+                        'tanggal_print' => date('d M Y', strtotime($jasaprint->tanggal_print)),
+                        'deleted_at' => $jasaprint->deleted_at
+                    ];
+                })
+        ]);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return Application|Factory|RedirectResponse|View
+     * @return InertiaResponse
      */
-    public function create()
+    public function create(): InertiaResponse
     {
-        try {
-            return view('JasaPrint.create');
-        } catch (Exception $exception) {
-            return redirect()->route('JasaPrint.index')
-                ->with('waning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
-        }
+        return Inertia::render('JasaPrint/Create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param JasaPrintRequest $request
      * @return RedirectResponse
      */
-    public function store(Request $request): ?RedirectResponse
+    public function store(JasaPrintRequest $request): ?RedirectResponse
     {
-        $request->validate([
-            'jenis_print' => 'required',
-            'harga_print' => 'required|integer',
-            'tanggal_print' => 'required',
-        ]);
         try {
-            JasaPrint::create($request->all());
-            return redirect()->route('JasaPrint.index')->with('success', "Berhasil Ditambahkan!");
+            $jasaPrint = new JasaPrint();
+            $jasaPrint->jenis_print = $request->jenis_print;
+            $jasaPrint->harga_print = $request->harga_print;
+            $jasaPrint->jumlah_print = $request->jumlah_print;
+            $jasaPrint->tanggal_print = $request->tanggal_print;
+            $jasaPrint->saveOrFail();
+            return Redirect::route('JasaPrint.index')
+                ->with([
+                    'name' => 'Data Print',
+                    'success' => 'Berhasil Ditambahkan!'
+                ]);
         } catch (Exception $exception) {
-            return redirect()->route('JasaPrint.index')
-                ->with('danger', "Gagal Ditambahkan! {$exception->getMessage()}");
+            return Redirect::route('JasaPrint.index')
+                ->with([
+                    'name' => 'Data Print',
+                    'error' => "Gagal Ditambahkan! {$exception->getMessage()}"]);
+        } catch (Throwable $exception) {
+            return Redirect::route('JasaPrint.index')
+                ->with([
+                    'name' => 'Data Print',
+                    'error' => "Gagal Ditambahkan! {$exception->getMessage()}"]);
         }
     }
 
@@ -86,41 +103,54 @@ class JasaPrintController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param JasaPrint $JasaPrint
-     * @return Application|Factory|RedirectResponse|Response|View
+     * @return InertiaResponse
      */
-    public function edit(JasaPrint $JasaPrint)
+    public function edit(JasaPrint $JasaPrint): InertiaResponse
     {
-        try {
-            $data = [
-                'JasaPrint' => $JasaPrint
-            ];
-            return view('JasaPrint.edit', $data);
-        } catch (Exception $exception) {
-            return redirect()->route('JasaPrint.index')
-                ->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
-        }
+        return Inertia::render('JasaPrint/Edit', [
+            'jasaprint' => [
+                'id' => $JasaPrint->id,
+                'jenis_print' => $JasaPrint->jenis_print,
+                'harga_print' => $JasaPrint->harga_print,
+                'jumlah_print' => $JasaPrint->jumlah_print,
+                'tanggal_print' => $JasaPrint->tanggal_print,
+                'deleted_at' => $JasaPrint->deleted_at
+            ]
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param JasaPrintRequest $request
      * @param JasaPrint $JasaPrint
      * @return RedirectResponse
      */
-    public function update(Request $request, JasaPrint $JasaPrint): ?RedirectResponse
+    public function update(JasaPrintRequest $request, JasaPrint $JasaPrint): ?RedirectResponse
     {
-        $request->validate([
-            'jenis_print' => 'required',
-            'harga_print' => 'required|integer',
-            'tanggal_print' => 'required',
-        ]);
         try {
-            JasaPrint::whereId($JasaPrint->id)->update($request->except('_method', '_token'));
-            return redirect()->route('JasaPrint.index')->with('success', "Berhasil Diupdate!");
+            $jasaPrint = JasaPrint::findOrFail($JasaPrint->id);
+            $jasaPrint->jenis_print = $request->jenis_print;
+            $jasaPrint->harga_print = $request->harga_print;
+            $jasaPrint->jumlah_print = $request->jumlah_print;
+            $jasaPrint->tanggal_print = $request->tanggal_print;
+            $jasaPrint->saveOrFail();
+            return Redirect::route('JasaPrint.index')
+                ->with([
+                    'name' => 'Data Print',
+                    'success' => "Berhasil Diubah!"]);
         } catch (Exception $exception) {
-            return redirect()->route('JasaPrint.index')
-                ->with('danger', "Gagal Diupdate! {$exception->getMessage()}");
+            return Redirect::route('JasaPrint.index')
+                ->with([
+                    'name' => 'Data Print',
+                    'error' => "Gagal Diubah! {$exception->getMessage()}"
+                ]);
+        } catch (Throwable $exception) {
+            return Redirect::route('JasaPrint.index')
+                ->with([
+                    'name' => 'Data Print',
+                    'error' => "Gagal Diubah! {$exception->getMessage()}"
+                ]);
         }
     }
 
@@ -134,19 +164,40 @@ class JasaPrintController extends Controller
     {
         try {
             $this->authorize('delete-data');
-            JasaPrint::destroy($JasaPrint->id);
-            return redirect()->route('JasaPrint.index')->with('success', "Berhasil Dihapus!");
+            $JasaPrint->delete();
+            return Redirect::route('JasaPrint.index')
+                ->with([
+                    'name' => 'Data Print',
+                    'success' => "Berhasil Dihapus!"
+                ]);
         } catch (Exception $exception) {
-            return redirect()->route('JasaPrint.index')
-                ->with('danger', "Gagal Dihapus! {$exception->getMessage()}");
+            return Redirect::route('JasaPrint.index')
+                ->with([
+                    'name' => 'Data Print',
+                    'error' => "Gagal Dihapus! {$exception->getMessage()}"
+                ]);
         }
     }
 
     /**
-     * @param Request $request
-     * @return RedirectResponse|Response
+     * @param JasaPrint $JasaPrint
+     * @return RedirectResponse
      */
-    public function daily_report(Request $request)
+    public function restore(JasaPrint $JasaPrint): RedirectResponse
+    {
+        $JasaPrint->restore();
+        return Redirect::route('JasaPrint.index')
+            ->with([
+                'name' => 'Data Print',
+                'success' => 'Berhasil Dipulihkan!'
+            ]);
+    }
+
+    /**
+     * @param HttpRequest $request
+     * @return RedirectResponse|HttpResponse
+     */
+    public function daily_report(HttpRequest $request)
     {
         $request->validate([
             'tanggal' => 'required|date'
@@ -155,22 +206,22 @@ class JasaPrintController extends Controller
             $data = [
                 'Transaksi' => Transaksi::with(['peminjamanalat', 'jasainstallasi', 'jasaprint'])
                     ->whereDate('tanggal', $request->tanggal)
-                    ->where('kategori', $request->kategori)->get(),
+                    ->where('kategori', '=', 'jasa_print')->get(),
                 'tanggal' => $request->tanggal
             ];
             $pdf = PDF::loadView('Invoice.Daily.JasaPrint', $data)->setPaper('a4', 'landscape');
-            return $pdf->stream("Jasa_Installasi_Daily_Report_{$request->tanggal}.pdf");
+            return Inertia::location($pdf->stream("Jasa_Installasi_Daily_Report_{$request->tanggal}.pdf"))->h;
         } catch (Exception $exception) {
-            return redirect()->route('JasaPrint.index')
+            return Redirect::route('JasaPrint.index')
                 ->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }
 
     /**
-     * @param Request $request
-     * @return RedirectResponse|Response
+     * @param HttpRequest $request
+     * @return RedirectResponse|HttpResponse
      */
-    public function monthly_report(Request $request)
+    public function monthly_report(HttpRequest $request)
     {
         $request->validate([
             'bulan' => 'required'
@@ -183,9 +234,9 @@ class JasaPrintController extends Controller
                 'bulan' => $request->bulan
             ];
             $pdf = PDF::loadView('Invoice.Monthly.JasaPrint', $data)->setPaper('a4', 'landscape');
-            return $pdf->stream("Jasa_Installasi_Monthly_Report_{$request->tanggal}.pdf");
+            return Inertia::location($pdf->stream("Jasa_Installasi_Monthly_Report_{$request->tanggal}.pdf"));
         } catch (Exception $exception) {
-            return redirect()->route('JasaPrint.index')
+            return Redirect::route('JasaPrint.index')
                 ->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }

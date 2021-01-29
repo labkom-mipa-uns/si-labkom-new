@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Helmet from 'react-helmet';
+import Swal from 'sweetalert2';
 import { Inertia } from '@inertiajs/inertia';
 import { InertiaLink, usePage } from '@inertiajs/inertia-react';
 import Layout from '@/Shared/Layout';
@@ -10,7 +11,7 @@ import SelectInput from '@/Shared/SelectInput';
 import TrashedMessage from '@/Shared/TrashedMessage';
 
 export default () => {
-    const { mahasiswa, prodi, errors } = usePage();
+    const { mahasiswa, prodi, errors } = usePage().props;
     const [sending, setSending] = useState(false);
 
     const [values, setValues] = useState({
@@ -19,6 +20,7 @@ export default () => {
         jenis_kelamin: mahasiswa.jenis_kelamin || '',
         kelas: mahasiswa.kelas || '',
         id_prodi: mahasiswa.id_prodi || '',
+        prodi: mahasiswa.prodi || '',
         angkatan: mahasiswa.angkatan || '',
         no_hp: mahasiswa.no_hp || '',
         email: mahasiswa.email || '',
@@ -42,15 +44,35 @@ export default () => {
     }
 
     function destroy() {
-        if (confirm('Are you sure you want to delete this mahasiswa?')) {
-            Inertia.delete(route('Mahasiswa.destroy', mahasiswa.id));
-        }
+        Swal.fire({
+            title: 'Apakah Kamu Yakin?',
+            text: "Data Mahasiswa Akan Segera Dihapus!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes'
+        }).then((result) => {
+            if (result.value) {
+                Inertia.delete(route('Mahasiswa.destroy', mahasiswa.id));
+            }
+        })
     }
 
     function restore() {
-        if (confirm('Are you sure you want to restore this mahasiswa?')) {
-            Inertia.put(route('Mahasiswa.restore', mahasiswa.id));
-        }
+        Swal.fire({
+            title: 'Apakah Kamu Yakin?',
+            text: "Data Mahasiswa Akan Segera Dipulihkan!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes'
+        }).then((result) => {
+            if (result.value) {
+                Inertia.put(route('Mahasiswa.restore', mahasiswa.id))
+            }
+        })
     }
 
     return (
@@ -61,6 +83,7 @@ export default () => {
                     <InertiaLink
                         href={route('Mahasiswa.index')}
                         className="text-indigo-600 hover:text-indigo-700"
+                        as="a"
                     >
                         Mahasiswa
                     </InertiaLink>
@@ -72,7 +95,7 @@ export default () => {
                         This mahasiswa has been deleted.
                     </TrashedMessage>
                 )}
-                <div className="bg-white rounded shadow overflow-hidden max-w-3xl">
+                <div className="bg-white rounded shadow overflow-hidden max-w-full mb-8">
                     <form onSubmit={handleSubmit}>
                         <div className="p-8 -mr-6 -mb-8 flex flex-wrap">
                             <TextInput
@@ -165,12 +188,19 @@ export default () => {
                         </div>
                         <div className="px-8 py-4 bg-gray-100 border-t border-gray-200 flex items-center">
                             {!mahasiswa.deleted_at && (
-                                <DeleteButton onDelete={destroy}>Delete Contact</DeleteButton>
+                                <DeleteButton onDelete={destroy}>Hapus</DeleteButton>
                             )}
+                            <InertiaLink
+                                href={route('Mahasiswa.index')}
+                                className="text-indigo-600 hover:text-indigo-700 ml-auto mr-6"
+                                as="a"
+                            >
+                                Kembali
+                            </InertiaLink>
                             <LoadingButton
                                 loading={sending}
                                 type="submit"
-                                className="btn-indigo ml-auto"
+                                className="btn-indigo"
                             >
                                 Simpan Data
                             </LoadingButton>

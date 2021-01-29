@@ -5,45 +5,45 @@ namespace App\Http\Controllers\Admin\Prodi;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProdiRequest;
 use App\Http\Resources\ProdiResource;
-use App\Prodi;
+use App\Models\Prodi;
 use Exception;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\View\View;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Request;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class ProdiController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return Application|Factory|RedirectResponse|View
+     * @return Response
      */
-    public function index()
+    public function index(): Response
     {
-        try {
-            $data = [
-                'Prodi' => Prodi::orderBy('created_at', 'desc')->paginate(8),
-            ];
-            return view('Prodi.index', $data);
-        } catch (Exception $exception) {
-            return redirect()->home()->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
-        }
+        return Inertia::render('Prodi/Index', [
+            'filters' => Request::all(['search', 'trashed']),
+            'prodi' => Prodi::orderBy('created_at', 'desc')
+                ->filter(Request::only(['search', 'trashed']))
+                ->paginate()
+                ->transform(function ($prodi) {
+                    return [
+                        'id' => $prodi->id,
+                        'nama_prodi' => $prodi->nama_prodi
+                    ];
+                })
+        ]);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return Application|Factory|RedirectResponse|View
+     * @return Response
      */
-    public function create()
+    public function create(): Response
     {
-        try {
-            return view('Prodi.create');
-        } catch (Exception $exception) {
-            return redirect()->route('Prodi.index')
-                ->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
-        }
+        return Inertia::render('Prodi/Create');
     }
 
     /**
@@ -56,11 +56,16 @@ class ProdiController extends Controller
     {
         try {
             Prodi::create($request->validated());
-            return redirect()->route('Prodi.index')
-                ->with('success', "Berhasil Ditambahkan!");
+            return Redirect::route('Prodi.index')
+                ->with([
+                    'name' => 'Data Prodi',
+                    'success' => 'Berhasil Ditambahkan!'
+                ]);
         } catch (Exception $exception) {
-            return redirect()->route('Prodi.index')
-                ->with('danger',"Gagal Ditambahkan! {$exception->getMessage()}");
+            return Redirect::route('Prodi.index')
+                ->with([
+                    'name' => 'Data Prodi',
+                    'error' => "Gagal Ditambahkan! {$exception->getMessage()}"]);
         }
     }
 
@@ -77,19 +82,16 @@ class ProdiController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param Prodi $Prodi
-     * @return Application|Factory|RedirectResponse|View
+     * @return Response
      */
-    public function edit(Prodi $Prodi)
+    public function edit(Prodi $Prodi): Response
     {
-        try {
-            $data = [
-                'Prodi' => $Prodi
-            ];
-            return view('Prodi.edit', $data);
-        } catch (Exception $exception) {
-            return redirect()->route('Prodi.index')
-                ->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
-        }
+        return Inertia::render('Prodi/Edit', [
+            'prodi' => [
+                'id' => $Prodi->id,
+                'nama_prodi' => $Prodi->nama_prodi
+            ]
+        ]);
     }
 
     /**
@@ -103,11 +105,16 @@ class ProdiController extends Controller
     {
         try {
             $Prodi->update($request->validated());
-            return redirect()->route('Prodi.index')
-                ->with('success', "Berhasil Diupdate!");
+            return Redirect::route('Prodi.index')
+                ->with([
+                    'name' => 'Data Prodi',
+                    'success' => "Berhasil Diubah!"]);
         } catch (Exception $exception) {
-            return redirect()->route('Prodi.index')
-                ->with('danger', "Gagal Diupdate! {$exception->getMessage()}");
+            return Redirect::route('Prodi.index')
+                ->with([
+                    'name' => 'Data Prodi',
+                    'error' => "Gagal Diubah! {$exception->getMessage()}"
+                ]);
         }
     }
 
@@ -121,20 +128,32 @@ class ProdiController extends Controller
     {
         try {
             $this->authorize('delete-data');
-            Prodi::destroy($Prodi->id);
-            return redirect()->route('Prodi.index')
-                ->with('success', "Berhasil Dihapus!");
+            $Prodi->delete();
+            return Redirect::route('Prodi.index')
+                ->with([
+                    'name' => 'Data Prodi',
+                    'success' => "Berhasil Dihapus!"
+                ]);
         } catch (Exception $exception) {
-            return redirect()->route('Prodi.index')
-                ->with('danger', "Gagal Dihapus! {$exception->getMessage()}");
+            return Redirect::route('Prodi.index')
+                ->with([
+                    'name' => 'Data Prodi',
+                    'error' => "Gagal Dihapus! {$exception->getMessage()}"
+                ]);
         }
     }
 
     /**
-     * @return ProdiResource
+     * @param Prodi $Prodi
+     * @return RedirectResponse
      */
-    public function all(): ProdiResource
+    public function restore(Prodi $Prodi): RedirectResponse
     {
-        return new ProdiResource(Prodi::all());
+        $Prodi->restore();
+        return Redirect::route('Prodi.index')
+            ->with([
+                'name' => 'Data Prodi',
+                'success' => 'Berhasil Dipulihkan!',
+            ]);
     }
 }

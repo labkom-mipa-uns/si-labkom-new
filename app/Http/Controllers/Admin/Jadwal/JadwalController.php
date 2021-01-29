@@ -2,59 +2,67 @@
 
 namespace App\Http\Controllers\Admin\Jadwal;
 
-use App\Dosen;
+use App\Models\Dosen;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\JadwalRequest;
 use App\Http\Resources\JadwalResource;
-use App\Jadwal;
-use App\MataKuliah;
-use App\Prodi;
+use App\Models\Jadwal;
+use App\Models\MataKuliah;
+use App\Models\Prodi;
 use Exception;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Response;
-use Illuminate\View\View;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Request;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class JadwalController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return Application|Factory|RedirectResponse|View
+     * @return Response
      */
-    public function index()
+    public function index(): Response
     {
-        try {
-            $data = [
-                'Jadwal' => Jadwal::with(['prodi','dosen', 'matakuliah'])
-                    ->orderBy('created_at','desc')
-                    ->paginate(8)
-            ];
-            return view('Jadwal.index', $data);
-        } catch (Exception $exception) {
-            return redirect()->home()->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
-        }
+        return Inertia::render('Jadwal/Index', [
+            'filters' => Request::all(['search', 'trashed']),
+            'jadwal' => Jadwal::with(['prodi', 'dosen', 'matakuliah'])
+                ->orderBy('created_at', 'desc')
+                ->filter(Request::only(['search', 'trashed']))
+                ->paginate()
+                ->transform(function ($jadwal) {
+                    return [
+                        'id' => $jadwal->id,
+                        'dosen' => $jadwal->dosen,
+                        'matkul' => $jadwal->matakuliah,
+                        'prodi' => $jadwal->prodi
+                    ];
+                })
+        ]);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return Application|Factory|RedirectResponse|View
+     * @return Response
      */
-    public function create()
+    public function create(): Response
     {
-        try {
-            $data = [
-                'Prodi' => Prodi::orderBy('nama_prodi', 'asc')->get(),
-                'Dosen' => Dosen::orderBy('nama_dosen', 'asc')->get(),
-                'MataKuliah' => MataKuliah::orderBy('nama_matkul', 'asc')->get()
-            ];
-            return view('Jadwal.create', $data);
-        } catch (Exception $exception) {
-            return redirect()->route('Jadwal.index')
-                ->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
-        }
+        return Inertia::render('Jadwal/Create', [
+            'dosen' => Dosen::orderBy('nama_dosen', 'asc')
+                ->get()
+                ->map
+                ->only('id', 'nama_dosen'),
+            'matkul' => MataKuliah::orderBy('nama_matkul', 'asc')
+                ->get()
+                ->map
+                ->only('id', 'nama_matkul'),
+            'prodi' => Prodi::orderBy('nama_prodi', 'asc')
+                ->get()
+                ->map
+                ->only('id', 'nama_prodi')
+        ]);
     }
 
     /**
@@ -67,11 +75,16 @@ class JadwalController extends Controller
     {
         try {
             Jadwal::create($request->validated());
-            return redirect()->route('Jadwal.index')
-                ->with('success', 'Berhasil Ditambahkan!');
+            return Redirect::route('Jadwal.index')
+                ->with([
+                    'name' => 'Jadwal',
+                    'success' => 'Berhasil Ditambahkan!']);
         } catch (Exception $exception) {
-            return redirect()->route('Jadwal.index')
-                ->with('danger', "Gagal Ditambahkan! {$exception->getMessage()}");
+            return Redirect::route('Jadwal.index')
+                ->with([
+                    'name' => 'Jadwal',
+                    'error' => "Gagal Dihapus! {$exception->getMessage()}"
+                ]);
         }
     }
 
@@ -91,23 +104,33 @@ class JadwalController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param Jadwal $Jadwal
-     * @return Application|Factory|RedirectResponse|Response|View
+     * @return Response
      */
-    public function edit(Jadwal $Jadwal)
+    public function edit(Jadwal $Jadwal): Response
     {
-        try {
-            $data = [
-                'Jadwal' => $Jadwal::with(['prodi', 'dosen', 'matakuliah'])
-                    ->firstWhere('id', $Jadwal->id),
-                'Prodi' => Prodi::orderBy('nama_prodi', 'asc')->get(),
-                'Dosen' => Dosen::orderBy('nama_dosen', 'asc')->get(),
-                'MataKuliah' => MataKuliah::orderBy('nama_matkul', 'asc')->get()
-            ];
-            return view('Jadwal.edit', $data);
-        } catch (Exception $exception) {
-            return redirect()->route('Jadwal.index')
-                ->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
-        }
+        return Inertia::render('Jadwal/Edit', [
+            'jadwal' => [
+                'id' => $Jadwal->id,
+                'id_dosen' => $Jadwal->id_dosen,
+                'dosen' => $Jadwal->dosen,
+                'id_matkul' => $Jadwal->id_matkul,
+                'matkul' => $Jadwal->matkul,
+                'id_prodi' => $Jadwal->id_prodi,
+                'prodi' => $Jadwal->prodi
+            ],
+            'dosen' => Dosen::orderBy('nama_dosen', 'asc')
+                ->get()
+                ->map
+                ->only('id', 'nama_dosen'),
+            'matkul' => MataKuliah::orderBy('nama_matkul', 'asc')
+                ->get()
+                ->map
+                ->only('id', 'nama_matkul'),
+            'prodi' => Prodi::orderBy('nama_prodi', 'asc')
+                ->get()
+                ->map
+                ->only('id', 'nama_prodi')
+        ]);
     }
 
     /**
@@ -121,11 +144,17 @@ class JadwalController extends Controller
     {
         try {
             $Jadwal->update($request->validated());
-            return redirect()->route('Jadwal.index')
-                ->with('success', "Berhasil Diupdate!");
+            return Redirect::route('Jadwal.index')
+                ->with([
+                    'name' => 'Jadwal',
+                    'success' => 'Berhasil Diubah!'
+                ]);
         } catch (Exception $exception) {
-            return redirect()->route('Jadwal.index')
-                ->with('danger', "Gagal Diupdate! {$exception->getMessage()}");
+            return Redirect::route('Jadwal.index')
+                ->with([
+                    'name' => 'Jadwal',
+                    'error' => "Gagal Diubah! {$exception->getMessage()}"
+                ]);
         }
     }
 
@@ -139,12 +168,31 @@ class JadwalController extends Controller
     {
         try {
             $this->authorize('delete-data');
-            Jadwal::destroy($Jadwal->id);
-            return redirect()->route('Jadwal.index')
-                ->with('success', "Berhasil Dihapus!");
+            $Jadwal->delete();
+            return Redirect::route('Jadwal.index')
+                ->with([
+                    'name' => 'Jadwal',
+                    'success' => 'Berhasil Dihapus!']);
         } catch (Exception $exception) {
-            return redirect()->route('Jadwal.index')
-                ->with('danger', "Gagal Dihapus! {$exception->getMessage()}");
+            return Redirect::route('Jadwal.index')
+                ->with([
+                    'name' => 'Jadwal',
+                    'error' => "Gagal Dihapus! {$exception->getMessage()}"
+                ]);
         }
+    }
+
+    /**
+     * @param Jadwal $Jadwal
+     * @return RedirectResponse
+     */
+    public function restore(Jadwal $Jadwal): RedirectResponse
+    {
+        $Jadwal->restore();
+        return Redirect::route('Jadwal.index')
+            ->with([
+                'name' => 'Jadwal',
+                'success' => 'Berhasil Dipulihkan!',
+            ]);
     }
 }

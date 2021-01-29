@@ -5,46 +5,46 @@ namespace App\Http\Controllers\Admin\Software;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SoftwareRequest;
 use App\Http\Resources\SoftwareResource;
-use App\Software;
+use App\Models\Software;
 use Exception;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Response;
-use Illuminate\View\View;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Request;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class SoftwareController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return Application|Factory|RedirectResponse|Response|View
+     * @return Response
      */
-    public function index()
+    public function index(): Response
     {
-        try {
-            $data = [
-                'Software' => Software::orderBy('created_at','desc')->paginate(8)
-            ];
-            return view('Software.index', $data);
-        } catch (Exception $exception) {
-            return redirect()->home()->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
-        }
+        return Inertia::render('Software/Index', [
+            'filters' => Request::all(['search', 'trashed']),
+            'software' => Software::orderBy('created_at', 'desc')
+                ->filter(Request::only(['search', 'trashed']))
+                ->paginate()
+                ->transform(function ($software) {
+                    return [
+                        'id' => $software->id,
+                        'nama_software' => $software->nama_software,
+                        'harga_software' => number_format($software->harga_software),
+                    ];
+                })
+        ]);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return Application|Factory|RedirectResponse|Response|View
+     * @return Response
      */
-    public function create()
+    public function create(): Response
     {
-        try {
-            return view('Software.create');
-        } catch (Exception $exception) {
-            return redirect()->route('Software.index')
-                ->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
-        }
+        return Inertia::render('Software/Create');
     }
 
     /**
@@ -57,11 +57,16 @@ class SoftwareController extends Controller
     {
         try {
             Software::create($request->validated());
-            return redirect()->route('Software.index')
-                ->with('success', "Berhasil Ditambahkan!");
+            return Redirect::route('Software.index')
+                ->with([
+                    'name' => 'Data Software',
+                    'success' => 'Berhasil Ditambahkan!'
+                ]);
         } catch (Exception $exception) {
-            return redirect()->route('Software.index')
-                ->with('danger', "Gagal Ditambahkan! {$exception->getMessage()}");
+            return Redirect::route('Software.index')
+                ->with([
+                    'name' => 'Data Software',
+                    'error' => "Gagal Ditambahkan! {$exception->getMessage()}"]);
         }
     }
 
@@ -80,19 +85,17 @@ class SoftwareController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param Software $Software
-     * @return Application|Factory|RedirectResponse|Response|View
+     * @return Response
      */
-    public function edit(Software $Software)
+    public function edit(Software $Software): Response
     {
-        try {
-            $data = [
-                'Software' => $Software
-            ];
-            return view('Software.edit', $data);
-        } catch (Exception $exception) {
-            return redirect()->route('Software.index')
-                ->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
-        }
+        return Inertia::render('Software/Edit', [
+            'software' => [
+                'id' => $Software->id,
+                'nama_software' => $Software->nama_software,
+                'harga_software' => $Software->harga_software,
+            ]
+        ]);
     }
 
     /**
@@ -106,11 +109,16 @@ class SoftwareController extends Controller
     {
         try {
             $Software->update($request->validated());
-            return redirect()->route('Software.index')
-                ->with('success', "Berhasil Diupdate!");
+            return Redirect::route('Software.index')
+                ->with([
+                    'name' => 'Data Software',
+                    'success' => "Berhasil Diubah!"]);
         } catch (Exception $exception) {
-            return redirect()->route('Software.index')
-                ->with('danger', "Gagal Diupdate! {$exception->getMessage()}");
+            return Redirect::route('Software.index')
+                ->with([
+                    'name' => 'Data Software',
+                    'error' => "Gagal Diubah! {$exception->getMessage()}"
+                ]);
         }
     }
 
@@ -124,20 +132,31 @@ class SoftwareController extends Controller
     {
         try {
             $this->authorize('delete-data');
-            Software::destroy($Software->id);
-            return redirect()->route('Software.index')
-                ->with('success', "Berhasil Dihapus!");
+            $Software->delete();
+            return Redirect::route('Software.index')
+                ->with([
+                    'name' => 'Data Software',
+                    'success' => "Berhasil Dihapus!"]);
         } catch (Exception $exception) {
-            return redirect()->route('Software.index')
-                ->with('danger', "Gagal Dihapus! {$exception->getMessage()}");
+            return Redirect::route('Software.index')
+                ->with([
+                    'name' => 'Data Software',
+                    'error' => "Gagal Dihapus! {$exception->getMessage()}"
+                ]);
         }
     }
 
     /**
-     * @return SoftwareResource
+     * @param Software $Software
+     * @return RedirectResponse
      */
-    public function all(): SoftwareResource
+    public function restore(Software $Software): RedirectResponse
     {
-        return new SoftwareResource(Software::all());
+        $Software->restore();
+        return Redirect::route('Software.index')
+            ->with([
+                'name' => 'Data Software',
+                'success' => 'Berhasil Dipulihkan!'
+            ]);
     }
 }

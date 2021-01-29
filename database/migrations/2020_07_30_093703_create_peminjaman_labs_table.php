@@ -24,6 +24,7 @@ class CreatePeminjamanLabsTable extends Migration
             $table->text('keperluan');
             $table->enum('kategori', ['didalam_jam', 'diluar_jam']);
             $table->enum('status', ['0', '1']);
+            $table->softDeletes();
             $table->timestamps();
 
             $table->foreign('id_mahasiswa')->references('id')->on('mahasiswa');

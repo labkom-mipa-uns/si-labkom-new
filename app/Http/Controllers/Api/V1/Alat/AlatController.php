@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1\Alat;
 
-use App\Alat;
+use App\Models\Alat;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AlatRequest;
 use App\Http\Resources\AlatResource;

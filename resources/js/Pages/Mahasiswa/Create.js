@@ -8,7 +8,7 @@ import TextInput from '@/Shared/TextInput';
 import SelectInput from '@/Shared/SelectInput';
 
 export default () => {
-    const { prodi, errors } = usePage();
+    const { prodi, errors } = usePage().props;
     const [sending, setSending] = useState(false);
     const [values, setValues] = useState({
         nama_mahasiswa: '',
@@ -46,12 +46,13 @@ export default () => {
                     <InertiaLink
                         href={route('Mahasiswa.index')}
                         className="text-indigo-600 hover:text-indigo-700"
+                        as="a"
                     >
                         Mahasiswa
                     </InertiaLink>
                     <span className="text-indigo-600 font-medium"> /</span> Tambah Data
                 </h1>
-                <div className="bg-white rounded shadow overflow-hidden max-w-3xl">
+                <div className="bg-white rounded shadow overflow-hidden max-w-full mb-8">
                     <form onSubmit={handleSubmit}>
                         <div className="p-8 -mr-6 -mb-8 flex flex-wrap">
                             <TextInput
@@ -142,6 +143,13 @@ export default () => {
                             />
                         </div>
                         <div className="px-8 py-4 bg-gray-100 border-t border-gray-200 flex justify-end items-center">
+                            <InertiaLink
+                                href={route('Mahasiswa.index')}
+                                className="text-indigo-600 hover:text-indigo-700 ml-auto mr-6"
+                                as="a"
+                            >
+                                Kembali
+                            </InertiaLink>
                             <LoadingButton
                                 loading={sending}
                                 type="submit"

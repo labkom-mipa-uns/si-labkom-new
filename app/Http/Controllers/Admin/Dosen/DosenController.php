@@ -2,48 +2,49 @@
 
 namespace App\Http\Controllers\Admin\Dosen;
 
-use App\Dosen;
+use App\Models\Dosen;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DosenRequest;
 use App\Http\Resources\DosenResource;
 use Exception;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\View\View;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Request;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class DosenController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return Application|Factory|RedirectResponse|View
+     * @return Response
      */
-    public function index()
+    public function index(): Response
     {
-        try {
-            $data = [
-                'Dosen' => Dosen::orderBy('created_at', 'desc')->paginate(8),
-            ];
-            return view('Dosen.index', $data);
-        } catch (Exception $exception) {
-            return redirect()->home()->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
-        }
+        return Inertia::render('Dosen/Index', [
+            'filters' => Request::all(['search', 'trashed']),
+            'dosen' => Dosen::orderBy('created_at', 'desc')
+                ->filter(Request::only(['search', 'trashed']))
+                ->paginate()
+                ->transform(function ($dosen) {
+                    return [
+                        'id' => $dosen->id,
+                        'nama_dosen' => $dosen->nama_dosen,
+                        'nidn' => $dosen->nidn,
+                    ];
+                })
+        ]);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return Application|Factory|RedirectResponse|View
+     * @return Response
      */
-    public function create()
+    public function create(): Response
     {
-        try {
-            return view('Dosen.create');
-        } catch (Exception $exception) {
-            return redirect()->route('Dosen.index')
-                ->with('warning', "Silakan Coba Beberapa Saat Lagi!");
-        }
+        return Inertia::render('Dosen/Create');
     }
 
     /**
@@ -56,11 +57,16 @@ class DosenController extends Controller
     {
         try {
             Dosen::create($request->validated());
-            return redirect()->route('Dosen.index')
-                ->with('success',"Berhasil Ditambahkan!");
+            return Redirect::route('Dosen.index')
+                ->with([
+                    'name' => 'Data Dosen',
+                    'success' => 'Berhasil Ditambahkan!'
+                ]);
         } catch (Exception $exception) {
-            return redirect()->route('Dosen.index')
-                ->with('danger',"Gagal Ditambahkan! {$exception->getMessage()}");
+            return Redirect::route('Dosen.index')
+                ->with([
+                    'name' => 'Data Dosen',
+                    'error' => "Gagal Ditambahkan! {$exception->getMessage()}"]);
         }
     }
 
@@ -79,19 +85,17 @@ class DosenController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param Dosen $Dosen
-     * @return Application|Factory|RedirectResponse|View
+     * @return Response
      */
-    public function edit(Dosen $Dosen)
+    public function edit(Dosen $Dosen): Response
     {
-        try {
-            $data = [
-                'Dosen' => $Dosen
-            ];
-            return view('Dosen.edit', $data);
-        } catch (Exception $exception) {
-            return redirect()->route('Dosen.index')
-                ->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
-        }
+        return Inertia::render('Dosen/Edit', [
+            'dosen' => [
+                'id' => $Dosen->id,
+                'nama_dosen' => $Dosen->nama_dosen,
+                'nidn' => $Dosen->nidn,
+            ]
+        ]);
     }
 
     /**
@@ -105,11 +109,16 @@ class DosenController extends Controller
     {
         try {
             $Dosen->update($request->validated());
-            return redirect()->route('Dosen.index')
-                ->with('success', "Berhasil Diupdate!");
+            return Redirect::route('Dosen.index')
+                ->with([
+                    'name' => 'Data Dosen',
+                    'success' => "Berhasil Diubah!"]);
         } catch (Exception $exception) {
-            return redirect()->route('Dosen.index')
-                ->with('danger', "Gagal Diupdate! {$exception->getMessage()}");
+            return Redirect::route('Dosen.index')
+                ->with([
+                    'name' => 'Data Dosen',
+                    'error' => "Gagal Diubah! {$exception->getMessage()}"
+                ]);
         }
     }
 
@@ -123,12 +132,31 @@ class DosenController extends Controller
     {
         try {
             $this->authorize('delete-data');
-            Dosen::destroy($Dosen->id);
-            return redirect()->route('Dosen.index')
-                ->with('success', "Berhasil Dihapus!");
+            $Dosen->delete();
+            return Redirect::route('Dosen.index')
+                ->with([
+                    'name' => 'Data Dosen',
+                    'success' => "Berhasil Dihapus!"]);
         } catch (Exception $exception) {
-            return redirect()->route('Dosen.index')
-                ->with('danger', "Gagal Dihapus! {$exception->getMessage()}");
+            return Redirect::route('Dosen.index')
+                ->with([
+                    'name' => 'Data Dosen',
+                    'error' => "Gagal Dihapus! {$exception->getMessage()}"
+                ]);
         }
+    }
+
+    /**
+     * @param Dosen $Dosen
+     * @return RedirectResponse
+     */
+    public function restore(Dosen $Dosen): RedirectResponse
+    {
+        $Dosen->restore();
+        return Redirect::route('Dosen.index')
+            ->with([
+                'name' => 'Data Dosen',
+                'success' => 'Berhasil Dipulihkan!',
+            ]);
     }
 }

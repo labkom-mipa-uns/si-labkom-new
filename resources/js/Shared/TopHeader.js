@@ -6,8 +6,8 @@ import MainMenu from '@/Shared/MainMenu';
 export default () => {
     const [menuOpened, setMenuOpened] = useState(false);
     return (
-        <div className="bg-indigo-900 md:flex-shrink-0 md:w-56 px-6 py-4 flex items-center justify-between md:justify-center">
-            <InertiaLink className="mt-1" href="/">
+        <div className="bg-indigo-900 md:flex-shrink-0 md:w-64 px-6 py-4 flex items-center justify-between md:justify-center">
+            <InertiaLink className="mt-1" href={route('home')} as="a">
                 <Logo className="text-white fill-current" width="120" height="28" />
             </InertiaLink>
             <div className="relative md:hidden">

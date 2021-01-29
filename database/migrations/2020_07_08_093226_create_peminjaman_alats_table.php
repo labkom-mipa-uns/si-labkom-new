@@ -24,6 +24,7 @@ class CreatePeminjamanAlatsTable extends Migration
             $table->integer('jumlah_pinjam');
             $table->text('keperluan');
             $table->enum('status', ['0', '1']);
+            $table->softDeletes();
             $table->timestamps();
 
             $table->foreign('id_alat')->references('id')->on('alat');

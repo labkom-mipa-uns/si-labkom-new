@@ -26,6 +26,7 @@ class CreateTransaksisTable extends Migration
             $table->integer('jumlah');
             $table->unsignedBigInteger('total_bayar');
             $table->date('tanggal');
+            $table->softDeletes();
             $table->timestamps();
 
             $table->foreign('id_peminjaman_alat')->references('id')->on('peminjaman_alat');

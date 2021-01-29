@@ -5,45 +5,45 @@ namespace App\Http\Controllers\Admin\Lab;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LabRequest;
 use App\Http\Resources\LabResource;
-use App\Lab;
+use App\Models\Lab;
 use Exception;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\View\View;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Request;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class LabController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return Application|Factory|RedirectResponse|View
+     * @return Response
      */
-    public function index()
+    public function index(): Response
     {
-        try {
-            $data = [
-                'Laboratorium' => Lab::orderBy('created_at', 'desc')->paginate(8),
-            ];
-            return view('Lab.index', $data);
-        } catch (Exception $exception) {
-            return redirect()->home()->with('warning',"Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
-        }
+        return Inertia::render('Lab/Index', [
+            'filters' => Request::all(['search', 'trashed']),
+            'lab' => Lab::orderBy('created_at', 'desc')
+                ->filter(Request::only(['search', 'trashed']))
+                ->paginate()
+                ->transform(function ($lab) {
+                    return [
+                        'id' => $lab->id,
+                        'nama_lab' => $lab->nama_lab
+                    ];
+                })
+        ]);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return Application|Factory|RedirectResponse|View
+     * @return Response
      */
-    public function create()
+    public function create(): Response
     {
-        try {
-            return view('Lab.create');
-        } catch (Exception $exception) {
-            return redirect()->route('Laboratorium.index')
-                ->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
-        }
+        return Inertia::render('Lab/Create');
     }
 
     /**
@@ -56,11 +56,16 @@ class LabController extends Controller
     {
         try {
             Lab::create($request->validated());
-            return redirect()->route('Laboratorium.index')
-                ->with('success', 'Berhasil Ditambahkan!');
+            return Redirect::route('Laboratorium.index')
+                ->with([
+                    'name' => 'Data Laboratorium',
+                    'success' => 'Berhasil Ditambahkan!'
+                ]);
         } catch (Exception $exception) {
-            return redirect()->route('Laboratorium.index')
-                ->with('danger', "Gagal Ditambahkan! {$exception->getMessage()}");
+            return Redirect::route('Laboratorium.index')
+                ->with([
+                    'name' => 'Data Laboratorium',
+                    'error' => "Gagal Ditambahkan! {$exception->getMessage()}"]);
         }
     }
 
@@ -79,19 +84,16 @@ class LabController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param Lab $Laboratorium
-     * @return Application|Factory|RedirectResponse|View
+     * @return Response
      */
-    public function edit(Lab $Laboratorium)
+    public function edit(Lab $Laboratorium): Response
     {
-        try {
-            $data = [
-                'Laboratorium' => $Laboratorium
-            ];
-            return view('Lab.edit', $data);
-        } catch (Exception $exception) {
-            return redirect()->route("Laboratorium.index")
-                ->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
-        }
+        return Inertia::render('Lab/Edit', [
+            'lab' => [
+                'id' => $Laboratorium->id,
+                'nama_lab' => $Laboratorium->nama_lab,
+            ],
+        ]);
     }
 
     /**
@@ -105,9 +107,17 @@ class LabController extends Controller
     {
         try {
             $Laboratorium->update($request->validated());
-            return redirect()->route('Laboratorium.index')->with('success', "Berhasil Diupdate!");
+            return Redirect::route('Laboratorium.index')
+                ->with([
+                    'name' => 'Data Laboratorium',
+                    'success' => "Berhasil Diubah!"
+                ]);
         } catch (Exception $exception) {
-            return redirect()->route('Laboratorium.index')->with('danger', "Gagal Diupdate! {$exception->getMessage()}");
+            return Redirect::route('Laboratorium.index')
+                ->with([
+                    'name' => 'Data Laboratorium',
+                    'error' => "Gagal Diubah! {$exception->getMessage()}"
+                ]);
         }
     }
 
@@ -121,10 +131,31 @@ class LabController extends Controller
     {
         try {
             $this->authorize('delete-data');
-            Lab::destroy($Laboratorium->id);
-            return redirect()->route('Laboratorium.index')->with('success', 'Berhasil Dihapus!');
+            $Laboratorium->delete();
+            return Redirect::route('Laboratorium.index')
+                ->with([
+                    'name' => 'Data Laboratorium',
+                    'success' => 'Berhasil Dihapus!']);
         } catch (Exception $exception) {
-            return redirect()->route("Laboratorium.index")->with('danger', "Gagal Dihapus! {$exception->getMessage()}");
+            return Redirect::route("Laboratorium.index")
+                ->with([
+                    'name' => 'Data Laboratorium',
+                    'error' => "Gagal Dihapus! {$exception->getMessage()}"
+                ]);
         }
+    }
+
+    /**
+     * @param Lab $Laboratorium
+     * @return RedirectResponse
+     */
+    public function restore(Lab $Laboratorium): RedirectResponse
+    {
+        $Laboratorium->restore();
+        return Redirect::route('Laboratorium.index')
+            ->with([
+                'name' => 'Data Laboratorium',
+                'success' => 'Berhasil Dipulihkan!']
+            );
     }
 }

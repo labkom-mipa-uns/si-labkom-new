@@ -8,12 +8,9 @@ use App\Http\Resources\MahasiswaResource;
 use App\Models\Mahasiswa;
 use App\Models\Prodi;
 use Exception;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
-use Illuminate\View\View;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -34,14 +31,16 @@ class MahasiswaController extends Controller
                 ->paginate()
                 ->transform(function ($mahasiswa) {
                     return [
-                        'nama_mahasiswa' => $mahasiswa->nama_mahasiswa,
+                        'id' => $mahasiswa->id,
+                        'nama' => $mahasiswa->nama_mahasiswa,
                         'nim' => $mahasiswa->nim,
                         'jenis_kelamin' => $mahasiswa->jenis_kelamin,
                         'kelas' => $mahasiswa->kelas,
-                        'prodi' => $mahasiswa->prodi ? $mahasiswa->prodi->only('nama_prodi') : null,
+                        'prodi' => $mahasiswa->prodi,
                         'angkatan' => $mahasiswa->angkatan,
                         'no_hp' => $mahasiswa->no_hp,
                         'email' => $mahasiswa->email,
+                        'deleted_at' => $mahasiswa->deleted_at
                     ];
                 })
         ]);
@@ -49,7 +48,6 @@ class MahasiswaController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
      * @return Response
      */
     public function create(): Response
@@ -58,7 +56,7 @@ class MahasiswaController extends Controller
             'prodi' => Prodi::orderBy('nama_prodi', 'asc')
                 ->get()
                 ->map
-                ->only('id_prodi', 'nama_prodi')
+                ->only('id', 'nama_prodi')
         ]);
     }
 
@@ -68,15 +66,20 @@ class MahasiswaController extends Controller
      * @param MahasiswaRequest $request
      * @return RedirectResponse
      */
-    public function store(MahasiswaRequest $request): RedirectResponse
+    public function store(MahasiswaRequest $request): ?RedirectResponse
     {
-
         try {
             Mahasiswa::create($request->validated());
-            return Redirect::route('Mahasiswa.index')->with('success', 'Berhasil Ditambahkan!');
+            return Redirect::route('Mahasiswa.index')
+                ->with([
+                    'name' => 'Data Mahasiswa',
+                    'success' => 'Berhasil Ditambahkan!']);
         } catch (Exception $exception) {
-            return redirect()->route('Mahasiswa.index')
-                ->with('danger',"Gagal Ditambahkan! {$exception->getMessage()}");
+            return Redirect::route('Mahasiswa.index')
+                ->with([
+                    'name' => 'Data Mahasiswa',
+                    'error' => "Gagal Dihapus! {$exception->getMessage()}"
+                ]);
         }
     }
 
@@ -97,21 +100,29 @@ class MahasiswaController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param Mahasiswa $Mahasiswa
-     * @return Application|Factory|RedirectResponse|View
+     * @return Response
      */
-    public function edit(Mahasiswa $Mahasiswa)
+    public function edit(Mahasiswa $Mahasiswa): Response
     {
-        try {
-            $data = [
-                'Mahasiswa' => $Mahasiswa::with(['prodi'])
-                    ->firstWhere('id', $Mahasiswa->id),
-                'Prodi' => Prodi::orderBy('nama_prodi','asc')->get()
-            ];
-            return view('Mahasiswa.edit', $data);
-        } catch (Exception $exception) {
-            return redirect()->route('Mahasiswa.index')
-                ->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
-        }
+        return Inertia::render('Mahasiswa/Edit', [
+            'mahasiswa' => [
+                'id' => $Mahasiswa->id,
+                'nama_mahasiswa' => $Mahasiswa->nama_mahasiswa,
+                'nim' => $Mahasiswa->nim,
+                'jenis_kelamin' => $Mahasiswa->jenis_kelamin,
+                'kelas' => $Mahasiswa->kelas,
+                'id_prodi' => $Mahasiswa->id_prodi,
+                'prodi' => $Mahasiswa->prodi,
+                'angkatan' => $Mahasiswa->angkatan,
+                'no_hp' => $Mahasiswa->no_hp,
+                'email' => $Mahasiswa->email,
+                'deleted_at' => $Mahasiswa->deleted_at
+            ],
+            'prodi' => Prodi::orderBy('nama_prodi', 'asc')
+                ->get()
+                ->map
+                ->only('id', 'nama_prodi')
+        ]);
     }
 
     /**
@@ -125,11 +136,17 @@ class MahasiswaController extends Controller
     {
         try {
             $Mahasiswa->update($request->validated());
-            return redirect()->route('Mahasiswa.index')
-                ->with('success', "Berhasil Diupdate!");
+            return Redirect::route('Mahasiswa.index')
+                ->with([
+                    'name' => 'Data Mahasiswa',
+                    'success' => 'Berhasil Diubah!'
+                ]);
         } catch (Exception $exception) {
-            return redirect()->route('Mahasiswa.index')
-                ->with('danger',"Gagal Diupdate! {$exception->getMessage()}");
+            return Redirect::route('Mahasiswa.index')
+                ->with([
+                    'name' => 'Data Mahasiswa',
+                    'error' => "Gagal Diubah! {$exception->getMessage()}"
+                ]);
         }
     }
 
@@ -143,12 +160,31 @@ class MahasiswaController extends Controller
     {
         try {
             $this->authorize('delete-data');
-            Mahasiswa::destroy($Mahasiswa->id);
-            return redirect()->route('Mahasiswa.index')
-                ->with('success', 'Berhasil Dihapus!');
+            $Mahasiswa->delete();
+            return Redirect::route('Mahasiswa.index')
+                ->with([
+                    'name' => 'Data Mahasiswa',
+                    'success' => 'Berhasil Dihapus!']);
         } catch (Exception $exception) {
-            return redirect()->route('Mahasiswa.index')
-                ->with('danger',"Gagal Dihapus! {$exception->getMessage()}");
+            return Redirect::route('Mahasiswa.index')
+                ->with([
+                    'name' => 'Data Mahasiswa',
+                    'error' => "Gagal Dihapus! {$exception->getMessage()}"
+                ]);
         }
+    }
+
+    /**
+     * @param Mahasiswa $Mahasiswa
+     * @return RedirectResponse
+     */
+    public function restore(Mahasiswa $Mahasiswa): RedirectResponse
+    {
+        $Mahasiswa->restore();
+        return Redirect::route('Mahasiswa.index')
+            ->with([
+                'name' => 'Data Mahasiswa',
+                'success' => 'Berhasil Dipulihkan!'
+            ]);
     }
 }

@@ -2,9 +2,8 @@
 
 namespace App\Listeners;
 
-use App\Events\EventJasaInstallasiUpdated;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\EventJasaPrintUpdated;
+use App\Models\Transaksi;
 
 class JasaPrintUpdatedListener
 {
@@ -21,11 +20,24 @@ class JasaPrintUpdatedListener
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  EventJasaPrintUpdated  $event
      * @return void
      */
-    public function handle(EventJasaInstallasiUpdated $event)
+    public function handle(EventJasaPrintUpdated $event): void
     {
-        $jasaInstallasi = $event->jasaInstallasi;
+        $jasaPrint = $event->jasaPrint;
+        $transaksi = Transaksi::with('jasaprint')
+            ->where('id_jasa_print', $jasaPrint->id)
+            ->first();
+        $transaksi->update([
+            'harga' => $jasaPrint->harga_print,
+            'jumlah' => (int)$jasaPrint->jumlah_print,
+            'total_bayar' => (int) $jasaPrint->jumlah_print * (int) $jasaPrint->harga_print,
+        ],[
+            'id_jasa_print' => $jasaPrint->id,
+            'jenis_print' => $jasaPrint->jenis_print,
+            'tanggal' => $jasaPrint->tanggal_print,
+            'kategori' => 'jasa_print'
+        ]);
     }
 }

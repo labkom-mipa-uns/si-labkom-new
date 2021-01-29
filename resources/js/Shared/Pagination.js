@@ -18,7 +18,7 @@ const PageLink = ({ active, label, url }) => {
         }
     );
     return (
-        <InertiaLink className={className} href={url}>
+        <InertiaLink className={className} href={url} as="a">
             {label}
         </InertiaLink>
     );

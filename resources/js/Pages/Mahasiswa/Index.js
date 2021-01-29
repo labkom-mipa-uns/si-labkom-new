@@ -7,7 +7,7 @@ import Pagination from '@/Shared/Pagination';
 import SearchFilter from '@/Shared/SearchFilter';
 
 export default () => {
-    const { mahasiswa } = usePage();
+    const { mahasiswa } = usePage().props;
     const { data, links } = mahasiswa;
     return (
         <Layout>
@@ -16,7 +16,7 @@ export default () => {
                 <h1 className="mb-8 font-bold text-3xl">Mahasiswa</h1>
                 <div className="mb-6 flex justify-between items-center">
                     <SearchFilter />
-                    <InertiaLink className="btn-indigo" href={route('mahasiswa.create')}>
+                    <InertiaLink className="btn-indigo" href={route('Mahasiswa.create')} as="a">
                         <span>Tambah Data</span>
                         <span className="hidden md:inline"> Mahasiswa</span>
                     </InertiaLink>
@@ -35,15 +35,16 @@ export default () => {
                         </thead>
                         <tbody>
                         {data.map(
-                            ({ id, nim, nama, prodi, angkatan, deleted_at }) => (
+                            ({ id, nim, nama, prodi, angkatan, deleted_at }, index) => (
                                 <tr
                                     key={id}
                                     className="hover:bg-gray-100 focus-within:bg-gray-100"
                                 >
                                     <td className="border-t">
                                         <InertiaLink
-                                            href={route('mahasiswa.edit', id)}
+                                            href={route('Mahasiswa.edit', id)}
                                             className="px-6 py-4 flex items-center focus:text-indigo-700"
+                                            as="a"
                                         >
                                             {nim}
                                             {deleted_at && (
@@ -58,7 +59,8 @@ export default () => {
                                         <InertiaLink
                                             tabIndex="1"
                                             className="px-6 py-4 flex items-center focus:text-indigo"
-                                            href={route('mahasiswa.edit', id)}
+                                            as="a"
+                                            href={route('Mahasiswa.edit', id)}
                                         >
                                             {nama}
                                         </InertiaLink>
@@ -66,16 +68,18 @@ export default () => {
                                     <td className="border-t">
                                         <InertiaLink
                                             tabIndex="-1"
-                                            href={route('mahasiswa.edit', id)}
+                                            href={route('Mahasiswa.edit', id)}
+                                            as="a"
                                             className="px-6 py-4 flex items-center focus:text-indigo"
                                         >
-                                            {prodi}
+                                            {prodi.nama_prodi}
                                         </InertiaLink>
                                     </td>
                                     <td className="border-t">
                                         <InertiaLink
                                             tabIndex="-1"
-                                            href={route('mahasiswa.edit', id)}
+                                            href={route('Mahasiswa.edit', id)}
+                                            as="a"
                                             className="px-6 py-4 flex items-center focus:text-indigo"
                                         >
                                             {angkatan}
@@ -84,7 +88,8 @@ export default () => {
                                     <td className="border-t w-px">
                                         <InertiaLink
                                             tabIndex="-1"
-                                            href={route('mahasiswa.edit', id)}
+                                            href={route('Mahasiswa.edit', id)}
+                                            as="a"
                                             className="px-4 flex items-center"
                                         >
                                             <Icon
@@ -98,7 +103,7 @@ export default () => {
                         )}
                         {data.length === 0 && (
                             <tr>
-                                <td className="border-t px-6 py-4" colSpan="4">
+                                <td className="border-t px-6 py-4" colSpan="6">
                                     No mahasiswa found.
                                 </td>
                             </tr>

@@ -3,9 +3,7 @@
 namespace App\Listeners;
 
 use App\Events\EventJasaInstallasiSaved;
-use App\Transaksi;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
+use App\Models\Transaksi;
 
 class JasaInstallasiSavedListener
 {
@@ -35,11 +33,7 @@ class JasaInstallasiSavedListener
             'id_software' => $jasaInstallasi->software->id,
             'tanggal' => $jasaInstallasi->tanggal,
         ],[
-            'id_peminjaman_alat' => null,
             'id_jasa_installasi' => $jasaInstallasi->id,
-            'id_alat' => null,
-            'id_jasa_print' => null,
-            'jenis_print' => null,
             'kategori' => 'jasa_installasi',
             'harga' => $jasaInstallasi->software->harga_software,
             'jumlah' => 1 + ((is_null($transaksi)) ? 0 : (int)$transaksi->jumlah),

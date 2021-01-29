@@ -5,51 +5,53 @@ namespace App\Http\Controllers\Admin\SuratBebasLabkom;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SuratBebasLabkomRequest;
 use App\Http\Resources\SuratBebasLabkomResource;
-use App\Mahasiswa;
-use App\SuratBebasLabkom;
+use App\Models\Mahasiswa;
+use App\Models\SuratBebasLabkom;
 use Exception;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\View\View;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Request;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class SuratBebasLabkomController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return Application|Factory|RedirectResponse|View
+     * @return Response
      */
-    public function index()
+    public function index(): Response
     {
-        try {
-            $data = [
-                'SuratBebasLabkom' => SuratBebasLabkom::with('mahasiswa')
-                    ->orderBy('created_at', 'desc')
-                    ->paginate(8)
-            ];
-            return view('SuratBebasLabkom.index', $data);
-        } catch (Exception $exception) {
-            return redirect()->home()->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
-        }
+        return Inertia::render('SuratBebasLabkom/Index', [
+            'filters' => Request::all(['search', 'trashed']),
+            'surat' => SuratBebasLabkom::with(['mahasiswa'])
+                ->orderBy('created_at', 'desc')
+                ->filter(Request::only(['search', 'trashed']))
+                ->paginate()
+                ->transform(function ($surat) {
+                    return [
+                        'id' => $surat->id,
+                        'mahasiswa' => $surat->mahasiswa,
+                        'tanggal' => $surat->tanggal,
+                    ];
+                })
+        ]);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return Application|Factory|RedirectResponse|View
+     * @return Response
      */
-    public function create()
+    public function create(): Response
     {
-        try {
-            $data = [
-                'Mahasiswa' => Mahasiswa::orderBy('nama_mahasiswa','asc')->get()
-            ];
-            return view('SuratBebasLabkom.create', $data);
-        } catch (Exception $exception) {
-            return redirect()->route('SuratBebasLabkom.index')
-                ->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
-        }
+        return Inertia::render('SuratBebasLabkom/Create', [
+            'mahasiswa' => Mahasiswa::orderBy('nama_mahasiswa', 'asc')
+                ->get()
+                ->map
+                ->only('id', 'nama_mahasiswa')
+        ]);
     }
 
     /**
@@ -62,11 +64,16 @@ class SuratBebasLabkomController extends Controller
     {
         try {
             SuratBebasLabkom::create($request->validated());
-            return redirect()->route('SuratBebasLabkom.index')
-                ->with('success', "Berhasil Ditambahkan!");
+            return Redirect::route('SuratBebasLabkom.index')
+                ->with([
+                    'name' => 'Surat Bebas Labkom',
+                    'success' => 'Berhasil Ditambahkan!']);
         } catch (Exception $exception) {
-            return redirect()->route('SuratBebasLabkom.index')
-                ->with('danger', "Gagal Ditambahkan! {$exception->getMessage()}");
+            return Redirect::route('SuratBebasLabkom.index')
+                ->with([
+                    'name' => 'Surat Bebas Labkom',
+                    'error' => "Gagal Dihapus! {$exception->getMessage()}"
+                ]);
         }
     }
 
@@ -86,21 +93,22 @@ class SuratBebasLabkomController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param SuratBebasLabkom $SuratBebasLabkom
-     * @return Application|Factory|RedirectResponse|View
+     * @return Response
      */
-    public function edit(SuratBebasLabkom $SuratBebasLabkom)
+    public function edit(SuratBebasLabkom $SuratBebasLabkom): Response
     {
-        try {
-            $data = [
-                'SuratBebasLabkom' => $SuratBebasLabkom::with(['mahasiswa'])
-                    ->firstWhere('id', $SuratBebasLabkom->id),
-                'Mahasiswa' => Mahasiswa::orderBy('nama_mahasiswa', 'asc')->get()
-            ];
-            return view('SuratBebasLabkom.edit', $data);
-        } catch (Exception $exception) {
-            return redirect()->route('SuratBebasLabkom.index')
-                ->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
-        }
+        return Inertia::render('SuratBebasLabkom/Edit', [
+            'surat' => [
+                'id' => $SuratBebasLabkom->id,
+                'id_mahasiswa' => $SuratBebasLabkom->id_mahasiswa,
+                'mahasiswa' => $SuratBebasLabkom->mahasiswa,
+                'tanggal' => $SuratBebasLabkom->tanggal,
+            ],
+            'mahasiswa' => Mahasiswa::orderBy('nama_mahasiswa', 'asc')
+                ->get()
+                ->map
+                ->only('id', 'nama_mahasiswa')
+        ]);
     }
 
     /**
@@ -114,11 +122,17 @@ class SuratBebasLabkomController extends Controller
     {
         try {
             $SuratBebasLabkom->update($request->validated());
-            return redirect()->route('SuratBebasLabkom.index')
-                ->with('success', "Berhasil Diupdate!");
+            return Redirect::route('SuratBebasLabkom.index')
+                ->with([
+                    'name' => 'Surat Bebas Labkom',
+                    'success' => 'Berhasil Diubah!'
+                ]);
         } catch (Exception $exception) {
-            return redirect()->route('SuratBebasLabkom.index')
-                ->with('danger', "Gagal Diupdate! {$exception->getMessage()}");
+            return Redirect::route('SuratBebasLabkom.index')
+                ->with([
+                    'name' => 'Data Surat Bebas Labkom',
+                    'error' => "Gagal Diubah! {$exception->getMessage()}"
+                ]);
         }
     }
 
@@ -132,12 +146,30 @@ class SuratBebasLabkomController extends Controller
     {
         try {
             $this->authorize('delete-data');
-            SuratBebasLabkom::destroy($SuratBebasLabkom->id);
-            return redirect()->route('SuratBebasLabkom.index')
-                ->with('success', "Berhasil Dihapus!");
+            $SuratBebasLabkom->delete();
+            return Redirect::route('SuratBebasLabkom.index')
+                ->with([
+                    'name' => 'Surat Bebas Labkom',
+                    'success' => 'Berhasil Dihapus!']);
         } catch (Exception $exception) {
-            return redirect()->route('SuratBebasLabkom.index')
-                ->with('danger', "Gagal Dihapus! {$exception->getMessage()}");
+            return Redirect::route('SuratBebasLabkom.index')
+                ->with([
+                    'name' => 'Surat Bebas Labkom',
+                    'error' => "Gagal Dihapus! {$exception->getMessage()}"
+                ]);
         }
+    }
+
+    /**
+     * @param SuratBebasLabkom $SuratBebasLabkom
+     * @return RedirectResponse
+     */
+    public function restore(SuratBebasLabkom $SuratBebasLabkom): RedirectResponse
+    {
+        $SuratBebasLabkom->restore();
+        return Redirect::route('SuratBebasLabkom.index')
+            ->with([
+                'name' => 'Surat Bebas Labkom',
+                'success' => 'Berhasil Dipulihkan!']);
     }
 }

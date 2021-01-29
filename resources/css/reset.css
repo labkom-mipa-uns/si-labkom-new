@@ -2,14 +2,18 @@ html {
   line-height: 1.15;
 }
 
-input,
-select,
-textarea,
-button,
-div,
-a {
-  &:focus,
-  &:active {
-    outline: none;
-  }
+input:focus, input:active,
+select:focus,
+select:active,
+textarea:focus,
+textarea:active,
+button:focus,
+button:active,
+div:focus,
+div:active,
+a:focus,
+a:active {
+  outline: none;
 }
+
+/*# sourceMappingURL=reset.css.map */

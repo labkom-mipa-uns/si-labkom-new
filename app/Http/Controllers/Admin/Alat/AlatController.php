@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Alat;
 
-use App\Alat;
+use App\Models\Alat;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AlatRequest;
 use App\Http\Resources\AlatResource;
@@ -10,58 +10,68 @@ use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Request;
 use Illuminate\View\View;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class AlatController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return Application|Factory|RedirectResponse|Response|View
+     * @return Response
      */
-    public function index()
+    public function index(): Response
     {
-        try {
-            $data= [
-                'Alat' => Alat::orderBy('created_at', 'desc')->paginate(8)
-            ];
-            return view('Alat.index', $data);
-        } catch (Exception $exception) {
-            return redirect()->home()->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
-        }
+        return Inertia::render('Alat/Index', [
+            'filters' => Request::all(['search', 'trashed']),
+            'alat' => Alat::orderBy('created_at', 'desc')
+                ->filter(Request::only(['search', 'trashed']))
+                ->paginate()
+                ->transform(function ($alat) {
+                    return [
+                        'id' => $alat->id,
+                        'nama_alat' => $alat->nama_alat,
+                        'harga_alat' => number_format($alat->harga_alat),
+                        'stok_alat' => $alat->stok_alat,
+                        'deleted_at' => $alat->deleted_at
+                    ];
+                })
+        ]);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return Application|Factory|RedirectResponse|Response|View
+     * @return Response
      */
-    public function create()
+    public function create(): Response
     {
-        try {
-            return view('Alat.create');
-        } catch (Exception $exception) {
-            return redirect()->route('Alat.index')
-                ->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
-        }
+        return Inertia::render('Alat/Create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param AlatRequest $request
-     * @return RedirectResponse|Response
+     * @return RedirectResponse|null
      */
-    public function store(AlatRequest $request)
+    public function store(AlatRequest $request): ?RedirectResponse
     {
         try {
             Alat::create($request->validated());
-            return redirect()->route('Alat.index')
-                ->with('success', "Berhasil Ditambahkan!");
+            return Redirect::route('Alat.index')
+                ->with([
+                    'name' => 'Data Alat',
+                    'success' => 'Berhasil Ditambahkan!'
+                ]);
         } catch (Exception $exception) {
-            return redirect()->route('Alat.index')
-                ->with('danger', "Gagal Ditambahkan! {$exception->getMessage()}");
+            return Redirect::route('Alat.index')
+                ->with([
+                    'name' => 'Data Alat',
+                    'error' => "Gagal Ditambahkan! {$exception->getMessage()}"]);
         }
     }
 
@@ -84,15 +94,15 @@ class AlatController extends Controller
      */
     public function edit(Alat $Alat)
     {
-        try {
-            $data = [
-                'Alat' => $Alat
-            ];
-            return view('Alat.edit', $data);
-        } catch (Exception $exception) {
-            return redirect()->route('Alat.index')
-                ->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
-        }
+        return Inertia::render('Alat/Edit', [
+            'alat' => [
+                'id' => $Alat->id,
+                'nama_alat' => $Alat->nama_alat,
+                'harga_alat' => $Alat->harga_alat,
+                'stok_alat' => $Alat->stok_alat,
+                'deleted_at' => $Alat->deleted_at
+            ]
+        ]);
     }
 
     /**
@@ -106,11 +116,16 @@ class AlatController extends Controller
     {
         try {
             $Alat->update($request->validated());
-            return redirect()->route('Alat.index')
-                ->with('success', "Berhasil Diupdate!");
+            return Redirect::route('Alat.index')
+                ->with([
+                    'name' => 'Data Alat',
+                    'success' => "Berhasil Diubah!"]);
         } catch (Exception $exception) {
-            return redirect()->route('Alat.index')
-                ->with('danger', "Gagal Diupdate! {$exception->getMessage()}");
+            return Redirect::route('Alat.index')
+                ->with([
+                    'name' => 'Data Alat',
+                    'error' => "Gagal Diubah! {$exception->getMessage()}"
+                ]);
         }
     }
 
@@ -124,12 +139,32 @@ class AlatController extends Controller
     {
         try {
             $this->authorize('delete-data');
-            Alat::destroy($Alat->id);
-            return redirect()->route('Alat.index')
-                ->with('success', "Berhasil Dihapus!");
+            $Alat->delete();
+            return Redirect::route('Alat.index')
+                ->with([
+                    'name' => 'Data Alat',
+                    'success' => "Berhasil Dihapus!"
+                ]);
         } catch (Exception $exception) {
-            return redirect()->route('Alat.index')
-                ->with('danger', "Gagal Dihapus! {$exception->getMessage()}");
+            return Redirect::route('Alat.index')
+                ->with([
+                    'name' => 'Data Alat',
+                    'error' => "Gagal Dihapus! {$exception->getMessage()}"
+                ]);
         }
+    }
+
+    /**
+     * @param Alat $Alat
+     * @return RedirectResponse
+     */
+    public function restore(Alat $Alat): RedirectResponse
+    {
+        $Alat->restore();
+        return Redirect::route('Alat.index')
+            ->with([
+                'name' => 'Data Alat',
+                'success' => 'Berhasil Dipulihkan!',
+            ]);
     }
 }

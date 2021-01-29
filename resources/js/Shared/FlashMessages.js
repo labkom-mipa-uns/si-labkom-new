@@ -1,16 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { usePage } from '@inertiajs/inertia-react';
 import classNames from 'classnames';
-
-const IconSuccess = () => (
-    <svg
-        className="ml-4 mr-2 flex-shrink-0 w-4 h-4 text-white fill-current"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 20 20"
-    >
-        <polygon points="0 11 2 9 7 14 18 3 20 5 7 18" />
-    </svg>
-);
+import Swal from "sweetalert2";
 
 const IconDanger = () => (
     <svg
@@ -48,27 +39,32 @@ const ButtonClose = ({ color, onClick }) => {
 
 export default () => {
     const [visible, setVisible] = useState(true);
-    const { flash, errors } = usePage();
+    const { flash, errors } = usePage().props;
     const numOfErrors = Object.keys(errors).length;
 
     useEffect(() => {
         setVisible(true);
     }, [flash, errors]);
 
+    if (flash.success) {
+        Swal.fire({
+            title: `${flash.name}`,
+            text: `${flash.success}`,
+            icon: `success`
+        })
+    }
+
+    if (flash.error) {
+        Swal.fire({
+            title: `${flash.name}`,
+            text: `${flash.error}`,
+            icon: `error`
+        })
+    }
+
     return (
         <div>
-            {flash.success && visible && (
-                <div className="mb-8 flex items-center justify-between bg-green-500 rounded max-w-3xl">
-                    <div className="flex items-center">
-                        <IconSuccess />
-                        <div className="py-4 text-white text-sm font-medium">
-                            {flash.success}
-                        </div>
-                    </div>
-                    <ButtonClose onClick={() => setVisible(false)} color="green" />
-                </div>
-            )}
-            {(flash.error || numOfErrors > 0) && visible && (
+            {( numOfErrors > 0) && visible && (
                 <div className="mb-8 flex items-center justify-between bg-red-500 rounded max-w-3xl">
                     <div className="flex items-center">
                         <IconDanger />

@@ -3,7 +3,7 @@
 use App\Http\Controllers\Admin\Account\AccountController;
 use App\Http\Controllers\Admin\Alat\AlatController;
 use App\Http\Controllers\Admin\Dosen\DosenController;
-use App\Http\Controllers\Admin\Home\HomeController;
+use App\Http\Controllers\Admin\Dashboard\DashboardController;
 use App\Http\Controllers\Admin\Jadwal\JadwalController;
 use App\Http\Controllers\Admin\JasaInstallasi\JasaInstallasiController;
 use App\Http\Controllers\Admin\JasaPrint\JasaPrintController;
@@ -16,7 +16,7 @@ use App\Http\Controllers\Admin\Software\SoftwareController;
 use App\Http\Controllers\Admin\SuratBebasLabkom\SuratBebasLabkomController;
 use App\Http\Controllers\Admin\PeminjamanAlat\PeminjamanAlatController;
 use App\Http\Controllers\Admin\User\UserController;
-use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -31,11 +31,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', WelcomeController::class)->name('welcome');
+Route::get('/', HomeController::class)->name('home');
 Route::redirect('admin', '/admin/Dashboard');
 Auth::routes(['verify' => true]);
 Route::prefix('admin')->middleware(['verified'])->group(static function () {
-    Route::get('Dashboard', HomeController::class)->name('home');
+    Route::get('Dashboard', DashboardController::class)->name('Dashboard');
     Route::resource('Account', AccountController::class);
     Route::resource('PeminjamanLab', PeminjamanLabController::class);
     Route::resource('PeminjamanAlat', PeminjamanAlatController::class);

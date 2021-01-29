@@ -3,18 +3,19 @@
 namespace App\Http\Controllers\Admin\JasaInstallasi;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\JasaInstallasiRequest;
 use App\Http\Resources\JasaInstallasiResource;
-use App\JasaInstallasi;
-use App\Mahasiswa;
-use App\Software;
-use App\Transaksi;
+use App\Models\JasaInstallasi;
+use App\Models\Mahasiswa;
+use App\Models\Software;
+use App\Models\Transaksi;
 use Exception;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\View\View;
+use Illuminate\Http\Response as HttpResponse;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Request;
+use Inertia\Inertia;
+use Inertia\Response as InertiaResponse;
 use PDF;
 use Throwable;
 
@@ -23,59 +24,59 @@ class JasaInstallasiController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return Application|Factory|RedirectResponse|Response|View
+     * @return InertiaResponse
      */
-    public function index()
+    public function index(): InertiaResponse
     {
-        try {
-            $data = [
-                'JasaInstallasi' => JasaInstallasi::with(['mahasiswa', 'software'])
-                    ->orderBy('created_at', 'desc')
-                    ->paginate(8)
-            ];
-            return view('JasaInstallasi.index', $data);
-        } catch (Exception $exception) {
-            return redirect()->home()->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
-        }
+        return Inertia::render('JasaInstallasi/Index', [
+            'filters' => Request::all(['search', 'trashed']),
+            'jasainstallasi' => JasaInstallasi::orderBy('created_at', 'desc')
+                ->filter(Request::only(['search', 'trashed']))
+                ->paginate()
+                ->transform(function ($jasainstallasi) {
+                    return [
+                        'id' => $jasainstallasi->id,
+                        'laptop' => $jasainstallasi->laptop,
+                        'kelengkapan' => $jasainstallasi->kelengkapan,
+                        'tanggal' => $jasainstallasi->tanggal,
+                        'mahasiswa' => $jasainstallasi->mahasiswa,
+                        'id_software' => $jasainstallasi->id_software,
+                        'software' => $jasainstallasi->software,
+                        'jenis' => $jasainstallasi->jenis,
+                        'keterangan' => $jasainstallasi->keterangan,
+                        'jam_ambil' => $jasainstallasi->jam_ambil,
+                        'deleted_at' => $jasainstallasi->deleted_at
+                    ];
+                })
+        ]);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return Application|Factory|RedirectResponse|Response|View
      */
     public function create()
     {
-        try {
-            $data = [
-                'Mahasiswa' => Mahasiswa::orderBy('nama_mahasiswa', 'asc')->get(),
-                'Software' => Software::orderBy('nama_software', 'asc')->get()
-            ];
-            return view('JasaInstallasi.create', $data);
-        } catch (Exception $exception) {
-            return redirect()->route('JasaInstallasi.index')
-                ->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
-        }
+        return Inertia::render('JasaInstallasi/Create', [
+            'mahasiswa' => Mahasiswa::orderBy('nama_mahasiswa', 'asc')
+                ->get()
+                ->map
+                ->only('id', 'nama_mahasiswa'),
+            'software' => Software::orderBy('nama_software', 'asc')
+                ->get()
+                ->map
+                ->only('id', 'nama_software')
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param JasaInstallasiRequest $request
      * @return RedirectResponse
      */
-    public function store(Request $request): ?RedirectResponse
+    public function store(JasaInstallasiRequest $request): ?RedirectResponse
     {
-        $request->validate([
-            'id_mahasiswa' => 'required',
-            'laptop' => 'required|string|max:50',
-            'kelengkapan' => 'required|string',
-            'tanggal' => 'required|date',
-            'id_software' => 'required',
-            'jenis' => 'required',
-            'keterangan' => 'required',
-            'jam_ambil' => 'required'
-        ]);
         try {
             $jasaInstallasi = new JasaInstallasi();
             $jasaInstallasi->id_mahasiswa = $request->id_mahasiswa;
@@ -87,13 +88,21 @@ class JasaInstallasiController extends Controller
             $jasaInstallasi->keterangan = $request->keterangan;
             $jasaInstallasi->jam_ambil = $request->jam_ambil;
             $jasaInstallasi->saveOrFail();
-            return redirect()->route('JasaInstallasi.index')->with('success', "Berhasil Ditambahkan!");
+            return Redirect::route('JasaInstallasi.index')
+                ->with([
+                    'name' => 'Data Installasi',
+                    'success' => 'Berhasil Ditambahkan!'
+                ]);
         } catch (Exception $exception) {
-            return redirect()->route('JasaInstallasi.index')
-                ->with('danger', "Gagal Ditambahkan! {$exception->getMessage()}");
+            return Redirect::route('JasaInstallasi.index')
+                ->with([
+                    'name' => 'Data Installasi',
+                    'error' => "Gagal Ditambahkan! {$exception->getMessage()}"]);
         } catch (Throwable $exception) {
-            return redirect()->route('JasaInstallasi.index')
-                ->with('danger', "Gagal Ditambahkan! {$exception->getMessage()}");
+            return Redirect::route('JasaInstallasi.index')
+                ->with([
+                    'name' => 'Data Installasi',
+                    'error' => "Gagal Ditambahkan! {$exception->getMessage()}"]);
         }
     }
 
@@ -113,43 +122,45 @@ class JasaInstallasiController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param JasaInstallasi $JasaInstallasi
-     * @return Application|Factory|RedirectResponse|Response|View
+     * @return InertiaResponse
      */
-    public function edit(JasaInstallasi $JasaInstallasi)
+    public function edit(JasaInstallasi $JasaInstallasi): InertiaResponse
     {
-        try {
-            $data = [
-                'JasaInstallasi' => $JasaInstallasi::with(['mahasiswa', 'software'])
-                    ->firstWhere('id',$JasaInstallasi->id),
-                'Mahasiswa' => Mahasiswa::orderBy('nama_mahasiswa', 'asc')->get(),
-                'Software' => Software::orderBy('nama_software', 'asc')->get()
-            ];
-            return view('JasaInstallasi.edit', $data);
-        } catch (Exception $exception) {
-            return redirect()->route('JasaInstallasi.index')
-                ->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
-        }
+        return Inertia::render('JasaInstallasi/Edit', [
+            'jasainstallasi' => [
+                'id' => $JasaInstallasi->id,
+                'laptop' => $JasaInstallasi->laptop,
+                'kelengkapan' => $JasaInstallasi->kelengkapan,
+                'tanggal' => $JasaInstallasi->tanggal,
+                'id_software' => $JasaInstallasi->id_software,
+                'id_mahasiswa' => $JasaInstallasi->id_mahasiswa,
+                'mahasiswa' => $JasaInstallasi->mahasiswa,
+                'software' => $JasaInstallasi->software,
+                'jenis' => $JasaInstallasi->jenis,
+                'keterangan' => $JasaInstallasi->keterangan,
+                'jam_ambil' => $JasaInstallasi->jam_ambil,
+                'deleted_at' => $JasaInstallasi->deleted_at
+            ],
+            'mahasiswa' => Mahasiswa::orderBy('nama_mahasiswa', 'asc')
+                ->get()
+                ->map
+                ->only('id', 'nama_mahasiswa'),
+            'software' => Software::orderBy('nama_software', 'asc')
+                ->get()
+                ->map
+                ->only('id', 'nama_software')
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param JasaInstallasiRequest $request
      * @param JasaInstallasi $JasaInstallasi
      * @return RedirectResponse
      */
-    public function update(Request $request, JasaInstallasi $JasaInstallasi): ?RedirectResponse
+    public function update(JasaInstallasiRequest $request, JasaInstallasi $JasaInstallasi): ?RedirectResponse
     {
-        $request->validate([
-            'id_mahasiswa' => 'required',
-            'laptop' => 'required|string|max:50',
-            'kelengkapan' => 'required|string',
-            'tanggal' => 'required|date',
-            'id_software' => 'required',
-            'jenis' => 'required',
-            'keterangan' => 'required',
-            'jam_ambil' => 'required'
-        ]);
         try {
             $jasaInstallasi = JasaInstallasi::findOrFail($JasaInstallasi->id);
             $jasaInstallasi->id_mahasiswa = $request->id_mahasiswa;
@@ -161,10 +172,22 @@ class JasaInstallasiController extends Controller
             $jasaInstallasi->keterangan = $request->keterangan;
             $jasaInstallasi->jam_ambil = $request->jam_ambil;
             $jasaInstallasi->saveOrFail();
-            return redirect()->route('JasaInstallasi.index')->with('success', "Berhasil Diupdate!");
+            return Redirect::route('JasaInstallasi.index')
+                ->with([
+                    'name' => 'Data Installasi',
+                    'success' => "Berhasil Diubah!"]);
         } catch (Exception $exception) {
-            return redirect()->route('JasaInstallasi.index')
-                ->with('danger', "Gagal Diupdate! {$exception->getMessage()}");
+            return Redirect::route('JasaInstallasi.index')
+                ->with([
+                    'name' => 'Data Installasi',
+                    'error' => "Gagal Diubah! {$exception->getMessage()}"
+                ]);
+        } catch (Throwable $exception) {
+            return Redirect::route('JasaInstallasi.index')
+                ->with([
+                    'name' => 'Data Installasi',
+                    'error' => "Gagal Diubah! {$exception->getMessage()}"
+                ]);
         }
     }
 
@@ -178,17 +201,38 @@ class JasaInstallasiController extends Controller
     {
         try {
             $this->authorize('delete-data');
-            JasaInstallasi::destroy($JasaInstallasi->id);
-            return redirect()->route('JasaInstallasi.index')->with('success', "Berhasil Dihapus!");
+            $JasaInstallasi->delete();
+            return Redirect::route('JasaInstallasi.index')
+                ->with([
+                    'name' => 'Data Installasi',
+                    'success' => "Berhasil Dihapus!"
+                ]);
         } catch (Exception $exception) {
-            return redirect()->route('JasaInstallasi.index')
-                ->with('danger', "Gagal Dihapus! {$exception->getMessage()}");
+            return Redirect::route('JasaInstallasi.index')
+                ->with([
+                    'name' => 'Data Installasi',
+                    'error' => "Gagal Dihapus! {$exception->getMessage()}"
+                ]);
         }
     }
 
     /**
+     * @param JasaInstallasi $JasaInstallasi
+     * @return RedirectResponse
+     */
+    public function restore(JasaInstallasi $JasaInstallasi): RedirectResponse
+    {
+        $JasaInstallasi->restore();
+        return Redirect::route('JasaInstallasi.index')
+            ->with([
+                'name' => 'Data Installasi',
+                'success' => 'Berhasil Dipulihkan!'
+            ]);
+    }
+
+    /**
      * @param Request $request
-     * @return RedirectResponse|Response
+     * @return RedirectResponse|HttpResponse
      */
     public function daily_report(Request $request)
     {
@@ -203,16 +247,16 @@ class JasaInstallasiController extends Controller
                 'tanggal' => $request->tanggal
             ];
             $pdf = PDF::loadView('Invoice.Daily.JasaInstallasi', $data)->setPaper('a4', 'landscape');
-            return $pdf->stream("Jasa_Installasi_Daily_Report_{$request->tanggal}.pdf");
+            return Inertia::location($pdf->stream("Jasa_Installasi_Daily_Report_{$request->tanggal}.pdf"));
         } catch (Exception $exception) {
-            return redirect()->route('JasaInstallasi.index')
+            return Redirect::route('JasaInstallasi.index')
                 ->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }
 
     /**
      * @param Request $request
-     * @return RedirectResponse|Response
+     * @return RedirectResponse|HttpResponse
      */
     public function monthly_report(Request $request)
     {
@@ -227,9 +271,9 @@ class JasaInstallasiController extends Controller
                 'bulan' => $request->bulan
             ];
             $pdf = PDF::loadView('Invoice.Monthly.JasaInstallasi', $data)->setPaper('a4', 'landscape');
-            return $pdf->stream("Jasa_Installasi_Monthly_Report_{$request->tanggal}.pdf");
+            return Inertia::location($pdf->stream("Jasa_Installasi_Monthly_Report_{$request->tanggal}.pdf"));
         } catch (Exception $exception) {
-            return redirect()->route('JasaInstallasi.index')
+            return Redirect::route('JasaInstallasi.index')
                 ->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }

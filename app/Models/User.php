@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -36,28 +36,4 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    /**
-     * @return string
-     */
-    public function adminlte_image(): string
-    {
-        return 'https://picsum.photos/300/300';
-    }
-
-    /**
-     * @return string
-     */
-    public function adminlte_desc(): string
-    {
-        return 'Hello, World';
-    }
-
-    /**
-     * @return string
-     */
-    public function adminlte_profile_url(): string
-    {
-        return 'Account.index';
-    }
 }

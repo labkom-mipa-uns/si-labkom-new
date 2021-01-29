@@ -18,6 +18,7 @@ class CreateAlatsTable extends Migration
             $table->string('nama_alat');
             $table->integer('harga_alat');
             $table->string('stok_alat');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

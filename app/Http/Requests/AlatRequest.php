@@ -25,7 +25,8 @@ class AlatRequest extends FormRequest
     {
         return [
             'nama_alat' => 'required|string|max:50',
-            'harga_alat' => 'required|numeric'
+            'harga_alat' => 'required|numeric',
+            'stok_alat' => 'required|numeric'
         ];
     }
 }

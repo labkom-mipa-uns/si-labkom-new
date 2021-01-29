@@ -3,11 +3,11 @@ import { InertiaLink, usePage } from '@inertiajs/inertia-react';
 import Icon from '@/Shared/Icon';
 
 export default () => {
-    const { auth } = usePage();
+    const { auth } = usePage().props;
     const [menuOpened, setMenuOpened] = useState(false);
     return (
         <div className="bg-white border-b w-full p-4 md:py-0 md:px-12 text-sm d:text-md flex justify-between items-center">
-            <div className="mt-1 mr-4">{auth.user.account.name}</div>
+            <div className="mt-1 mr-4">{auth.user.name}</div>
             <div className="relative">
                 <div
                     className="flex items-center cursor-pointer select-none group"
@@ -25,14 +25,16 @@ export default () => {
                 <div className={menuOpened ? '' : 'hidden'}>
                     <div className="whitespace-no-wrap absolute z-20 mt-8 left-auto top-0 right-0 py-2 shadow-xl bg-white rounded text-sm">
                         <InertiaLink
-                            href={route('users.edit', auth.user.id)}
+                            href={route('User.edit', auth.user.id)}
                             className="block px-6 py-2 hover:bg-indigo-600 hover:text-white"
+                            as="a"
                         >
                             My Profile
                         </InertiaLink>
                         <InertiaLink
-                            href={route('users')}
+                            href={route('User.index')}
                             className="block px-6 py-2 hover:bg-indigo-600 hover:text-white"
+                            as="a"
                         >
                             Manage Users
                         </InertiaLink>
@@ -40,6 +42,7 @@ export default () => {
                             href={route('logout')}
                             className="block px-6 py-2 hover:bg-indigo-600 hover:text-white"
                             method="post"
+                            as="a"
                         >
                             Logout
                         </InertiaLink>

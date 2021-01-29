@@ -18,12 +18,13 @@ const tailwindcss = require('tailwindcss');
 
 mix
     .react('resources/js/app.js', 'public/js')
-    .postCss('resources/css/app.css', 'public/css/app.css')
+    .sass('resources/css/app.scss', 'public/css/app.css')
     .options({
+        processCssUrls: false,
         postCss: [
             cssImport(),
-            cssNesting(),
             tailwindcss('tailwind.config.js'),
+            cssNesting(),
             ...(mix.inProduction()
                 ? [
                     purgecss({
@@ -39,13 +40,15 @@ mix
                 : [])
         ]
     })
-    .webpackConfig({
-        output: { chunkFilename: 'js/[name].js?id=[chunkhash]' },
-        resolve: {
-            alias: {
-                '@': path.resolve('resources/js')
+    .webpackConfig(webpack => {
+        return {
+            output: {chunkFilename: 'js/[name].js?id=[chunkhash]'},
+            resolve: {
+                alias: {
+                    '@': path.resolve('resources/js')
+                }
             }
         }
     })
     .version()
-    .sourceMaps();
+    .sourceMaps()

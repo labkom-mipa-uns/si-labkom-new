@@ -18,7 +18,11 @@ export default ({ icon, link, text }) => {
 
     return (
         <div className="mb-4">
-            <InertiaLink href={route(link)} className="flex items-center group py-3">
+            <InertiaLink
+                href={route(link)}
+                className="flex items-center group py-2"
+                as="a"
+            >
                 <Icon name={icon} className={iconClasses} />
                 <div className={textClasses}>{text}</div>
             </InertiaLink>

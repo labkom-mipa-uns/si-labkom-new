@@ -13,6 +13,7 @@ export default ({ label, name, className, errors = [], ...props }) => {
                 name={name}
                 {...props}
                 className={`form-input ${errors.length ? 'error' : ''}`}
+                autoComplete='off'
             />
             {errors && <div className="form-error">{errors[0]}</div>}
         </div>

@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers\Admin\PeminjamanAlat;
 
+use App\Http\Requests\PeminjamanAlatRequest;
 use App\Models\Alat;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PeminjamanAlatResource;
 use App\Models\Mahasiswa;
 use App\Models\PeminjamanAlat;
-use App\Transaksi;
+use App\Models\Transaksi;
 use Exception;
-use Illuminate\View\Factory;
-use Illuminate\View\View;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Request;
+use Inertia\Inertia;
+use Inertia\Response;
 use PDF;
-use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use RuntimeException;
 use Throwable;
 
@@ -24,60 +24,62 @@ class PeminjamanAlatController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return Application|Factory|RedirectResponse|View
+     * @return Response
      */
-    public function index()
+    public function index(): Response
     {
-        try {
-            $data = [
-                'PeminjamanAlat' => PeminjamanAlat::with(['alat','mahasiswa'])
-                    ->orderBy('created_at', 'desc')
-                    ->paginate(8)
-            ];
-            return view('PeminjamanAlat.index', $data);
-        } catch (Exception $exception) {
-            return redirect()->home()->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
-        }
+        return Inertia::render('PeminjamanAlat/Index', [
+            'filters' => Request::all(['search', 'trashed']),
+            'peminjamanalat' => PeminjamanAlat::with(['mahasiswa', 'alat'])
+                ->orderBy('created_at', 'desc')
+                ->filter(Request::only(['search', 'trashed']))
+                ->paginate()
+                ->transform(function ($peminjamanalat) {
+                    return [
+                        'id' => $peminjamanalat->id,
+                        'mahasiswa' => $peminjamanalat->mahasiswa,
+                        'alat' => $peminjamanalat->alat,
+                        'harga' => number_format( $peminjamanalat->alat->harga_alat),
+                        'tanggal_pinjam' => date("d M Y", strtotime($peminjamanalat->tanggal_pinjam)),
+                        'tanggal_kembali' => date("d M Y", strtotime($peminjamanalat->tanggal_kembali)),
+                        'jam_pinjam' => date("H:i", strtotime($peminjamanalat->jam_pinjam)),
+                        'jam_kembali' => date("H:i", strtotime($peminjamanalat->jam_kembali)),
+                        'jumlah_pinjam' => $peminjamanalat->jumlah_pinjam,
+                        'keperluan' => $peminjamanalat->keperluan,
+                        'status' => $peminjamanalat->status,
+                        'deleted_at' => $peminjamanalat->deleted_at
+                    ];
+                })
+        ]);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return Application|Factory|RedirectResponse|View
+     * @return Response
      */
-    public function create()
+    public function create(): Response
     {
-        try {
-            $data = [
-                'Mahasiswa' => Mahasiswa::orderBy('nama_mahasiswa', 'asc')->get(),
-                'Alat' => Alat::orderBy('nama_alat', 'asc')->get()
-            ];
-            return view('PeminjamanAlat.create', $data);
-        } catch (Exception $exception) {
-            return redirect()->route('PeminjamanAlat.index')
-                ->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
-        }
+        return Inertia::render('PeminjamanAlat/Create', [
+            'mahasiswa' => Mahasiswa::orderBy('nama_mahasiswa', 'asc')
+                ->get()
+                ->map
+                ->only('id', 'nama_mahasiswa'),
+            'alat' => Alat::orderBy('nama_alat', 'asc')
+                ->get()
+                ->map
+                ->only('id', 'nama_alat'),
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param PeminjamanAlatRequest $request
      * @return RedirectResponse
      */
-    public function store(Request $request): ?RedirectResponse
+    public function store(PeminjamanAlatRequest $request): ?RedirectResponse
     {
-        $request->validate([
-            'id_mahasiswa' => 'required',
-            'id_alat' => 'required',
-            'tanggal_pinjam' => 'required|date',
-            'jam_pinjam' => 'required',
-            'jam_kembali' => 'required',
-            'tanggal_kembali' => 'required|date',
-            'jumlah_pinjam' => 'required|numeric',
-            'keperluan' => 'required|string',
-            'status' => 'required'
-        ]);
         $alat = Alat::firstWhere('id', $request->id_alat);
         try {
             if ($alat->stok_alat < $request->jumlah_pinjam):
@@ -94,13 +96,22 @@ class PeminjamanAlatController extends Controller
             $peminjamanAlat->keperluan = $request->keperluan;
             $peminjamanAlat->status = $request->status;
             $peminjamanAlat->saveOrFail();
-            return redirect()->route('PeminjamanAlat.index')->with('success', "Berhasil Ditambahkan!");
+            return Redirect::route('PeminjamanAlat.index')
+                ->with([
+                    'name' => 'Data Peminjam Alat',
+                    'success' => 'Berhasil Ditambahkan!']);
         } catch (Exception $exception) {
-            return redirect()->route('PeminjamanAlat.index')
-                ->with('danger', "Gagal Ditambahkan! {$exception->getMessage()}");
+            return Redirect::route('PeminjamanAlat.index')
+                ->with([
+                    'name' => 'Data Peminjam Alat',
+                    'error' => "Gagal Dihapus! {$exception->getMessage()}"
+                ]);
         } catch (Throwable $exception) {
-            return redirect()->route('PeminjamanAlat.index')
-                ->with('danger', "Gagal Ditambahkan! {$exception->getMessage()}");
+            return Redirect::route('PeminjamanAlat.index')
+                ->with([
+                    'name' => 'Data Peminjam Alat',
+                    'error' => "Gagal Dihapus! {$exception->getMessage()}"
+                ]);
         }
     }
 
@@ -120,43 +131,46 @@ class PeminjamanAlatController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param PeminjamanAlat $PeminjamanAlat
-     * @return Application|Factory|RedirectResponse|Response|View
+     * @return Response
      */
-    public function edit(PeminjamanAlat $PeminjamanAlat)
+    public function edit(PeminjamanAlat $PeminjamanAlat): Response
     {
-        try {
-            $data = [
-                'PeminjamanAlat' => $PeminjamanAlat::with(['alat','mahasiswa'])
-                    ->firstWhere('id',$PeminjamanAlat->id),
-                'Mahasiswa' => Mahasiswa::orderBy('nama_mahasiswa', 'asc')->get(),
-                'Alat' => Alat::orderBy('nama_alat', 'asc')->get()
-            ];
-            return view('PeminjamanAlat.edit', $data);
-        } catch (Exception $exception) {
-            return redirect()->route('PeminjamanAlat.index')
-                ->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
-        }
+        return Inertia::render('PeminjamanAlat/Edit', [
+            'peminjamanalat' => [
+                'id' => $PeminjamanAlat->id,
+                'id_mahasiswa' => $PeminjamanAlat->id_mahasiswa,
+                'mahasiswa' => $PeminjamanAlat->mahasiswa,
+                'id_alat' => $PeminjamanAlat->id_alat,
+                'alat' => $PeminjamanAlat->alat,
+                'tanggal_pinjam' => $PeminjamanAlat->tanggal_pinjam,
+                'tanggal_kembali' => $PeminjamanAlat->tanggal_kembali,
+                'jam_pinjam' => $PeminjamanAlat->jam_pinjam,
+                'jam_kembali' => $PeminjamanAlat->jam_kembali,
+                'jumlah_pinjam' => $PeminjamanAlat->jumlah_pinjam,
+                'keperluan' => $PeminjamanAlat->keperluan,
+                'status' => $PeminjamanAlat->status,
+                'deleted_at' => $PeminjamanAlat->deleted_at
+            ],
+            'mahasiswa' => Mahasiswa::orderBy('nama_mahasiswa', 'asc')
+                ->get()
+                ->map
+                ->only('id', 'nama_mahasiswa'),
+            'alat' => Alat::orderBy('nama_alat', 'asc')
+                ->get()
+                ->map
+                ->only('id', 'nama_alat'),
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param PeminjamanAlatRequest $request
      * @param PeminjamanAlat $PeminjamanAlat
      * @return RedirectResponse
      */
-    public function update(Request $request, PeminjamanAlat $PeminjamanAlat): ?RedirectResponse
+    public function update(PeminjamanAlatRequest $request, PeminjamanAlat $PeminjamanAlat): ?RedirectResponse
     {
-        $request->validate([
-            'id_mahasiswa' => 'required',
-            'tanggal_pinjam' => 'required|date',
-            'tanggal_kembali' => 'required|date',
-            'jam_pinjam' => 'required',
-            'jam_kembali' => 'required',
-            'id_alat' => 'required',
-            'keperluan' => 'required|string',
-            'status' => 'required'
-        ]);
         try {
             $peminjamanAlat = PeminjamanAlat::findOrFail($PeminjamanAlat->id);
             $peminjamanAlat->id_mahasiswa = $request->id_mahasiswa;
@@ -169,9 +183,23 @@ class PeminjamanAlatController extends Controller
             $peminjamanAlat->keperluan = $request->keperluan;
             $peminjamanAlat->status = $request->status;
             $peminjamanAlat->saveOrFail();
-            return redirect()->route('PeminjamanAlat.index')->with('success', "Berhasil Diupdate!");
+            return Redirect::route('PeminjamanAlat.index')
+                ->with([
+                    'name' => 'Data Peminjam Alat',
+                    'success' => 'Berhasil Diubah!'
+                ]);
         } catch (Exception $exception) {
-            return redirect()->route('PeminjamanAlat.index')->with('danger', "Gagal Diupdate! {$exception->getMessage()}");
+            return Redirect::route('PeminjamanAlat.index')
+                ->with([
+                    'name' => 'Data Peminjam Alat',
+                    'error' => "Gagal Diubah! {$exception->getMessage()}"
+                ]);
+        } catch (Throwable $exception) {
+            return Redirect::route('PeminjamanAlat.index')
+                ->with([
+                    'name' => 'Data Peminjam Alat',
+                    'error' => "Gagal Diubah! {$exception->getMessage()}"
+                ]);
         }
     }
 
@@ -185,11 +213,32 @@ class PeminjamanAlatController extends Controller
     {
         try {
             $this->authorize('delete-data');
-            PeminjamanAlat::destroy($PeminjamanAlat->id);
-            return redirect()->route('PeminjamanAlat.index')->with('success', "Berhasil Dihapus!");
+            $PeminjamanAlat->delete();
+            return Redirect::route('PeminjamanAlat.index')
+                ->with([
+                    'name' => 'Data Peminjam Alat',
+                    'success' => 'Berhasil Dihapus!']);
         } catch (Exception $exception) {
-            return redirect()->route('PeminjamanAlat.index')->with('danger', "Gagal Dihapus! {$exception->getMessage()}");
+            return Redirect::route('PeminjamanAlat.index')
+                ->with([
+                    'name' => 'Data Peminjam Alat',
+                    'error' => "Gagal Dihapus! {$exception->getMessage()}"
+                ]);
         }
+    }
+
+    /**
+     * @param PeminjamanAlat $PeminjamanAlat
+     * @return RedirectResponse
+     */
+    public function restore(PeminjamanAlat $PeminjamanAlat): RedirectResponse
+    {
+        $PeminjamanAlat->restore();
+        return Redirect::route('PeminjamanAlat.index')
+            ->with([
+                'name' => 'Data Peminjam Alat',
+                'success' => 'Berhasil Dipulihkan!'
+            ]);
     }
 
     /**
