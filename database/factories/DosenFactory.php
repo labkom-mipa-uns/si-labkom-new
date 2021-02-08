@@ -1,7 +1,7 @@
 <?php
 namespace Database\Factories;
 
-use App\Dosen;
+use App\Models\Dosen;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class DosenFactory extends Factory

@@ -12,6 +12,7 @@ use App\Models\Transaksi;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response as HttpResponse;
+use Illuminate\Http\Request as HttpRequest;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
 use Inertia\Inertia;
@@ -28,7 +29,7 @@ class JasaInstallasiController extends Controller
      */
     public function index(): InertiaResponse
     {
-        return Inertia::render('JasaInstallasi/Index', [
+        return Inertia::render('Admin/JasaInstallasi/Index', [
             'filters' => Request::all(['search', 'trashed']),
             'jasainstallasi' => JasaInstallasi::orderBy('created_at', 'desc')
                 ->filter(Request::only(['search', 'trashed']))
@@ -55,9 +56,9 @@ class JasaInstallasiController extends Controller
      * Show the form for creating a new resource.
      *
      */
-    public function create()
+    public function create(): InertiaResponse
     {
-        return Inertia::render('JasaInstallasi/Create', [
+        return Inertia::render('Admin/JasaInstallasi/Create', [
             'mahasiswa' => Mahasiswa::orderBy('nama_mahasiswa', 'asc')
                 ->get()
                 ->map
@@ -126,7 +127,7 @@ class JasaInstallasiController extends Controller
      */
     public function edit(JasaInstallasi $JasaInstallasi): InertiaResponse
     {
-        return Inertia::render('JasaInstallasi/Edit', [
+        return Inertia::render('Admin/JasaInstallasi/Edit', [
             'jasainstallasi' => [
                 'id' => $JasaInstallasi->id,
                 'laptop' => $JasaInstallasi->laptop,
@@ -231,10 +232,10 @@ class JasaInstallasiController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param HttpRequest $request
      * @return RedirectResponse|HttpResponse
      */
-    public function daily_report(Request $request)
+    public function daily_report(HttpRequest $request)
     {
         $request->validate([
             'tanggal' => 'required|date'
@@ -255,10 +256,10 @@ class JasaInstallasiController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param HttpRequest $request
      * @return RedirectResponse|HttpResponse
      */
-    public function monthly_report(Request $request)
+    public function monthly_report(HttpRequest $request)
     {
         $request->validate([
             'bulan' => 'required'

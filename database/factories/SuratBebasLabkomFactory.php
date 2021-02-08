@@ -1,8 +1,8 @@
 <?php
 namespace Database\Factories;
 
-use App\Mahasiswa;
-use App\SuratBebasLabkom;
+use App\Models\Mahasiswa;
+use App\Models\SuratBebasLabkom;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class SuratBebasLabkomFactory extends Factory
@@ -22,7 +22,7 @@ class SuratBebasLabkomFactory extends Factory
     public function definition(): array
     {
         return [
-            'id_mahasiswa' => factory(Mahasiswa::class),
+            'id_mahasiswa' => Mahasiswa::factory()->count(1)->create(),
             'tanggal' => $this->faker->date(),
             'keperluan' => $this->faker->paragraph(5)
         ];

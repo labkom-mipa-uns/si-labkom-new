@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
+use Inertia\Inertia;
 use League\Glide\Server;
 
 class AppServiceProvider extends ServiceProvider
@@ -24,7 +25,6 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->registerGlide();
         $this->registerLengthAwarePaginator();
-
     }
 
     /**

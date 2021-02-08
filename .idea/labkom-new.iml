@@ -142,6 +142,10 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/http-client" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/event-dispatcher" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/event-dispatcher-contracts" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpoffice/common" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpoffice/phpword" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/pclzip/pclzip" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-escaper" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

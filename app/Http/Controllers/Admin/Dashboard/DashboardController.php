@@ -4,17 +4,17 @@ namespace App\Http\Controllers\Admin\Dashboard;
 
 use App\Http\Controllers\Controller;
 use Inertia\Inertia;
-use Inertia\Response;
+use Inertia\Response as InertiaResponse;
 
 class DashboardController extends Controller
 {
     /**
      * Handle the incoming request.
      *
-     * @return Response
+     * @return InertiaResponse
      */
-    public function __invoke(): Response
+    public function __invoke(): InertiaResponse
     {
-        return Inertia::render('Dashboard/Index');
+        return Inertia::render('Admin/Dashboard/Index');
     }
 }

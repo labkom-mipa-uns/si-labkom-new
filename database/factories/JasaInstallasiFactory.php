@@ -1,9 +1,9 @@
 <?php
 namespace Database\Factories;
 
-use App\JasaInstallasi;
-use App\Mahasiswa;
-use App\Software;
+use App\Models\JasaInstallasi;
+use App\Models\Mahasiswa;
+use App\Models\Software;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class JasaInstallasiFactory extends Factory

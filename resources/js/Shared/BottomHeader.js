@@ -52,7 +52,8 @@ export default () => {
                             setMenuOpened(false);
                         }}
                         className="bg-black opacity-25 fixed inset-0 z-10"
-                    ></div>
+                    >
+                    </div>
                 </div>
             </div>
         </div>

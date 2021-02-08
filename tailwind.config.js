@@ -11,5 +11,7 @@ module.exports = {
         textColor: ['responsive', 'hover', 'focus', 'group-hover', 'focus-within'],
         zIndex: ['responsive', 'focus']
     },
-    plugins: []
+    plugins: [
+        require('@tailwindcss/forms')
+    ]
 }

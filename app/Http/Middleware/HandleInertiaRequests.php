@@ -5,10 +5,19 @@ namespace App\Http\Middleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Inertia\Inertia;
 use Inertia\Middleware;
 
 class HandleInertiaRequests extends Middleware
 {
+    /**
+     * The root template that's loaded on the first page visit.
+     *
+     * @see https://inertiajs.com/server-side-setup#root-template
+     * @var string
+     */
+    protected $rootView = 'Admin.app';
+
     /**
      * Determines the current asset version.
      *
@@ -30,6 +39,7 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        Inertia::setRootView('Admin/app');
         return array_merge(parent::share($request), [
             'auth' => function () {
                 return [

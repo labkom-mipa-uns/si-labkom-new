@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
+use Inertia\Response as InertiaResponse;
 
 class LoginController extends Controller
 {
@@ -39,6 +41,16 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    /**
+     * Show the application's login form.
+     *
+     * @return InertiaResponse
+     */
+    public function showLoginForm(): InertiaResponse
+    {
+        return Inertia::render('Admin/Auth/Login');
     }
 
     /**

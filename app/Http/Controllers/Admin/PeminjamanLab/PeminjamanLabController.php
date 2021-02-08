@@ -14,18 +14,18 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
 use Inertia\Inertia;
-use Inertia\Response;
+use Inertia\Response as InertiaResponse;
 
 class PeminjamanLabController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return Response
+     * @return InertiaResponse
      */
-    public function index(): Response
+    public function index(): InertiaResponse
     {
-        return Inertia::render('PeminjamanLab/Index', [
+        return Inertia::render('Admin/PeminjamanLab/Index', [
             'filters' => Request::all(['search', 'trashed']),
             'peminjamanlab' => PeminjamanLab::with(['mahasiswa', 'lab', 'jadwal'])
                 ->orderBy('created_at', 'desc')
@@ -52,11 +52,11 @@ class PeminjamanLabController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return Response
+     * @return InertiaResponse
      */
-    public function create(): Response
+    public function create(): InertiaResponse
     {
-        return Inertia::render('PeminjamanLab/Create', [
+        return Inertia::render('Admin/PeminjamanLab/Create', [
             'mahasiswa' => Mahasiswa::orderBy('nama_mahasiswa', 'asc')
                 ->get()
                 ->map
@@ -90,7 +90,7 @@ class PeminjamanLabController extends Controller
             return Redirect::route('PeminjamanLab.index')
                 ->with([
                     'name' => 'Data Peminjam Lab',
-                    'error' => "Gagal Dihapus! {$exception->getMessage()}"
+                    'error' => "Gagal Ditambahkan! {$exception->getMessage()}"
                 ]);
         }
     }
@@ -112,11 +112,11 @@ class PeminjamanLabController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param PeminjamanLab $PeminjamanLab
-     * @return Response
+     * @return InertiaResponse
      */
-    public function edit(PeminjamanLab $PeminjamanLab): Response
+    public function edit(PeminjamanLab $PeminjamanLab): InertiaResponse
     {
-        return Inertia::render('PeminjamanLab/Edit', [
+        return Inertia::render('Admin/PeminjamanLab/Edit', [
             'peminjamanlab' => [
                 'id' => $PeminjamanLab->id,
                 'id_mahasiswa' => $PeminjamanLab->id_mahasiswa,

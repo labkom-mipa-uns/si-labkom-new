@@ -11,18 +11,18 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
 use Inertia\Inertia;
-use Inertia\Response;
+use Inertia\Response as InertiaResponse;
 
 class LabController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return Response
+     * @return InertiaResponse
      */
-    public function index(): Response
+    public function index(): InertiaResponse
     {
-        return Inertia::render('Lab/Index', [
+        return Inertia::render('Admin/Lab/Index', [
             'filters' => Request::all(['search', 'trashed']),
             'lab' => Lab::orderBy('created_at', 'desc')
                 ->filter(Request::only(['search', 'trashed']))
@@ -30,7 +30,8 @@ class LabController extends Controller
                 ->transform(function ($lab) {
                     return [
                         'id' => $lab->id,
-                        'nama_lab' => $lab->nama_lab
+                        'nama_lab' => $lab->nama_lab,
+                        'deleted_at' => $lab->deleted_at
                     ];
                 })
         ]);
@@ -39,11 +40,11 @@ class LabController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return Response
+     * @return InertiaResponse
      */
-    public function create(): Response
+    public function create(): InertiaResponse
     {
-        return Inertia::render('Lab/Create');
+        return Inertia::render('Admin/Lab/Create');
     }
 
     /**
@@ -84,14 +85,15 @@ class LabController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param Lab $Laboratorium
-     * @return Response
+     * @return InertiaResponse
      */
-    public function edit(Lab $Laboratorium): Response
+    public function edit(Lab $Laboratorium): InertiaResponse
     {
-        return Inertia::render('Lab/Edit', [
+        return Inertia::render('Admin/Lab/Edit', [
             'lab' => [
                 'id' => $Laboratorium->id,
                 'nama_lab' => $Laboratorium->nama_lab,
+                'deleted_at' => $Laboratorium->deleted_at
             ],
         ]);
     }
@@ -127,7 +129,7 @@ class LabController extends Controller
      * @param Lab $Laboratorium
      * @return RedirectResponse
      */
-    public function destroy(Lab $Laboratorium): RedirectResponse
+    public function destroy(Lab $Laboratorium): ?RedirectResponse
     {
         try {
             $this->authorize('delete-data');

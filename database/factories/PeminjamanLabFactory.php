@@ -1,10 +1,10 @@
 <?php
 namespace Database\Factories;
 
-use App\Jadwal;
-use App\Lab;
-use App\Mahasiswa;
-use App\PeminjamanLab;
+use App\Models\Jadwal;
+use App\Models\Lab;
+use App\Models\Mahasiswa;
+use App\Models\PeminjamanLab;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PeminjamanLabFactory extends Factory

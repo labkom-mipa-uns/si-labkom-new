@@ -1,8 +1,8 @@
 <?php
 namespace Database\Factories;
 
-use App\Mahasiswa;
-use App\Prodi;
+use App\Models\Mahasiswa;
+use App\Models\Prodi;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class MahasiswaFactory extends Factory
@@ -26,7 +26,7 @@ class MahasiswaFactory extends Factory
             'nama_mahasiswa' => $this->faker->name,
             'jenis_kelamin' => $this->faker->randomElement(['L','P']),
             'kelas' => $this->faker->randomElement(['TIA','TIB','TID']),
-            'id_prodi' => factory(Prodi::class),
+            'id_prodi' => Prodi::factory()->count(1)->create(),
             'angkatan' => $this->faker->randomElement(['2016','2017','2018','2019','2020']),
             'no_hp' => $this->faker->phoneNumber,
             'created_at' => now()

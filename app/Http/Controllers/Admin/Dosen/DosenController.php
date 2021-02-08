@@ -11,18 +11,18 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
 use Inertia\Inertia;
-use Inertia\Response;
+use Inertia\Response as InertiaResponse;
 
 class DosenController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return Response
+     * @return InertiaResponse
      */
-    public function index(): Response
+    public function index(): InertiaResponse
     {
-        return Inertia::render('Dosen/Index', [
+        return Inertia::render('Admin/Dosen/Index', [
             'filters' => Request::all(['search', 'trashed']),
             'dosen' => Dosen::orderBy('created_at', 'desc')
                 ->filter(Request::only(['search', 'trashed']))
@@ -32,6 +32,7 @@ class DosenController extends Controller
                         'id' => $dosen->id,
                         'nama_dosen' => $dosen->nama_dosen,
                         'nidn' => $dosen->nidn,
+                        'deleted_at' => $dosen->deleted_at
                     ];
                 })
         ]);
@@ -40,11 +41,11 @@ class DosenController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return Response
+     * @return InertiaResponse
      */
-    public function create(): Response
+    public function create(): InertiaResponse
     {
-        return Inertia::render('Dosen/Create');
+        return Inertia::render('Admin/Dosen/Create');
     }
 
     /**
@@ -85,15 +86,16 @@ class DosenController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param Dosen $Dosen
-     * @return Response
+     * @return InertiaResponse
      */
-    public function edit(Dosen $Dosen): Response
+    public function edit(Dosen $Dosen): InertiaResponse
     {
-        return Inertia::render('Dosen/Edit', [
+        return Inertia::render('Admin/Dosen/Edit', [
             'dosen' => [
                 'id' => $Dosen->id,
                 'nama_dosen' => $Dosen->nama_dosen,
                 'nidn' => $Dosen->nidn,
+                'deleted_at' => $Dosen->deleted_at
             ]
         ]);
     }

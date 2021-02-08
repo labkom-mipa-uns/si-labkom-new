@@ -11,18 +11,18 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
 use Inertia\Inertia;
-use Inertia\Response;
+use Inertia\Response as InertiaResponse;
 
 class MataKuliahController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return Response
+     * @return InertiaResponse
      */
-    public function index(): Response
+    public function index(): InertiaResponse
     {
-        return Inertia::render('MataKuliah/Index', [
+        return Inertia::render('Admin/MataKuliah/Index', [
             'filters' => Request::all(['search', 'trashed']),
             'matkul' => MataKuliah::orderBy('created_at', 'desc')
                 ->filter(Request::only(['search', 'trashed']))
@@ -31,6 +31,7 @@ class MataKuliahController extends Controller
                     return [
                         'id' => $matkul->id,
                         'nama_matkul' => $matkul->nama_matkul,
+                        'deleted_at' => $matkul->deleted_at
                     ];
                 })
         ]);
@@ -39,11 +40,11 @@ class MataKuliahController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return Response
+     * @return InertiaResponse
      */
-    public function create(): Response
+    public function create(): InertiaResponse
     {
-        return Inertia::render('MataKuliah/Create');
+        return Inertia::render('Admin/MataKuliah/Create');
     }
 
     /**
@@ -84,14 +85,15 @@ class MataKuliahController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param MataKuliah $MataKuliah
-     * @return Response
+     * @return InertiaResponse
      */
-    public function edit(MataKuliah $MataKuliah): Response
+    public function edit(MataKuliah $MataKuliah): InertiaResponse
     {
-        return Inertia::render('MataKuliah/Edit', [
+        return Inertia::render('Admin/MataKuliah/Edit', [
             'matkul' => [
                 'id' => $MataKuliah->id,
                 'nama_matkul' => $MataKuliah->nama_matkul,
+                'deleted_at' => $MataKuliah->deleted_at
             ]
         ]);
     }

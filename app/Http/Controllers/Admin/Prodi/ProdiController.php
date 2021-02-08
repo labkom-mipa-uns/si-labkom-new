@@ -11,18 +11,18 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
 use Inertia\Inertia;
-use Inertia\Response;
+use Inertia\Response as InertiaResponse;
 
 class ProdiController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return Response
+     * @return InertiaResponse
      */
-    public function index(): Response
+    public function index(): InertiaResponse
     {
-        return Inertia::render('Prodi/Index', [
+        return Inertia::render('Admin/Prodi/Index', [
             'filters' => Request::all(['search', 'trashed']),
             'prodi' => Prodi::orderBy('created_at', 'desc')
                 ->filter(Request::only(['search', 'trashed']))
@@ -30,7 +30,8 @@ class ProdiController extends Controller
                 ->transform(function ($prodi) {
                     return [
                         'id' => $prodi->id,
-                        'nama_prodi' => $prodi->nama_prodi
+                        'nama_prodi' => $prodi->nama_prodi,
+                        'deleted_at' => $prodi->deleted_at
                     ];
                 })
         ]);
@@ -39,11 +40,11 @@ class ProdiController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return Response
+     * @return InertiaResponse
      */
-    public function create(): Response
+    public function create(): InertiaResponse
     {
-        return Inertia::render('Prodi/Create');
+        return Inertia::render('Admin/Prodi/Create');
     }
 
     /**
@@ -82,14 +83,15 @@ class ProdiController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param Prodi $Prodi
-     * @return Response
+     * @return InertiaResponse
      */
-    public function edit(Prodi $Prodi): Response
+    public function edit(Prodi $Prodi): InertiaResponse
     {
-        return Inertia::render('Prodi/Edit', [
+        return Inertia::render('Admin/Prodi/Edit', [
             'prodi' => [
                 'id' => $Prodi->id,
-                'nama_prodi' => $Prodi->nama_prodi
+                'nama_prodi' => $Prodi->nama_prodi,
+                'deleted_at' => $Prodi->deleted_at
             ]
         ]);
     }

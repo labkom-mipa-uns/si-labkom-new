@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Transaksi;
+use App\Models\Transaksi;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TransaksiFactory extends Factory

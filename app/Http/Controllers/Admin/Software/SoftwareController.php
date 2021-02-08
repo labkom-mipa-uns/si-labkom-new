@@ -11,18 +11,18 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
 use Inertia\Inertia;
-use Inertia\Response;
+use Inertia\Response as InertiaResponse;
 
 class SoftwareController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return Response
+     * @return InertiaResponse
      */
-    public function index(): Response
+    public function index(): InertiaResponse
     {
-        return Inertia::render('Software/Index', [
+        return Inertia::render('Admin/Software/Index', [
             'filters' => Request::all(['search', 'trashed']),
             'software' => Software::orderBy('created_at', 'desc')
                 ->filter(Request::only(['search', 'trashed']))
@@ -32,6 +32,7 @@ class SoftwareController extends Controller
                         'id' => $software->id,
                         'nama_software' => $software->nama_software,
                         'harga_software' => number_format($software->harga_software),
+                        'deleted_at' => $software->deleted_at
                     ];
                 })
         ]);
@@ -40,11 +41,11 @@ class SoftwareController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return Response
+     * @return InertiaResponse
      */
-    public function create(): Response
+    public function create(): InertiaResponse
     {
-        return Inertia::render('Software/Create');
+        return Inertia::render('Admin/Software/Create');
     }
 
     /**
@@ -85,15 +86,16 @@ class SoftwareController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param Software $Software
-     * @return Response
+     * @return InertiaResponse
      */
-    public function edit(Software $Software): Response
+    public function edit(Software $Software): InertiaResponse
     {
-        return Inertia::render('Software/Edit', [
+        return Inertia::render('Admin/Software/Edit', [
             'software' => [
                 'id' => $Software->id,
                 'nama_software' => $Software->nama_software,
                 'harga_software' => $Software->harga_software,
+                'deleted_at' => $Software->deleted_at
             ]
         ]);
     }

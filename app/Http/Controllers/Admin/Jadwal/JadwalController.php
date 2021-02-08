@@ -14,18 +14,18 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
 use Inertia\Inertia;
-use Inertia\Response;
+use Inertia\Response as InertiaResponse;
 
 class JadwalController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return Response
+     * @return InertiaResponse
      */
-    public function index(): Response
+    public function index(): InertiaResponse
     {
-        return Inertia::render('Jadwal/Index', [
+        return Inertia::render('Admin/Jadwal/Index', [
             'filters' => Request::all(['search', 'trashed']),
             'jadwal' => Jadwal::with(['prodi', 'dosen', 'matakuliah'])
                 ->orderBy('created_at', 'desc')
@@ -36,7 +36,8 @@ class JadwalController extends Controller
                         'id' => $jadwal->id,
                         'dosen' => $jadwal->dosen,
                         'matkul' => $jadwal->matakuliah,
-                        'prodi' => $jadwal->prodi
+                        'prodi' => $jadwal->prodi,
+                        'deleted_at' => $jadwal->deleted_at
                     ];
                 })
         ]);
@@ -45,11 +46,11 @@ class JadwalController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return Response
+     * @return InertiaResponse
      */
-    public function create(): Response
+    public function create(): InertiaResponse
     {
-        return Inertia::render('Jadwal/Create', [
+        return Inertia::render('Admin/Jadwal/Create', [
             'dosen' => Dosen::orderBy('nama_dosen', 'asc')
                 ->get()
                 ->map
@@ -83,7 +84,7 @@ class JadwalController extends Controller
             return Redirect::route('Jadwal.index')
                 ->with([
                     'name' => 'Jadwal',
-                    'error' => "Gagal Dihapus! {$exception->getMessage()}"
+                    'error' => "Gagal Ditambahkan! {$exception->getMessage()}"
                 ]);
         }
     }
@@ -104,11 +105,11 @@ class JadwalController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param Jadwal $Jadwal
-     * @return Response
+     * @return InertiaResponse
      */
-    public function edit(Jadwal $Jadwal): Response
+    public function edit(Jadwal $Jadwal): InertiaResponse
     {
-        return Inertia::render('Jadwal/Edit', [
+        return Inertia::render('Admin/Jadwal/Edit', [
             'jadwal' => [
                 'id' => $Jadwal->id,
                 'id_dosen' => $Jadwal->id_dosen,
@@ -116,7 +117,8 @@ class JadwalController extends Controller
                 'id_matkul' => $Jadwal->id_matkul,
                 'matkul' => $Jadwal->matkul,
                 'id_prodi' => $Jadwal->id_prodi,
-                'prodi' => $Jadwal->prodi
+                'prodi' => $Jadwal->prodi,
+                'deleted_at' => $Jadwal->deleted_at
             ],
             'dosen' => Dosen::orderBy('nama_dosen', 'asc')
                 ->get()

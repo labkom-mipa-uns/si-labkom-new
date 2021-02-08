@@ -1,7 +1,7 @@
 <?php
 namespace Database\Factories;
 
-use App\Lab;
+use App\Models\Lab;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class LabFactory extends Factory

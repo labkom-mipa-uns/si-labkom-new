@@ -7,23 +7,20 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\AlatRequest;
 use App\Http\Resources\AlatResource;
 use Exception;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
-use Illuminate\View\View;
 use Inertia\Inertia;
-use Inertia\Response;
+use Inertia\Response as InertiaResponse;
 
 class AlatController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return Response
+     * @return InertiaResponse
      */
-    public function index(): Response
+    public function index(): InertiaResponse
     {
         return Inertia::render('Alat/Index', [
             'filters' => Request::all(['search', 'trashed']),
@@ -45,9 +42,9 @@ class AlatController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return Response
+     * @return InertiaResponse
      */
-    public function create(): Response
+    public function create(): InertiaResponse
     {
         return Inertia::render('Alat/Create');
     }
@@ -56,7 +53,7 @@ class AlatController extends Controller
      * Store a newly created resource in storage.
      *
      * @param AlatRequest $request
-     * @return RedirectResponse|null
+     * @return RedirectResponse
      */
     public function store(AlatRequest $request): ?RedirectResponse
     {
@@ -79,7 +76,7 @@ class AlatController extends Controller
      * Display the specified resource.
      *
      * @param Alat $Alat
-     * @return AlatResource|Response
+     * @return AlatResource
      */
     public function show(Alat $Alat): AlatResource
     {
@@ -90,9 +87,9 @@ class AlatController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param Alat $Alat
-     * @return Application|Factory|RedirectResponse|Response|View
+     * @return InertiaResponse
      */
-    public function edit(Alat $Alat)
+    public function edit(Alat $Alat): InertiaResponse
     {
         return Inertia::render('Alat/Edit', [
             'alat' => [

@@ -3,76 +3,81 @@
 namespace App\Http\Controllers\Admin\User;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserResource;
-use App\User;
+use App\Models\User;
 use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\View\View;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Request;
+use Inertia\Inertia;
+use Inertia\Response as InertiaResponse;
 
 class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return Application|Factory|RedirectResponse|Response|View
+     * @return InertiaResponse
      */
-    public function index()
+    public function index(): InertiaResponse
     {
-        try {
-            $data = [
-                'User' => User::orderBy('name','asc')->paginate(8)
-            ];
-            return view('User.index', $data);
-        } catch (Exception $exception) {
-            return redirect()->home()->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
-        }
+        return Inertia::render('Admin/Users/Index', [
+            'filters' => Request::all(['search', 'trashed']),
+            'user' => User::orderBy('name', 'asc')
+                ->filter(Request::only(['search', 'trashed']))
+                ->paginate()
+                ->transform(function ($user) {
+                    return [
+                        'id' => $user->id,
+                        'email' => $user->email,
+                        'name' => $user->name,
+                        'role' => $user->role,
+                        'photo' => $user->photo,
+                        'deleted_at' => $user->deleted_at
+                    ];
+                })
+        ]);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return Application|Factory|RedirectResponse|Response|View
+     * @return InertiaResponse
      */
-    public function create()
+    public function create(): InertiaResponse
     {
-        try {
-            return view('User.create');
-        } catch (Exception $exception) {
-            return redirect()->route('User.index')
-                ->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
-        }
+        return Inertia::render('Admin/Users/Create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param UserRequest $request
      * @return RedirectResponse
      */
-    public function store(Request $request): ?RedirectResponse
+    public function store(UserRequest $request): ?RedirectResponse
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
         try {
             User::create([
-                'name' => $request['name'],
-                'email' => $request['email'],
-                'password' => Hash::make($request['password']),
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'photo' => $request->photo
             ]);
-            return redirect()->route('User.index')
-                ->with('success', "Berhasil Ditambahkan!");
+            return Redirect::route('User.index')
+                ->with([
+                    'name' => 'Data User',
+                    'success' => 'Berhasil Ditambahkan!']);
         } catch (Exception $exception) {
-            return redirect()->route('User.index')
-                ->with('danger', "Gagal Ditambahkan! {$exception->getMessage()}");
+            return Redirect::route('User.index')
+                ->with([
+                    'name' => 'Data User',
+                    'error' => "Gagal Ditambahkan! {$exception->getMessage()}"
+                ]);
         }
     }
 
@@ -91,52 +96,60 @@ class UserController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param User $User
-     * @return Application|Factory|RedirectResponse|View
+     * @return RedirectResponse|InertiaResponse
      */
     public function edit(User $User)
     {
         try {
-            $this->authorize('update-data');
-            $data = [
-                'User' => $User
-            ];
-            return view('User.edit', $data);
-        } catch (AuthorizationException $exception){
-            return redirect()->route('User.index')
-                ->with('danger', $exception->getMessage());
-        } catch (Exception $exception) {
-            return redirect()->route('User.index')
-                ->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
+            if (Auth::id() !== $User->id) {
+                $this->authorize('update-data');
+            }
+            return Inertia::render('Admin/Users/Edit', [
+                'user' => [
+                    'id' => $User->id,
+                    'name' => $User->name,
+                    'email' => $User->email,
+                    'role' => $User->role,
+                    'photo' => $User->photo
+                ]
+            ]);
+        } catch (AuthorizationException $exception) {
+            return Redirect::route('User.index')
+                ->with([
+                    'name' => 'Data User',
+                    'error' => "Gagal Diubah! {$exception->getMessage()}"
+                ]);
         }
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param UserRequest $request
      * @param User $User
      * @return RedirectResponse
      */
-    public function update(Request $request, User $User): ?RedirectResponse
+    public function update(UserRequest $request, User $User): ?RedirectResponse
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255'],
-            'newPassword' => ['confirmed'],
-        ]);
         try {
-            User::whereId($User->id)->update([
-                'name' => $request['name'],
-                'email' => $request['email'],
-                'password' => (empty($request['newPassword'])) ?
-                    $request['password'] : Hash::make($request['newPassword']),
-                'role' => $request['role']
+            $User->update([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => (empty($request->newPassword)) ?
+                    $request->password : Hash::make($request->newPassword),
+                'role' => $request->role,
+                'photo' => $request->photo
             ]);
-            return redirect()->route('User.index')
-                ->with('success', "Berhasil Diupdate!");
+            return Redirect::route('User.index')
+                ->with([
+                    'name' => 'Data User',
+                    'success' => 'Berhasil Diubah!']);
         } catch (Exception $exception) {
-            return redirect()->route('User.index')
-                ->with('danger', "Gagal Diupdate! {$exception->getMessage()}");
+            return Redirect::route('User.index')
+                ->with([
+                    'name' => 'Data User',
+                    'error' => "Gagal Diubah! {$exception->getMessage()}"
+                ]);
         }
     }
 
@@ -150,12 +163,31 @@ class UserController extends Controller
     {
         try {
             $this->authorize('delete-data');
-            User::destroy($User->id);
-            return redirect()->route('User.index')
-                ->with('success', "Berhasil Dihapus!");
+            $User->delete();
+            return Redirect::route('User.index')
+                ->with([
+                    'name' => 'Data User',
+                    'success' => 'Berhasil Dihapus!']);
         } catch (Exception $exception) {
-            return redirect()->route('User.index')
-                ->with('danger', "Gagal Dihapus! {$exception->getMessage()}");
+            return Redirect::route('User.index')
+                ->with([
+                    'name' => 'Data User',
+                    'error' => "Gagal Dihapus! {$exception->getMessage()}"
+                ]);
         }
+    }
+
+    /**
+     * @param User $User
+     * @return RedirectResponse
+     */
+    public function restore(User $User): RedirectResponse
+    {
+        $User->restore();
+        return Redirect::route('User.index')
+            ->with([
+                'name' => 'Data User',
+                'success' => 'Berhasil Dipulihkan!'
+            ]);
     }
 }

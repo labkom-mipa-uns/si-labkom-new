@@ -10,10 +10,12 @@ use App\Models\Mahasiswa;
 use App\Models\PeminjamanAlat;
 use App\Models\Transaksi;
 use Exception;
+use Illuminate\Http\Response as HttpResponse;
+use Illuminate\Http\Request as HttpRequest;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
 use Inertia\Inertia;
-use Inertia\Response;
+use Inertia\Response as InertiaResponse;
 use PDF;
 use Illuminate\Http\RedirectResponse;
 use RuntimeException;
@@ -24,11 +26,11 @@ class PeminjamanAlatController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return Response
+     * @return InertiaResponse
      */
-    public function index(): Response
+    public function index(): InertiaResponse
     {
-        return Inertia::render('PeminjamanAlat/Index', [
+        return Inertia::render('Admin/PeminjamanAlat/Index', [
             'filters' => Request::all(['search', 'trashed']),
             'peminjamanalat' => PeminjamanAlat::with(['mahasiswa', 'alat'])
                 ->orderBy('created_at', 'desc')
@@ -56,11 +58,11 @@ class PeminjamanAlatController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return Response
+     * @return InertiaResponse
      */
-    public function create(): Response
+    public function create(): InertiaResponse
     {
-        return Inertia::render('PeminjamanAlat/Create', [
+        return Inertia::render('Admin/PeminjamanAlat/Create', [
             'mahasiswa' => Mahasiswa::orderBy('nama_mahasiswa', 'asc')
                 ->get()
                 ->map
@@ -104,13 +106,13 @@ class PeminjamanAlatController extends Controller
             return Redirect::route('PeminjamanAlat.index')
                 ->with([
                     'name' => 'Data Peminjam Alat',
-                    'error' => "Gagal Dihapus! {$exception->getMessage()}"
+                    'error' => "Gagal Ditambahkan! {$exception->getMessage()}"
                 ]);
         } catch (Throwable $exception) {
             return Redirect::route('PeminjamanAlat.index')
                 ->with([
                     'name' => 'Data Peminjam Alat',
-                    'error' => "Gagal Dihapus! {$exception->getMessage()}"
+                    'error' => "Gagal Ditambahkan! {$exception->getMessage()}"
                 ]);
         }
     }
@@ -131,11 +133,11 @@ class PeminjamanAlatController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param PeminjamanAlat $PeminjamanAlat
-     * @return Response
+     * @return InertiaResponse
      */
-    public function edit(PeminjamanAlat $PeminjamanAlat): Response
+    public function edit(PeminjamanAlat $PeminjamanAlat): InertiaResponse
     {
-        return Inertia::render('PeminjamanAlat/Edit', [
+        return Inertia::render('Admin/PeminjamanAlat/Edit', [
             'peminjamanalat' => [
                 'id' => $PeminjamanAlat->id,
                 'id_mahasiswa' => $PeminjamanAlat->id_mahasiswa,
@@ -242,10 +244,10 @@ class PeminjamanAlatController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @return RedirectResponse|Response
+     * @param HttpRequest $request
+     * @return RedirectResponse|HttpResponse
      */
-    public function daily_report(Request $request)
+    public function daily_report(HttpRequest $request)
     {
         $request->validate([
             'tanggal' => 'required|date'
@@ -258,18 +260,18 @@ class PeminjamanAlatController extends Controller
                 'tanggal' => $request->tanggal
             ];
             $pdf = PDF::loadView('Invoice.Daily.PeminjamanAlat', $data)->setPaper('a4', 'landscape');
-            return $pdf->stream("Peminjaman_Alat_Daily_Report_{$request->tanggal}.pdf");
+            return Inertia::location($pdf->stream("Peminjaman_Alat_Daily_Report_{$request->tanggal}.pdf"));
         } catch (Exception $exception) {
-            return redirect()->route('PeminjamanAlat.index')
+            return Redirect::route('PeminjamanAlat.index')
                 ->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }
 
     /**
-     * @param Request $request
-     * @return RedirectResponse|Response
+     * @param HttpRequest $request
+     * @return RedirectResponse|HttpResponse
      */
-    public function monthly_report(Request $request)
+    public function monthly_report(HttpRequest $request)
     {
         $request->validate([
             'bulan' => 'required'
@@ -284,7 +286,7 @@ class PeminjamanAlatController extends Controller
             $pdf = PDF::loadView('Invoice.Monthly.PeminjamanAlat', $data)->setPaper('a4', 'landscape');
             return $pdf->stream("Peminjaman_Alat_Monthly_Report_{$request->tanggal}.pdf");
         } catch (Exception $exception) {
-            return redirect()->route('PeminjamanAlat.index')
+            return Redirect::route('PeminjamanAlat.index')
                 ->with('warning', "Silakan Coba Beberapa Saat Lagi! {$exception->getMessage()}");
         }
     }

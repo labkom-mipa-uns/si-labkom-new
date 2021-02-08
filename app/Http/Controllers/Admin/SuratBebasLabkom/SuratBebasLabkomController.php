@@ -12,18 +12,18 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
 use Inertia\Inertia;
-use Inertia\Response;
+use Inertia\Response as InertiaResponse;
 
 class SuratBebasLabkomController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return Response
+     * @return InertiaResponse
      */
-    public function index(): Response
+    public function index(): InertiaResponse
     {
-        return Inertia::render('SuratBebasLabkom/Index', [
+        return Inertia::render('Admin/SuratBebasLabkom/Index', [
             'filters' => Request::all(['search', 'trashed']),
             'surat' => SuratBebasLabkom::with(['mahasiswa'])
                 ->orderBy('created_at', 'desc')
@@ -34,6 +34,7 @@ class SuratBebasLabkomController extends Controller
                         'id' => $surat->id,
                         'mahasiswa' => $surat->mahasiswa,
                         'tanggal' => $surat->tanggal,
+                        'deleted_at' => $surat->deleted_at
                     ];
                 })
         ]);
@@ -42,11 +43,11 @@ class SuratBebasLabkomController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return Response
+     * @return InertiaResponse
      */
-    public function create(): Response
+    public function create(): InertiaResponse
     {
-        return Inertia::render('SuratBebasLabkom/Create', [
+        return Inertia::render('Admin/SuratBebasLabkom/Create', [
             'mahasiswa' => Mahasiswa::orderBy('nama_mahasiswa', 'asc')
                 ->get()
                 ->map
@@ -93,16 +94,17 @@ class SuratBebasLabkomController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param SuratBebasLabkom $SuratBebasLabkom
-     * @return Response
+     * @return InertiaResponse
      */
-    public function edit(SuratBebasLabkom $SuratBebasLabkom): Response
+    public function edit(SuratBebasLabkom $SuratBebasLabkom): InertiaResponse
     {
-        return Inertia::render('SuratBebasLabkom/Edit', [
+        return Inertia::render('Admin/SuratBebasLabkom/Edit', [
             'surat' => [
                 'id' => $SuratBebasLabkom->id,
                 'id_mahasiswa' => $SuratBebasLabkom->id_mahasiswa,
                 'mahasiswa' => $SuratBebasLabkom->mahasiswa,
                 'tanggal' => $SuratBebasLabkom->tanggal,
+                'deleted_at' => $SuratBebasLabkom->deleted_at
             ],
             'mahasiswa' => Mahasiswa::orderBy('nama_mahasiswa', 'asc')
                 ->get()

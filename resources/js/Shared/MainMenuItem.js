@@ -17,7 +17,7 @@ export default ({ icon, link, text }) => {
     });
 
     return (
-        <div className="mb-4">
+        <div className="mb-1">
             <InertiaLink
                 href={route(link)}
                 className="flex items-center group py-2"

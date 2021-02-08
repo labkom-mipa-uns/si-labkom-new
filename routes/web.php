@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Admin\Account\AccountController;
 use App\Http\Controllers\Admin\Alat\AlatController;
 use App\Http\Controllers\Admin\Dosen\DosenController;
 use App\Http\Controllers\Admin\Dashboard\DashboardController;
@@ -16,7 +15,9 @@ use App\Http\Controllers\Admin\Software\SoftwareController;
 use App\Http\Controllers\Admin\SuratBebasLabkom\SuratBebasLabkomController;
 use App\Http\Controllers\Admin\PeminjamanAlat\PeminjamanAlatController;
 use App\Http\Controllers\Admin\User\UserController;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\User\Home\HomeController;
+use App\Http\Controllers\User\PeminjamanLab\PeminjamanLabController as UserPeminjamanLabController;
+use App\Http\Controllers\User\PeminjamanAlat\PeminjamanAlatController as UserPeminjamanAlatController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -32,11 +33,30 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', HomeController::class)->name('home');
+
+# User
+    // Peminjaman Lab
+Route::get('/PeminjamanLab', [UserPeminjamanLabController::class, 'index'])->name('UserPeminjamanLab.index');
+Route::get('/PeminjamanLab/create', [UserPeminjamanLabController::class, 'create'])->name('UserPeminjamanLab.create');
+Route::post('/PeminjamanLab', [UserPeminjamanLabController::class, 'store'])->name('UserPeminjamanLab.store');
+Route::get('/PeminjamanLab/{PeminjamanLab}', [UserPeminjamanLabController::class, 'show'])->name('UserPeminjamanLab.show');
+Route::get('/PeminjamanLab/{PeminjamanLab}/edit', [UserPeminjamanLabController::class, 'edit'])->name('UserPeminjamanLab.edit');
+Route::put('/PeminjamanLab/{PeminjamanLab}', [UserPeminjamanLabController::class, 'update'])->name('UserPeminjamanLab.update');
+Route::delete('/PeminjamanLab/{PeminjamanLab}', [UserPeminjamanLabController::class, 'destroy'])->name('UserPeminjamanLab.destroy');
+    // Peminjaman Alat
+Route::get('/PeminjamanAlat', [UserPeminjamanAlatController::class, 'index'])->name('UserPeminjamanAlat.index');
+Route::get('/PeminjamanAlat/create', [UserPeminjamanAlatController::class, 'create'])->name('UserPeminjamanAlat.create');
+Route::post('/PeminjamanAlat', [UserPeminjamanAlatController::class, 'store'])->name('UserPeminjamanAlat.store');
+Route::get('/PeminjamanAlat/{PeminjamanAlat}', [UserPeminjamanAlatController::class, 'show'])->name('UserPeminjamanAlat.show');
+Route::get('/PeminjamanAlat/{PeminjamanAlat}/edit', [UserPeminjamanAlatController::class, 'edit'])->name('UserPeminjamanAlat.edit');
+Route::put('/PeminjamanAlat/{PeminjamanAlat}', [UserPeminjamanAlatController::class, 'update'])->name('UserPeminjamanAlat.update');
+Route::delete('/PeminjamanAlat/{PeminjamanAlat}', [UserPeminjamanAlatController::class, 'destroy'])->name('UserPeminjamanAlat.destroy');
+
+# Admin
 Route::redirect('admin', '/admin/Dashboard');
 Auth::routes(['verify' => true]);
 Route::prefix('admin')->middleware(['verified'])->group(static function () {
     Route::get('Dashboard', DashboardController::class)->name('Dashboard');
-    Route::resource('Account', AccountController::class);
     Route::resource('PeminjamanLab', PeminjamanLabController::class);
     Route::resource('PeminjamanAlat', PeminjamanAlatController::class);
     Route::post('PeminjamanAlat/DailyReport', [PeminjamanAlatController::class,'daily_report'])->name('PeminjamanAlat.daily_report');

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin\Transaksi;
 
 use App\Http\Controllers\Controller;
-use App\Transaksi;
+use App\Models\Transaksi;
 use Illuminate\Http\Request;
 
 class TransaksiController extends Controller

@@ -1,10 +1,10 @@
 <?php
 namespace Database\Factories;
 
-use App\Dosen;
-use App\Jadwal;
-use App\MataKuliah;
-use App\Prodi;
+use App\Models\Dosen;
+use App\Models\Jadwal;
+use App\Models\MataKuliah;
+use App\Models\Prodi;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class JadwalFactory extends Factory
@@ -23,6 +23,7 @@ class JadwalFactory extends Factory
      */
     public function definition(): array
     {
+
         return [
             'id_dosen' => Dosen::factory()->count(1)->create(),
             'id_matkul' => MataKuliah::factory()->count(1)->create(),

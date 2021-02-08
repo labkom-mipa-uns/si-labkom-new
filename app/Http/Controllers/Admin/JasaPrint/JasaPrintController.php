@@ -27,7 +27,7 @@ class JasaPrintController extends Controller
      */
     public function index(): InertiaResponse
     {
-        return Inertia::render('JasaPrint/Index', [
+        return Inertia::render('Admin/JasaPrint/Index', [
             'filters' => Request::all(['search', 'trashed']),
             'jasaprint' => JasaPrint::orderBy('created_at', 'desc')
                 ->filter(Request::only(['search', 'trashed']))
@@ -52,7 +52,7 @@ class JasaPrintController extends Controller
      */
     public function create(): InertiaResponse
     {
-        return Inertia::render('JasaPrint/Create');
+        return Inertia::render('Admin/JasaPrint/Create');
     }
 
     /**
@@ -107,7 +107,7 @@ class JasaPrintController extends Controller
      */
     public function edit(JasaPrint $JasaPrint): InertiaResponse
     {
-        return Inertia::render('JasaPrint/Edit', [
+        return Inertia::render('Admin/JasaPrint/Edit', [
             'jasaprint' => [
                 'id' => $JasaPrint->id,
                 'jenis_print' => $JasaPrint->jenis_print,

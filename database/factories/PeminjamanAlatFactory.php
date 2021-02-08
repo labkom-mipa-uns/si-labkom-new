@@ -1,9 +1,9 @@
 <?php
 namespace Database\Factories;
 
-use App\Alat;
-use App\Mahasiswa;
-use App\PeminjamanAlat;
+use App\Models\Alat;
+use App\Models\Mahasiswa;
+use App\Models\PeminjamanAlat;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PeminjamanAlatFactory extends Factory

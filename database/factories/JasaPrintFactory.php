@@ -1,7 +1,7 @@
 <?php
 namespace Database\Factories;
 
-use App\JasaPrint;
+use App\Models\JasaPrint;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class JasaPrintFactory extends Factory
