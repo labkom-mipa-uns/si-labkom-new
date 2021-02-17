@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Helmet from 'react-helmet';
 import { Inertia } from '@inertiajs/inertia';
 import { InertiaLink, usePage } from '@inertiajs/inertia-react';
-import AdminLayout from '@/Shared/Layout';
+import AdminLayout from '@/Shared/AdminLayout';
 import LoadingButton from '@/Shared/LoadingButton';
 import TextInput from '@/Shared/TextInput';
 import SelectInput from '@/Shared/SelectInput';
@@ -171,6 +171,8 @@ export default () => {
                                 errors={errors.jumlah_pinjam}
                                 value={values.jumlah_pinjam}
                                 onChange={handleChange}
+                                type="number"
+                                min="0"
                             />
                             <SelectInput
                                 className="pr-6 pb-8 w-full lg:w-1/2"

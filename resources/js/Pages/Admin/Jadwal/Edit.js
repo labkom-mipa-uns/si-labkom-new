@@ -3,7 +3,7 @@ import Helmet from 'react-helmet';
 import Swal from 'sweetalert2';
 import { Inertia } from '@inertiajs/inertia';
 import { InertiaLink, usePage } from '@inertiajs/inertia-react';
-import AdminLayout from '@/Shared/Layout';
+import AdminLayout from '@/Shared/AdminLayout';
 import DeleteButton from '@/Shared/DeleteButton';
 import LoadingButton from '@/Shared/LoadingButton';
 import SelectInput from '@/Shared/SelectInput';

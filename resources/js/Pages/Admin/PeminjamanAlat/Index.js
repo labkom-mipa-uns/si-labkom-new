@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import Helmet from 'react-helmet';
 import { InertiaLink, usePage } from '@inertiajs/inertia-react';
-import AdminLayout from '@/Shared/Layout';
+import AdminLayout from '@/Shared/AdminLayout';
 import Icon from '@/Shared/Icon';
 import SearchFilter from '@/Shared/SearchFilter';
 import Pagination from '@/Shared/Pagination';

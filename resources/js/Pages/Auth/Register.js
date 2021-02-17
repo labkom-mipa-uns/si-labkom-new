@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Helmet from 'react-helmet';
 import { Inertia } from '@inertiajs/inertia';
-import { usePage } from '@inertiajs/inertia-react';
+import {InertiaLink, usePage} from '@inertiajs/inertia-react';
 import Logo from '@/Shared/Logo';
 import LoadingButton from '@/Shared/LoadingButton';
 import TextInput from '@/Shared/TextInput';
@@ -10,9 +10,10 @@ export default () => {
     const { errors } = usePage().props;
     const [sending, setSending] = useState(false);
     const [values, setValues] = useState({
+        name: '',
         email: '',
         password: '',
-        remember: false
+        password_confirmation: ''
     });
 
     function handleChange(e) {
@@ -29,14 +30,14 @@ export default () => {
     function handleSubmit(e) {
         e.preventDefault();
         setSending(true);
-        Inertia.post(route('login'), values, {
+        Inertia.post(route('register'), values, {
             onFinish: () => setSending(false)
         });
     }
 
     return (
         <div className="flex items-center justify-center min-h-screen p-6 bg-indigo-900">
-            <Helmet title="Labkom FMIPA UNS | Login" />
+            <Helmet title="Labkom FMIPA UNS | Register" />
             <div className="w-full max-w-md">
                 <Logo
                     className="block w-full max-w-xs mx-auto text-white fill-current"
@@ -47,9 +48,17 @@ export default () => {
                     className="mt-8 overflow-hidden bg-white rounded-lg shadow-xl"
                 >
                     <div className="px-10 py-12">
-                        <h1 className="text-3xl font-bold text-center">Welcome Back!</h1>
+                        <h1 className="text-3xl font-bold text-center">Register</h1>
                         <div className="w-24 mx-auto mt-6 border-b-2" />
                         <TextInput
+                            className="mt-10"
+                            label="Name"
+                            name="name"
+                            type="text"
+                            errors={errors.name}
+                            value={values.name}
+                            onChange={handleChange}
+                        /><TextInput
                             className="mt-10"
                             label="Email"
                             name="email"
@@ -67,31 +76,31 @@ export default () => {
                             value={values.password}
                             onChange={handleChange}
                         />
-                        <label
-                            className="flex items-center mt-6 select-none"
-                            htmlFor="remember"
-                        >
-                            <input
-                                name="remember"
-                                id="remember"
-                                className="mr-1"
-                                type="checkbox"
-                                checked={values.remember}
-                                onChange={handleChange}
-                            />
-                            <span className="text-sm">Remember Me</span>
-                        </label>
+                        <TextInput
+                            className="mt-6"
+                            label="Confirm Password"
+                            name="password_confirmation"
+                            type="password"
+                            errors={errors.password_confirmation}
+                            value={values.password_confirmation}
+                            onChange={handleChange}
+                        />
                     </div>
-                    <div className="flex items-center justify-between px-10 py-4 bg-gray-100 border-t border-gray-200">
-                        <a className="hover:underline" tabIndex="-1" href="#reset-password">
-                            Forgot password?
-                        </a>
+                    <div className="flex items-center justify-betweem px-10 py-4 bg-gray-100 border-t border-gray-200">
+                        <p className="w-full text-xs text-center text-gray-700 sm:text-sm">
+                            { 'Already have an account? ' }
+                            <InertiaLink className="text-blue-500 hover:text-blue-700 no-underline hover:underline"
+                                         as="a"
+                                         href={ route('login') }>
+                                { 'Login' }
+                            </InertiaLink>
+                        </p>
                         <LoadingButton
                             type="submit"
                             loading={sending}
                             className="btn-indigo"
                         >
-                            Login
+                            Register
                         </LoadingButton>
                     </div>
                 </form>

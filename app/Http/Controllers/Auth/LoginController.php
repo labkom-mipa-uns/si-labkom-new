@@ -50,7 +50,7 @@ class LoginController extends Controller
      */
     public function showLoginForm(): InertiaResponse
     {
-        return Inertia::render('Admin/Auth/Login');
+        return Inertia::render('Auth/Login');
     }
 
     /**

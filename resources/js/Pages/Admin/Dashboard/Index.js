@@ -1,6 +1,6 @@
 import React from 'react';
 import Helmet from 'react-helmet';
-import AdminLayout from '@/Shared/Layout';
+import AdminLayout from '@/Shared/AdminLayout';
 
 const Dashboard = () => {
     return (

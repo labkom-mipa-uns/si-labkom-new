@@ -1,6 +1,6 @@
 @extends('User.app')
 
-@section('title', 'Peminjaman Lab | Alur')
+@section('title', '| Peminjaman Ruang | Alur')
 @section('content')
     <!-- This example requires Tailwind CSS v2.0+ -->
     <div class="pt-24">
@@ -35,6 +35,68 @@
         </svg>
     </div>
     <div class="bg-white min-h-full py-16">
+        <!-- This example requires Tailwind CSS v2.0+ -->
+        <div class="flex flex-col container mx-auto pb-10">
+            <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                    <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Name
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Prodi
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Mata Kuliah
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Lab
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Status
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm font-medium text-gray-900">
+                                        Siti Roqhilu Yumaroh
+                                    </div>
+                                    <div class="text-sm text-gray-500">
+                                        M3119000
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-900">Matematika</div>
+                                    <div class="text-sm text-gray-500">2019</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-900">Pemograman Web</div>
+                                    <div class="text-sm text-gray-500">Agus Purbayu</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-900">Multimedia</div>
+                                    <div class="text-sm text-gray-500">30 Feb 2021</div>
+                                    <div class="text-sm text-gray-500">12:00 - 24:00</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                                      Dalam Proses
+                                    </span>
+                                </td>
+                            </tr>
+
+                            <!-- More items... -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
         <dl class="space-y-10 md:space-y-0 grid md:gap-4 grid-rows-4 grid-flow-col container mx-auto">
             <div class="flex">
                 <div class="flex-shrink-0">

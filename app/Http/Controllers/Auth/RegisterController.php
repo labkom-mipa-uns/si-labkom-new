@@ -5,12 +5,11 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\View\View;
+use Inertia\Inertia;
+use Inertia\Response as InertiaResponse;
 
 class RegisterController extends Controller
 {
@@ -47,12 +46,13 @@ class RegisterController extends Controller
     /**
      * Show the application registration form.
      *
-     * @return Application|Factory|\Illuminate\Contracts\View\View|View
+     * @return InertiaResponse
      */
-    public function showRegistrationForm()
+    public function showRegistrationForm(): InertiaResponse
     {
-        return view('auth.register');
+        return Inertia::render('Auth/Register');
     }
+
 
     /**
      * Get a validator for an incoming registration request.

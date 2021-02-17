@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Helmet from 'react-helmet';
 import { Inertia } from '@inertiajs/inertia';
 import { InertiaLink, usePage } from '@inertiajs/inertia-react';
-import Layout from '@/Shared/Layout';
+import Layout from '@/Shared/AdminLayout';
 import LoadingButton from '@/Shared/LoadingButton';
 import TextInput from '@/Shared/TextInput';
 import SelectInput from '@/Shared/SelectInput';
@@ -19,6 +19,7 @@ export default () => {
         jam_kembali: '',
         keperluan: '',
         kategori: '',
+        proses: '',
         status: ''
     });
 
@@ -129,7 +130,7 @@ export default () => {
                                 onChange={handleChange}
                             />
                             <SelectInput
-                                className="pr-6 pb-8 w-full lg:w-1/2"
+                                className="pr-6 pb-8 w-full lg:w-1/3"
                                 label="Kategori"
                                 name="kategori"
                                 errors={errors.kategori}
@@ -141,7 +142,18 @@ export default () => {
                                 <option value="diluar_jam">Diluar Jam Kuliah</option>
                             </SelectInput>
                             <SelectInput
-                                className="pr-6 pb-8 w-full lg:w-1/2"
+                                className="pr-6 pb-8 w-full lg:w-1/3"
+                                label="Proses"
+                                name="proses"
+                                errors={errors.proses}
+                                value="0"
+                                onChange={handleChange}
+                                disabled
+                            >
+                                <option value="1" selected>Masih Diproses</option>
+                            </SelectInput>
+                            <SelectInput
+                                className="pr-6 pb-8 w-full lg:w-1/3"
                                 label="Status"
                                 name="status"
                                 errors={errors.status}
