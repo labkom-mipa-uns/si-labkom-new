@@ -49,6 +49,7 @@ class PeminjamanAlatController extends Controller
                         'jumlah_pinjam' => $peminjamanalat->jumlah_pinjam,
                         'keperluan' => $peminjamanalat->keperluan,
                         'status' => $peminjamanalat->status,
+                        'proses' => $peminjamanalat->proses,
                         'deleted_at' => $peminjamanalat->deleted_at
                     ];
                 })
@@ -97,6 +98,7 @@ class PeminjamanAlatController extends Controller
             $peminjamanAlat->id_alat = $request->id_alat;
             $peminjamanAlat->keperluan = $request->keperluan;
             $peminjamanAlat->status = $request->status;
+            $peminjamanAlat->proses = $request->proses;
             $peminjamanAlat->saveOrFail();
             return Redirect::route('PeminjamanAlat.index')
                 ->with([
@@ -151,6 +153,7 @@ class PeminjamanAlatController extends Controller
                 'jumlah_pinjam' => $PeminjamanAlat->jumlah_pinjam,
                 'keperluan' => $PeminjamanAlat->keperluan,
                 'status' => $PeminjamanAlat->status,
+                'proses' => $PeminjamanAlat->proses,
                 'deleted_at' => $PeminjamanAlat->deleted_at
             ],
             'mahasiswa' => Mahasiswa::orderBy('nama_mahasiswa', 'asc')
@@ -184,6 +187,7 @@ class PeminjamanAlatController extends Controller
             $peminjamanAlat->id_alat = $request->id_alat;
             $peminjamanAlat->keperluan = $request->keperluan;
             $peminjamanAlat->status = $request->status;
+            $peminjamanAlat->proses = $request->proses;
             $peminjamanAlat->saveOrFail();
             return Redirect::route('PeminjamanAlat.index')
                 ->with([

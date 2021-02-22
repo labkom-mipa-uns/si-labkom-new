@@ -43,6 +43,7 @@ class PeminjamanLabController extends Controller
                         'keperluan' => $peminjamanlab->keperluan,
                         'kategori' => $peminjamanlab->kategori,
                         'status' => $peminjamanlab->status,
+                        'proses' => $peminjamanlab->proses,
                         'deleted_at' => $peminjamanlab->deleted_at
                     ];
                 })
@@ -130,6 +131,7 @@ class PeminjamanLabController extends Controller
                 'jam_kembali' => $PeminjamanLab->jam_kembali,
                 'keperluan' => $PeminjamanLab->keperluan,
                 'kategori' => $PeminjamanLab->kategori,
+                'proses' => $PeminjamanLab->proses,
                 'status' => $PeminjamanLab->status,
                 'deleted_at' => $PeminjamanLab->deleted_at
             ],

@@ -17,7 +17,7 @@ export default () => {
                 <div className="mb-6 flex justify-between items-center">
                     <SearchFilter />
                     <InertiaLink className="btn-indigo" href={route('Alat.create')} as="a">
-                        <span>Tambah Data</span>
+                        <span>Tambah</span>
                         <span className="hidden md:inline"> Alat</span>
                     </InertiaLink>
                 </div>

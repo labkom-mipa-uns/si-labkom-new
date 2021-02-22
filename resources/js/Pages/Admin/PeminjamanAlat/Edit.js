@@ -23,6 +23,7 @@ export default () => {
         jumlah_pinjam: peminjamanalat.jumlah_pinjam || '',
         keperluan: peminjamanalat.keperluan || '',
         status: peminjamanalat.status || '',
+        proses: peminjamanalat.proses || '',
         deleted_at: peminjamanalat.deleted_at || ''
     });
 
@@ -165,7 +166,7 @@ export default () => {
                                 onChange={handleChange}
                             />
                             <TextInput
-                                className="pr-6 pb-8 w-full lg:w-1/2"
+                                className="pr-6 pb-8 w-full lg:w-1/3"
                                 label="Jumlah Pinjam"
                                 name="jumlah_pinjam"
                                 errors={errors.jumlah_pinjam}
@@ -175,14 +176,27 @@ export default () => {
                                 min="0"
                             />
                             <SelectInput
-                                className="pr-6 pb-8 w-full lg:w-1/2"
+                                className="pr-6 pb-8 w-full lg:w-1/3"
+                                label="Proses"
+                                name="proses"
+                                errors={errors.proses}
+                                value={values.proses}
+                                onChange={handleChange}
+                            >
+                                <option></option>
+                                <option value="1" disabled>Menunggu Persetujuan</option>
+                                <option value="2">Setujui</option>
+                                <option value="3">Tolak</option>
+                            </SelectInput>
+                            <SelectInput
+                                className="pr-6 pb-8 w-full lg:w-1/3"
                                 label="Status"
                                 name="status"
                                 errors={errors.status}
                                 value={values.status}
                                 onChange={handleChange}
                             >
-                                <option></option>
+                                <option value=""></option>
                                 <option value="0">Masih Dipinjam</option>
                                 <option value="1">Sudah Dikembalikan</option>
                             </SelectInput>

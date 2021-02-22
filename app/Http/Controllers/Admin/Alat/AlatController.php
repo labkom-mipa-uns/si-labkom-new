@@ -22,7 +22,7 @@ class AlatController extends Controller
      */
     public function index(): InertiaResponse
     {
-        return Inertia::render('Alat/Index', [
+        return Inertia::render('Admin/Alat/Index', [
             'filters' => Request::all(['search', 'trashed']),
             'alat' => Alat::orderBy('created_at', 'desc')
                 ->filter(Request::only(['search', 'trashed']))
@@ -46,7 +46,7 @@ class AlatController extends Controller
      */
     public function create(): InertiaResponse
     {
-        return Inertia::render('Alat/Create');
+        return Inertia::render('Admin/Alat/Create');
     }
 
     /**
@@ -91,7 +91,7 @@ class AlatController extends Controller
      */
     public function edit(Alat $Alat): InertiaResponse
     {
-        return Inertia::render('Alat/Edit', [
+        return Inertia::render('Admin/Alat/Edit', [
             'alat' => [
                 'id' => $Alat->id,
                 'nama_alat' => $Alat->nama_alat,

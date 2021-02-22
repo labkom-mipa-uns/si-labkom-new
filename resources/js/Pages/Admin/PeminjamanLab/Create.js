@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Helmet from 'react-helmet';
 import { Inertia } from '@inertiajs/inertia';
 import { InertiaLink, usePage } from '@inertiajs/inertia-react';
-import Layout from '@/Shared/AdminLayout';
+import AdminLayout from '@/Shared/AdminLayout';
 import LoadingButton from '@/Shared/LoadingButton';
 import TextInput from '@/Shared/TextInput';
 import SelectInput from '@/Shared/SelectInput';
@@ -41,7 +41,7 @@ export default () => {
     }
 
     return (
-        <Layout>
+        <AdminLayout>
             <div>
                 <Helmet title="Labkom FMIPA UNS | Peminjaman Lab | Tambah Data" />
                 <h1 className="mb-8 font-bold text-3xl">
@@ -146,22 +146,22 @@ export default () => {
                                 label="Proses"
                                 name="proses"
                                 errors={errors.proses}
-                                value="0"
                                 onChange={handleChange}
-                                disabled
+                                value={values.proses}
                             >
-                                <option value="1" selected>Masih Diproses</option>
+                                <option></option>
+                                <option value="1">Menunggu Persetujuan</option>
                             </SelectInput>
                             <SelectInput
                                 className="pr-6 pb-8 w-full lg:w-1/3"
                                 label="Status"
                                 name="status"
                                 errors={errors.status}
-                                value="0"
                                 onChange={handleChange}
-                                disabled
+                                value={values.status}
                             >
-                                <option value="0" selected>Masih Dipinjam</option>
+                                <option></option>
+                                <option value="0">Masih Dipinjam</option>
                             </SelectInput>
                             <div className="pr-6 pb-8 w-full lg:w-full">
                                 <label className="form-label" htmlFor="keperluan">
@@ -196,6 +196,6 @@ export default () => {
                     </form>
                 </div>
             </div>
-        </Layout>
+        </AdminLayout>
     );
 };

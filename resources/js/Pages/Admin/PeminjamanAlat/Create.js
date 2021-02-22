@@ -19,6 +19,7 @@ export default () => {
         jam_kembali: '',
         jumlah_pinjam: '',
         keperluan: '',
+        proses: '',
         status: ''
     });
 
@@ -123,7 +124,7 @@ export default () => {
                                 onChange={handleChange}
                             />
                             <TextInput
-                                className="pr-6 pb-8 w-full lg:w-1/2"
+                                className="pr-6 pb-8 w-full lg:w-1/3"
                                 label="Jumlah Pinjam"
                                 name="jumlah_pinjam"
                                 errors={errors.jumlah_pinjam}
@@ -131,12 +132,23 @@ export default () => {
                                 onChange={handleChange}
                             />
                             <SelectInput
-                                className="pr-6 pb-8 w-full lg:w-1/2"
+                                className="pr-6 pb-8 w-full lg:w-1/3"
+                                label="Proses"
+                                name="proses"
+                                errors={errors.proses}
+                                onChange={handleChange}
+                                value={values.proses}
+                            >
+                                <option></option>
+                                <option value="1">Menunggu Persetujuan</option>
+                            </SelectInput>
+                            <SelectInput
+                                className="pr-6 pb-8 w-full lg:w-1/3"
                                 label="Status"
                                 name="status"
                                 errors={errors.status}
-                                value={values.status}
                                 onChange={handleChange}
+                                value={values.status}
                             >
                                 <option></option>
                                 <option value="0">Masih Dipinjam</option>

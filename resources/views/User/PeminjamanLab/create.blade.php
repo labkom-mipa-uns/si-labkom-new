@@ -21,100 +21,125 @@
                             <select
                                 id="id_mahasiswa"
                                 name="id_mahasiswa"
-                                class="form-select"
+                                class="form-select @error('id_mahasiswa') error @enderror"
                             >
-                                <option value=""></option>
+                                <option></option>
+                                @foreach($Mahasiswa as $item)
+                                    @if($item->id === old('id_mahasiswa'))
+                                        <option value="{{ old('id_mahasiswa') }}">{{ $item->nama_mahasiswa }}</option>
+                                    @endif
+                                    <option value="{{ $item->id }}">{{ $item->nama_mahasiswa }}</option>
+                                @endforeach
                             </select>
-                            {{--                    <div className="form-error">{errors[0]}</div>--}}
+                            @error('id_mahasiswa')
+                                <div class="form-error">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="pr-6 pb-8 w-full lg:w-1/2">
                             <label class="form-label" for="id_lab">Laboratorium</label>
                             <select
                                 id="id_lab"
                                 name="id_lab"
-                                class="form-select"
+                                class="form-select @error('id_lab') error @enderror"
                             >
-                                <option value=""></option>
+                                <option></option>
+                                @foreach($Lab as $item)
+                                    @if($item->id === old('id_lab'))
+                                        <option value="{{ old('id_lab') }}">{{ $item->nama_lab }}</option>
+                                    @endif
+                                    <option value="{{ $item->id }}">{{ $item->nama_lab }}</option>
+                                @endforeach
                             </select>
-                            {{--                    <div className="form-error">{errors[0]}</div>--}}
+                            @error('id_lab')
+                                <div class="form-error">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="pr-6 pb-8 w-full lg:w-1/2">
-                            <label class="form-label" for="jadwal">Jadwal</label>
+                            <label class="form-label" for="id_jadwal">Jadwal</label>
                             <select
-                                id="jadwal"
-                                name="jadwal"
-                                class="form-select"
+                                id="id_jadwal"
+                                name="id_jadwal"
+                                class="form-select @error('id_jadwal') error @enderror"
                             >
-                                <option value=""></option>
+                                <option></option>
+                                @foreach($Jadwal as $item)
+                                    @if($item->id === old('id_jadwal'))
+                                        <option value="{{ old('id_jadwal') }}">{{ $item->nama_jadwal }}</option>
+                                    @endif
+                                    <option value="{{ $item->id }}">{{ $item->dosen->nama_dosen }} - {{ $item->matakuliah->nama_matkul }} - {{ $item->prodi->nama_prodi }}</option>
+                                @endforeach
                             </select>
-                            {{--                    <div className="form-error">{errors[0]}</div>--}}
+                            @error('id_jadwal')
+                                <div class="form-error">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="pr-6 pb-8 w-full lg:w-1/2">
                             <label class="form-label" for="tanggal">Tanggal</label>
                             <input
                                 id="tanggal"
                                 name="tanggal"
-                                class="form-input"
-                                autocomplete="off"
+                                class="form-input @error('tanggal') error @enderror"
                                 type="date"
+                                value="{{ old('tanggal') }}"
                             />
-                            {{--                    <div class="form-error">{errors[0]}</div>}--}}
+                            @error('tanggal')
+                                <div class="form-error">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="pr-6 pb-8 w-full lg:w-1/2">
                             <label class="form-label" for="jam_pinjam">Jam Pinjam</label>
                             <input
                                 id="jam_pinjam"
                                 name="jam_pinjam"
-                                class="form-input"
-                                autocomplete="off"
+                                class="form-input @error('jam_pinjam') error @enderror"
                                 type="time"
+                                value="{{ old('jam_pinjam') }}"
                             />
-                            {{--                    <div class="form-error">{errors[0]}</div>}--}}
+                            @error('jam_pinjam')
+                                <div class="form-error">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="pr-6 pb-8 w-full lg:w-1/2">
                             <label class="form-label" for="jam_kembali">Jam Kembali</label>
                             <input
                                 id="jam_kembali"
-                                name="jam_kembali "
-                                class="form-input"
-                                autocomplete="off"
+                                name="jam_kembali"
+                                class="form-input @error('jam_kembali') error @enderror"
                                 type="time"
+                                value="{{ old('jam_kembali') }}"
                             />
-                            {{--                    <div class="form-error">{errors[0]}</div>}--}}
+                            @error('jam_kembali')
+                                <div class="form-error">{{ $message }}</div>
+                            @enderror
                         </div>
-                        <div class="pr-6 pb-8 w-full lg:w-1/2">
+                        <div class="pr-6 pb-8 w-full">
                             <label class="form-label" for="kategori">Kategori</label>
                             <select
                                 id="kategori"
                                 name="kategori"
-                                class="form-select"
+                                class="form-select @error('kategori') error @enderror"
                             >
                                 <option value=""></option>
+                                <option value="didalam_jam">Didalam Jam Kuliah</option>
+                                <option value="diluar_jam">Diluar Jam Kuliah</option>
                             </select>
-                            {{--                    <div className="form-error">{errors[0]}</div>--}}
+                            @error('kategori')
+                                <div class="form-error">{{ $message }}</div>
+                            @enderror
                         </div>
-                        <div class="pr-6 pb-8 w-full lg:w-1/2">
-                            <label class="form-label" for="status">Status</label>
-                            <select
-                                id="status"
-                                name="status"
-                                class="form-select"
-                            >
-                                <option value=""></option>
-                            </select>
-                            {{--                    <div className="form-error">{errors[0]}</div>--}}
-                        </div>
-
+                        <input type="hidden" name="proses" value="1">
+                        <input type="hidden" name="status" value="0">
                         <div class="pr-6 pb-8 w-full lg:w-full">
                             <label class="form-label" for="keperluan">
                                 Keperluan
                             </label>
                             <textarea name="keperluan" id="keperluan"
-                                      class="form-input"
+                                      class="form-input @error('keperluan') error @enderror"
                                       autocomplete="off"
-                                      autocomplete="off"
-                            >
-                    </textarea>
+                            >{{ old('keperluan') }}</textarea>
+                            @error('keperluan')
+                                <div class="form-error">{{ $message }}</div>
+                            @enderror
                             {{--                    {errors && <div class="form-error">{errors[0]}</div>}--}}
                         </div>
                     </div>

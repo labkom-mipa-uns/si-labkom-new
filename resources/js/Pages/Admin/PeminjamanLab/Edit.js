@@ -22,6 +22,7 @@ export default () => {
         jam_kembali: peminjamanlab.jam_kembali || '',
         keperluan: peminjamanlab.keperluan || '',
         kategori: peminjamanlab.kategori || '',
+        proses: peminjamanlab.proses || '',
         status: peminjamanlab.status || ''
     });
 
@@ -170,7 +171,7 @@ export default () => {
                                 onChange={handleChange}
                             />
                             <SelectInput
-                                className="pr-6 pb-8 w-full lg:w-1/2"
+                                className="pr-6 pb-8 w-full lg:w-1/3"
                                 label="Kategori"
                                 name="kategori"
                                 errors={errors.kategori}
@@ -182,7 +183,20 @@ export default () => {
                                 <option value="diluar_jam">Diluar Jam Kuliah</option>
                             </SelectInput>
                             <SelectInput
-                                className="pr-6 pb-8 w-full lg:w-1/2"
+                                className="pr-6 pb-8 w-full lg:w-1/3"
+                                label="Proses"
+                                name="proses"
+                                errors={errors.proses}
+                                value={values.proses}
+                                onChange={handleChange}
+                            >
+                                <option></option>
+                                <option value="1" disabled>Menunggu Persetujuan</option>
+                                <option value="2">Setujui</option>
+                                <option value="3">Tolak</option>
+                            </SelectInput>
+                            <SelectInput
+                                className="pr-6 pb-8 w-full lg:w-1/3"
                                 label="Status"
                                 name="status"
                                 errors={errors.status}

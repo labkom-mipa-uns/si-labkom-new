@@ -44,6 +44,7 @@ Route::get('/PeminjamanLab/{PeminjamanLab}', [UserPeminjamanLabController::class
 Route::get('/PeminjamanLab/{PeminjamanLab}/edit', [UserPeminjamanLabController::class, 'edit'])->name('UserPeminjamanLab.edit');
 Route::put('/PeminjamanLab/{PeminjamanLab}', [UserPeminjamanLabController::class, 'update'])->name('UserPeminjamanLab.update');
 Route::delete('/PeminjamanLab/{PeminjamanLab}', [UserPeminjamanLabController::class, 'destroy'])->name('UserPeminjamanLab.destroy');
+Route::get('/PeminjamanLab/exportWord/{PeminjamanLab}', [UserPeminjamanLabController::class, 'exportToWord'])->name('UserPeminjamanLab.exportToWord');
 // Peminjaman Alat
 Route::get('/PeminjamanAlat', [UserPeminjamanAlatController::class, 'index'])->name('UserPeminjamanAlat.index');
 Route::get('/PeminjamanAlat/create', [UserPeminjamanAlatController::class, 'create'])->name('UserPeminjamanAlat.create');
@@ -52,6 +53,7 @@ Route::get('/PeminjamanAlat/{PeminjamanAlat}', [UserPeminjamanAlatController::cl
 Route::get('/PeminjamanAlat/{PeminjamanAlat}/edit', [UserPeminjamanAlatController::class, 'edit'])->name('UserPeminjamanAlat.edit');
 Route::put('/PeminjamanAlat/{PeminjamanAlat}', [UserPeminjamanAlatController::class, 'update'])->name('UserPeminjamanAlat.update');
 Route::delete('/PeminjamanAlat/{PeminjamanAlat}', [UserPeminjamanAlatController::class, 'destroy'])->name('UserPeminjamanAlat.destroy');
+Route::get('/PeminjamanAlat/exportWord/{PeminjamanAlat}', [UserPeminjamanAlatController::class, 'exportToWord'])->name('UserPeminjamanAlat.exportToWord');
 // Surat Bebas Labkom
 Route::get('/SuratBebasLabkom', [UserSuratBebasLabkomController::class, 'index'])->name('UserSuratBebasLabkom.index');
 Route::get('/SuratBebasLabkom/create', [UserSuratBebasLabkomController::class, 'create'])->name('UserSuratBebasLabkom.create');

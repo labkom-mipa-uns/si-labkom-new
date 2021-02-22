@@ -23,7 +23,7 @@ class CreatePeminjamanLabsTable extends Migration
             $table->time('jam_kembali');
             $table->text('keperluan');
             $table->enum('kategori', ['didalam_jam', 'diluar_jam']);
-            $table->enum('status', ['0', '1']);         // 0: Dipinjam, 1:  Dikembalikan
+            $table->enum('status', ['0', '1']);    // 0: Dipinjam, 1:  Dikembalikan
             $table->enum('proses', ['0', '1', '2']);    // 0: Ditolak, 1: Dalam Proses, 2: Diterima
             $table->softDeletes();
             $table->timestamps();

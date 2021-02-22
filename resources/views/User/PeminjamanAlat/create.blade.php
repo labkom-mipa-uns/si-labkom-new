@@ -14,17 +14,26 @@
         </h1>
         <div class="bg-white rounded shadow overflow-hidden max-w-full mb-8">
             <form method="post" action="{{ route('UserPeminjamanAlat.store') }}">
+                @csrf
                 <div class="p-8 -mr-6 -mb-8 flex flex-wrap">
                     <div class="pr-6 pb-8 w-full lg:w-1/2">
                         <label class="form-label" for="id_mahasiswa">Mahasiswa</label>
                         <select
                             id="id_mahasiswa"
                             name="id_mahasiswa"
-                            class="form-select"
+                            class="form-select @error('id_mahasiswa') error @enderror"
                         >
-                            <option value=""></option>
+                            <option></option>
+                            @foreach($Mahasiswa as $item)
+                                @if($item->id === old('id_mahasiswa'))
+                                    <option value="{{ old('id_mahasiswa') }}">{{ $item->nama_mahasiswa }}</option>
+                                @endif
+                                <option value="{{ $item->id }}">{{ $item->nama_mahasiswa }}</option>
+                            @endforeach
                         </select>
-                        {{--                    <div className="form-error">{errors[0]}</div>--}}
+                        @error('id_mahasiswa')
+                            <div class="form-error">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="pr-6 pb-8 w-full lg:w-1/2">
                         <label class="form-label" for="id_alat">Alat</label>
@@ -33,91 +42,104 @@
                             name="id_alat"
                             class="form-select"
                         >
-                            <option value=""></option>
+                            <option></option>
+                            @foreach($Alat as $item)
+                                @if($item->id === old('id_alat'))
+                                    <option value="{{ old('id_alat') }}">{{ $item->nama_alat }}</option>
+                                @endif
+                                <option value="{{ $item->id }}">{{ $item->nama_alat }}</option>
+                            @endforeach
                         </select>
-                        {{--                    <div className="form-error">{errors[0]}</div>--}}
+                        @error('id_alat')
+                            <div class="form-error">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="pr-6 pb-8 w-full lg:w-1/2">
                         <label class="form-label" for="tanggal_pinjam">Tanggal Pinjam</label>
                         <input
                             id="tanggal_pinjam"
                             name="tanggal_pinjam"
-                            class="form-input"
+                            class="form-input @error('tanggal_pinjam') error @enderror"
                             autocomplete="off"
                             type="date"
+                            value="{{ old('tanggal_pinjam') }}"
                         />
-                        {{--                    <div class="form-error">{errors[0]}</div>}--}}
+                        @error('tanggal_pinjam')
+                            <div class="form-error">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="pr-6 pb-8 w-full lg:w-1/2">
                         <label class="form-label" for="tanggal_kembali">Tanggal Kembali</label>
                         <input
                             id="tanggal_kembali"
                             name="tanggal_kembali"
-                            class="form-input"
+                            class="form-input @error('tanggal_kembali') error @enderror"
                             autocomplete="off"
                             type="date"
+                            value="{{ old('tanggal_kembali') }}"
                         />
-                        {{--                    <div class="form-error">{errors[0]}</div>}--}}
+                        @error('tanggal_pinjam')
+                            <div class="form-error">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="pr-6 pb-8 w-full lg:w-1/2">
                         <label class="form-label" for="jam_pinjam">Jam Pinjam</label>
                         <input
                             id="jam_pinjam"
                             name="jam_pinjam"
-                            class="form-input"
+                            class="form-input @error('jam_pinjam') error @enderror"
                             autocomplete="off"
                             type="time"
+                            value="{{ old('jam_pinjam') }}"
                         />
-                        {{--                    <div class="form-error">{errors[0]}</div>}--}}
+                        @error('jam_pinjam')
+                            <div class="form-error">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="pr-6 pb-8 w-full lg:w-1/2">
                         <label class="form-label" for="jam_kembali">Jam Kembali</label>
                         <input
                             id="jam_kembali"
-                            name="jam_kembali "
-                            class="form-input"
+                            name="jam_kembali"
+                            class="form-input @error('jam_kembali') error @enderror"
                             autocomplete="off"
                             type="time"
+                            value="{{ old('jam_kembali') }}"
                         />
-                        {{--                    <div class="form-error">{errors[0]}</div>}--}}
+                        @error('jam_kembali')
+                            <div class="form-error">{{ $message }}</div>
+                        @enderror
                     </div>
-                    <div class="pr-6 pb-8 w-full lg:w-1/2">
+                    <div class="pr-6 pb-8 w-full">
                         <label class="form-label" for="jumlah_pinjam">Jumlah Pinjam</label>
                         <input
                             id="jumlah_pinjam"
-                            name="jumlah_pinjam "
-                            class="form-input"
+                            name="jumlah_pinjam"
+                            class="form-input @error('jumlah_pinjam') error @enderror"
                             autocomplete="off"
                             type="number"
                             min="0"
+                            value="{{ old('jumlah_pinjam') }}"
                         />
-                        {{--                    <div class="form-error">{errors[0]}</div>}--}}
+                        @error('jumlah_pinjam')
+                            <div class="form-error">{{ $message }}</div>
+                        @enderror
                     </div>
-                    <div class="pr-6 pb-8 w-full lg:w-1/2">
-                        <label class="form-label" for="status">Status</label>
-                        <select
-                            id="status"
-                            name="status"
-                            class="form-select"
-                        >
-                            <option>
-                            </option>
-                            <option value="0">Masih Dipinjam</option>
-                            <option value="1">Sudah Dikembalikan</option>
-                        </select>
-                        {{--                    <div className="form-error">{errors[0]}</div>--}}
-                    </div>
-
+                    <input type="hidden" name="proses" value="1">
+                    <input type="hidden" name="status" value="0">
                     <div class="pr-6 pb-8 w-full lg:w-full">
                         <label class="form-label" for="keperluan">
                             Keperluan
                         </label>
                         <textarea name="keperluan" id="keperluan"
-                                  class="form-input"
+                                  class="form-input @error('keperluan') error @enderror"
                                   autocomplete="off"
                         >
-                    </textarea>
-                        {{--                    {errors && <div class="form-error">{errors[0]}</div>}--}}
+                            {{ old('keperluan') }}
+                        </textarea>
+                        @error('keperluan')
+                            <div class="form-error">{{ $message }}</div>
+                        @enderror
                     </div>
                 </div>
                 <div class="px-8 py-4 bg-gray-100 border-t border-gray-200 flex justify-end items-center">

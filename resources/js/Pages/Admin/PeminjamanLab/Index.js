@@ -37,7 +37,7 @@ const PeminjamanLab = () => {
                             </tr>
                         </thead>
                         <tbody>
-                        {data.map(({ id, mahasiswa, lab, jadwal, tanggal, jam_pinjam, jam_kembali, kategori, status}) => {
+                        {data.map(({ id, mahasiswa, lab, jadwal, tanggal, jam_pinjam, jam_kembali, kategori, status, proses}) => {
                             return (
                                 <tr
                                     key={id}
@@ -48,7 +48,7 @@ const PeminjamanLab = () => {
                                             href={route('PeminjamanLab.edit', id)}
                                             className="px-6 py-4 flex flex-col items-center lg:text-center focus:text-indigo-700"
                                         >
-                                            <span className="text-bold">{mahasiswa.nama_mahasiswa}</span>
+                                            <span className="font-bold">{mahasiswa.nama_mahasiswa}</span>
                                             <span className="text-sm text-gray-700">{mahasiswa.nim}</span>
                                         </InertiaLink>
                                     </td>
@@ -88,9 +88,16 @@ const PeminjamanLab = () => {
                                             href={route('PeminjamanLab.edit', id)}
                                             className="px-6 py-4 flex flex-col items-center lg:text-center focus:text-indigo"
                                         >
-                                            <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full
+                                            {proses !== '1' && (
+                                                <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full
                                                 ${status === '1' ? "bg-green-200 text-green-800" : "bg-red-200 text-red-800"}`}
-                                            >{(status === '1' ? 'Dikembalikan' : 'Dipinjam') }</span>
+                                                >{(status === '1' ? 'Dikembalikan' : 'Dipinjam') }</span>
+                                            )}
+                                            {proses === '1' && (
+                                                <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full
+                                                    ${proses === '1' ? "bg-yellow-200 text-yellow-800" : "bg-green-200 text-yellow-800"}`}
+                                                >{(proses === '1' ? 'Menunggu Persetujuan' : 'Disetujui') }</span>
+                                            )}
                                             <span className='text-sm text-gray-700'>{(kategori === 'didalam_jam') ? 'Didalam Jam Kuliah' : 'Diluar Jam Kuliah'}</span>
                                         </InertiaLink>
                                     </td>
