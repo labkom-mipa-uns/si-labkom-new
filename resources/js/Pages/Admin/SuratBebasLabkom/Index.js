@@ -30,12 +30,13 @@ export default () => {
                                 <th className="px-6 pt-5 pb-4">Nama</th>
                                 <th className="px-6 pt-5 pb-4">Prodi</th>
                                 <th className="px-6 pt-5 pb-4">Tanggal</th>
+                                <th className="px-6 pt-5 pb-4">Proses</th>
                                 <th className="px-6 pt-5 pb-4">#</th>
                             </tr>
                         </thead>
                         <tbody>
                         {data.map(
-                            ({ id, mahasiswa, tanggal, deleted_at }, index) => (
+                            ({ id, mahasiswa, tanggal, proses, deleted_at }, index) => (
                                 <tr
                                     key={id}
                                     className="hover:bg-gray-100 focus-within:bg-gray-100"
@@ -94,6 +95,17 @@ export default () => {
                                             {tanggal}
                                         </InertiaLink>
                                     </td>
+                                    <td className="border-t">
+                                        <InertiaLink
+                                            tabIndex="-1"
+                                            href={route('SuratBebasLabkom.edit', id)}
+                                            as="a"
+                                            className="px-6 py-4 flex items-center focus:text-indigo"
+                                        >
+                                            <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${(proses === '1') ? "bg-yellow-200 text-yellow-800" : "bg-green-200 text-green-800"}${proses === '0' && "bg-gray-200 text-gray-800"}`}
+                                            >{(proses === '1') ? 'Menunggu Persetujuan' : 'Disetujui'}{proses === '0' && "Selesai"}</span>
+                                        </InertiaLink>
+                                    </td>
                                     <td className="border-t w-px">
                                         <InertiaLink
                                             tabIndex="-1"
@@ -112,7 +124,7 @@ export default () => {
                         )}
                         {data.length === 0 && (
                             <tr>
-                                <td className="border-t px-6 py-4" colSpan="6">
+                                <td className="border-t px-6 py-4" colSpan="7">
                                     No surat found.
                                 </td>
                             </tr>

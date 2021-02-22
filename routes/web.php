@@ -62,7 +62,7 @@ Route::get('/SuratBebasLabkom/{SuratBebasLabkom}', [UserSuratBebasLabkomControll
 Route::get('/SuratBebasLabkom/{SuratBebasLabkom}/edit', [UserSuratBebasLabkomController::class, 'edit'])->name('UserSuratBebasLabkom.edit');
 Route::put('/SuratBebasLabkom/{SuratBebasLabkom}', [UserSuratBebasLabkomController::class, 'update'])->name('UserSuratBebasLabkom.update');
 Route::delete('/SuratBebasLabkom/{SuratBebasLabkom}', [UserSuratBebasLabkomController::class, 'destroy'])->name('UserSuratBebasLabkom.destroy');
-
+Route::get('/SuratBebasLabkom/exportWord/{SuratBebasLabkom}', [UserSuratBebasLabkomController::class, 'exportToWord'])->name('UserSuratBebasLabkom.exportToWord');
 # ==== Admin ====
 // Redirect url '/admin'
 Route::redirect('admin', '/admin/Dashboard');

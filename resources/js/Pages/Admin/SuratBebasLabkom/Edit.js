@@ -17,6 +17,7 @@ export default () => {
     const [values, setValues] = useState({
         id_mahasiswa: surat.id_mahasiswa || '',
         tanggal: surat.tanggal || '',
+        proses: surat.proses || '',
     });
 
     function handleChange(e) {
@@ -92,7 +93,7 @@ export default () => {
                     <form onSubmit={handleSubmit}>
                         <div className="p-8 -mr-6 -mb-8 flex flex-wrap">
                             <SelectInput
-                                className="pr-6 pb-8 w-full lg:w-1/2"
+                                className="pr-6 pb-8 w-full"
                                 label="Nama Mahasiswa"
                                 name="id_mahasiswa"
                                 errors={errors.id_mahasiswa}
@@ -115,6 +116,19 @@ export default () => {
                                 value={values.tanggal}
                                 onChange={handleChange}
                             />
+                            <SelectInput
+                                className="pr-6 pb-8 w-full lg:w-1/2"
+                                label="Proses"
+                                name="proses"
+                                errors={errors.proses}
+                                value={values.proses}
+                                onChange={handleChange}
+                            >
+                                <option></option>
+                                <option value="1" disabled>Menunggu Persetujuan</option>
+                                <option value="2">Setujui</option>
+                                <option value="3">Tolak</option>
+                            </SelectInput>
                         </div>
                         <div className="px-8 py-4 bg-gray-100 border-t border-gray-200 flex items-center">
                             {!surat.deleted_at && (

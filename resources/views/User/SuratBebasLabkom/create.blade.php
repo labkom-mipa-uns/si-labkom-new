@@ -14,29 +14,42 @@
         </h1>
         <div class="bg-white rounded shadow overflow-hidden max-w-full md:mb-8">
             <form method="post" action="{{ route('UserSuratBebasLabkom.store') }}">
+                @csrf
                 <div class="p-8 -mr-6 -mb-8 flex flex-wrap">
                     <div class="pr-6 pb-8 w-full lg:w-1/2">
                         <label class="form-label" for="id_mahasiswa">Mahasiswa</label>
                         <select
                             id="id_mahasiswa"
                             name="id_mahasiswa"
-                            class="form-select"
+                            class="form-select @error('id_mahasiswa') error @enderror"
                         >
-                            <option value=""></option>
+                            <option></option>
+                            @foreach($Mahasiswa as $item)
+                                @if($item->id === old('id_mahasiswa'))
+                                    <option value="{{ old('id_mahasiswa') }}">{{ $item->nama_mahasiswa }}</option>
+                                @endif
+                                <option value="{{ $item->id }}">{{ $item->nama_mahasiswa }}</option>
+                            @endforeach
                         </select>
-                        {{--                    <div className="form-error">{errors[0]}</div>--}}
+                        @error('id_mahasiswa')
+                            <div class="form-error">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="pr-6 pb-8 w-full lg:w-1/2">
-                        <label class="form-label" for="tanggal">Tanggal</label>
+                        <label class="form-label" for="tanggal_pinjam">Tanggal</label>
                         <input
                             id="tanggal"
                             name="tanggal"
-                            class="form-input"
+                            class="form-input @error('tanggal') error @enderror"
                             autocomplete="off"
                             type="date"
+                            value="{{ old('tanggal') }}"
                         />
-                        {{--                    <div class="form-error">{errors[0]}</div>}--}}
+                        @error('tanggal')
+                            <div class="form-error">{{ $message }}</div>
+                        @enderror
                     </div>
+                    <input type="hidden" name="proses" value="1">
                 </div>
                 <div class="px-8 py-4 bg-gray-100 border-t border-gray-200 flex justify-end items-center">
                     <a
@@ -49,7 +62,7 @@
                         type="submit"
                         class="btn-indigo"
                     >
-                        Kirim Data
+                        Konfirmasi
                     </button>
                 </div>
             </form>

@@ -34,6 +34,7 @@ class SuratBebasLabkomController extends Controller
                         'id' => $surat->id,
                         'mahasiswa' => $surat->mahasiswa,
                         'tanggal' => $surat->tanggal,
+                        'proses' => $surat->proses,
                         'deleted_at' => $surat->deleted_at
                     ];
                 })
@@ -104,6 +105,7 @@ class SuratBebasLabkomController extends Controller
                 'id_mahasiswa' => $SuratBebasLabkom->id_mahasiswa,
                 'mahasiswa' => $SuratBebasLabkom->mahasiswa,
                 'tanggal' => $SuratBebasLabkom->tanggal,
+                'proses' => $SuratBebasLabkom->proses,
                 'deleted_at' => $SuratBebasLabkom->deleted_at
             ],
             'mahasiswa' => Mahasiswa::orderBy('nama_mahasiswa', 'asc')

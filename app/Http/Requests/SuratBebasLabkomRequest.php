@@ -26,6 +26,7 @@ class SuratBebasLabkomRequest extends FormRequest
         return [
             'id_mahasiswa' => 'required',
             'tanggal' => 'required|date',
+            'proses' => 'required',
         ];
     }
 }

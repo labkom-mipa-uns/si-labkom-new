@@ -35,6 +35,61 @@
         </svg>
     </div>
     <div class="bg-white min-h-full md:py-16 lg:py-24">
+        <!-- This example requires Tailwind CSS v2.0+ -->
+        <div class="flex flex-col container mx-auto pb-10">
+            <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                    <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Nama
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Prodi
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Status
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                            @foreach($Surat as $item)
+                                @if($item->proses !== '0')
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="text-sm font-medium text-gray-900">
+                                                {{ $item->mahasiswa->nama_mahasiswa }}
+                                            </div>
+                                            <div class="text-sm text-gray-500">
+                                                {{ $item->mahasiswa->nim }}
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="text-sm text-gray-900">{{ $item->mahasiswa->prodi->nama_prodi }}</div>
+                                            <div class="text-sm text-gray-500">{{ $item->mahasiswa->angkatan }}</div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap flex flex-col items-start">
+                                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full @if($item->proses === '2') bg-green-100 text-green-800 @endif @if($item->proses === '1') bg-yellow-100 text-yellow-800 @endif @if($item->proses === '0') bg-red-100 text-red-800 @endif">
+                                              @if($item->proses === '2') {{ __('Sudah Disetujui')}} @elseif($item->proses === '1') {{ __('Sedang Diproses')}} @elseif($item->proses === '0') {{ __('Ditolak') }} @endif
+                                            </span>
+                                            @if($item->proses === '2')
+                                                <a class="px-2 py-1 mt-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-200 text-blue-800" href="{{ route('UserSuratBebasLabkom.exportToWord', $item->id) }}">
+                                                    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="file-word" class="svg-inline--fa fa-file-word w-4 h-4 mr-2" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="currentColor" d="M224 136V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zm57.1 120H305c7.7 0 13.4 7.1 11.7 14.7l-38 168c-1.2 5.5-6.1 9.3-11.7 9.3h-38c-5.5 0-10.3-3.8-11.6-9.1-25.8-103.5-20.8-81.2-25.6-110.5h-.5c-1.1 14.3-2.4 17.4-25.6 110.5-1.3 5.3-6.1 9.1-11.6 9.1H117c-5.6 0-10.5-3.9-11.7-9.4l-37.8-168c-1.7-7.5 4-14.6 11.7-14.6h24.5c5.7 0 10.7 4 11.8 9.7 15.6 78 20.1 109.5 21 122.2 1.6-10.2 7.3-32.7 29.4-122.7 1.3-5.4 6.1-9.1 11.7-9.1h29.1c5.6 0 10.4 3.8 11.7 9.2 24 100.4 28.8 124 29.6 129.4-.2-11.2-2.6-17.8 21.6-129.2 1-5.6 5.9-9.5 11.5-9.5zM384 121.9v6.1H256V0h6.1c6.4 0 12.5 2.5 17 7l97.9 98c4.5 4.5 7 10.6 7 16.9z"></path></svg>
+                                                    {{ __(' Cetak Dokumen') }}</a>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endif
+                            @endforeach
+                            <!-- More items... -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
         <dl class="space-y-10 md:space-y-0 grid md:gap-4 grid-rows-3 grid-flow-col container mx-auto">
             <div class="flex">
                 <div class="flex-shrink-0">

@@ -13,6 +13,7 @@ export default () => {
     const [values, setValues] = useState({
         id_mahasiswa: '',
         tanggal: '',
+        proses: ''
     });
 
     function handleChange(e) {
@@ -50,7 +51,7 @@ export default () => {
                     <form onSubmit={handleSubmit}>
                         <div className="p-8 -mr-6 -mb-8 flex flex-wrap">
                             <SelectInput
-                                className="pr-6 pb-8 w-full lg:w-1/2"
+                                className="pr-6 pb-8 w-full"
                                 label="Nama Mahasiswa"
                                 name="id_mahasiswa"
                                 errors={errors.id_mahasiswa}
@@ -73,6 +74,17 @@ export default () => {
                                 value={values.tanggal}
                                 onChange={handleChange}
                             />
+                            <SelectInput
+                                className="pr-6 pb-8 w-full lg:w-1/2"
+                                label="Proses"
+                                name="proses"
+                                errors={errors.proses}
+                                onChange={handleChange}
+                                value={values.proses}
+                            >
+                                <option></option>
+                                <option value="1">Menunggu Persetujuan</option>
+                            </SelectInput>
                         </div>
                         <div className="px-8 py-4 bg-gray-100 border-t border-gray-200 flex justify-end items-center">
                             <InertiaLink
