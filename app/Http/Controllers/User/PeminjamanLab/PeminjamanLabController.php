@@ -4,10 +4,13 @@ namespace App\Http\Controllers\User\PeminjamanLab;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PeminjamanLabRequest;
+use App\Models\Dosen;
 use App\Models\Jadwal;
 use App\Models\Lab;
 use App\Models\Mahasiswa;
+use App\Models\MataKuliah;
 use App\Models\PeminjamanLab;
+use App\Models\Prodi;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -18,6 +21,7 @@ use Illuminate\Support\Facades\Redirect;
 use PhpOffice\PhpWord\Exception\CopyFileException;
 use PhpOffice\PhpWord\Exception\CreateTemporaryFileException;
 use PhpOffice\PhpWord\TemplateProcessor;
+use Throwable;
 
 class PeminjamanLabController extends Controller
 {
@@ -26,10 +30,10 @@ class PeminjamanLabController extends Controller
      *
      * @return Application|Factory|View
      */
-    public function index()
+    public function index(): Factory|View|Application
     {
         $data = [
-            'PeminjamanLab' => PeminjamanLab::with(['mahasiswa', 'jadwal', 'lab'])->get()
+            'PeminjamanLab' => PeminjamanLab::with(['mahasiswa', 'lab'])->get()
         ];
         return view('User.PeminjamanLab.index', $data);
     }
@@ -39,12 +43,12 @@ class PeminjamanLabController extends Controller
      *
      * @return Application|Factory|View
      */
-    public function create()
+    public function create(): Factory|View|Application
     {
         $data = [
             'Mahasiswa' => Mahasiswa::all(),
+            'Prodi' => Prodi::all(),
             'Lab' => Lab::all(),
-            'Jadwal' => Jadwal::with(['prodi', 'dosen', 'matakuliah'])->get()
         ];
         return view('User.PeminjamanLab.create', $data);
     }
@@ -52,18 +56,86 @@ class PeminjamanLabController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param PeminjamanLabRequest $request
-     * @return RedirectResponse
+     * @param Request $request
+     * @return RedirectResponse|null
      */
-    public function store(PeminjamanLabRequest $request): ?RedirectResponse
+    public function store(Request $request): ?RedirectResponse
     {
+        $request->validate([
+            // Mahasiswa
+            'nim' => ['required','size:8'],
+            'nama_mahasiswa' => ['required','string','max:60'],
+            'id_prodi' => ['required'],
+            'angkatan' => ['required'],
+            'jenis_kelamin' => ['required','string'],
+            'kelas' => ['required','string','max:5'],
+            'no_hp' => ['required','max:13'],
+            'email' => ['required','regex:/^[A-Za-z0-9\.]*@(student)[.](uns.ac.id)$/'],
+            // Dosen
+            'nidn' => 'required|string',
+            'nama_dosen' => 'required|string|max:60',
+            // Mata Kuliah
+            'kode_mk' => 'required',
+            'nama_matkul' => 'required|string|max:55',
+            // Peminjaman Lab
+            'id_lab' => 'required',
+            'tanggal' => 'required|date',
+            'jam_pinjam' => 'required',
+            'jam_kembali' => 'required',
+            'kategori' => 'required|string',
+            'keperluan' => 'required|string',
+            'proses' => 'required|string',
+            'status' => 'required|string',
+        ]);
         try {
-            PeminjamanLab::create($request->validated());
+            if (is_null(Mahasiswa::where('nim', $request->nim)->first())) {
+                $mahasiswa = new Mahasiswa();
+                $mahasiswa->nim = $request->nim;
+                $mahasiswa->nama_mahasiswa = $request->nama_mahasiswa;
+                $mahasiswa->jenis_kelamin = $request->jenis_kelamin;
+                $mahasiswa->kelas = $request->kelas;
+                $mahasiswa->id_prodi = $request->id_prodi;
+                $mahasiswa->angkatan = $request->angkatan;
+                $mahasiswa->email = $request->email;
+                $mahasiswa->no_hp = $request->no_hp;
+                $mahasiswa->saveOrFail();
+            }
+            if (is_null(Dosen::where('nidn', $request->nidn)->first())) {
+                $dosen = new Dosen();
+                $dosen->nidn = $request->nidn;
+                $dosen->nama_dosen = $request->nama_dosen;
+                $dosen->saveOrFail();
+            }
+            if (is_null(MataKuliah::where('kode_mk', $request->kode_mk)->first())) {
+                $mata_kuliah = new MataKuliah();
+                $mata_kuliah->kode_mk = $request->kode_mk;
+                $mata_kuliah->nama_matkul = $request->nama_matkul;
+                $mata_kuliah->saveOrFail();
+            }
+            $peminjaman_lab = new PeminjamanLab();
+            $peminjaman_lab->id_mahasiswa = Mahasiswa::where('nim', $request->nim)->first()->id;
+            $peminjaman_lab->id_dosen = Dosen::where('nidn', $request->nidn)->first()->id;
+            $peminjaman_lab->id_matkul = MataKuliah::where('kode_mk', $request->kode_mk)->first()->id;
+            $peminjaman_lab->id_lab = $request->id_lab;
+            $peminjaman_lab->tanggal = $request->tanggal;
+            $peminjaman_lab->jam_pinjam = $request->jam_pinjam;
+            $peminjaman_lab->jam_kembali = $request->jam_kembali;
+            $peminjaman_lab->kategori = $request->kategori;
+            $peminjaman_lab->keperluan = $request->keperluan;
+            $peminjaman_lab->proses = $request->proses;
+            $peminjaman_lab->status = $request->status;
+            $peminjaman_lab->saveOrFail();
             return Redirect::route('UserPeminjamanLab.index')
                 ->with([
                     'name' => 'Data Peminjam Lab',
                     'success' => 'Berhasil Ditambahkan!']);
         } catch (Exception $exception) {
+            return Redirect::route('UserPeminjamanLab.index')
+                ->with([
+                    'name' => 'Data Peminjam Lab',
+                    'error' => "Gagal Ditambahkan! {$exception->getMessage()}"
+                ]);
+        } catch (Throwable $exception) {
             return Redirect::route('UserPeminjamanLab.index')
                 ->with([
                     'name' => 'Data Peminjam Lab',

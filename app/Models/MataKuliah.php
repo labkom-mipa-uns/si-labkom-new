@@ -22,9 +22,9 @@ class MataKuliah extends Model
     /**
      * @return HasMany
      */
-    public function jadwal(): HasMany
+    public function peminjamanlab(): HasMany
     {
-        return $this->hasMany(Jadwal::class);
+        return $this->hasMany(PeminjamanLab::class);
     }
 
     /**

@@ -8,9 +8,9 @@
             <!--Left Col-->
             <div class="flex flex-col w-full md:w-2/5 justify-center items-start text-center md:text-left">
                 <h1 class="text-5xl font-bold leading-tight">
-                    Laboratorium Komputasi FMIPA
+                    Laboratorium Komputasi Fakultas MIPA
                 </h1>
-                <p class="uppercase tracking-loose text-3xl w-full mb-2">Universitas Sebelas Maret</p>
+                <p class="uppercase tracking-loose text-3xl w-full mb-2 mt-3">Universitas Sebelas Maret</p>
 {{--                <p class="leading-normal text-xl italic mb-2">--}}
 {{--                    Kami siap membantu anda--}}
 {{--                </p>--}}

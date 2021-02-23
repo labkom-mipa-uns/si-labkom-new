@@ -24,14 +24,14 @@ class MahasiswaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nim' => 'required|size:8',
-            'nama_mahasiswa' => 'required|string|max:60',
-            'jenis_kelamin' => 'required|string',
-            'kelas' => 'required|string|max:5',
-            'id_prodi' => 'required',
-            'angkatan' => 'required',
-            'email' => 'required',
-            'no_hp' => 'required|max:13'
+            'nim' => ['required','size:8'],
+            'nama_mahasiswa' => ['required','string','max:60'],
+            'jenis_kelamin' => ['required','string'],
+            'kelas' => ['required','string','max:5'],
+            'id_prodi' => ['required'],
+            'angkatan' => ['required'],
+            'email' => ['required','regex:/^[A-Za-z0-9\.]*@(student)[.](uns.ac.id)$/'],
+            'no_hp' => ['required','max:13'],
         ];
     }
 }

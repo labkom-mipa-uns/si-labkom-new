@@ -11,12 +11,13 @@ import TrashedMessage from "@/Shared/TrashedMessage";
 import DeleteButton from "@/Shared/DeleteButton";
 
 export default () => {
-    const { peminjamanlab, mahasiswa, lab, jadwal, errors } = usePage().props;
+    const { peminjamanlab, mahasiswa, lab, dosen, matakuliah, errors } = usePage().props;
     const [sending, setSending] = useState(false);
     const [values, setValues] = useState({
         id_mahasiswa: peminjamanlab.id_mahasiswa || '',
         id_lab: peminjamanlab.id_lab || '',
-        id_jadwal: peminjamanlab.id_jadwal || '',
+        id_dosen: peminjamanlab.id_dosen || '',
+        id_matkul: peminjamanlab.id_matkul || '',
         tanggal: peminjamanlab.tanggal || '',
         jam_pinjam: peminjamanlab.jam_pinjam || '',
         jam_kembali: peminjamanlab.jam_kembali || '',
@@ -130,21 +131,32 @@ export default () => {
                             </SelectInput>
                             <SelectInput
                                 className="pr-6 pb-8 w-full lg:w-1/2"
-                                label="Jadwal"
-                                name="id_jadwal"
-                                errors={errors.id_jadwal}
-                                value={values.id_jadwal}
+                                label="Dosen"
+                                name="id_dosen"
+                                errors={errors.id_dosen}
+                                value={values.id_dosen}
                                 onChange={handleChange}
                             >
                                 <option value=""></option>
-                                {jadwal.map(({ id, dosen, matakuliah, prodi }) => (
-                                    <option key={id} value={id}>
-                                        {dosen.nama_dosen} - {matakuliah.nama_matkul} - {prodi.nama_prodi}
-                                    </option>
+                                {dosen.map(({ id, nama_dosen }) => (
+                                    <option key={id} value={id}>{nama_dosen}</option>
+                                ))}
+                            </SelectInput>
+                            <SelectInput
+                                className="pr-6 pb-8 w-full lg:w-1/2"
+                                label="Mata Kuliah"
+                                name="id_matkul"
+                                errors={errors.id_matkul}
+                                value={values.id_matkul}
+                                onChange={handleChange}
+                            >
+                                <option value=""></option>
+                                {matakuliah.map(({ id, nama_matkul }) => (
+                                    <option key={id} value={id}>{nama_matkul}</option>
                                 ))}
                             </SelectInput>
                             <TextInput
-                                className="pr-6 pb-8 w-full lg:w-1/2"
+                                className="pr-6 pb-8 w-full lg:w-1/3"
                                 label="Tanggal"
                                 name="tanggal"
                                 type="date"
@@ -153,7 +165,7 @@ export default () => {
                                 onChange={handleChange}
                             />
                             <TextInput
-                                className="pr-6 pb-8 w-full lg:w-1/2"
+                                className="pr-6 pb-8 w-full lg:w-1/3"
                                 label="Jam Pinjam"
                                 name="jam_pinjam"
                                 type="time"
@@ -162,7 +174,7 @@ export default () => {
                                 onChange={handleChange}
                             />
                             <TextInput
-                                className="pr-6 pb-8 w-full lg:w-1/2"
+                                className="pr-6 pb-8 w-full lg:w-1/3"
                                 label="Jam Kembali"
                                 name="jam_kembali"
                                 type="time"

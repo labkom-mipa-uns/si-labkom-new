@@ -15,7 +15,7 @@ class CreateDosensTable extends Migration
     {
         Schema::create('dosen', function (Blueprint $table) {
             $table->id();
-            $table->string('nidn');
+            $table->string('nidn')->unique();
             $table->string('nama_dosen');
             $table->softDeletes();
             $table->timestamps();

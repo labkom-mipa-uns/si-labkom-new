@@ -30,6 +30,7 @@ class MataKuliahController extends Controller
                 ->transform(function ($matkul) {
                     return [
                         'id' => $matkul->id,
+                        'kode_mk' => $matkul->kode_mk,
                         'nama_matkul' => $matkul->nama_matkul,
                         'deleted_at' => $matkul->deleted_at
                     ];
@@ -92,6 +93,7 @@ class MataKuliahController extends Controller
         return Inertia::render('Admin/MataKuliah/Edit', [
             'matkul' => [
                 'id' => $MataKuliah->id,
+                'kode_mk' => $MataKuliah->kode_mk,
                 'nama_matkul' => $MataKuliah->nama_matkul,
                 'deleted_at' => $MataKuliah->deleted_at
             ]

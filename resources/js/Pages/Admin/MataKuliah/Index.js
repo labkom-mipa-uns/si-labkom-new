@@ -25,14 +25,14 @@ export default () => {
                     <table className="w-full whitespace-no-wrap">
                         <thead>
                             <tr className="text-left font-bold">
-                                <th className="px-6 pt-5 pb-4">No</th>
+                                <th className="px-6 pt-5 pb-4">Kode MK</th>
                                 <th className="px-6 pt-5 pb-4">Nama Mata Kuliah</th>
                                 <th className="px-6 pt-5 pb-4">#</th>
                             </tr>
                         </thead>
                         <tbody>
                         {data.map(
-                            ({ id, nama_matkul, deleted_at }, index) => (
+                            ({ id, nama_matkul, kode_mk, deleted_at }) => (
                                 <tr
                                     key={id}
                                     className="hover:bg-gray-100 focus-within:bg-gray-100"
@@ -43,7 +43,13 @@ export default () => {
                                             className="px-6 py-4 flex items-center focus:text-indigo-700"
                                             as="a"
                                         >
-                                            {index + 1}
+                                            {kode_mk}
+                                            {deleted_at && (
+                                                <Icon
+                                                    name="trash"
+                                                    className="flex-shrink-0 w-3 h-3 text-gray-400 fill-current ml-2"
+                                                />
+                                            )}
                                         </InertiaLink>
                                     </td>
                                     <td className="border-t">

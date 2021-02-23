@@ -37,7 +37,7 @@ const PeminjamanLab = () => {
                             </tr>
                         </thead>
                         <tbody>
-                        {data.map(({ id, mahasiswa, lab, jadwal, tanggal, jam_pinjam, jam_kembali, kategori, status, proses}) => {
+                        {data.map(({ id, mahasiswa, lab, dosen, matakuliah, tanggal, jam_pinjam, jam_kembali, kategori, status, proses}) => {
                             return (
                                 <tr
                                     key={id}
@@ -58,7 +58,7 @@ const PeminjamanLab = () => {
                                             href={route('PeminjamanLab.edit', id)}
                                             className="px-6 py-4 flex flex-col items-center lg:text-center focus:text-indigo"
                                         >
-                                            <span className='font-bold'>{jadwal.prodi.nama_prodi}</span>
+                                            <span className='font-bold'>{mahasiswa.prodi.nama_prodi}</span>
                                             <span className='text-sm text-gray-700'>{mahasiswa.angkatan}</span>
                                         </InertiaLink>
                                     </td>
@@ -68,8 +68,9 @@ const PeminjamanLab = () => {
                                             href={route('PeminjamanLab.edit', id)}
                                             className="px-6 py-4 flex flex-col items-center lg:text-center focus:text-indigo"
                                         >
-                                            <span className='font-bold'>{jadwal.matakuliah.nama_matkul}</span>
-                                            <span className='text-sm text-gray-700'>{jadwal.dosen.nama_dosen}</span>                                        </InertiaLink>
+                                            <span className='font-bold'>{matakuliah.nama_matkul}</span>
+                                            <span className='text-sm text-gray-700'>{dosen.nama_dosen}</span>
+                                        </InertiaLink>
                                     </td>
                                     <td className="border-t">
                                         <InertiaLink

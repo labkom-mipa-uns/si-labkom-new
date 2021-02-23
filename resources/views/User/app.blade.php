@@ -28,6 +28,7 @@
                 <div class="flex items-center">
                     <a class="toggleColour text-white no-underline hover:no-underline font-bold text-lg" href="{{ route('home') }}">
                         <!--Icon from: http://www.potlabicons.com/ -->
+{{--                        <img src="{{ asset('img/LogoWebLabkom.png') }}" alt="LogoWebLabkom" class="h-8 fill-current inline">--}}
                         <svg class="h-8 fill-current inline" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
                              viewBox="0 0 5957 2020"
                         >
@@ -84,7 +85,7 @@
                                 <g id="_526822992">
                                     <text x="2135" y="1027" class="fil1 svgText fnt0">LABKOM</text>
                                     <g transform="matrix(1 0 0 1 -813.683 608.031)">
-                                        <text x="2978" y="1010"  class="fil1 svgText fnt1">F M I P A  U N S</text>
+                                        <text x="2978" y="1010"  class="fil1 svgText fnt1">F&nbsp;M&nbsp;I&nbsp;P&nbsp;A&nbsp;&nbsp;U&nbsp;N&nbsp;S</text>
                                     </g>
                                 </g>
                             </g>
@@ -185,7 +186,7 @@
                                 <g id="_526822992">
                                     <text x="2135" y="1027" class="fil2 fnt0">LABKOM</text>
                                     <g transform="matrix(1 0 0 1 -813.683 608.031)">
-                                        <text x="2978" y="1010"  class="fil2 fnt1">F M I P A  U N S</text>
+                                        <text x="2978" y="1010"  class="fil2 fnt1">F&nbsp;M&nbsp;I&nbsp;P&nbsp;A&nbsp;&nbsp;U&nbsp;N&nbsp;S</text>
                                     </g>
                                 </g>
                             </g>

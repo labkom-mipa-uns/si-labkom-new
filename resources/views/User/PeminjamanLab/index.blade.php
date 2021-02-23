@@ -77,8 +77,8 @@
                                             <div class="text-sm text-gray-500">{{ $item->mahasiswa->angkatan }}</div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm text-gray-900">{{ $item->jadwal->matakuliah->nama_matkul }}</div>
-                                            <div class="text-sm text-gray-500">{{ $item->jadwal->dosen->nama_dosen }}</div>
+                                            <div class="text-sm text-gray-900">{{ $item->matakuliah->nama_matkul }}</div>
+                                            <div class="text-sm text-gray-500">{{ $item->dosen->nama_dosen }}</div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="text-sm text-gray-900">{{ $item->lab->nama_lab }}</div>

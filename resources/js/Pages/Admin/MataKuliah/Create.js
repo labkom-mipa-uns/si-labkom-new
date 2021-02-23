@@ -10,6 +10,7 @@ export default () => {
     const { errors } = usePage().props;
     const [sending, setSending] = useState(false);
     const [values, setValues] = useState({
+        kode_mk: '',
         nama_matkul: '',
     });
 
@@ -48,7 +49,15 @@ export default () => {
                     <form onSubmit={handleSubmit}>
                         <div className="p-8 -mr-6 -mb-8 flex flex-wrap">
                             <TextInput
-                                className="pr-6 pb-8 w-full"
+                                className="pr-6 pb-8 w-full lg:w-1/2"
+                                label="Kode Mata Kuliah"
+                                name="kode_mk"
+                                errors={errors.kode_mk}
+                                value={values.kode_mk}
+                                onChange={handleChange}
+                            />
+                            <TextInput
+                                className="pr-6 pb-8 w-full lg:w-1/2"
                                 label="Nama Mata Kuliah"
                                 name="nama_matkul"
                                 errors={errors.nama_matkul}

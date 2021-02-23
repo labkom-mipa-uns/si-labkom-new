@@ -24,6 +24,7 @@ class MataKuliahRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'kode_mk' => 'required',
             'nama_matkul' => 'required|string|max:55'
         ];
     }

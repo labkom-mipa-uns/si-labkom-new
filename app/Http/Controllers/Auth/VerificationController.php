@@ -53,7 +53,7 @@ class VerificationController extends Controller
      * @param Request $request
      * @return Application|RedirectResponse|Redirector|InertiaResponse
      */
-    public function show(Request $request)
+    public function show(Request $request): Redirector|InertiaResponse|RedirectResponse|Application
     {
         return $request->user()->hasVerifiedEmail()
             ? redirect($this->redirectPath())
@@ -64,9 +64,9 @@ class VerificationController extends Controller
      * Resend the email verification notification.
      *
      * @param Request $request
-     * @return JsonResponse|RedirectResponse
+     * @return Application|JsonResponse|RedirectResponse|Redirector
      */
-    public function resend(Request $request)
+    public function resend(Request $request): JsonResponse|Redirector|RedirectResponse|Application
     {
         if ($request->user()->hasVerifiedEmail()) {
             return $request->wantsJson()

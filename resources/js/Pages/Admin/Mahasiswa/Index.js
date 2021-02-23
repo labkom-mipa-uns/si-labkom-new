@@ -25,7 +25,6 @@ export default () => {
                     <table className="w-full whitespace-no-wrap">
                         <thead>
                             <tr className="text-left font-bold">
-                                <th className="px-6 pt-5 pb-4">No</th>
                                 <th className="px-6 pt-5 pb-4">NIM</th>
                                 <th className="px-6 pt-5 pb-4">Nama</th>
                                 <th className="px-6 pt-5 pb-4">Prodi</th>
@@ -103,7 +102,7 @@ export default () => {
                         )}
                         {data.length === 0 && (
                             <tr>
-                                <td className="border-t px-6 py-4" colSpan="6">
+                                <td className="border-t px-6 py-4" colSpan="5">
                                     No mahasiswa found.
                                 </td>
                             </tr>

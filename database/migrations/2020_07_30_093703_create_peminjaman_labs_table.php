@@ -17,7 +17,8 @@ class CreatePeminjamanLabsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('id_mahasiswa');
             $table->unsignedBigInteger('id_lab');
-            $table->unsignedBigInteger('id_jadwal');
+            $table->unsignedBigInteger('id_dosen');
+            $table->unsignedBigInteger('id_matkul');
             $table->date('tanggal');
             $table->time('jam_pinjam');
             $table->time('jam_kembali');
@@ -30,7 +31,6 @@ class CreatePeminjamanLabsTable extends Migration
 
             $table->foreign('id_mahasiswa')->references('id')->on('mahasiswa');
             $table->foreign('id_lab')->references('id')->on('lab');
-            $table->foreign('id_jadwal')->references('id')->on('jadwal');
         });
     }
 
