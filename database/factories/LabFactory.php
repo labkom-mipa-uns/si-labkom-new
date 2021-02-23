@@ -1,13 +1,29 @@
 <?php
+namespace Database\Factories;
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+use App\Models\Lab;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-use App\Lab;
-use Faker\Generator as Faker;
+class LabFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Lab::class;
 
-$factory->define(Lab::class, function (Faker $faker) {
-    return [
-        'nama_lab' => $faker->jobTitle,
-        'created_at' => now()
-    ];
-});
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition(): array
+    {
+        return [
+            'nama_lab' => $this->faker->jobTitle,
+            'created_at' => now()
+        ];
+    }
+}
+

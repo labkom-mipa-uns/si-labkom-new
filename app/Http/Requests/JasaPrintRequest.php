@@ -11,9 +11,9 @@ class JasaPrintRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,10 +21,13 @@ class JasaPrintRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
-            //
+            'jenis_print' => 'required',
+            'harga_print' => 'required|integer',
+            'jumlah_print' => 'required|integer',
+            'tanggal_print' => 'required',
         ];
     }
 }

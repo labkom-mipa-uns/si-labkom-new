@@ -17,6 +17,7 @@ class CreateSoftwareTable extends Migration
             $table->id();
             $table->string('nama_software');
             $table->integer('harga_software');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

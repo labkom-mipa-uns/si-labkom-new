@@ -21,9 +21,10 @@ class CreateMahasiswasTable extends Migration
             $table->string('kelas');
             $table->unsignedBigInteger('id_prodi');
             $table->enum('angkatan', ['2016', '2017','2018','2019','2020','2021']);
+            $table->string('email');
             $table->string('no_hp');
             $table->timestamps();
-
+            $table->softDeletes();
             $table->foreign('id_prodi')->references('id')->on('prodi');
         });
     }

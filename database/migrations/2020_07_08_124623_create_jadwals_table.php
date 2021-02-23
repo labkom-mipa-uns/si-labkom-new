@@ -18,6 +18,7 @@ class CreateJadwalsTable extends Migration
             $table->unsignedBigInteger('id_dosen');
             $table->unsignedBigInteger('id_matkul');
             $table->unsignedBigInteger('id_prodi');
+            $table->softDeletes();
             $table->timestamps();
 
             $table->foreign('id_dosen')->references('id')->on('dosen');

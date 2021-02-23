@@ -23,6 +23,7 @@ class CreateJasaInstallasisTable extends Migration
             $table->enum('jenis', ['install', 'service']);
             $table->text('keterangan');
             $table->time('jam_ambil');
+            $table->softDeletes();
             $table->timestamps();
 
             $table->foreign('id_mahasiswa')->references('id')->on('mahasiswa');

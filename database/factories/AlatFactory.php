@@ -1,14 +1,29 @@
 <?php
-
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace Database\Factories;
 
 use App\Alat;
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(Alat::class, function (Faker $faker) {
-    return [
-        'nama_alat' => $faker->company,
-        'harga_alat' => $faker->randomNumber(6),
-        'stok_alat' => $faker->randomNumber(2)
-    ];
-});
+class AlatFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Alat::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition(): array
+    {
+        return [
+            'nama_alat' => $this->faker->company,
+            'harga_alat' => $this->faker->randomNumber(6),
+            'stok_alat' => $this->faker->randomNumber(2)
+        ];
+    }
+}

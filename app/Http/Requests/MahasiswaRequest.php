@@ -30,6 +30,7 @@ class MahasiswaRequest extends FormRequest
             'kelas' => 'required|string|max:5',
             'id_prodi' => 'required',
             'angkatan' => 'required',
+            'email' => 'required',
             'no_hp' => 'required|max:13'
         ];
     }

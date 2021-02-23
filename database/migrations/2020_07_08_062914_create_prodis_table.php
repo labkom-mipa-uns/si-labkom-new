@@ -16,6 +16,7 @@ class CreateProdisTable extends Migration
         Schema::create('prodi', function (Blueprint $table) {
             $table->id();
             $table->string("nama_prodi");
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -1,15 +1,31 @@
 <?php
+namespace Database\Factories;
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+use App\Models\Mahasiswa;
+use App\Models\SuratBebasLabkom;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-use App\Mahasiswa;
-use App\SuratBebasLabkom;
-use Faker\Generator as Faker;
+class SuratBebasLabkomFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = SuratBebasLabkom::class;
 
-$factory->define(SuratBebasLabkom::class, function (Faker $faker) {
-    return [
-        'id_mahasiswa' => factory(Mahasiswa::class),
-        'tanggal' => $faker->date(),
-        'keperluan' => $faker->paragraph(5)
-    ];
-});
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition(): array
+    {
+        return [
+            'id_mahasiswa' => Mahasiswa::factory()->count(1)->create(),
+            'tanggal' => $this->faker->date(),
+            'keperluan' => $this->faker->paragraph(5)
+        ];
+    }
+}
+

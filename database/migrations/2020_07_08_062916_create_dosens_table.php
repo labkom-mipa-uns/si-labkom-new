@@ -17,6 +17,7 @@ class CreateDosensTable extends Migration
             $table->id();
             $table->string('nidn');
             $table->string('nama_dosen');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
