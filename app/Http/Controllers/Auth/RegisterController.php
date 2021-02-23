@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use App\User;
+use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Inertia\Inertia;
+use Inertia\Response as InertiaResponse;
 
 class RegisterController extends Controller
 {
@@ -42,6 +44,17 @@ class RegisterController extends Controller
     }
 
     /**
+     * Show the application registration form.
+     *
+     * @return InertiaResponse
+     */
+    public function showRegistrationForm(): InertiaResponse
+    {
+        return Inertia::render('Auth/Register');
+    }
+
+
+    /**
      * Get a validator for an incoming registration request.
      *
      * @param  array  $data
@@ -62,7 +75,7 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return User
      */
-    protected function create(array $data)
+    protected function create(array $data): User
     {
         return User::create([
             'name' => $data['name'],

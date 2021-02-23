@@ -33,6 +33,7 @@ class PeminjamanLabRequest extends FormRequest
             'jam_kembali' => 'required',
             'keperluan' => 'required|string',
             'kategori' => 'required|string',
+            'proses' => 'required|string',
             'status' => 'required|string',
         ];
     }

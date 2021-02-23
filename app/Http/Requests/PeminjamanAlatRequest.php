@@ -32,6 +32,7 @@ class PeminjamanAlatRequest extends FormRequest
             'tanggal_kembali' => 'required|date',
             'jumlah_pinjam' => 'required|numeric',
             'keperluan' => 'required|string',
+            'proses' => 'required',
             'status' => 'required'
         ];
     }

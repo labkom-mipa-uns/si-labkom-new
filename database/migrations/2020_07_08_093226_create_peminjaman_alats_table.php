@@ -23,7 +23,9 @@ class CreatePeminjamanAlatsTable extends Migration
             $table->time('jam_kembali');
             $table->integer('jumlah_pinjam');
             $table->text('keperluan');
-            $table->enum('status', ['0', '1']);
+            $table->enum('status', ['0', '1']);         // 0: Dipinjam, 1:  Dikembalikan
+            $table->enum('proses', ['0', '1', '2']);    // 0: Ditolak, 1: Dalam Proses, 2: Diterima
+            $table->softDeletes();
             $table->timestamps();
 
             $table->foreign('id_alat')->references('id')->on('alat');

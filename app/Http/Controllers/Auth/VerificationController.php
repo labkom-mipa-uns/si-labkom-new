@@ -4,7 +4,14 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Foundation\Auth\VerifiesEmails;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
+use Inertia\Inertia;
+use Inertia\Response as InertiaResponse;
 
 class VerificationController extends Controller
 {
@@ -38,5 +45,39 @@ class VerificationController extends Controller
         $this->middleware('auth');
         $this->middleware('signed')->only('verify');
         $this->middleware('throttle:6,1')->only('verify', 'resend');
+    }
+
+    /**
+     * Show the email verification notice.
+     *
+     * @param Request $request
+     * @return Application|RedirectResponse|Redirector|InertiaResponse
+     */
+    public function show(Request $request)
+    {
+        return $request->user()->hasVerifiedEmail()
+            ? redirect($this->redirectPath())
+            : Inertia::render('Auth/Verify');
+    }
+
+    /**
+     * Resend the email verification notification.
+     *
+     * @param Request $request
+     * @return JsonResponse|RedirectResponse
+     */
+    public function resend(Request $request)
+    {
+        if ($request->user()->hasVerifiedEmail()) {
+            return $request->wantsJson()
+                ? new JsonResponse([], 204)
+                : redirect($this->redirectPath());
+        }
+
+        $request->user()->sendEmailVerificationNotification();
+
+        return $request->wantsJson()
+            ? new JsonResponse([], 202)
+            : back()->with('resent', true);
     }
 }

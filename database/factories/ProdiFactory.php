@@ -1,13 +1,28 @@
 <?php
+namespace Database\Factories;
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+use App\Models\Prodi;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-use App\Prodi;
-use Faker\Generator as Faker;
+class ProdiFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Prodi::class;
 
-$factory->define(Prodi::class, function (Faker $faker) {
-    return [
-        'nama_prodi' => $faker->jobTitle,
-        'created_at' => now(),
-    ];
-});
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition(): array
+    {
+        return [
+            'nama_prodi' => $this->faker->jobTitle,
+            'created_at' => now(),
+        ];
+    }
+}

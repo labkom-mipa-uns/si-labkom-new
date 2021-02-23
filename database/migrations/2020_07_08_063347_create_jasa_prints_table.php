@@ -19,6 +19,7 @@ class CreateJasaPrintsTable extends Migration
             $table->integer('harga_print');
             $table->integer('jumlah_print');
             $table->date('tanggal_print');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

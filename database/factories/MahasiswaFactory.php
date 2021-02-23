@@ -1,20 +1,35 @@
 <?php
+namespace Database\Factories;
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+use App\Models\Mahasiswa;
+use App\Models\Prodi;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-use App\Mahasiswa;
-use App\Prodi;
-use Faker\Generator as Faker;
+class MahasiswaFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Mahasiswa::class;
 
-$factory->define(Mahasiswa::class, function (Faker $faker) {
-    return [
-        'nim' => $faker->randomNumber(8),
-        'nama_mahasiswa' => $faker->name,
-        'jenis_kelamin' => $faker->randomElement(['L','P']),
-        'kelas' => $faker->randomElement(['TIA','TIB','TID']),
-        'id_prodi' => factory(Prodi::class),
-        'angkatan' => $faker->randomElement(['2016','2017','2018','2019','2020']),
-        'no_hp' => $faker->phoneNumber,
-        'created_at' => now()
-    ];
-});
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition(): array
+    {
+        return [
+            'nim' => $this->faker->randomNumber(8),
+            'nama_mahasiswa' => $this->faker->name,
+            'jenis_kelamin' => $this->faker->randomElement(['L','P']),
+            'kelas' => $this->faker->randomElement(['TIA','TIB','TID']),
+            'id_prodi' => Prodi::factory()->count(1)->create(),
+            'angkatan' => $this->faker->randomElement(['2016','2017','2018','2019','2020']),
+            'no_hp' => $this->faker->phoneNumber,
+            'created_at' => now()
+        ];
+    }
+}
