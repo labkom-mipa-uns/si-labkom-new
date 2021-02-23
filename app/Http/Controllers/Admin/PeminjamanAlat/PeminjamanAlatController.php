@@ -213,7 +213,7 @@ class PeminjamanAlatController extends Controller
      * Remove the specified resource from storage.
      *
      * @param PeminjamanAlat $PeminjamanAlat
-     * @return RedirectResponse
+     * @return RedirectResponse|null
      */
     public function destroy(PeminjamanAlat $PeminjamanAlat): ?RedirectResponse
     {

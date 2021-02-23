@@ -4,7 +4,7 @@ import MainMenuItem from '@/Shared/MainMenuItem';
 export default ({ className }) => {
     return (
         <div className={className}>
-            <MainMenuItem text="Dashboard" link="home" icon="tachometer" />
+            <MainMenuItem text="Dashboard" link="Dashboard" icon="tachometer" />
             <MainMenuItem text="Peminjaman Lab" link="PeminjamanLab.index" icon="desktop" />
             <MainMenuItem text="Peminjaman Alat" link="PeminjamanAlat.index" icon="tools" />
             <MainMenuItem text="Surat Bebas Labkom" link="SuratBebasLabkom.index" icon="file" />
