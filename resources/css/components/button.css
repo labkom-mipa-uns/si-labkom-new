@@ -1,26 +1,5 @@
 .btn-indigo {
-    @apply px-6 py-3 rounded bg-indigo-700 text-white text-sm font-bold whitespace-no-wrap;
-
-    &:hover,
-    &:focus {
-        @apply bg-orange-500;
-    }
-}
-
-.btn-dark {
-    @apply px-6 py-3 rounded bg-black text-white text-sm font-bold whitespace-no-wrap;
-
-    &:hover, &:focus {
-        @apply bg-white text-black
-    }
-}
-
-.btn-danger {
-    @apply px-6 py-3 rounded bg-red-600 text-white text-sm font-bold whitespace-no-wrap;
-
-    &:hover, &:focus {
-        @apply bg-red-400
-    }
+    @apply px-6 py-3 rounded bg-indigo-700 text-white text-sm font-bold whitespace-nowrap hover:bg-orange-500 focus:bg-orange-500;
 }
 
 .btn-spinner,

@@ -1,9 +1,8 @@
-const cssImport = require('postcss-import');
-const cssNesting = require('postcss-nesting');
 const mix = require('laravel-mix');
 const path = require('path');
-const purgecss = require('@fullhuman/postcss-purgecss');
-const tailwindcss = require('tailwindcss');
+
+// THIS IS A TEMPORARY SOLUTION.
+const { hmrOptions, devServer } = require('./webpack.fix');
 
 /*
  |--------------------------------------------------------------------------
@@ -16,39 +15,27 @@ const tailwindcss = require('tailwindcss');
  |
  */
 
+mix.extract();
+
 mix
-    .react('resources/js/app.js', 'public/js')
-    .sass('resources/css/app.scss', 'public/css/app.css')
+    .js('resources/js/app.js', 'public/js')
+    .react()
+    .postCss('resources/css/app.css', 'public/css/app.css', [
+        require('postcss-import'),
+        require('tailwindcss'),
+        require('autoprefixer')
+    ])
     .options({
-        processCssUrls: false,
-        postCss: [
-            cssImport(),
-            tailwindcss('tailwind.config.js'),
-            cssNesting(),
-            ...(mix.inProduction()
-                ? [
-                    purgecss({
-                        content: [
-                            './resources/views/**/*.blade.php',
-                            './resources/js/**/*.js'
-                        ],
-                        defaultExtractor: content =>
-                            content.match(/[\w-/:.]+(?<!:)/g) || [],
-                        whitelistPatternsChildren: [/nprogress/]
-                    })
-                ]
-                : [])
-        ]
+        hmrOptions: hmrOptions
     })
-    .webpackConfig(webpack => {
-        return {
-            output: {chunkFilename: 'js/[name].js?id=[chunkhash]'},
-            resolve: {
-                alias: {
-                    '@': path.resolve('resources/js')
-                }
+    .webpackConfig({
+        output: { chunkFilename: 'js/[name].js?id=[chunkhash]' },
+        resolve: {
+            alias: {
+                '@': path.resolve('resources/js')
             }
-        }
+        },
+        devServer: devServer
     })
     .version()
-    .sourceMaps()
+    .sourceMaps();
