@@ -618,6 +618,35 @@ video {
   white-space: nowrap;
 }
 
+.btn-danger {
+  --tw-bg-opacity: 1;
+  background-color: rgba(197, 48, 48, var(--tw-bg-opacity));
+}
+
+.btn-danger:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgba(237, 137, 54, var(--tw-bg-opacity));
+}
+
+.btn-danger:focus {
+  --tw-bg-opacity: 1;
+  background-color: rgba(237, 137, 54, var(--tw-bg-opacity));
+}
+
+.btn-danger {
+  border-radius: 0.25rem;
+  font-weight: 700;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  --tw-text-opacity: 1;
+  color: rgba(255, 255, 255, var(--tw-text-opacity));
+  white-space: nowrap;
+}
+
 .btn-spinner,
 .btn-spinner:after {
   border-radius: 50%;

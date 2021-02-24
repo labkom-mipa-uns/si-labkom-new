@@ -115,7 +115,8 @@
                         Konfirmasi Pengajuan Surat Bebas Labkom
                     </dt>
                     <dd class="mt-2 text-base text-gray-800">
-                        Konfirmasi dilakukan setelah pengisian formulir selesai, akan muncul halaman dengan pilihan tombol "Konfirmasi"
+                        Konfirmasi dilakukan setelah mengisi formulir, dengan cara melampirkan dokumen yang sudah ditandatangi dan di-<i>scan</i>, lalu kirim ke bagian <i>Public Relation</i> kami dengan format:
+                        <b>NIM-SuratPeminjamanAlat-Prodi</b>
                     </dd>
                 </div>
             </div>

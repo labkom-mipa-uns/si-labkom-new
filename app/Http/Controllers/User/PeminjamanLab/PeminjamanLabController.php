@@ -3,9 +3,7 @@
 namespace App\Http\Controllers\User\PeminjamanLab;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\PeminjamanLabRequest;
 use App\Models\Dosen;
-use App\Models\Jadwal;
 use App\Models\Lab;
 use App\Models\Mahasiswa;
 use App\Models\MataKuliah;
@@ -21,6 +19,7 @@ use Illuminate\Support\Facades\Redirect;
 use PhpOffice\PhpWord\Exception\CopyFileException;
 use PhpOffice\PhpWord\Exception\CreateTemporaryFileException;
 use PhpOffice\PhpWord\TemplateProcessor;
+use RuntimeException;
 use Throwable;
 
 class PeminjamanLabController extends Controller
@@ -88,6 +87,16 @@ class PeminjamanLabController extends Controller
             'status' => 'required|string',
         ]);
         try {
+//            if (now() === date($request->tanggal) || time() + (time() + 7) >= 4) {
+//                throw new RuntimeException('Booking lab paling lambat 3 hari sebelum hari peminjaman!');
+//            }
+            if (PeminjamanLab::with(['mahasiswa', 'dosen', 'matakuliah'])
+                ->whereDate('tanggal', $request->tanggal)
+                ->whereTime('jam_kembali','>=', $request->jam_pinjam)
+                ->whereTime('jam_pinjam', '<=', $request->jam_kembali)
+            ) {
+                throw new RuntimeException('Lab Sedang Dipinjam!');
+            }
             if (is_null(Mahasiswa::where('nim', $request->nim)->first())) {
                 $mahasiswa = new Mahasiswa();
                 $mahasiswa->nim = $request->nim;
@@ -208,7 +217,7 @@ class PeminjamanLabController extends Controller
             $template->setValue('jam_pinjam', date("H.i", strtotime($PeminjamanLab->jam_pinjam)));
             $template->setValue('jam_kembali', date("H.i", strtotime($PeminjamanLab->jam_kembali)));
             $template->setValue('today', $today);
-            $filename = "SURAT-PEMINJAMAN-LAB-{$PeminjamanLab->mahasiswa->nim}.docx";
+            $filename = "{$PeminjamanLab->mahasiswa->nim}-SuratPeminjamanLab-{$PeminjamanLab->mahasiswa->prodi->nama_prodi}.docx";
             header("Content-Description: File Transfer");
             header('Content-Disposition: attachment; filename="' . $filename . '"');
             header('Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document');

@@ -2,6 +2,13 @@
 
 @section('title', '| Peminjaman Ruang | Alur')
 @section('content')
+    @if(session()->exists('success'))
+        <script>window.open(`https://api.whatsapp.com/send?phone=6281234535633&text=Saya%20meminta%20izin%20untuk%20meminjam%20lab`);</script>
+        <div id="peminjamanlab" data-name="{{ session('name') }}" data-success="{{ session('success') }}"></div>
+    @endif
+    @if(session()->exists('error'))
+        <div id="peminjamanlab" data-name="{{ session('name') }}" data-error="{{ session('error') }}"></div>
+    @endif
     <!-- This example requires Tailwind CSS v2.0+ -->
     <div class="pt-24">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -148,7 +155,7 @@
                     </dt>
                     <dd class="mt-2 text-base text-gray-800">
                         Konfirmasi pengajuan peminjaman ruang dilakukan setelah selesai mengisi formulir, dengan cara melampirkan dokumen yang sudah ditandatangi dan di-<i>scan</i>, lalu kirim ke bagian <i>Public Relation</i> kami dengan format:
-                        <b>NIM-PeminjamanRuang-Prodi</b>
+                        <b>NIM-SuratPeminjamanLab-Prodi</b>
                     </dd>
                 </div>
             </div>
@@ -193,7 +200,7 @@
                         Ambil Kunci
                     </dt>
                     <dd class="mt-2 text-base text-gray-800">
-                        Pada saat ingin mengambil kunci di Ruang Pengelola, bawa dokumen yang diperlukan seperti <i>Surat Peminjaman Ruang</i> yang telah diproses dan <i>Kartu Mahasiswa</i>
+                        Pada saat ingin mengambil kunci di <b>Ruang Pengelola</b>, bawa dokumen yang diperlukan seperti <i>Surat Peminjaman Ruang</i> yang telah diproses dan <i>Kartu Mahasiswa</i>
                     </dd>
                 </div>
             </div>
@@ -208,7 +215,7 @@
                         Kembalikan Kunci Lab
                     </dt>
                     <dd class="mt-2 text-base text-gray-800">
-                        Setelah selesai meminjam ruangan laboratorium, pastikan AC, PC dan lainnya sudah dimatikan, lalu kembalikan kunci ke <i>Ruang Pengelola</i>
+                        Setelah selesai meminjam ruangan laboratorium, pastikan AC, PC dan lainnya sudah dimatikan, lalu kembalikan kunci ke <b>Ruang Pengelola</b>
                     </dd>
                 </div>
             </div>

@@ -15,7 +15,6 @@
             <div class="bg-white rounded shadow overflow-hidden max-w-full mb-8">
                 <form method="post"
                       action="{{ route('UserPeminjamanLab.store') }}"
-                      onsubmit="window.open(`https://api.whatsapp.com/send?phone=6281234535633&text=Saya%20meminta%20izin%20untuk%20meminjam%20lab`);">
                     @csrf
                     <div class="p-8 -mr-6 -mb-8 flex flex-wrap">
                         <div class="pr-6 pb-8 w-full lg:w-1/2">

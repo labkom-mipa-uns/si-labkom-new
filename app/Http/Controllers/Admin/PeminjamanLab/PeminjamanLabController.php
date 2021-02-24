@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\PeminjamanLabRequest;
 use App\Http\Resources\PeminjamanLabResource;
 use App\Models\Dosen;
-use App\Models\Jadwal;
 use App\Models\Lab;
 use App\Models\Mahasiswa;
 use App\Models\MataKuliah;

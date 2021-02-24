@@ -2,6 +2,13 @@
 
 @section('title', '| Peminjaman Alat | Alur')
 @section('content')
+    @if(session()->exists('success'))
+        <script>window.open(`https://api.whatsapp.com/send?phone=6281234535633&text=Saya%20meminta%20izin%20untuk%20meminjam%20alat`)</script>
+        <div id="peminjamanalat" data-name="{{ session('name') }}" data-success="{{ session('success') }}"></div>
+    @endif
+    @if(session()->exists('error'))
+        <div id="peminjamanalat" data-name="{{ session('name') }}" data-error="{{ session('error') }}"></div>
+    @endif
     <!-- This example requires Tailwind CSS v2.0+ -->
     <div class="pt-24">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -115,7 +122,7 @@
                     <dt class="text-lg leading-6 font-medium text-gray-900">
                         Cek Ketersedian Alat
                     </dt>
-                    <dd class="mt-2 text-base text-gray-800">Untuk memastikan alat yang akan dipinjam tersedia atau tidak, bisa dilakukan via Chat atau langsung ke Ruang Pengelola </dd>
+                    <dd class="mt-2 text-base text-gray-800">Untuk memastikan alat yang akan dipinjam tersedia atau tidak, bisa dilakukan via <i>chat</i> atau langsung ke <b>Ruang Pengelola</b> </dd>
                 </div>
             </div>
             <div class="flex">
@@ -146,7 +153,7 @@
                     </dt>
                     <dd class="mt-2 text-base text-gray-800">
                         Konfirmasi pengajuan peminjaman alat dilakukan setelah selesai mengisi formulir, dengan cara melampirkan dokumen yang sudah ditandatangi dan di-<i>scan</i>, lalu kirim ke bagian <i>Public Relation</i> kami dengan format:
-                        <b>NIM-PeminjamanAlat-Prodi</b>
+                        <b>NIM-SuratPeminjamanAlat-Prodi</b>
                     </dd>
                 </div>
             </div>
@@ -161,7 +168,7 @@
                         Menunggu Proses Perizinan
                     </dt>
                     <dd class="mt-2 text-base text-gray-800">
-                        Tunggu hingga kami mengirimkan dokumen surat peminjaman ruang lab yang sudah diproses
+                        Tunggu hingga kami mengirimkan dokumen surat peminjaman alat yang sudah diproses
                     </dd>
                 </div>
             </div>
@@ -191,7 +198,7 @@
                         Ambil Alat
                     </dt>
                     <dd class="mt-2 text-base text-gray-800">
-                        Pada saat ingin mengambil alat di Ruang Pengelola, bawa dokumen yang diperlukan seperti <i>Surat Peminjaman Alat</i> yang telah diproses dan <i>Kartu Mahasiswa</i>
+                        Pada saat ingin mengambil alat di <b>Ruang Pengelola</b>, bawa dokumen yang diperlukan seperti <i>Surat Peminjaman Alat</i> yang telah diproses dan <i>Kartu Mahasiswa</i>
                     </dd>
                 </div>
             </div>

@@ -9,5 +9,5 @@ import React from 'react';
 // );
 
 export default props => (
-    <img {...props} src="http://localhost:8000/img/LogoWebLabkom.svg" alt="LogoLabkom"/>
+    <img {...props} src="http://localhost:8000/img/LogoWebLabkom.png" alt="LogoLabkom"/>
 );

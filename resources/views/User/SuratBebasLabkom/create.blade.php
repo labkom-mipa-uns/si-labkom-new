@@ -10,28 +10,135 @@
             >
                 Surat Bebas Labkom
             </a>
-            <span class="text-indigo-600 font-medium"> /</span> Kirim Data
+            <span class="text-indigo-600 font-medium"> /</span> Ajukan Permohonan
         </h1>
         <div class="bg-white rounded shadow overflow-hidden max-w-full md:mb-8">
-            <form method="post" action="{{ route('UserSuratBebasLabkom.store') }}">
+            <form method="post"
+                  action="{{ route('UserSuratBebasLabkom.store') }}"
+                  onsubmit="window.open(`https://api.whatsapp.com/send?phone=6281234535633&text=Saya%20meminta%20izin%20untuk%20dibuatkan%20surat%20bebas%20labkom`);">
+            >
                 @csrf
                 <div class="p-8 -mr-6 -mb-8 flex flex-wrap">
                     <div class="pr-6 pb-8 w-full lg:w-1/2">
-                        <label class="form-label" for="id_mahasiswa">Mahasiswa</label>
+                        <label class="form-label" for="nim">NIM</label>
+                        <input
+                            id="nim"
+                            name="nim"
+                            class="form-input @error('nim') error @enderror"
+                            type="text"
+                            value="{{ old('nim') }}"
+                            autocomplete="off"
+                        />
+                        @error('nim')
+                            <div class="form-error">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="pr-6 pb-8 w-full lg:w-1/2">
+                        <label class="form-label" for="nama_mahasiswa">Nama Lengkap</label>
+                        <input
+                            id="nama_mahasiswa"
+                            name="nama_mahasiswa"
+                            class="form-input @error('nama_mahasiswa') error @enderror"
+                            type="text"
+                            value="{{ old('nama_mahasiswa') }}"
+                            autocomplete="off"
+                        />
+                        @error('nama_mahasiswa')
+                            <div class="form-error">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="pr-6 pb-8 w-full lg:w-1/3">
+                        <label class="form-label" for="id_prodi">Program Studi</label>
                         <select
-                            id="id_mahasiswa"
-                            name="id_mahasiswa"
-                            class="form-select @error('id_mahasiswa') error @enderror"
+                            id="id_prodi"
+                            name="id_prodi"
+                            class="form-select @error('id_prodi') error @enderror"
                         >
                             <option></option>
-                            @foreach($Mahasiswa as $item)
-                                @if($item->id === old('id_mahasiswa'))
-                                    <option value="{{ old('id_mahasiswa') }}">{{ $item->nama_mahasiswa }}</option>
+                            @foreach($Prodi as $item)
+                                @if($item->id === old('id_prodi'))
+                                    <option value="{{ old('id_prodi') }}">{{ $item->nama_prodi }}</option>
                                 @endif
-                                <option value="{{ $item->id }}">{{ $item->nama_mahasiswa }}</option>
+                                <option value="{{ $item->id }}">{{ $item->nama_prodi }}</option>
                             @endforeach
                         </select>
-                        @error('id_mahasiswa')
+                        @error('id_prodi')
+                            <div class="form-error">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="pr-6 pb-8 w-full lg:w-1/3">
+                        <label class="form-label" for="angkatan">Angkatan</label>
+                        <select
+                            id="angkatan"
+                            name="angkatan"
+                            class="form-select @error('angkatan') error @enderror"
+                        >
+                            <option value=""></option>
+                            <option value="2016">2016</option>
+                            <option value="2017">2017</option>
+                            <option value="2018">2018</option>
+                            <option value="2019">2019</option>
+                            <option value="2020">2020</option>
+                            <option value="2021">2021</option>
+                        </select>
+                        @error('angkatan')
+                            <div class="form-error">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="pr-6 pb-8 w-full lg:w-1/3">
+                        <label class="form-label" for="jenis_kelamin">Jenis Kelamin</label>
+                        <select
+                            id="jenis_kelamin"
+                            name="jenis_kelamin"
+                            class="form-input @error('jenis_kelamin') error @enderror"
+                        >
+                            <option value=""></option>
+                            <option value="L">Laki-laki</option>
+                            <option value="P">Perempuan</option>
+                        </select>
+                        @error('jenis_kelamin')
+                            <div class="form-error">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="pr-6 pb-8 w-full lg:w-1/2">
+                        <label class="form-label" for="kelas">Kelas</label>
+                        <input
+                            id="kelas"
+                            name="kelas"
+                            class="form-input @error('kelas') error @enderror"
+                            type="text"
+                            value="{{ old('kelas') }}"
+                            autocomplete="off"
+                        />
+                        @error('kelas')
+                            <div class="form-error">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="pr-6 pb-8 w-full lg:w-1/2">
+                        <label class="form-label" for="no_hp">Nomor WhatsApp</label>
+                        <input
+                            id="no_hp"
+                            name="no_hp"
+                            class="form-input @error('no_hp') error @enderror"
+                            type="tel"
+                            value="{{ old('no_hp') }}"
+                            autocomplete="off"
+                        />
+                        @error('no_hp')
+                            <div class="form-error">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="pr-6 pb-8 w-full lg:w-1/2">
+                        <label class="form-label" for="email">Email</label>
+                        <input
+                            id="email"
+                            name="email"
+                            class="form-input @error('email') error @enderror"
+                            type="email"
+                            value="{{ old('email') }}"
+                            autocomplete="off"
+                        />
+                        @error('email')
                             <div class="form-error">{{ $message }}</div>
                         @enderror
                     </div>
@@ -62,7 +169,7 @@
                         type="submit"
                         class="btn-indigo"
                     >
-                        Konfirmasi
+                        Ajukan Permohonan
                     </button>
                 </div>
             </form>

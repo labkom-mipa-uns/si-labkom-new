@@ -249,45 +249,9 @@
             </div>
         </div>
     </footer>
-    <script>
-        let scrollpos = window.scrollY;
-        let header = document.getElementById("header");
-        let brandname = document.getElementById("brandname");
-        let toToggle = document.querySelectorAll(".toggleColour");
-        let svgText = document.querySelectorAll('.svgText')
-
-        document.addEventListener("scroll", function () {
-            let i;
-            /*Apply classes for slide in bar*/
-            scrollpos = window.scrollY;
-
-            if (scrollpos > 10) {
-                header.classList.add("bg-white");
-                //Use to switch toggleColour colours
-                for (i = 0; i < toToggle.length; i++) {
-                    toToggle[i].classList.add("text-gray-800");
-                    toToggle[i].classList.remove("text-white");
-                }
-                for (i = 0; i < svgText.length; i++) {
-                    svgText[i].classList.add("fil2");
-                    svgText[i].classList.remove("fil1");
-                }
-                header.classList.add("shadow");
-            } else {
-                header.classList.remove("bg-white");
-                //Use to switch toggleColour colours
-                for (i = 0; i < toToggle.length; i++) {
-                    toToggle[i].classList.add("text-white");
-                    toToggle[i].classList.remove("text-gray-800");
-                }
-                for (i = 0; i < svgText.length; i++) {
-                    svgText[i].classList.remove("fil2");
-                    svgText[i].classList.add("fil1");
-                }
-                header.classList.remove("shadow");
-            }
-        });
-    </script>
+    <!-- JavaScripts -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="{{ asset('js/script.js') }}"></script>
 </body>
 </html>
 
