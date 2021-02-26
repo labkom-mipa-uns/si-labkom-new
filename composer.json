@@ -66,8 +66,7 @@
             "@php artisan db:seed --force"
         ],
         "reseed": [
-            "@php artisan migrate:fresh",
-            "@php artisan db:seed"
+            "@php artisan migrate:fresh"
         ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
