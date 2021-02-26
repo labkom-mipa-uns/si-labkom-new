@@ -39,9 +39,17 @@ class PeminjamanLab extends Model
     /**
      * @return BelongsTo
      */
-    public function jadwal(): BelongsTo
+    public function dosen(): BelongsTo
     {
-        return $this->belongsTo(Jadwal::class, 'id_jadwal')->with(['dosen', 'matakuliah', 'prodi']);
+        return $this->belongsTo(Dosen::class, 'id_dosen');
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function matakuliah(): BelongsTo
+    {
+        return $this->belongsTo(MataKuliah::class, 'id_matkul');
     }
 
     /**

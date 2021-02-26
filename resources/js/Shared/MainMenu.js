@@ -17,7 +17,6 @@ export default ({ className }) => {
             <MainMenuItem text="Prodi" link="Prodi.index" icon="book-reader" />
             <MainMenuItem text="Dosen" link="Dosen.index" icon="users" />
             <MainMenuItem text="Mata Kuliah" link="MataKuliah.index" icon="book-open" />
-            <MainMenuItem text="Jadwal" link="Jadwal.index" icon="bookmark" />
             <MainMenuItem text="Software" link="Software.index" icon="calendar-check" />
             <MainMenuItem text="User" link="User.index" icon="users" />
         </div>

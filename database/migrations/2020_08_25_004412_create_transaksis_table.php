@@ -29,11 +29,11 @@ class CreateTransaksisTable extends Migration
             $table->softDeletes();
             $table->timestamps();
 
-            $table->foreign('id_peminjaman_alat')->references('id')->on('peminjaman_alat');
+            $table->foreign('id_peminjaman_alat')->references('id')->on('peminjaman_alat')->onDelete('cascade');
             $table->foreign('id_alat')->references('id')->on('alat');
-            $table->foreign('id_jasa_installasi')->references('id')->on('jasa_installasi');
+            $table->foreign('id_jasa_installasi')->references('id')->on('jasa_installasi')->onDelete('cascade');
             $table->foreign('id_software')->references('id')->on('software');
-            $table->foreign('id_jasa_print')->references('id')->on('jasa_print');
+            $table->foreign('id_jasa_print')->references('id')->on('jasa_print')->onDelete('cascade');
         });
     }
 

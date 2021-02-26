@@ -69,7 +69,7 @@ Route::redirect('admin', '/admin/Dashboard');
 // Auth
 Auth::routes(['verify' => true]);
 // Url Prefix 'admin/'
-Route::prefix('admin')->middleware(['auth'])->group(static function () {
+Route::prefix('admin')->middleware(['verified'])->group(static function () {
     // Dashboard
     Route::get('Dashboard', DashboardController::class)->name('Dashboard');
     // Peminjaman Lab
@@ -100,8 +100,6 @@ Route::prefix('admin')->middleware(['auth'])->group(static function () {
     Route::resource('Dosen', DosenController::class);
     // Mata Kuliah
     Route::resource('MataKuliah', MataKuliahController::class);
-    // Jadwal
-    Route::resource('Jadwal', JadwalController::class);
     // Software
     Route::resource('Software', SoftwareController::class);
     // User

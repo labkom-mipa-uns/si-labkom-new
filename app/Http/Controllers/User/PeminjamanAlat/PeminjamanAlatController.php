@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\User\PeminjamanAlat;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\PeminjamanAlatRequest;
 use App\Models\Alat;
 use App\Models\Mahasiswa;
 use App\Models\PeminjamanAlat;
+use App\Models\Prodi;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Redirect;
 use PhpOffice\PhpWord\Exception\CopyFileException;
 use PhpOffice\PhpWord\Exception\CreateTemporaryFileException;
 use PhpOffice\PhpWord\TemplateProcessor;
+use RuntimeException;
 use Throwable;
 
 class PeminjamanAlatController extends Controller
@@ -27,7 +28,7 @@ class PeminjamanAlatController extends Controller
      *
      * @return Application|Factory|View
      */
-    public function index()
+    public function index(): Factory|View|Application
     {
         $data = [
             'PeminjamanAlat' => PeminjamanAlat::with(['mahasiswa', 'alat'])->get()
@@ -40,10 +41,11 @@ class PeminjamanAlatController extends Controller
      *
      * @return Application|Factory|View|Response
      */
-    public function create()
+    public function create(): Factory|View|Response|Application
     {
         $data = [
             'Mahasiswa' => Mahasiswa::all(),
+            'Prodi' => Prodi::all(),
             'Alat' => Alat::all(),
         ];
         return view('User.PeminjamanAlat.create', $data);
@@ -52,24 +54,57 @@ class PeminjamanAlatController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param PeminjamanAlatRequest $request
-     * @return RedirectResponse
+     * @param Request $request
+     * @return RedirectResponse|null
      */
-    public function store(PeminjamanAlatRequest $request): ?RedirectResponse
+    public function store(Request $request): ?RedirectResponse
     {
+        $request->validate([
+            // Mahasiswa
+            'nim' => ['required','size:8'],
+            'nama_mahasiswa' => ['required','string','max:60'],
+            'id_prodi' => ['required'],
+            'angkatan' => ['required'],
+            'jenis_kelamin' => ['required','string'],
+            'kelas' => ['required','string','max:5'],
+            'no_hp' => ['required','max:13'],
+            'email' => ['required','regex:/^[A-Za-z0-9\.]*@(student)[.](uns.ac.id)$/'],
+            // Peminjaman Alat
+            'id_alat' => 'required',
+            'tanggal_pinjam' => 'required|date',
+            'jam_pinjam' => 'required',
+            'jam_kembali' => 'required',
+            'tanggal_kembali' => 'required|date',
+            'jumlah_pinjam' => 'required|numeric',
+            'keperluan' => 'required|string',
+            'proses' => 'required',
+            'status' => 'required'
+        ]);
         $alat = Alat::firstWhere('id', $request->id_alat);
         try {
             if ($alat->stok_alat < $request->jumlah_pinjam):
                 throw new RuntimeException('Stok alat tidak mencukupi!');
             endif;
+            if (is_null(Mahasiswa::where('nim', $request->nim)->first())) {
+                $mahasiswa = new Mahasiswa();
+                $mahasiswa->nim = $request->nim;
+                $mahasiswa->nama_mahasiswa = $request->nama_mahasiswa;
+                $mahasiswa->jenis_kelamin = $request->jenis_kelamin;
+                $mahasiswa->kelas = $request->kelas;
+                $mahasiswa->id_prodi = $request->id_prodi;
+                $mahasiswa->angkatan = $request->angkatan;
+                $mahasiswa->email = $request->email;
+                $mahasiswa->no_hp = $request->no_hp;
+                $mahasiswa->saveOrFail();
+            }
             $peminjamanAlat = new PeminjamanAlat();
-            $peminjamanAlat->id_mahasiswa = $request->id_mahasiswa;
+            $peminjamanAlat->id_mahasiswa = Mahasiswa::where('nim', $request->nim)->first()->id;
+            $peminjamanAlat->id_alat = $request->id_alat;
             $peminjamanAlat->tanggal_pinjam = $request->tanggal_pinjam;
-            $peminjamanAlat->jam_pinjam = $request->jam_pinjam;
             $peminjamanAlat->tanggal_kembali = $request->tanggal_kembali;
+            $peminjamanAlat->jam_pinjam = $request->jam_pinjam;
             $peminjamanAlat->jam_kembali = $request->jam_kembali;
             $peminjamanAlat->jumlah_pinjam = $request->jumlah_pinjam;
-            $peminjamanAlat->id_alat = $request->id_alat;
             $peminjamanAlat->keperluan = $request->keperluan;
             $peminjamanAlat->status = $request->status;
             $peminjamanAlat->proses = $request->proses;
@@ -154,7 +189,7 @@ class PeminjamanAlatController extends Controller
             $template->setValue('jam_pinjam', date("H.i", strtotime($PeminjamanAlat->jam_pinjam)));
             $template->setValue('jam_kembali', date("H.i", strtotime($PeminjamanAlat->jam_kembali)));
             $template->setValue('today', $today);
-            $filename = "SURAT-PEMINJAMAN-ALAT-{$PeminjamanAlat->mahasiswa->nim}.docx";
+            $filename = "{$PeminjamanAlat->mahasiswa->nim}-SuratPeminjamanAlat-{$PeminjamanAlat->mahasiswa->prodi->nama_prodi}.docx";
             header("Content-Description: File Transfer");
             header('Content-Disposition: attachment; filename="' . $filename . '"');
             header('Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document');

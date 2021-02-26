@@ -27,7 +27,6 @@ class PeminjamanLabRequest extends FormRequest
         return [
             'id_mahasiswa' => 'required',
             'id_lab' => 'required',
-            'id_jadwal' => 'required',
             'tanggal' => 'required|date',
             'jam_pinjam' => 'required',
             'jam_kembali' => 'required',

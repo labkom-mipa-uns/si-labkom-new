@@ -10,13 +10,9 @@ export default () => {
     function handleSubmit(e) {
         e.preventDefault();
         setSending(true);
-        Inertia.post(route('verification.resend'), values
-        ).then(() => {
-            setSending(false);
+        Inertia.post(route('verification.resend'), values, {
+            onFinish: () => setSending(false)
         });
-        //     , {
-        //     onFinish: () => setSending(false)
-        // });
     }
 
     function handleClick(e) {

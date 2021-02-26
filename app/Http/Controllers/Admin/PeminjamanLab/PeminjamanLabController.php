@@ -5,9 +5,10 @@ namespace App\Http\Controllers\Admin\PeminjamanLab;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PeminjamanLabRequest;
 use App\Http\Resources\PeminjamanLabResource;
-use App\Models\Jadwal;
+use App\Models\Dosen;
 use App\Models\Lab;
 use App\Models\Mahasiswa;
+use App\Models\MataKuliah;
 use App\Models\PeminjamanLab;
 use Exception;
 use Illuminate\Http\RedirectResponse;
@@ -15,6 +16,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
 use Inertia\Inertia;
 use Inertia\Response as InertiaResponse;
+use RuntimeException;
 
 class PeminjamanLabController extends Controller
 {
@@ -27,7 +29,7 @@ class PeminjamanLabController extends Controller
     {
         return Inertia::render('Admin/PeminjamanLab/Index', [
             'filters' => Request::all(['search', 'trashed']),
-            'peminjamanlab' => PeminjamanLab::with(['mahasiswa', 'lab', 'jadwal'])
+            'peminjamanlab' => PeminjamanLab::with(['mahasiswa', 'lab'])
                 ->orderBy('created_at', 'desc')
                 ->filter(Request::only(['search', 'trashed']))
                 ->paginate()
@@ -36,7 +38,8 @@ class PeminjamanLabController extends Controller
                         'id' => $peminjamanlab->id,
                         'mahasiswa' => $peminjamanlab->mahasiswa,
                         'lab' => $peminjamanlab->lab,
-                        'jadwal' => $peminjamanlab->jadwal,
+                        'dosen' => $peminjamanlab->dosen,
+                        'matakuliah' => $peminjamanlab->matakuliah,
                         'tanggal' => date("d M Y", strtotime($peminjamanlab->tanggal)),
                         'jam_pinjam' => date("H:i", strtotime($peminjamanlab->jam_pinjam)),
                         'jam_kembali' => date("H:i", strtotime($peminjamanlab->jam_kembali)),
@@ -66,10 +69,14 @@ class PeminjamanLabController extends Controller
                 ->get()
                 ->map
                 ->only('id', 'nama_lab'),
-            'jadwal' => Jadwal::with(['prodi', 'dosen', 'matakuliah'])
+            'dosen' => Dosen::orderBy('nama_dosen', 'asc')
                 ->get()
                 ->map
-                ->only(['id', 'dosen', 'prodi', 'matakuliah'])
+                ->only('id', 'nama_dosen'),
+            'matakuliah' => MataKuliah::orderBy('nama_matkul', 'asc')
+                ->get()
+                ->map
+                ->only('id', 'nama_matkul')
         ]);
     }
 
@@ -77,11 +84,19 @@ class PeminjamanLabController extends Controller
      * Store a newly created resource in storage.
      *
      * @param PeminjamanLabRequest $request
-     * @return RedirectResponse
+     * @return RedirectResponse|null
      */
     public function store(PeminjamanLabRequest $request): ?RedirectResponse
     {
         try {
+//            if (PeminjamanLab::with(['mahasiswa', 'dosen', 'matakuliah'])
+//                ->whereDate('tanggal', $request->tanggal)
+//                ->whereTime('jam_kembali','>=', $request->jam_pinjam)
+//                ->whereTime('jam_pinjam', '<=', $request->jam_kembali)
+//                ->where('status', '==', '0')->get()
+//            ) {
+//                throw new RuntimeException('Lab Sedang Dipinjam!');
+//            }
             PeminjamanLab::create($request->validated());
             return Redirect::route('PeminjamanLab.index')
                 ->with([
@@ -124,8 +139,10 @@ class PeminjamanLabController extends Controller
                 'mahasiswa' => $PeminjamanLab->mahasiswa,
                 'id_lab' => $PeminjamanLab->id_lab,
                 'lab' => $PeminjamanLab->lab,
-                'id_jadwal' => $PeminjamanLab->id_jadwal,
-                'jadwal' => $PeminjamanLab->jadwal,
+                'id_dosen' => $PeminjamanLab->id_dosen,
+                'dosen' => $PeminjamanLab->dosen,
+                'id_matkul' => $PeminjamanLab->id_matkul,
+                'matakuliah' => $PeminjamanLab->matakuliah,
                 'tanggal' => $PeminjamanLab->tanggal,
                 'jam_pinjam' => $PeminjamanLab->jam_pinjam,
                 'jam_kembali' => $PeminjamanLab->jam_kembali,
@@ -143,10 +160,14 @@ class PeminjamanLabController extends Controller
                 ->get()
                 ->map
                 ->only('id', 'nama_lab'),
-            'jadwal' => Jadwal::with(['prodi', 'dosen', 'matakuliah'])
+            'dosen' => Dosen::orderBy('nama_dosen', 'asc')
                 ->get()
                 ->map
-                ->only(['id', 'dosen', 'prodi', 'matakuliah'])
+                ->only('id', 'nama_dosen'),
+            'matakuliah' => MataKuliah::orderBy('nama_matkul', 'asc')
+                ->get()
+                ->map
+                ->only('id', 'nama_matkul')
         ]);
     }
 
@@ -155,7 +176,7 @@ class PeminjamanLabController extends Controller
      *
      * @param PeminjamanLabRequest $request
      * @param PeminjamanLab $PeminjamanLab
-     * @return RedirectResponse
+     * @return RedirectResponse|null
      */
     public function update(PeminjamanLabRequest $request, PeminjamanLab $PeminjamanLab): ?RedirectResponse
     {

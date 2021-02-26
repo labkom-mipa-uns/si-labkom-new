@@ -2,6 +2,13 @@
 
 @section('title', '| Peminjaman Ruang | Alur')
 @section('content')
+    @if(session()->exists('success'))
+        <script>window.open(`https://api.whatsapp.com/send?phone=6281234535633&text=Saya%20meminta%20izin%20untuk%20meminjam%20lab`);</script>
+        <div id="peminjamanlab" data-name="{{ session('name') }}" data-success="{{ session('success') }}"></div>
+    @endif
+    @if(session()->exists('error'))
+        <div id="peminjamanlab" data-name="{{ session('name') }}" data-error="{{ session('error') }}"></div>
+    @endif
     <!-- This example requires Tailwind CSS v2.0+ -->
     <div class="pt-24">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -77,8 +84,8 @@
                                             <div class="text-sm text-gray-500">{{ $item->mahasiswa->angkatan }}</div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm text-gray-900">{{ $item->jadwal->matakuliah->nama_matkul }}</div>
-                                            <div class="text-sm text-gray-500">{{ $item->jadwal->dosen->nama_dosen }}</div>
+                                            <div class="text-sm text-gray-900">{{ $item->matakuliah->nama_matkul }}</div>
+                                            <div class="text-sm text-gray-500">{{ $item->dosen->nama_dosen }}</div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="text-sm text-gray-900">{{ $item->lab->nama_lab }}</div>
@@ -132,7 +139,7 @@
                     </dt>
                     <dd class="mt-2 text-base text-gray-800">
                         Mengisi formulir yang berkaitan dengan peminjaman ruang, seperti data diri, lab yang akan dipinjam dan lain sebagainya pada halaman berikut:
-                        <a href="{{ route('UserPeminjamanLab.create') }}" class="font-bold text-indigo-800 hover:underline">Formulir Peminjaman Ruang</a>
+                        <a href="{{ route('UserPeminjamanLab.create') }}" class="font-bold text-indigo-600 hover:underline">Formulir Peminjaman Ruang</a>
                     </dd>
                 </div>
             </div>
@@ -147,8 +154,7 @@
                         Konfirmasi Peminjaman Ruang
                     </dt>
                     <dd class="mt-2 text-base text-gray-800">
-                        Konfirmasi pengajuan peminjaman ruang dilakukan setelah selesai mengisi formulir, dengan cara melampirkan dokumen yang sudah ditandatangi dan di-<i>scan</i>, lalu kirim ke bagian <i>Public Relation</i> kami dengan format:
-                        <b>NIM-PeminjamanRuang-Prodi</b>
+                        Konfirmasi pengajuan peminjaman ruang dilakukan dengan cara mengirimkan pesan konfirmasi via <i>chat</i> <b>WhatsApp</b> yang sudah terakses secara otomatis setelah mengisi formulir
                     </dd>
                 </div>
             </div>
@@ -193,7 +199,7 @@
                         Ambil Kunci
                     </dt>
                     <dd class="mt-2 text-base text-gray-800">
-                        Pada saat ingin mengambil kunci di Ruang Pengelola, bawa dokumen yang diperlukan seperti <i>Surat Peminjaman Ruang</i> yang telah diproses dan <i>Kartu Mahasiswa</i>
+                        Pada saat ingin mengambil kunci di <b>Ruang Pengelola</b>, bawa dokumen yang diperlukan seperti <i>Surat Peminjaman Ruang</i> yang telah diproses dan <i>Kartu Mahasiswa</i>
                     </dd>
                 </div>
             </div>
@@ -208,7 +214,7 @@
                         Kembalikan Kunci Lab
                     </dt>
                     <dd class="mt-2 text-base text-gray-800">
-                        Setelah selesai meminjam ruangan laboratorium, pastikan AC, PC dan lainnya sudah dimatikan, lalu kembalikan kunci ke <i>Ruang Pengelola</i>
+                        Setelah selesai meminjam ruangan laboratorium, pastikan AC, PC dan lainnya sudah dimatikan, lalu kembalikan kunci ke <b>Ruang Pengelola</b>
                     </dd>
                 </div>
             </div>

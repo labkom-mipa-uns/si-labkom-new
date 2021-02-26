@@ -52,9 +52,8 @@ const PeminjamanAlat = () => {
                     <h1 className="mb-8 font-bold text-3xl">Peminjaman Alat</h1>
                     <div className="mb-6 flex justify-between items-center">
                         <SearchFilter />
-                        <form onSubmit={handleSubmitDaily} className="inline">
+                        <form onSubmit={handleSubmitDaily} className="flex flex-row items-center">
                             <TextInput
-                                className="inline"
                                 name="tanggal"
                                 type="date"
                                 errors={errors.tanggal}
@@ -64,7 +63,7 @@ const PeminjamanAlat = () => {
                             <LoadingButton
                                 loading={sending}
                                 type="submit"
-                                className="btn-danger inline"
+                                className="btn-danger ml-3"
                             >
                                 Daily
                             </LoadingButton>

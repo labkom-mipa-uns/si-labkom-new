@@ -11,6 +11,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <!-- JavaScripts -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+            integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+            crossorigin="anonymous"></script>
+    <script src="{{ asset('js/script.js') }}"></script>
     <style>
         body {
             font-family: 'Nunito', serif;
@@ -28,6 +34,7 @@
                 <div class="flex items-center">
                     <a class="toggleColour text-white no-underline hover:no-underline font-bold text-lg" href="{{ route('home') }}">
                         <!--Icon from: http://www.potlabicons.com/ -->
+{{--                        <img src="{{ asset('img/LogoWebLabkom.png') }}" alt="LogoWebLabkom" class="h-8 fill-current inline">--}}
                         <svg class="h-8 fill-current inline" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
                              viewBox="0 0 5957 2020"
                         >
@@ -84,7 +91,7 @@
                                 <g id="_526822992">
                                     <text x="2135" y="1027" class="fil1 svgText fnt0">LABKOM</text>
                                     <g transform="matrix(1 0 0 1 -813.683 608.031)">
-                                        <text x="2978" y="1010"  class="fil1 svgText fnt1">F M I P A  U N S</text>
+                                        <text x="2978" y="1010"  class="fil1 svgText fnt1">F&nbsp;M&nbsp;I&nbsp;P&nbsp;A&nbsp;&nbsp;U&nbsp;N&nbsp;S</text>
                                     </g>
                                 </g>
                             </g>
@@ -185,7 +192,7 @@
                                 <g id="_526822992">
                                     <text x="2135" y="1027" class="fil2 fnt0">LABKOM</text>
                                     <g transform="matrix(1 0 0 1 -813.683 608.031)">
-                                        <text x="2978" y="1010"  class="fil2 fnt1">F M I P A  U N S</text>
+                                        <text x="2978" y="1010"  class="fil2 fnt1">F&nbsp;M&nbsp;I&nbsp;P&nbsp;A&nbsp;&nbsp;U&nbsp;N&nbsp;S</text>
                                     </g>
                                 </g>
                             </g>
@@ -248,45 +255,6 @@
             </div>
         </div>
     </footer>
-    <script>
-        let scrollpos = window.scrollY;
-        let header = document.getElementById("header");
-        let brandname = document.getElementById("brandname");
-        let toToggle = document.querySelectorAll(".toggleColour");
-        let svgText = document.querySelectorAll('.svgText')
-
-        document.addEventListener("scroll", function () {
-            let i;
-            /*Apply classes for slide in bar*/
-            scrollpos = window.scrollY;
-
-            if (scrollpos > 10) {
-                header.classList.add("bg-white");
-                //Use to switch toggleColour colours
-                for (i = 0; i < toToggle.length; i++) {
-                    toToggle[i].classList.add("text-gray-800");
-                    toToggle[i].classList.remove("text-white");
-                }
-                for (i = 0; i < svgText.length; i++) {
-                    svgText[i].classList.add("fil2");
-                    svgText[i].classList.remove("fil1");
-                }
-                header.classList.add("shadow");
-            } else {
-                header.classList.remove("bg-white");
-                //Use to switch toggleColour colours
-                for (i = 0; i < toToggle.length; i++) {
-                    toToggle[i].classList.add("text-white");
-                    toToggle[i].classList.remove("text-gray-800");
-                }
-                for (i = 0; i < svgText.length; i++) {
-                    svgText[i].classList.remove("fil2");
-                    svgText[i].classList.add("fil1");
-                }
-                header.classList.remove("shadow");
-            }
-        });
-    </script>
 </body>
 </html>
 
