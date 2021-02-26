@@ -11,6 +11,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <!-- JavaScripts -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+            integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+            crossorigin="anonymous"></script>
+    <script src="{{ asset('js/script.js') }}"></script>
     <style>
         body {
             font-family: 'Nunito', serif;
@@ -249,9 +255,6 @@
             </div>
         </div>
     </footer>
-    <!-- JavaScripts -->
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <script src="{{ asset('js/script.js') }}"></script>
 </body>
 </html>
 

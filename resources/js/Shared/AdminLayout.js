@@ -5,10 +5,10 @@ import FlashMessages from '@/Shared/FlashMessages';
 import TopHeader from '@/Shared/TopHeader';
 import BottomHeader from '@/Shared/BottomHeader';
 
-export default function AdminLayout({ children }) {
+export default function AdminLayout({ title, children }) {
     return (
         <div>
-            <Helmet titleTemplate="%s" />
+            <Helmet titleTemplate="%s" title={title} />
             <div className="flex flex-col">
                 <div className="h-screen flex flex-col">
                     <div className="md:flex">

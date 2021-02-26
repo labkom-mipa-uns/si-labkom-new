@@ -139,7 +139,7 @@
                     </dt>
                     <dd class="mt-2 text-base text-gray-800">
                         Mengisi formulir yang berkaitan dengan peminjaman ruang, seperti data diri, lab yang akan dipinjam dan lain sebagainya pada halaman berikut:
-                        <a href="{{ route('UserPeminjamanLab.create') }}" class="font-bold text-indigo-800 hover:underline">Formulir Peminjaman Ruang</a>
+                        <a href="{{ route('UserPeminjamanLab.create') }}" class="font-bold text-indigo-600 hover:underline">Formulir Peminjaman Ruang</a>
                     </dd>
                 </div>
             </div>
@@ -154,8 +154,7 @@
                         Konfirmasi Peminjaman Ruang
                     </dt>
                     <dd class="mt-2 text-base text-gray-800">
-                        Konfirmasi pengajuan peminjaman ruang dilakukan setelah selesai mengisi formulir, dengan cara melampirkan dokumen yang sudah ditandatangi dan di-<i>scan</i>, lalu kirim ke bagian <i>Public Relation</i> kami dengan format:
-                        <b>NIM-SuratPeminjamanLab-Prodi</b>
+                        Konfirmasi pengajuan peminjaman ruang dilakukan dengan cara mengirimkan pesan konfirmasi via <i>chat</i> <b>WhatsApp</b> yang sudah terakses secara otomatis setelah mengisi formulir
                     </dd>
                 </div>
             </div>

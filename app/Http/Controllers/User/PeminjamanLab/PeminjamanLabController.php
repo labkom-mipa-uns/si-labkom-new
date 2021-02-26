@@ -90,13 +90,14 @@ class PeminjamanLabController extends Controller
 //            if (now() === date($request->tanggal) || time() + (time() + 7) >= 4) {
 //                throw new RuntimeException('Booking lab paling lambat 3 hari sebelum hari peminjaman!');
 //            }
-            if (PeminjamanLab::with(['mahasiswa', 'dosen', 'matakuliah'])
-                ->whereDate('tanggal', $request->tanggal)
-                ->whereTime('jam_kembali','>=', $request->jam_pinjam)
-                ->whereTime('jam_pinjam', '<=', $request->jam_kembali)
-            ) {
-                throw new RuntimeException('Lab Sedang Dipinjam!');
-            }
+//            if (PeminjamanLab::with(['mahasiswa', 'dosen', 'matakuliah'])
+//                ->whereDate('tanggal', $request->tanggal)
+//                ->whereTime('jam_kembali','>=', $request->jam_pinjam)
+//                ->whereTime('jam_pinjam', '<=', $request->jam_kembali)
+//                ->where('status', '=', '0')
+//            ) {
+//                throw new RuntimeException('Lab Sedang Dipinjam!');
+//            }
             if (is_null(Mahasiswa::where('nim', $request->nim)->first())) {
                 $mahasiswa = new Mahasiswa();
                 $mahasiswa->nim = $request->nim;

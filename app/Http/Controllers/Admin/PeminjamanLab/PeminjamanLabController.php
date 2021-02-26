@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
 use Inertia\Inertia;
 use Inertia\Response as InertiaResponse;
+use RuntimeException;
 
 class PeminjamanLabController extends Controller
 {
@@ -83,11 +84,19 @@ class PeminjamanLabController extends Controller
      * Store a newly created resource in storage.
      *
      * @param PeminjamanLabRequest $request
-     * @return RedirectResponse
+     * @return RedirectResponse|null
      */
     public function store(PeminjamanLabRequest $request): ?RedirectResponse
     {
         try {
+//            if (PeminjamanLab::with(['mahasiswa', 'dosen', 'matakuliah'])
+//                ->whereDate('tanggal', $request->tanggal)
+//                ->whereTime('jam_kembali','>=', $request->jam_pinjam)
+//                ->whereTime('jam_pinjam', '<=', $request->jam_kembali)
+//                ->where('status', '==', '0')->get()
+//            ) {
+//                throw new RuntimeException('Lab Sedang Dipinjam!');
+//            }
             PeminjamanLab::create($request->validated());
             return Redirect::route('PeminjamanLab.index')
                 ->with([
@@ -167,7 +176,7 @@ class PeminjamanLabController extends Controller
      *
      * @param PeminjamanLabRequest $request
      * @param PeminjamanLab $PeminjamanLab
-     * @return RedirectResponse
+     * @return RedirectResponse|null
      */
     public function update(PeminjamanLabRequest $request, PeminjamanLab $PeminjamanLab): ?RedirectResponse
     {

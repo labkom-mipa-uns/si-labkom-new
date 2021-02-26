@@ -152,8 +152,7 @@
                         Konfirmasi Peminjaman Alat
                     </dt>
                     <dd class="mt-2 text-base text-gray-800">
-                        Konfirmasi pengajuan peminjaman alat dilakukan setelah selesai mengisi formulir, dengan cara melampirkan dokumen yang sudah ditandatangi dan di-<i>scan</i>, lalu kirim ke bagian <i>Public Relation</i> kami dengan format:
-                        <b>NIM-SuratPeminjamanAlat-Prodi</b>
+                        Konfirmasi pengajuan peminjaman alat dilakukan dengan cara mengirimkan pesan konfirmasi via <i>chat</i> <b>WhatsApp</b> yang sudah terakses secara otomatis setelah mengisi formulir
                     </dd>
                 </div>
             </div>
