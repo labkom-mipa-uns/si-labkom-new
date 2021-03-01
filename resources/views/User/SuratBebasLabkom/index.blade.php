@@ -2,6 +2,13 @@
 
 @section('title', '| Surat Bebas Labkom | Alur')
 @section('content')
+    @if(session()->exists('success'))
+        <script>window.open(`https://api.whatsapp.com/send?phone=6281234535633&text=Saya%20meminta%20izin%20untuk%20dibuatkan%20surat%20bebas%20labkom`); </script>
+        <div id="suratbebaslabkom" data-name="{{ session('name') }}" data-success="{{ session('success') }}"></div>
+    @endif
+    @if(session()->exists('error'))
+        <div id="suratbebaslabkom" data-name="{{ session('name') }}" data-error="{{ session('error') }}"></div>
+    @endif
     <!-- This example requires Tailwind CSS v2.0+ -->
     <div class="pt-24">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

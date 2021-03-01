@@ -6,11 +6,10 @@
             <h1 class="mb-8 font-bold text-3xl">
                 <a
                     href="{{route('UserPeminjamanLab.index')}}"
-                    class="text-indigo-100 hover:text-indigo-400"
                 >
                     Peminjaman Ruang
                 </a>
-                <span class="text-indigo-600 font-medium"> /</span> Ajukan Permohonan
+                <span class="font-medium"> /</span> Ajukan Permohonan
             </h1>
             <div class="bg-white rounded shadow overflow-hidden max-w-full mb-8">
                 <form method="post"
