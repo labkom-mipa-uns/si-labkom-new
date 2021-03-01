@@ -6,16 +6,14 @@
         <h1 class="mb-8 font-bold text-3xl">
             <a
                 href="{{route('UserSuratBebasLabkom.index')}}"
-                class="text-indigo-100 hover:text-indigo-200"
             >
                 Surat Bebas Labkom
             </a>
-            <span class="text-indigo-600 font-medium"> /</span> Ajukan Permohonan
+            <span class="font-medium"> /</span> Ajukan Permohonan
         </h1>
         <div class="bg-white rounded shadow overflow-hidden max-w-full md:mb-8">
             <form method="post"
                   action="{{ route('UserSuratBebasLabkom.store') }}"
-                  onsubmit="window.open(`https://api.whatsapp.com/send?phone=6281234535633&text=Saya%20meminta%20izin%20untuk%20dibuatkan%20surat%20bebas%20labkom`);">
             >
                 @csrf
                 <div class="p-8 -mr-6 -mb-8 flex flex-wrap">
