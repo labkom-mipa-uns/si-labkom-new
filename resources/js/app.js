@@ -1,6 +1,3 @@
-require('./bootstrap');
-
-// Import modules...
 import React from 'react';
 import { render } from 'react-dom';
 import { InertiaApp } from '@inertiajs/inertia-react';
