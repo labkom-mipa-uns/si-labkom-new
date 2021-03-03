@@ -20,7 +20,6 @@ mix.extract();
 mix
     .js('resources/js/app.js', 'public/js')
     .js('resources/js/script.js', 'public/js')
-    .js('resources/js/bootstrap.js', 'public/js')
     .react()
     .postCss('resources/css/app.css', 'public/css/app.css', [
         require('postcss-import'),
