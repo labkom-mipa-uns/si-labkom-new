@@ -3,8 +3,6 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
     <title>{{ config('app.name') }} @yield('title')</title>
     <!-- Favicons -->
     <link rel="icon" href="favicons/favicon.ico">
@@ -12,10 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <!-- Styles -->
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-    <!-- JavaScripts -->
-    <script src="{{ mix('js/manifest.js') }}" defer></script>
-    <script src="{{ mix('js/vendor.js') }}" defer></script>
-    <script src="{{ mix('js/script.js') }}"></script>
     <style>
         body {
             font-family: 'Nunito', serif;
@@ -254,6 +248,10 @@
             </div>
         </div>
     </footer>
+    <!-- JavaScripts -->
+    <script src="{{ mix('js/manifest.js') }}" defer></script>
+    <script src="{{ mix('js/vendor.js') }}" defer></script>
+    <script src="{{ mix('js/script.js') }}" defer></script>
 </body>
 </html>
 
