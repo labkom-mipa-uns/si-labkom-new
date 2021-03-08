@@ -13,7 +13,7 @@
             </h1>
             <div class="bg-white rounded shadow overflow-hidden max-w-full mb-8">
                 <form method="post"
-                      action="{{ route('UserPeminjamanLab.store') }}"
+                      action="{{ route('UserPeminjamanLab.store') }}">
                     @csrf
                     <div class="p-8 -mr-6 -mb-8 flex flex-wrap">
                         <div class="pr-6 pb-8 w-full lg:w-1/2">

@@ -10,11 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <!-- Styles -->
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-    <!-- JavaScripts -->
-    <script src="{{ mix('js/manifest.js') }}" defer></script>
-    <script src="{{ mix('js/vendor.js') }}" defer></script>
-    <script src="{{ mix('js/bootstrap.js') }}" defer></script>
-    <script src="{{ mix('js/script.js') }}" defer></script>
     <style>
         body {
             font-family: 'Nunito', serif;
@@ -253,6 +248,10 @@
             </div>
         </div>
     </footer>
+    <!-- JavaScripts -->
+    <script src="{{ mix('js/manifest.js') }}" defer></script>
+    <script src="{{ mix('js/vendor.js') }}" defer></script>
+    <script src="{{ mix('js/script.js') }}" defer></script>
 </body>
 </html>
 
