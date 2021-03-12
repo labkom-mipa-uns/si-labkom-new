@@ -3,7 +3,20 @@
 @section('title', '| Peminjaman Ruang | Alur')
 @section('content')
     @if(session()->exists('success'))
-        <script>window.open(`https://api.whatsapp.com/send?phone=6281234535633&text=Saya%20meminta%20izin%20untuk%20meminjam%20lab`);</script>
+        <script>
+            const asisten = {
+                arthur: 6281234535633,
+                zahra: 6285729971270,
+                pio: 6282334952928,
+                sari: 6285784378582,
+                yoga: 6285866318119,
+                deva: 685735691018,
+                siti: 685713696953,
+                enny: 6285331318280,
+            }
+            let getAsisten = (arr) => arr[Math.floor(Math.random() * arr.length)];
+            window.open(`https://api.whatsapp.com/send?phone=${getAsisten(Object.values(asisten))}&text=Assalamualaikum,%20Saya%20meminta%20izin%20untuk%20meminjam%20lab%20____%20pada%tanggal%20____`);
+        </script>
         <div id="peminjamanlab" data-name="{{ session('name') }}" data-success="{{ session('success') }}"></div>
     @endif
     @if(session()->exists('error'))
