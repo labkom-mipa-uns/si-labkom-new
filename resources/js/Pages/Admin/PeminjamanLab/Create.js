@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
-import Helmet from 'react-helmet';
 import { Inertia } from '@inertiajs/inertia';
 import { InertiaLink, usePage } from '@inertiajs/inertia-react';
 import AdminLayout from '@/Shared/AdminLayout';
 import LoadingButton from '@/Shared/LoadingButton';
 import TextInput from '@/Shared/TextInput';
 import SelectInput from '@/Shared/SelectInput';
-import Index from "@/Pages/Admin/PeminjamanLab/Index";
 
 const Create = () => {
     const { mahasiswa, lab, dosen, matakuliah, errors } = usePage().props;

@@ -1,13 +1,9 @@
 import React from 'react';
-import Helmet from 'react-helmet';
 import AdminLayout from '@/Shared/AdminLayout';
 
 const Dashboard = () => {
     return (
-        <div>
-            <Helmet>
-                <title>Dashboard</title>
-            </Helmet>
+        <React.Fragment>
             <h1 className="mb-8 font-bold text-3xl">Dashboard</h1>
             <p className="mb-12 leading-normal">
                 Sistem Informasi Labkom FMIPA UNS
@@ -26,12 +22,12 @@ const Dashboard = () => {
                 </a>
                 .
             </p>
-        </div>
+        </React.Fragment>
     );
 };
 
 // Persisten layout
 // Docs: https://inertiajs.com/pages#persistent-layouts
-Dashboard.layout = page => <AdminLayout children={page} />;
+Dashboard.layout = page => <AdminLayout title="Dashboard" children={page} />;
 
 export default Dashboard;
