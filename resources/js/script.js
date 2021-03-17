@@ -7,7 +7,10 @@ $(document).ready(function () {
     let scrollpos = window.scrollY;
     let header = document.getElementById("header");
     let toToggle = document.querySelectorAll(".toggleColour");
-    let svgText = document.querySelectorAll('.svgText')
+    let svgText = document.querySelectorAll('.svgText');
+    let navLogin = document.getElementById('navLogin');
+    let navRegister = document.getElementById('navRegister');
+    let navDashboard = document.getElementById('navDashboard');
 
     document.addEventListener("scroll", function () {
         let i;
@@ -16,6 +19,18 @@ $(document).ready(function () {
 
         if (scrollpos > 10) {
             header.classList.add("bg-white");
+            navLogin.classList.remove('bg-white');
+            navRegister.classList.remove('bg-white');
+            navDashboard.classList.remove('bg-white');
+            navLogin.classList.add('gradient');
+            navRegister.classList.add('gradient');
+            navDashboard.classList.add('gradient');
+            navLogin.classList.remove('text-gray-800');
+            navRegister.classList.remove('text-gray-800');
+            navDashboard.classList.remove('text-gray-800');
+            navLogin.classList.add('text-white');
+            navRegister.classList.add('text-white');
+            navDashboard.classList.add('text-white');
             //Use to switch toggleColour colours
             for (i = 0; i < toToggle.length; i++) {
                 toToggle[i].classList.add("text-gray-800");
@@ -28,6 +43,18 @@ $(document).ready(function () {
             header.classList.add("shadow");
         } else {
             header.classList.remove("bg-white");
+            navLogin.classList.remove('gradient');
+            navRegister.classList.remove('gradient');
+            navDashboard.classList.remove('gradient');
+            navLogin.classList.add('bg-white');
+            navRegister.classList.add('bg-white');
+            navDashboard.classList.add('bg-white');
+            navLogin.classList.remove('text-white');
+            navRegister.classList.remove('text-white');
+            navDashboard.classList.remove('text-white');
+            navLogin.classList.add('text-gray-800');
+            navRegister.classList.add('text-gray-800');
+            navDashboard.classList.add('text-gray-800');
             //Use to switch toggleColour colours
             for (i = 0; i < toToggle.length; i++) {
                 toToggle[i].classList.add("text-white");

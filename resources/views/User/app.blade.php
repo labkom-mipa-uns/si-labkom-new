@@ -99,20 +99,23 @@
                         </svg>
                     </button>
                 </div>
-                <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden mt-2 lg:mt-0 bg-white lg:bg-transparent text-black p-4 lg:p-0 z-20" id="nav-content">
+                <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto lg:block mt-2 lg:mt-0 lg:bg-transparent text-black p-4 lg:p-0 z-20 bg-white hidden" id="nav-content">
                     <ul class="list-reset lg:flex justify-end flex-1 items-center">
                         @if (Route::has('login'))
-                            <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
-                                @auth
-                                    <a href="{{ route('Dashboard') }}" class="toggleColour text-white text-lg">Dashboard</a>
-                                @else
-                                    <a href="{{ route('login') }}" class="toggleColour text-white text-lg">Login</a>
-
-                                    @if (Route::has('register'))
-                                        <a href="{{ route('register') }}" class="toggleColour text-white ml-4 text-lg">Register</a>
-                                    @endif
+                            @auth
+                                <li class="mr-3">
+                                    <a href="{{ route('Dashboard') }}" id="navDashboard" class="mx-auto lg:mx-0 font-bold rounded-full mt-4 lg:mt-0 py-2 px-4 shadow opacity-75 bg-white text-gray-800">Dashboard</a>
+                                </li>
+                            @else
+                                <li class="mr-3">
+                                    <a href="{{ route('login') }}" id="navLogin" class="mx-auto lg:mx-0 font-bold rounded-full mt-4 lg:mt-0 py-2 px-4 shadow opacity-75 bg-white text-gray-800">Login</a>
+                                </li>
+                                @if (Route::has('register'))
+                                    <li class="mr-3">
+                                        <a href="{{ route('register') }}" id="navRegister" class="mx-auto lg:mx-0 font-bold rounded-full mt-4 lg:mt-0 py-2 px-4 shadow opacity-75 bg-white text-gray-800">Register</a>
+                                    </li>
                                 @endif
-                            </div>
+                            @endif
                         @endif
                     </ul>
                 </div>
