@@ -80,7 +80,7 @@ export default () => {
                                     checked={values.remember}
                                     onChange={handleChange}
                                 />
-                                <span className="text-sm mt-4">Remember Me</span>
+                                <span className="text-sm mt-1">Remember Me</span>
                             </label>
                             <InertiaLink
                                 className="text-sm text-blue-500 hover:text-blue-700 whitespace-no-wrap no-underline hover:underline ml-auto"
