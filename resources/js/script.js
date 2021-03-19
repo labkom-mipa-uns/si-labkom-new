@@ -9,9 +9,28 @@ $(document).ready(function () {
     let toToggle = document.querySelectorAll(".toggleColour");
     let svgText = document.querySelectorAll('.svgText');
 
+    if (document.getElementById('navRegister')) {
+        let navRegister = document.getElementById('navRegister');
+        document.addEventListener("scroll", function () {
+            let i;
+            /*Apply classes for slide in bar*/
+            scrollpos = window.scrollY;
+
+            if (scrollpos > 10) {
+                navRegister.classList.remove('bg-white');
+                navRegister.classList.add('gradient');
+                navRegister.classList.remove('text-gray-800');
+                navRegister.classList.add('text-white');
+            } else {
+                navRegister.classList.remove('gradient');
+                navRegister.classList.add('bg-white');
+                navRegister.classList.remove('text-white');
+                navRegister.classList.add('text-gray-800');
+            }
+        });
+    }
     if (document.getElementById('navLogin')) {
         let navLogin = document.getElementById('navLogin');
-        let navRegister = document.getElementById('navRegister');
         document.addEventListener("scroll", function () {
             let i;
             /*Apply classes for slide in bar*/
@@ -20,13 +39,9 @@ $(document).ready(function () {
             if (scrollpos > 10) {
                 header.classList.add("bg-white");
                 navLogin.classList.remove('bg-white');
-                navRegister.classList.remove('bg-white');
                 navLogin.classList.add('gradient');
-                navRegister.classList.add('gradient');
                 navLogin.classList.remove('text-gray-800');
-                navRegister.classList.remove('text-gray-800');
                 navLogin.classList.add('text-white');
-                navRegister.classList.add('text-white');
                 //Use to switch toggleColour colours
                 for (i = 0; i < toToggle.length; i++) {
                     toToggle[i].classList.add("text-gray-800");
@@ -40,13 +55,9 @@ $(document).ready(function () {
             } else {
                 header.classList.remove("bg-white");
                 navLogin.classList.remove('gradient');
-                navRegister.classList.remove('gradient');
                 navLogin.classList.add('bg-white');
-                navRegister.classList.add('bg-white');
                 navLogin.classList.remove('text-white');
-                navRegister.classList.remove('text-white');
                 navLogin.classList.add('text-gray-800');
-                navRegister.classList.add('text-gray-800');
                 //Use to switch toggleColour colours
                 for (i = 0; i < toToggle.length; i++) {
                     toToggle[i].classList.add("text-white");
@@ -101,8 +112,6 @@ $(document).ready(function () {
             }
         });
     }
-
-
 
     // --- Smooth Scrolling ---
     $('#ayomulai').click(function (event) {
