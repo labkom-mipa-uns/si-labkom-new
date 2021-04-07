@@ -91,14 +91,14 @@ export default () => {
                         </div>
                     </div>
                     <div className="flex items-center justify-between px-10 py-4 bg-gray-100 border-t border-gray-200">
-                        <p className="w-full text-xs text-center text-gray-700 sm:text-sm">
-                            { "Don't have an account? " }
-                            <InertiaLink className="text-blue-500 hover:text-blue-700 no-underline hover:underline"
-                                href={ route('register') }
-                                as="a">
-                                { ('Register') }
-                            </InertiaLink>
-                        </p>
+                        {/*<p className="w-full text-xs text-center text-gray-700 sm:text-sm">*/}
+                        {/*    { "Don't have an account? " }*/}
+                        {/*    <InertiaLink className="text-blue-500 hover:text-blue-700 no-underline hover:underline"*/}
+                        {/*        href={route("register")}*/}
+                        {/*        as="a">*/}
+                        {/*        { ('Register') }*/}
+                        {/*    </InertiaLink>*/}
+                        {/*</p>*/}
 
                         <LoadingButton
                             type="submit"
