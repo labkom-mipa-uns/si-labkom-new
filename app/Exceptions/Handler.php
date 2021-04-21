@@ -57,9 +57,9 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $exception): Response
     {
         $response = parent::render($request, $exception);
+        Inertia::setRootView('Admin.app');
         if (
-            (App::environment('production'))
-            && $request->header('X-Inertia')
+            (App::environment('local'))
             && in_array($response->status(), [500, 503, 404, 403])
         ) {
             return Inertia::render('Error', ['status' => $response->status()])
