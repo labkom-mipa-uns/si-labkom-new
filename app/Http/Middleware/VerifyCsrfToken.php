@@ -26,7 +26,7 @@ class VerifyCsrfToken extends Middleware
      *
      * @throws TokenMismatchException
      */
-    public function handle($request, $next): mixed
+    public function handle($request, $next)
     {
         if (
             $this->isReading($request) ||
