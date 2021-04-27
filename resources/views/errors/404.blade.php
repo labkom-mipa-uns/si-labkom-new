@@ -11,7 +11,10 @@
     <!-- Styles -->
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <style type="text/css">
+    <style>
+        body {
+            font-family: Nunito, sans-serif;
+        }
         .text-9xl{
             font-size: 14rem;
         }
@@ -45,12 +48,13 @@
     </style>
 </head>
 <body>
-<div class="bg-gradient-to-r from-purple-300 to-blue-200">
-    <div class="w-9/12 m-auto py-16 min-h-screen flex items-center justify-center">
+<div class="bg-gradient-to-r from-blue-700 via-purple-600 to-purple-600">
+    <div class="w-9/12 m-auto py-16 min-h-screen flex flex-col items-center justify-center">
+        <img src="/img/LogoWebLabkom.png" alt="labkom-logo" class="block w-full pb-8 max-w-xs mx-auto text-white fill-current">
         <div class="bg-white shadow overflow-hidden sm:rounded-lg pb-8">
             <div class="border-t border-gray-200 text-center pt-8">
-                <h1 class="text-9xl font-bold text-purple-400">404</h1>
-                <h1 class="text-6xl font-medium py-8">Page Not Found</h1>
+                <h1 class="text-9xl font-bold text-purple-600">404</h1>
+                <h1 class="text-6xl font-bold py-2 text-purple-600">Page Not Found</h1>
                 <p class="text-2xl pb-8 px-12 font-medium">Sorry, the page you are looking for could not be found.</p>
                 <a href="{{ route('home') }}" class="bg-gradient-to-r from-purple-400 to-blue-500 hover:from-pink-500 hover:to-orange-500 text-white font-semibold px-6 py-3 rounded-md mr-6">
                     HOME
