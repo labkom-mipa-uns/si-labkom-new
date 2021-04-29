@@ -29,7 +29,7 @@ class PeminjamanLabController extends Controller
      *
      * @return Application|Factory|View
      */
-    public function index(): Factory|View|Application
+    public function index()
     {
         $data = [
             'PeminjamanLab' => PeminjamanLab::with(['mahasiswa', 'lab'])->get()
@@ -42,7 +42,7 @@ class PeminjamanLabController extends Controller
      *
      * @return Application|Factory|View
      */
-    public function create(): Factory|View|Application
+    public function create()
     {
         $data = [
             'Mahasiswa' => Mahasiswa::all(),

@@ -28,7 +28,7 @@ class PeminjamanAlatController extends Controller
      *
      * @return Application|Factory|View
      */
-    public function index(): Factory|View|Application
+    public function index()
     {
         $data = [
             'PeminjamanAlat' => PeminjamanAlat::with(['mahasiswa', 'alat'])->get()
@@ -41,7 +41,7 @@ class PeminjamanAlatController extends Controller
      *
      * @return Application|Factory|View|Response
      */
-    public function create(): Factory|View|Response|Application
+    public function create()
     {
         $data = [
             'Mahasiswa' => Mahasiswa::all(),
