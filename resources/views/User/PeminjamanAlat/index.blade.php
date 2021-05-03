@@ -283,7 +283,7 @@
         <div class="flex justify-center">
             <a href="{{ route('home') }}"
                 class="mb-8 px-6 py-3 rounded bg-gray-800 text-white text-sm font-bold whitespace-nowrap hover:bg-orange-500 focus:bg-orange-500 group-hover:text-indigo-800 hover:scale-105 transform transition ease-in-out duration-300 mr-8">Kembali</a>
-            <a href="{{ route('UserPeminjamanLab.create') }}"
+            <a href="{{ route('UserPeminjamanAlat.create') }}"
                 class="mb-8 btn-indigo group-hover:bg-white mt-auto group-hover:text-indigo-800 hover:scale-105 transform transition ease-in-out duration-300">Isi
                 Formulir</a>
         </div>
