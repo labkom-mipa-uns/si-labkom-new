@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\Software\SoftwareController;
 use App\Http\Controllers\Admin\SuratBebasLabkom\SuratBebasLabkomController;
 use App\Http\Controllers\Admin\PeminjamanAlat\PeminjamanAlatController;
 use App\Http\Controllers\Admin\User\UserController;
+use App\Http\Controllers\User\Contact\ContactController;
 use App\Http\Controllers\User\Home\HomeController;
 use App\Http\Controllers\User\PeminjamanLab\PeminjamanLabController as UserPeminjamanLabController;
 use App\Http\Controllers\User\PeminjamanAlat\PeminjamanAlatController as UserPeminjamanAlatController;
@@ -34,6 +35,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', HomeController::class)->name('home');
+
+# ==== Contact Mail ====
+Route::post('/Contact', [ContactController::class, 'store'])->name('Contact.store');
 
 # ==== User ====
 // Peminjaman Lab
@@ -67,7 +71,7 @@ Route::get('/SuratBebasLabkom/exportWord/{SuratBebasLabkom}', [UserSuratBebasLab
 // Redirect url '/admin'
 Route::redirect('admin', '/admin/Dashboard');
 // Auth
-Auth::routes(['verify' => true, 'register' => false]);
+Auth::routes(['verify' => true]);
 // Url Prefix 'admin/'
 Route::prefix('admin')->middleware(['verified'])->group(static function () {
     // Dashboard
