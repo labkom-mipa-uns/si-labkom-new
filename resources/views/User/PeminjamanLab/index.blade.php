@@ -15,7 +15,7 @@
                 <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-white sm:text-4xl">
                     Alur Peminjaman Ruang
                 </p>
-                <p class="mt-2 max-w-2xl text-xl text-white lg:mx-auto">
+                <p class="mt-2 mb-12 max-w-2xl text-xl text-white lg:mx-auto">
                     di Luar Jam Perkuliahan
                 </p>
             </div>
