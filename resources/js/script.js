@@ -172,14 +172,6 @@ $(document).ready(function () {
                     </tr>
                     <tr class="border-b-2 border-blue-300">
                         <td class="border-r-2 border-blue-300">
-                            <h1>Program Studi</h1>
-                        </td>
-                        <td>
-                            <h1><b>${$('#id_prodi').val()}</b></h1>
-                        </td>
-                    </tr>
-                    <tr class="border-b-2 border-blue-300">
-                        <td class="border-r-2 border-blue-300">
                             <h1>Angkatan</h1>
                         </td>
                         <td>
@@ -248,14 +240,6 @@ $(document).ready(function () {
                         </td>
                         <td>
                             <h1><b>${$('#kode_mk').val()}</b></h1>
-                        </td>
-                    </tr>
-                    <tr class="border-b-2 border-blue-300">
-                        <td class="border-r-2 border-blue-300">
-                            <h1>Laboratorium</h1>
-                        </td>
-                        <td>
-                            <h1><b>${$('#id_lab').val()}</b></h1>
                         </td>
                     </tr>
                     <tr class="border-b-2 border-blue-300">
@@ -362,14 +346,6 @@ $(document).ready(function () {
                     </tr>
                     <tr class="border-b-2 border-blue-300">
                         <td class="border-r-2 border-blue-300">
-                            <h1>Program Studi</h1>
-                        </td>
-                        <td>
-                            <h1><b>${$('#id_prodi').val()}</b></h1>
-                        </td>
-                    </tr>
-                    <tr class="border-b-2 border-blue-300">
-                        <td class="border-r-2 border-blue-300">
                             <h1>Angkatan</h1>
                         </td>
                         <td>
@@ -406,14 +382,6 @@ $(document).ready(function () {
                         </td>
                         <td>
                             <h1><b>${$('#email').val()}</b></h1>
-                        </td>
-                    </tr>
-                    <tr class="border-b-2 border-blue-300">
-                        <td class="border-r-2 border-blue-300">
-                            <h1>Alat</h1>
-                        </td>
-                        <td>
-                            <h1><b>${$('#id_alat').val()}</b></h1>
                         </td>
                     </tr>
                     <tr class="border-b-2 border-blue-300">
@@ -524,14 +492,6 @@ $(document).ready(function () {
                         </td>
                         <td>
                             <h1><b>${$('#nama_mahasiswa').val()}</b></h1>
-                        </td>
-                    </tr>
-                    <tr class="border-b-2 border-blue-300">
-                        <td class="border-r-2 border-blue-300">
-                            <h1>Program Studi</h1>
-                        </td>
-                        <td>
-                            <h1><b>${$('#id_prodi').val()}</b></h1>
                         </td>
                     </tr>
                     <tr class="border-b-2 border-blue-300">

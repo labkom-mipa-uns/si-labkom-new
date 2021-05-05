@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ config('app.name') }} @yield('title')</title>
     <!-- Favicons -->
-    <link rel="icon" href="favicons/favicon.ico">
+    <link rel="icon" href="/favicons/favicon.ico">
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <!-- Styles -->
@@ -444,6 +444,84 @@
         <script src="{{ mix('js/manifest.js') }}" defer></script>
         <script src="{{ mix('js/vendor.js') }}" defer></script>
         <script src="{{ mix('js/script.js') }}" defer></script>
+        <script>
+            // --- Peminjaman Lab ---
+            let peminjamanlab = document.getElementById('peminjamanlab')
+            if (peminjamanlab) {
+                let success = peminjamanlab.dataset.success;
+                if (success) {
+                    const asisten = {
+                        arthur: 6281234535633,
+                        zahra: 6285729971270,
+                        pio: 6282334952928,
+                        sari: 6285784378582,
+                        yoga: 6285866318119,
+                        deva: 685735691018,
+                        siti: 685713696953,
+                        enny: 6285331318280,
+                        aufa: 6289527681696
+                    }
+                    let getAsisten = (obj) => {
+                        let keys = Object.keys(obj);
+                        return obj[keys[keys.length * Math.random() << 0]];
+                    };
+                    window.open(
+                        `https://api.whatsapp.com/send?phone=${getAsisten(asisten)}&text=Assalamualaikum,%20Saya%20meminta%20izin%20untuk%20meminjam%20lab%20____%20pada%tanggal%20____`
+                    );
+                }
+            }
+            // --- Peminjaman Alat ---
+            let peminjamanalat = document.getElementById('peminjamanalat')
+            if (peminjamanalat) {
+                let success = peminjamanalat.dataset.success;
+                if (success) {
+                    const asisten = {
+                        arthur: 6281234535633,
+                        zahra: 6285729971270,
+                        pio: 6282334952928,
+                        sari: 6285784378582,
+                        yoga: 6285866318119,
+                        deva: 685735691018,
+                        siti: 685713696953,
+                        enny: 6285331318280,
+                        aufa: 6289527681696
+                    }
+                    let getAsisten = (obj) => {
+                        let keys = Object.keys(obj);
+                        return obj[keys[keys.length * Math.random() << 0]];
+                    };
+                    window.open(
+                        `https://api.whatsapp.com/send?phone=${getAsisten(asisten)}&text=Assalamualaikum,%20Saya%20meminta%20izin%20untuk%20meminjam%20alat%20berupa%20_____%20dengan%20jumlah%20____buah`
+                    )
+                }
+            }
+            // --- Surat Bebas Labkom ---
+            let suratbebaslabkom = document.getElementById('suratbebaslabkom')
+            if (suratbebaslabkom) {
+                let success = suratbebaslabkom.dataset.success;
+                if (success) {
+                    const asisten = {
+                        arthur: 6281234535633,
+                        zahra: 6285729971270,
+                        pio: 6282334952928,
+                        sari: 6285784378582,
+                        yoga: 6285866318119,
+                        deva: 685735691018,
+                        siti: 685713696953,
+                        enny: 6285331318280,
+                        aufa: 6289527681696
+                    }
+                    let getAsisten = (obj) => {
+                        let keys = Object.keys(obj);
+                        return obj[keys[keys.length * Math.random() << 0]];
+                    };
+                    window.open(
+                        `https://api.whatsapp.com/send?phone=${getAsisten(asisten)}&text=Assalamualaikum,%20Saya%20meminta%20izin%20untuk%20dibuatkan%20surat%20keterangan%20bebas%20labkom%20sebagai%20syarat%20untuk%20____`
+                    );
+                }
+            }
+
+        </script>
     </body>
 
     </html>

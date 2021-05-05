@@ -49,6 +49,8 @@
                         <label class="form-label" for="angkatan">Angkatan</label>
                         <select id="angkatan" name="angkatan" class="form-select @error('angkatan') error @enderror">
                             <option value=""></option>
+                            <option value="2014">2014</option>
+                            <option value="2015">2015</option>
                             <option value="2016">2016</option>
                             <option value="2017">2017</option>
                             <option value="2018">2018</option>
