@@ -31,6 +31,8 @@ class CreatePeminjamanLabsTable extends Migration
 
             $table->foreign('id_mahasiswa')->references('id')->on('mahasiswa');
             $table->foreign('id_lab')->references('id')->on('lab');
+            $table->foreign('id_dosen')->references('id')->on('dosen');
+            $table->foreign('id_matkul')->references('id')->on('mata_kuliah');
         });
     }
 
