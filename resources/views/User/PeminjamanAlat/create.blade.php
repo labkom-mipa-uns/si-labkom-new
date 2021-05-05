@@ -16,7 +16,7 @@
                     <div class="pr-6 pb-8 w-full lg:w-1/2">
                         <label class="form-label" for="nim">NIM</label>
                         <input id="nim" name="nim" class="form-input @error('nim') error @enderror" type="text"
-                            value="{{ old('nim') }}" autocomplete="off" />
+                            value="{{ old('nim') }}" autocomplete="off" placeholder="Masukkan NIM" />
                         @error('nim')
                             <div class="form-error">{{ $message }}</div>
                         @enderror
@@ -25,7 +25,7 @@
                         <label class="form-label" for="nama_mahasiswa">Nama Lengkap</label>
                         <input id="nama_mahasiswa" name="nama_mahasiswa"
                             class="form-input @error('nama_mahasiswa') error @enderror" type="text"
-                            value="{{ old('nama_mahasiswa') }}" autocomplete="off" />
+                            value="{{ old('nama_mahasiswa') }}" autocomplete="off" placeholder="Masukkan nama lengkap" />
                         @error('nama_mahasiswa')
                             <div class="form-error">{{ $message }}</div>
                         @enderror
@@ -49,12 +49,15 @@
                         <label class="form-label" for="angkatan">Angkatan</label>
                         <select id="angkatan" name="angkatan" class="form-select @error('angkatan') error @enderror">
                             <option value=""></option>
+                            <option value="2016">2014</option>
+                            <option value="2016">2015</option>
                             <option value="2016">2016</option>
                             <option value="2017">2017</option>
                             <option value="2018">2018</option>
                             <option value="2019">2019</option>
                             <option value="2020">2020</option>
                             <option value="2021">2021</option>
+                            <option value="2021">2022</option>
                         </select>
                         @error('angkatan')
                             <div class="form-error">{{ $message }}</div>
@@ -75,7 +78,7 @@
                     <div class="pr-6 pb-8 w-full lg:w-1/2">
                         <label class="form-label" for="kelas">Kelas</label>
                         <input id="kelas" name="kelas" class="form-input @error('kelas') error @enderror" type="text"
-                            value="{{ old('kelas') }}" autocomplete="off" />
+                            value="{{ old('kelas') }}" autocomplete="off" placeholder="Masukkan kelas" />
                         @error('kelas')
                             <div class="form-error">{{ $message }}</div>
                         @enderror
@@ -83,7 +86,7 @@
                     <div class="pr-6 pb-8 w-full lg:w-1/2">
                         <label class="form-label" for="no_hp">Nomor WhatsApp</label>
                         <input id="no_hp" name="no_hp" class="form-input @error('no_hp') error @enderror" type="tel"
-                            value="{{ old('no_hp') }}" autocomplete="off" />
+                            value="{{ old('no_hp') }}" autocomplete="off" placeholder="Masukkan nomor WhatsApp aktif" />
                         @error('no_hp')
                             <div class="form-error">{{ $message }}</div>
                         @enderror
@@ -91,7 +94,7 @@
                     <div class="pr-6 pb-8 w-full lg:w-1/2">
                         <label class="form-label" for="email">Email</label>
                         <input id="email" name="email" class="form-input @error('email') error @enderror" type="email"
-                            value="{{ old('email') }}" autocomplete="off" />
+                            value="{{ old('email') }}" autocomplete="off" placeholder="Masukkan email SSO" />
                         @error('email')
                             <div class="form-error">{{ $message }}</div>
                         @enderror
@@ -117,7 +120,7 @@
                         <label class="form-label" for="jumlah_pinjam">Jumlah Pinjam</label>
                         <input id="jumlah_pinjam" name="jumlah_pinjam"
                             class="form-input @error('jumlah_pinjam') error @enderror" autocomplete="off" type="number"
-                            min="0" value="{{ old('jumlah_pinjam') }}" />
+                            min="0" value="{{ old('jumlah_pinjam') }}" placeholder="Masukkan jumlah pinjam" />
                         @error('jumlah_pinjam')
                             <div class="form-error">{{ $message }}</div>
                         @enderror
@@ -164,7 +167,7 @@
                             Keperluan
                         </label>
                         <textarea name="keperluan" id="keperluan" class="form-input @error('keperluan') error @enderror"
-                            autocomplete="off">{{ old('keperluan') }}</textarea>
+                            autocomplete="off" placeholder="Masukkan keperluan">{{ old('keperluan') }}</textarea>
                         @error('keperluan')
                             <div class="form-error">{{ $message }}</div>
                         @enderror
