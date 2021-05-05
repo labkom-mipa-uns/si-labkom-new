@@ -104,7 +104,9 @@
                                 @if ($item->id === old('id_alat'))
                                     <option value="{{ old('id_alat') }}">{{ $item->nama_alat }}</option>
                                 @endif
-                                <option value="{{ $item->id }}">{{ $item->nama_alat }}</option>
+                                <option value="{{ $item->id }}">{{ $item->nama_alat }} -
+                                    Rp.{{ number_format($item->harga_alat) }}
+                                </option>
                             @endforeach
                         </select>
                         @error('id_alat')

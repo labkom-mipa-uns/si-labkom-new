@@ -3,23 +3,6 @@
 @section('title', '| Surat Bebas Labkom | Alur')
 @section('content')
     @if (session()->exists('success'))
-        <script>
-            const asisten = {
-                arthur: 6281234535633,
-                zahra: 6285729971270,
-                pio: 6282334952928,
-                sari: 6285784378582,
-                yoga: 6285866318119,
-                deva: 685735691018,
-                siti: 685713696953,
-                enny: 6285331318280,
-            }
-            let getAsisten = (arr) => arr[Math.floor(Math.random() * arr.length)];
-            window.open(
-                `https://api.whatsapp.com/send?phone=${getAsisten(Object.values(asisten))}&text=Assalamualaikum,%20Saya%20meminta%20izin%20untuk%20dibuatkan%20surat%20keterangan%20bebas%20labkom%20sebagai%20syarat%20untuk%20____`
-            );
-
-        </script>
         <div id="suratbebaslabkom" data-name="{{ session('name') }}" data-success="{{ session('success') }}"></div>
     @endif
     @if (session()->exists('error'))

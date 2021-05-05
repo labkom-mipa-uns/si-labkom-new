@@ -136,7 +136,7 @@ export default () => {
                             </SelectInput>
                             <SelectInput
                                 className="pr-6 pb-8 w-full lg:w-1/2"
-                                label="Postal Code"
+                                label="Tahun Angkatan"
                                 name="angkatan"
                                 type="text"
                                 errors={errors.angkatan}
