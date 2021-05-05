@@ -31,7 +31,10 @@ export default () => {
     function handleSubmit(e) {
         e.preventDefault();
         setSending(true);
-        Inertia.put(route('Alat.update', alat.id), values).then(() =>
+        // Inertia.put(route('Alat.update', alat.id), values).then(() =>
+        //     setSending(false)
+        // );
+        Inertia.post(route('Alat.update', alat.id), values).then(() =>
             setSending(false)
         );
     }
@@ -47,7 +50,8 @@ export default () => {
             confirmButtonText: 'Yes'
         }).then((result) => {
             if (result.value) {
-                Inertia.delete(route('Alat.destroy', alat.id));
+                // Inertia.delete(route('Alat.destroy', alat.id));
+                Inertia.get(route('Alat.destroy', alat.id));
             }
         })
     }
@@ -63,7 +67,8 @@ export default () => {
             confirmButtonText: 'Yes'
         }).then((result) => {
             if (result.value) {
-                Inertia.put(route('Alat.restore', {'Alat': alat.id}))
+                // Inertia.put(route('Alat.restore', {'Alat': alat.id}))
+                Inertia.post(route('Alat.restore', {'Alat': alat.id}))
             }
         })
     }

@@ -30,7 +30,10 @@ export default () => {
     function handleSubmit(e) {
         e.preventDefault();
         setSending(true);
-        Inertia.put(route('MataKuliah.update', matkul.id), values).then(() =>
+        // Inertia.put(route('MataKuliah.update', matkul.id), values).then(() =>
+        //     setSending(false)
+        // );
+        Inertia.post(route('MataKuliah.update', matkul.id), values).then(() =>
             setSending(false)
         );
     }
@@ -46,7 +49,8 @@ export default () => {
             confirmButtonText: 'Yes'
         }).then((result) => {
             if (result.value) {
-                Inertia.delete(route('MataKuliah.destroy', matkul.id));
+                // Inertia.delete(route('MataKuliah.destroy', matkul.id));
+                Inertia.get(route('MataKuliah.destroy', matkul.id));
             }
         })
     }
@@ -62,7 +66,8 @@ export default () => {
             confirmButtonText: 'Yes'
         }).then((result) => {
             if (result.value) {
-                Inertia.put(route('MataKuliah.restore', {'MataKuliah': matkul.id}))
+                // Inertia.put(route('MataKuliah.restore', {'MataKuliah': matkul.id}))
+                Inertia.post(route('MataKuliah.restore', {'MataKuliah': matkul.id}))
             }
         })
     }

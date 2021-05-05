@@ -34,7 +34,10 @@ export default () => {
     function handleSubmit(e) {
         e.preventDefault();
         setSending(true);
-        Inertia.put(route('Jadwal.update', jadwal.id), values).then(() =>
+        // Inertia.put(route('Jadwal.update', jadwal.id), values).then(() =>
+        //     setSending(false)
+        // );
+        Inertia.post(route('Jadwal.update', jadwal.id), values).then(() =>
             setSending(false)
         );
     }
@@ -50,7 +53,8 @@ export default () => {
             confirmButtonText: 'Yes'
         }).then((result) => {
             if (result.value) {
-                Inertia.delete(route('Jadwal.destroy', jadwal.id));
+                // Inertia.delete(route('Jadwal.destroy', jadwal.id));
+                Inertia.get(route('Jadwal.destroy', jadwal.id));
             }
         })
     }
@@ -66,7 +70,8 @@ export default () => {
             confirmButtonText: 'Yes'
         }).then((result) => {
             if (result.value) {
-                Inertia.put(route('Jadwal.restore', jadwal.id))
+                // Inertia.put(route('Jadwal.restore', jadwal.id))
+                Inertia.post(route('Jadwal.restore', jadwal.id))
             }
         })
     }

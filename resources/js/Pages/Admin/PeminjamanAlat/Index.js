@@ -49,7 +49,7 @@ const Index = () => {
                 <h1 className="mb-8 font-bold text-3xl">Peminjaman Alat</h1>
                 <div className="mb-6 flex justify-between items-center">
                     <SearchFilter />
-                    <form onSubmit={handleSubmitDaily} className="flex flex-row items-center">
+                    {/* <form onSubmit={handleSubmitDaily} className="flex flex-row items-center">
                         <TextInput
                             name="tanggal"
                             type="date"
@@ -94,7 +94,7 @@ const Index = () => {
                         >
                             Monthly
                         </LoadingButton>
-                    </form>
+                    </form> */}
                     <InertiaLink
                         className="btn-indigo"
                         href={route('PeminjamanAlat.create')}

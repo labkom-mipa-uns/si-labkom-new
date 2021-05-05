@@ -29,7 +29,10 @@ export default () => {
     function handleSubmit(e) {
         e.preventDefault();
         setSending(true);
-        Inertia.put(route('Laboratorium.update', lab.id), values).then(() =>
+        // Inertia.put(route('Laboratorium.update', lab.id), values).then(() =>
+        //     setSending(false)
+        // );
+        Inertia.post(route('Laboratorium.update', lab.id), values).then(() =>
             setSending(false)
         );
     }
@@ -45,7 +48,8 @@ export default () => {
             confirmButtonText: 'Yes'
         }).then((result) => {
             if (result.value) {
-                Inertia.delete(route('Laboratorium.destroy', lab.id));
+                // Inertia.delete(route('Laboratorium.destroy', lab.id));
+                Inertia.get(route('Laboratorium.destroy', lab.id));
             }
         })
     }
@@ -61,7 +65,8 @@ export default () => {
             confirmButtonText: 'Yes'
         }).then((result) => {
             if (result.value) {
-                Inertia.put(route('Laboratorium.restore', lab.id))
+                // Inertia.put(route('Laboratorium.restore', lab.id))
+                Inertia.post(route('Laboratorium.restore', lab.id))
             }
         })
     }

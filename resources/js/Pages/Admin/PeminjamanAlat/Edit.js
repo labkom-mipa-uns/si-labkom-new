@@ -39,7 +39,10 @@ const Edit = () => {
     function handleSubmit(e) {
         e.preventDefault();
         setSending(true);
-        Inertia.put(route('PeminjamanAlat.update', peminjamanalat.id), values).then(() =>
+        // Inertia.put(route('PeminjamanAlat.update', peminjamanalat.id), values).then(() =>
+        //     setSending(false)
+        // );
+        Inertia.post(route('PeminjamanAlat.update', peminjamanalat.id), values).then(() =>
             setSending(false)
         );
     }
@@ -55,7 +58,8 @@ const Edit = () => {
             confirmButtonText: 'Yes'
         }).then((result) => {
             if (result.value) {
-                Inertia.delete(route('PeminjamanAlat.destroy', peminjamanalat.id));
+                // Inertia.delete(route('PeminjamanAlat.destroy', peminjamanalat.id));
+                Inertia.get(route('PeminjamanAlat.destroy', peminjamanalat.id));
             }
         })
     }
@@ -71,7 +75,8 @@ const Edit = () => {
             confirmButtonText: 'Yes'
         }).then((result) => {
             if (result.value) {
-                Inertia.put(route('PeminjamanAlat.restore', peminjamanalat.id))
+                // Inertia.put(route('PeminjamanAlat.restore', peminjamanalat.id))
+                Inertia.post(route('PeminjamanAlat.restore', peminjamanalat.id))
             }
         })
     }

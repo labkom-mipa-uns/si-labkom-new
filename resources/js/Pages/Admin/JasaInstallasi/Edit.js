@@ -37,7 +37,10 @@ export default () => {
     function handleSubmit(e) {
         e.preventDefault();
         setSending(true);
-        Inertia.put(route('JasaInstallasi.update', jasainstallasi.id), values).then(() =>
+        // Inertia.put(route('JasaInstallasi.update', jasainstallasi.id), values).then(() =>
+        //     setSending(false)
+        // );
+        Inertia.post(route('JasaInstallasi.update', jasainstallasi.id), values).then(() =>
             setSending(false)
         );
     }
@@ -53,7 +56,8 @@ export default () => {
             confirmButtonText: 'Yes'
         }).then((result) => {
             if (result.value) {
-                Inertia.delete(route('JasaInstallasi.destroy', jasainstallasi.id));
+                // Inertia.delete(route('JasaInstallasi.destroy', jasainstallasi.id));
+                Inertia.get(route('JasaInstallasi.destroy', jasainstallasi.id));
             }
         })
     }
@@ -69,7 +73,8 @@ export default () => {
             confirmButtonText: 'Yes'
         }).then((result) => {
             if (result.value) {
-                Inertia.put(route('JasaInstallasi.restore', {'Jasa Installasi': jasainstallasi.id}))
+                // Inertia.put(route('JasaInstallasi.restore', {'Jasa Installasi': jasainstallasi.id}))
+                Inertia.post(route('JasaInstallasi.restore', {'Jasa Installasi': jasainstallasi.id}))
             }
         })
     }

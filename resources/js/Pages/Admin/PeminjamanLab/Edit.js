@@ -38,7 +38,10 @@ const Edit = () => {
     function handleSubmit(e) {
         e.preventDefault();
         setSending(true);
-        Inertia.put(route('PeminjamanLab.update', peminjamanlab.id), values).then(() =>
+        // Inertia.put(route('PeminjamanLab.update', peminjamanlab.id), values).then(() =>
+        //     setSending(false)
+        // );
+        Inertia.post(route('PeminjamanLab.update', peminjamanlab.id), values).then(() =>
             setSending(false)
         );
     }
@@ -54,7 +57,8 @@ const Edit = () => {
             confirmButtonText: 'Yes'
         }).then((result) => {
             if (result.value) {
-                Inertia.delete(route('PeminjamanLab.destroy', peminjamanlab.id));
+                // Inertia.delete(route('PeminjamanLab.destroy', peminjamanlab.id));
+                Inertia.get(route('PeminjamanLab.destroy', peminjamanlab.id));
             }
         })
     }
@@ -70,7 +74,8 @@ const Edit = () => {
             confirmButtonText: 'Yes'
         }).then((result) => {
             if (result.value) {
-                Inertia.put(route('PeminjamanLab.restore', peminjamanlab.id))
+                // Inertia.put(route('PeminjamanLab.restore', peminjamanlab.id))
+                Inertia.post(route('PeminjamanLab.restore', peminjamanlab.id))
             }
         })
     }

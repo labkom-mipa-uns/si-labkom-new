@@ -29,7 +29,10 @@ export default () => {
     function handleSubmit(e) {
         e.preventDefault();
         setSending(true);
-        Inertia.put(route('Prodi.update', prodi.id), values).then(() =>
+        // Inertia.put(route('Prodi.update', prodi.id), values).then(() =>
+        //     setSending(false)
+        // );
+        Inertia.post(route('Prodi.update', prodi.id), values).then(() =>
             setSending(false)
         );
     }
@@ -45,7 +48,8 @@ export default () => {
             confirmButtonText: 'Yes'
         }).then((result) => {
             if (result.value) {
-                Inertia.delete(route('Prodi.destroy', prodi.id));
+                // Inertia.delete(route('Prodi.destroy', prodi.id));
+                Inertia.get(route('Prodi.destroy', prodi.id));
             }
         })
     }
@@ -61,7 +65,8 @@ export default () => {
             confirmButtonText: 'Yes'
         }).then((result) => {
             if (result.value) {
-                Inertia.put(route('Prodi.restore', {'Prodi': prodi.id}))
+                // Inertia.put(route('Prodi.restore', {'Prodi': prodi.id}))
+                Inertia.post(route('Prodi.restore', {'Prodi': prodi.id}))
             }
         })
     }
