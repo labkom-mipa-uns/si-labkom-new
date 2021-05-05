@@ -38,7 +38,10 @@ export default () => {
     function handleSubmit(e) {
         e.preventDefault();
         setSending(true);
-        Inertia.put(route('Mahasiswa.update', mahasiswa.id), values).then(() =>
+        // Inertia.put(route('Mahasiswa.update', mahasiswa.id), values).then(() =>
+        //     setSending(false)
+        // );
+        Inertia.post(route('Mahasiswa.update', mahasiswa.id), values).then(() =>
             setSending(false)
         );
     }
@@ -54,7 +57,8 @@ export default () => {
             confirmButtonText: 'Yes'
         }).then((result) => {
             if (result.value) {
-                Inertia.delete(route('Mahasiswa.destroy', mahasiswa.id));
+                // Inertia.delete(route('Mahasiswa.destroy', mahasiswa.id));
+                Inertia.get(route('Mahasiswa.destroy', mahasiswa.id));
             }
         })
     }
@@ -70,7 +74,8 @@ export default () => {
             confirmButtonText: 'Yes'
         }).then((result) => {
             if (result.value) {
-                Inertia.put(route('Mahasiswa.restore', mahasiswa.id))
+                // Inertia.put(route('Mahasiswa.restore', mahasiswa.id))
+                Inertia.post(route('Mahasiswa.restore', mahasiswa.id))
             }
         })
     }

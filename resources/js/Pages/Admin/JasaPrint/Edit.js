@@ -33,7 +33,10 @@ export default () => {
     function handleSubmit(e) {
         e.preventDefault();
         setSending(true);
-        Inertia.put(route('JasaPrint.update', jasaprint.id), values).then(() =>
+        // Inertia.put(route('JasaPrint.update', jasaprint.id), values).then(() =>
+        //     setSending(false)
+        // );
+        Inertia.post(route('JasaPrint.update', jasaprint.id), values).then(() =>
             setSending(false)
         );
     }
@@ -49,7 +52,8 @@ export default () => {
             confirmButtonText: 'Yes'
         }).then((result) => {
             if (result.value) {
-                Inertia.delete(route('JasaPrint.destroy', jasaprint.id));
+                // Inertia.delete(route('JasaPrint.destroy', jasaprint.id));
+                Inertia.get(route('JasaPrint.destroy', jasaprint.id));
             }
         })
     }
@@ -65,7 +69,8 @@ export default () => {
             confirmButtonText: 'Yes'
         }).then((result) => {
             if (result.value) {
-                Inertia.put(route('JasaPrint.restore', {'JasaPrint': jasaprint.id}))
+                // Inertia.put(route('JasaPrint.restore', {'JasaPrint': jasaprint.id}))
+                Inertia.post(route('JasaPrint.restore', {'JasaPrint': jasaprint.id}))
             }
         })
     }

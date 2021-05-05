@@ -6,7 +6,13 @@ const Dashboard = () => {
         <React.Fragment>
             <h1 className="mb-8 font-bold text-3xl">Dashboard</h1>
             <p className="mb-12 leading-normal">
-                Sistem Informasi Labkom FMIPA UNS
+                Hey there! Welcome to Labkom's Information System, a
+                <a className="text-indigo-600 underline hover:text-orange-500 mx-1"
+                    href="https://laravel.com"
+                >
+                    Laravel
+                </a>
+                app designed to help how
                 <a
                     className="text-indigo-600 underline hover:text-orange-500 mx-1"
                     href="https://inertiajs.com"

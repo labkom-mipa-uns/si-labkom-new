@@ -19,6 +19,7 @@ export default () => {
         name: user.name || '',
         email: user.email || '',
         password: user.password || '',
+        password_confirmation: '',
         role: user.role || '0',
         photo: user.photo || '',
     });
@@ -42,16 +43,7 @@ export default () => {
     function handleSubmit(e) {
         e.preventDefault();
         setSending(true);
-
-        // since we are uploading an image
-        // we need to use FormData object
-
-        // NOTE: When working with Laravel PUT/PATCH requests and FormData
-        // you SHOULD send POST request and fake the PUT request like this.
-        // For more info check utils.jf file
-        const formData = toFormData(values, 'PUT');
-
-        Inertia.post(route('User.update', user.id), formData).then(() => {
+        Inertia.post(route('User.update', user.id), values).then(() => {
             setSending(false);
         });
     }
@@ -67,7 +59,8 @@ export default () => {
             confirmButtonText: 'Yes'
         }).then((result) => {
             if (result.value) {
-                Inertia.delete(route('User.destroy', user.id));
+                // Inertia.delete(route('User.destroy', user.id));
+                Inertia.get(route('User.destroy', user.id));
             }
         })
     }
@@ -83,7 +76,8 @@ export default () => {
             confirmButtonText: 'Yes'
         }).then((result) => {
             if (result.value) {
-                Inertia.put(route('User.restore', {'User': user.id}))
+                // Inertia.put(route('User.restore', {'User': user.id}))
+                Inertia.post(route('User.restore', {'User': user.id}))
             }
         })
     }
@@ -140,6 +134,15 @@ export default () => {
                                 type="password"
                                 errors={errors.password}
                                 value={values.password}
+                                onChange={handleChange}
+                            />
+                            <TextInput
+                                className="pr-6 pb-8 w-full lg:w-1/2"
+                                label="Confirm Password"
+                                name="password_confirmation"
+                                type="password"
+                                errors={errors.password_confirmation}
+                                value={values.password_confirmation}
                                 onChange={handleChange}
                             />
                             <SelectInput

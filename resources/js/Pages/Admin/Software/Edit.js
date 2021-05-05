@@ -30,7 +30,10 @@ export default () => {
     function handleSubmit(e) {
         e.preventDefault();
         setSending(true);
-        Inertia.put(route('Software.update', software.id), values).then(() =>
+        // Inertia.put(route('Software.update', software.id), values).then(() =>
+        //     setSending(false)
+        // );
+        Inertia.post(route('Software.update', software.id), values).then(() =>
             setSending(false)
         );
     }
@@ -46,7 +49,8 @@ export default () => {
             confirmButtonText: 'Yes'
         }).then((result) => {
             if (result.value) {
-                Inertia.delete(route('Software.destroy', software.id));
+                // Inertia.delete(route('Software.destroy', software.id));
+                Inertia.get(route('Software.destroy', software.id));
             }
         })
     }
@@ -62,7 +66,8 @@ export default () => {
             confirmButtonText: 'Yes'
         }).then((result) => {
             if (result.value) {
-                Inertia.put(route('Software.restore', {'Software': software.id}))
+                // Inertia.put(route('Software.restore', {'Software': software.id}))
+                Inertia.post(route('Software.restore', {'Software': software.id}))
             }
         })
     }

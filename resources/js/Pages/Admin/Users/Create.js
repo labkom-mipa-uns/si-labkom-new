@@ -17,6 +17,7 @@ export default () => {
         name: '',
         email: '',
         password: '',
+        password_confirmation: '',
         role: '0',
         photo: ''
     });
@@ -40,13 +41,7 @@ export default () => {
     function handleSubmit(e) {
         e.preventDefault();
         setSending(true);
-
-        // since we are uploading an image
-        // we need to use FormData object
-        // for more info check utils.js
-        const formData = toFormData(values);
-
-        Inertia.post(route('User.store'), formData).then(() => {
+        Inertia.post(route('User.store'), values).then(() => {
             setSending(false);
         });
     }
@@ -94,6 +89,15 @@ export default () => {
                                 type="password"
                                 errors={errors.password}
                                 value={values.password}
+                                onChange={handleChange}
+                            />
+                            <TextInput
+                                className="pr-6 pb-8 w-full lg:w-1/2"
+                                label="Confirm Password"
+                                name="password_confirmation"
+                                type="password"
+                                errors={errors.password_confirmation}
+                                value={values.password_confirmation}
                                 onChange={handleChange}
                             />
                             <SelectInput

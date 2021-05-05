@@ -31,7 +31,10 @@ const Edit = () => {
     function handleSubmit(e) {
         e.preventDefault();
         setSending(true);
-        Inertia.put(route('SuratBebasLabkom.update', surat.id), values).then(() =>
+        // Inertia.put(route('SuratBebasLabkom.update', surat.id), values).then(() =>
+        //     setSending(false)
+        // );
+        Inertia.post(route('SuratBebasLabkom.update', surat.id), values).then(() =>
             setSending(false)
         );
     }
@@ -47,7 +50,8 @@ const Edit = () => {
             confirmButtonText: 'Yes'
         }).then((result) => {
             if (result.value) {
-                Inertia.delete(route('SuratBebasLabkom.destroy', surat.id));
+                // Inertia.delete(route('SuratBebasLabkom.destroy', surat.id));
+                Inertia.get(route('SuratBebasLabkom.destroy', surat.id));
             }
         })
     }
@@ -63,7 +67,8 @@ const Edit = () => {
             confirmButtonText: 'Yes'
         }).then((result) => {
             if (result.value) {
-                Inertia.put(route('SuratBebasLabkom.restore', surat.id))
+                // Inertia.put(route('SuratBebasLabkom.restore', surat.id))
+                Inertia.post(route('SuratBebasLabkom.restore', surat.id))
             }
         })
     }

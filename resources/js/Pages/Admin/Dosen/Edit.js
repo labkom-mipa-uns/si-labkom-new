@@ -30,7 +30,10 @@ export default () => {
     function handleSubmit(e) {
         e.preventDefault();
         setSending(true);
-        Inertia.put(route('Dosen.update', dosen.id), values).then(() =>
+        // Inertia.put(route('Dosen.update', dosen.id), values).then(() =>
+        //     setSending(false)
+        // );
+        Inertia.post(route('Dosen.update', dosen.id), values).then(() =>
             setSending(false)
         );
     }
@@ -46,7 +49,8 @@ export default () => {
             confirmButtonText: 'Yes'
         }).then((result) => {
             if (result.value) {
-                Inertia.delete(route('Dosen.destroy', dosen.id));
+                // Inertia.delete(route('Dosen.destroy', dosen.id));
+                Inertia.get(route('Dosen.destroy', dosen.id));
             }
         })
     }
@@ -62,7 +66,8 @@ export default () => {
             confirmButtonText: 'Yes'
         }).then((result) => {
             if (result.value) {
-                Inertia.put(route('Dosen.restore', {'Dosen': dosen.id}))
+                // Inertia.put(route('Dosen.restore', {'Dosen': dosen.id}))
+                Inertia.post(route('Dosen.restore', {'Dosen': dosen.id}))
             }
         })
     }
