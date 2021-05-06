@@ -44,7 +44,7 @@
         </svg>
     </div>
     <div class="bg-white min-h-full md:py-16 lg:py-24">
-        <!-- This example requires Tailwind CSS v2.0+ -->
+        {{-- <!-- This example requires Tailwind CSS v2.0+ -->
         <div class="flex flex-col container mx-auto pb-10">
             <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -117,7 +117,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
         <dl class="space-y-10 md:space-y-0 grid md:gap-4 grid-rows-3 grid-flow-col container mx-auto">
             <div class="flex">
                 <div class="flex-shrink-0">
