@@ -66,7 +66,7 @@ Route::get('/SuratBebasLabkom/exportWord/{SuratBebasLabkom}', [UserSuratBebasLab
 Route::redirect('admin', '/admin/Dashboard');
 
 // Auth
-Auth::routes(['verify' => true]);
+Auth::routes(['verify' => true, 'register' => false]);
 
 // Url Prefix 'admin/'
 Route::prefix('admin')->middleware(['verified'])->group(static function () {
