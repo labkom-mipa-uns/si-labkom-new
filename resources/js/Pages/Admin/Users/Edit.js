@@ -16,6 +16,7 @@ export default () => {
     const { user, errors } = usePage().props;
     const [sending, setSending] = useState(false);
     const [values, setValues] = useState({
+        id: user.id,
         name: user.name || '',
         email: user.email || '',
         password: user.password || '',

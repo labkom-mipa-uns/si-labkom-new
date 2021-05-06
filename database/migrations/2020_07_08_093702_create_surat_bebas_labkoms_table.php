@@ -17,7 +17,7 @@ class CreateSuratBebasLabkomsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('id_mahasiswa');
             $table->date('tanggal');
-            $table->enum('proses', ['0', '1', '2']);    // 0: Ditolak, 1: Dalam Proses, 2: Surat Sudah Siap
+            $table->enum('proses', ['0', '1', '2']);    // 0: Ditolak, 1: Dalam Proses/Menunggu Persetujuan, 2: Surat Sudah Siap/Disetujui, 3: Selesai
             $table->softDeletes();
             $table->timestamps();
 

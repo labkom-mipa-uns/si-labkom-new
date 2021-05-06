@@ -9,6 +9,7 @@ use App\Models\User;
 use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request as HttpRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
@@ -125,18 +126,26 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param UserRequest $request
+     * @param Request $request
      * @param User $User
      * @return RedirectResponse
      */
-    public function update(UserRequest $request, User $User): ?RedirectResponse
+    public function update(HttpRequest $request, User $User): ?RedirectResponse
     {
         try {
+            // dd($request);
+            $request->validate([
+                'name' => ['required', 'string', 'max:55'],
+                'email' => ['required', 'string', 'email', 'max:55', "unique:users,email,{$request->id},id"],
+                'password' => ['nullable', 'confirmed'],
+                'role' => ['nullable'],
+                'photo' => ['nullable'],
+            ]);
             $User->update([
                 'name' => $request->name,
                 'email' => $request->email,
-                'password' => (empty($request->newPassword)) ?
-                    $request->password : Hash::make($request->newPassword),
+                'password' => (empty($request->password)) ?
+                    User::where('id', $request->id)->first()->password : Hash::make($request->password),
                 'role' => $request->role,
                 'photo' => $request->photo
             ]);

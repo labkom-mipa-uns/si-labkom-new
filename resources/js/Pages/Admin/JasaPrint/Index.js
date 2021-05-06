@@ -51,7 +51,7 @@ export default () => {
                 <h1 className="mb-8 font-bold text-3xl">Jasa Print</h1>
                 <div className="mb-6 flex justify-between items-center">
                     <SearchFilter />
-                    <form onSubmit={handleSubmitDaily} className="inline">
+                    {/* <form onSubmit={handleSubmitDaily} className="inline">
                         <TextInput
                             className="inline"
                             name="tanggal"
@@ -97,7 +97,7 @@ export default () => {
                         >
                             Monthly
                         </LoadingButton>
-                    </form>
+                    </form> */}
                     <InertiaLink className="btn-indigo" href={route('JasaPrint.create')} as="a">
                         <span>Tambah</span>
                         <span className="hidden md:inline"> Jasa Print</span>
