@@ -99,8 +99,8 @@ const Index = () => {
                                         as="a"
                                         className="px-6 py-4 flex items-center focus:text-indigo"
                                     >
-                                        <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${(proses === '1') ? "bg-yellow-200 text-yellow-800" : "bg-green-200 text-green-800"}${proses === '0' && "bg-gray-200 text-gray-800"}`}
-                                        >{(proses === '1') ? 'Menunggu Persetujuan' : 'Disetujui'}{proses === '0' && "Selesai"}</span>
+                                        <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${proses === '1' && "bg-yellow-200 text-yellow-800"}${proses === '2' && "bg-green-200 text-green-800"}${proses === '3' && "bg-gray-200 text-gray-800"}${proses === '0' && "bg-red-200 text-red-800"}`}
+                                        >{proses === '0' && "Ditolak"}{proses === '1' && "Menunggu Persetujuan"}{proses === '2' && "Disetujui"}{proses === '3' && 'Selesai'}</span>
                                     </InertiaLink>
                                 </td>
                                 <td className="border-t w-px">
