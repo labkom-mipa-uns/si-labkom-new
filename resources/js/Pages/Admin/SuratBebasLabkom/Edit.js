@@ -129,7 +129,8 @@ const Edit = () => {
                             <option></option>
                             <option value="1" disabled>Menunggu Persetujuan</option>
                             <option value="2">Setujui</option>
-                            <option value="3">Tolak</option>
+                            <option value="0">Tolak</option>
+                            <option value="3">Selesai</option>
                         </SelectInput>
                     </div>
                     <div className="px-8 py-4 bg-gray-100 border-t border-gray-200 flex items-center">
