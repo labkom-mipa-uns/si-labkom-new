@@ -62,14 +62,17 @@ class PeminjamanLabController extends Controller
     {
         $request->validate([
             // Mahasiswa
-            'nim' => ['required','size:8'],
-            'nama_mahasiswa' => ['required','string','max:60'],
+            'nim' => ['required', 'size:8'],
+            'nama_mahasiswa' => ['required', 'string', 'max:60'],
             'id_prodi' => ['required'],
             'angkatan' => ['required'],
-            'jenis_kelamin' => ['required','string'],
-            'kelas' => ['required','string','max:5'],
-            'no_hp' => ['required','max:13'],
-            'email' => ['required','regex:/^[A-Za-z0-9\.]*@(student)[.](uns.ac.id)$/'],
+            'jenis_kelamin' => ['required', 'string'],
+            'kelas' => ['required', 'string', 'max:5'],
+            'no_hp' => ['required', 'max:13'],
+            'email' => [
+                'required',
+                // 'regex:/^[A-Za-z0-9\.]*@(student)[.](uns.ac.id)$/'
+            ],
             // Dosen
             'nidn' => 'required|string',
             'nama_dosen' => 'required|string|max:60',
@@ -87,17 +90,17 @@ class PeminjamanLabController extends Controller
             'status' => 'required|string',
         ]);
         try {
-//            if (now() === date($request->tanggal) || time() + (time() + 7) >= 4) {
-//                throw new RuntimeException('Booking lab paling lambat 3 hari sebelum hari peminjaman!');
-//            }
-//            if (PeminjamanLab::with(['mahasiswa', 'dosen', 'matakuliah'])
-//                ->whereDate('tanggal', $request->tanggal)
-//                ->whereTime('jam_kembali','>=', $request->jam_pinjam)
-//                ->whereTime('jam_pinjam', '<=', $request->jam_kembali)
-//                ->where('status', '=', '0')
-//            ) {
-//                throw new RuntimeException('Lab Sedang Dipinjam!');
-//            }
+            //            if (now() === date($request->tanggal) || time() + (time() + 7) >= 4) {
+            //                throw new RuntimeException('Booking lab paling lambat 3 hari sebelum hari peminjaman!');
+            //            }
+            //            if (PeminjamanLab::with(['mahasiswa', 'dosen', 'matakuliah'])
+            //                ->whereDate('tanggal', $request->tanggal)
+            //                ->whereTime('jam_kembali','>=', $request->jam_pinjam)
+            //                ->whereTime('jam_pinjam', '<=', $request->jam_kembali)
+            //                ->where('status', '=', '0')
+            //            ) {
+            //                throw new RuntimeException('Lab Sedang Dipinjam!');
+            //            }
             if (is_null(Mahasiswa::where('nim', $request->nim)->first())) {
                 $mahasiswa = new Mahasiswa();
                 $mahasiswa->nim = $request->nim;
@@ -138,7 +141,8 @@ class PeminjamanLabController extends Controller
             return Redirect::route('UserPeminjamanLab.index')
                 ->with([
                     'name' => 'Data Peminjam Lab',
-                    'success' => 'Berhasil Ditambahkan!']);
+                    'success' => 'Berhasil Ditambahkan!'
+                ]);
         } catch (Exception $exception) {
             return Redirect::route('UserPeminjamanLab.index')
                 ->with([
@@ -208,13 +212,13 @@ class PeminjamanLabController extends Controller
         try {
             $template = new TemplateProcessor(public_path("/uploads/template/surat-peminjaman-lab.docx"));
             setlocale(LC_ALL, 'id_ID', 'id_ID.utf8');
-            $today = strftime( "%d %B %Y" , time());
+            $today = strftime("%d %B %Y", time());
             $template->setValue('nama_lengkap', $PeminjamanLab->mahasiswa->nama_mahasiswa);
             $template->setValue('nim', $PeminjamanLab->mahasiswa->nim);
             $template->setValue('no_wa', $PeminjamanLab->mahasiswa->no_hp);
             $template->setValue('keperluan', $PeminjamanLab->keperluan);
             $template->setValue('nama_lab', $PeminjamanLab->lab->nama_lab);
-            $template->setValue('tanggal', strftime( "%d %B %Y" , strtotime($PeminjamanLab->tanggal)));
+            $template->setValue('tanggal', strftime("%d %B %Y", strtotime($PeminjamanLab->tanggal)));
             $template->setValue('jam_pinjam', date("H.i", strtotime($PeminjamanLab->jam_pinjam)));
             $template->setValue('jam_kembali', date("H.i", strtotime($PeminjamanLab->jam_kembali)));
             $template->setValue('today', $today);

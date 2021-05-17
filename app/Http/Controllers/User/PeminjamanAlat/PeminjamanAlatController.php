@@ -61,14 +61,17 @@ class PeminjamanAlatController extends Controller
     {
         $request->validate([
             // Mahasiswa
-            'nim' => ['required','size:8'],
-            'nama_mahasiswa' => ['required','string','max:60'],
+            'nim' => ['required', 'size:8'],
+            'nama_mahasiswa' => ['required', 'string', 'max:60'],
             'id_prodi' => ['required'],
             'angkatan' => ['required'],
-            'jenis_kelamin' => ['required','string'],
-            'kelas' => ['required','string','max:5'],
-            'no_hp' => ['required','max:13'],
-            'email' => ['required','regex:/^[A-Za-z0-9\.]*@(student)[.](uns.ac.id)$/'],
+            'jenis_kelamin' => ['required', 'string'],
+            'kelas' => ['required', 'string', 'max:5'],
+            'no_hp' => ['required', 'max:13'],
+            'email' => [
+                'required',
+                // 'regex:/^[A-Za-z0-9\.]*@(student)[.](uns.ac.id)$/'
+            ],
             // Peminjaman Alat
             'id_alat' => 'required',
             'tanggal_pinjam' => 'required|date',
@@ -82,7 +85,7 @@ class PeminjamanAlatController extends Controller
         ]);
         $alat = Alat::firstWhere('id', $request->id_alat);
         try {
-            if ($alat->stok_alat < $request->jumlah_pinjam):
+            if ($alat->stok_alat < $request->jumlah_pinjam) :
                 throw new RuntimeException('Stok alat tidak mencukupi!');
             endif;
             if (is_null(Mahasiswa::where('nim', $request->nim)->first())) {
@@ -112,7 +115,8 @@ class PeminjamanAlatController extends Controller
             return Redirect::route('UserPeminjamanAlat.index')
                 ->with([
                     'name' => 'Data Peminjam Alat',
-                    'success' => 'Berhasil Ditambahkan!']);
+                    'success' => 'Berhasil Ditambahkan!'
+                ]);
         } catch (Exception | Throwable $exception) {
             return Redirect::route('UserPeminjamanAlat.index')
                 ->with([
@@ -176,7 +180,7 @@ class PeminjamanAlatController extends Controller
         try {
             $template = new TemplateProcessor(public_path("/uploads/template/surat-peminjaman-alat.docx"));
             setlocale(LC_ALL, 'id_ID', 'id_ID.utf8');
-            $today = strftime( "%d %B %Y" , time());
+            $today = strftime("%d %B %Y", time());
             $template->setValue('nama_lengkap', $PeminjamanAlat->mahasiswa->nama_mahasiswa);
             $template->setValue('nim', $PeminjamanAlat->mahasiswa->nim);
             $template->setValue('prodi', $PeminjamanAlat->mahasiswa->prodi->nama_prodi);
@@ -184,8 +188,8 @@ class PeminjamanAlatController extends Controller
             $template->setValue('keperluan', $PeminjamanAlat->keperluan);
             $template->setValue('nama_alat', $PeminjamanAlat->alat->nama_alat);
             $template->setValue('jumlah_alat', $PeminjamanAlat->alat->jumlah_alat);
-            $template->setValue('tanggal_pinjam', strftime( "%d %B %Y" , strtotime($PeminjamanAlat->tanggal_pinjam)));
-            $template->setValue('tanggal_kembali', strftime( "%d %B %Y" , strtotime($PeminjamanAlat->tanggal_kembali)));
+            $template->setValue('tanggal_pinjam', strftime("%d %B %Y", strtotime($PeminjamanAlat->tanggal_pinjam)));
+            $template->setValue('tanggal_kembali', strftime("%d %B %Y", strtotime($PeminjamanAlat->tanggal_kembali)));
             $template->setValue('jam_pinjam', date("H.i", strtotime($PeminjamanAlat->jam_pinjam)));
             $template->setValue('jam_kembali', date("H.i", strtotime($PeminjamanAlat->jam_kembali)));
             $template->setValue('today', $today);
