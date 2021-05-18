@@ -75,7 +75,7 @@ class SuratBebasLabkomController extends Controller
         ]);
         try {
             if (SuratBebasLabkom::with('mahasiswa')->where('nim', $request->nim)) {
-                throw new RuntimeException('Kamu sudah pernah mengajukan surat bebas labkom, silakan tunggu balasan konfirmasi dari kami');
+                throw new RuntimeException('Kamu sudah mengajukan permohonan sebelumnya, silakan tunggu balasan konfirmasi dari kami');
             }
             if (is_null(Mahasiswa::where('nim', $request->nim)->first())) {
                 $mahasiswa = new Mahasiswa();
@@ -102,14 +102,14 @@ class SuratBebasLabkomController extends Controller
         } catch (Exception $exception) {
             return Redirect::route('UserSuratBebasLabkom.index')
                 ->with([
-                    'name' => 'Surat Bebas Labkom',
-                    'error' => "Gagal Dihapus! {$exception->getMessage()}"
+                    'name' => 'Gagal Diajukan!',
+                    'error' => "{$exception->getMessage()}"
                 ]);
         } catch (Throwable $exception) {
             return Redirect::route('UserSuratBebasLabkom.index')
                 ->with([
-                    'name' => 'Surat Bebas Labkom',
-                    'error' => "Gagal Dihapus! {$exception->getMessage()}"
+                    'name' => 'Gagal Diajukan!',
+                    'error' => "{$exception->getMessage()}"
                 ]);
         }
     }
