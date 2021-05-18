@@ -451,15 +451,8 @@
                 let success = peminjamanlab.dataset.success;
                 if (success) {
                     const asisten = {
-                        arthur: 6281234535633,
                         zahra: 6285729971270,
-                        pio: 6282334952928,
-                        sari: 6285784378582,
-                        yoga: 6285866318119,
-                        deva: 685735691018,
-                        siti: 685713696953,
                         enny: 6285331318280,
-                        aufa: 6289527681696
                     }
                     let getAsisten = (obj) => {
                         let keys = Object.keys(obj);
@@ -467,7 +460,7 @@
                     };
                     window.open(
                         `https://api.whatsapp.com/send?phone=${getAsisten(asisten)}&text=Assalamualaikum,%20Saya%20meminta%20izin%20untuk%20meminjam%20lab%20____%20pada%tanggal%20____`
-                    );
+                        , '_self');
                 }
             }
             // --- Peminjaman Alat ---
@@ -476,15 +469,8 @@
                 let success = peminjamanalat.dataset.success;
                 if (success) {
                     const asisten = {
-                        arthur: 6281234535633,
                         zahra: 6285729971270,
-                        pio: 6282334952928,
-                        sari: 6285784378582,
-                        yoga: 6285866318119,
-                        deva: 685735691018,
-                        siti: 685713696953,
                         enny: 6285331318280,
-                        aufa: 6289527681696
                     }
                     let getAsisten = (obj) => {
                         let keys = Object.keys(obj);
@@ -492,7 +478,7 @@
                     };
                     window.open(
                         `https://api.whatsapp.com/send?phone=${getAsisten(asisten)}&text=Assalamualaikum,%20Saya%20meminta%20izin%20untuk%20meminjam%20alat%20berupa%20_____%20dengan%20jumlah%20____buah`
-                    )
+                        , '_self')
                 }
             }
             // --- Surat Bebas Labkom ---
@@ -501,15 +487,8 @@
                 let success = suratbebaslabkom.dataset.success;
                 if (success) {
                     const asisten = {
-                        arthur: 6281234535633,
                         zahra: 6285729971270,
-                        pio: 6282334952928,
-                        sari: 6285784378582,
-                        yoga: 6285866318119,
-                        deva: 685735691018,
-                        siti: 685713696953,
                         enny: 6285331318280,
-                        aufa: 6289527681696
                     }
                     let getAsisten = (obj) => {
                         let keys = Object.keys(obj);
@@ -517,7 +496,7 @@
                     };
                     window.open(
                         `https://api.whatsapp.com/send?phone=${getAsisten(asisten)}&text=Assalamualaikum,%20Saya%20meminta%20izin%20untuk%20dibuatkan%20surat%20keterangan%20bebas%20labkom%20sebagai%20syarat%20untuk%20____`
-                    );
+                    , '_self');
                 }
             }
 

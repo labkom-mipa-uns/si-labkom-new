@@ -151,7 +151,7 @@
                         Cek Ketersedian Alat
                     </dt>
                     <dd class="mt-2 text-base text-gray-800">Untuk memastikan alat yang akan dipinjam tersedia atau tidak,
-                        bisa dilakukan via <i>chat</i> atau langsung ke <b>Ruang Pengelola</b> </dd>
+                        bisa dilakukan via <i>chat</i> <b>WhatsApp</b> atau langsung ke <b>Ruang Pengelola</b> </dd>
                 </div>
             </div>
             <div class="flex">
@@ -184,7 +184,7 @@
                     </dt>
                     <dd class="mt-2 text-base text-gray-800">
                         Konfirmasi pengajuan peminjaman alat dilakukan dengan cara mengirimkan pesan konfirmasi via
-                        <i>chat</i> <b>WhatsApp</b> yang sudah terakses secara otomatis setelah mengisi formulir
+                        <i>chat</i> <b>WhatsApp</b> yang sudah terakses secara otomatis setelah mengisi formulir. Jika terjadi sebuah kesalahan misalnya <b>WhatsApp</b> yang tidak terakses otomatis, silakan ajukan keluhan melalui <b><a href="mailto:labkom@mipa.uns.ac.id">Email</a></b> kami.
                     </dd>
                 </div>
             </div>
@@ -199,7 +199,7 @@
                         Menunggu Proses Perizinan
                     </dt>
                     <dd class="mt-2 text-base text-gray-800">
-                        Tunggu hingga kami mengirimkan dokumen surat peminjaman alat yang sudah diproses
+                        Tunggu hingga kami mengirimkan dokumen surat peminjaman alat yang sudah diproses. Jika dalam kurun waktu 1 x 24 jam belum ada balasan konfirmasi dari kami, silakan ajukan keluhan lewat <b><a href="mailto:labkom@mipa.uns.ac.id">Email</a></b> kami.
                     </dd>
                 </div>
             </div>

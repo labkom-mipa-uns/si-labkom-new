@@ -58,14 +58,17 @@ class SuratBebasLabkomController extends Controller
     {
         $request->validate([
             // Mahasiswa
-            'nim' => ['required','size:8'],
-            'nama_mahasiswa' => ['required','string','max:60'],
+            'nim' => ['required', 'size:8'],
+            'nama_mahasiswa' => ['required', 'string', 'max:60'],
             'id_prodi' => ['required'],
             'angkatan' => ['required'],
-            'jenis_kelamin' => ['required','string'],
-            'kelas' => ['required','string','max:5'],
-            'no_hp' => ['required','max:13'],
-            'email' => ['required','regex:/^[A-Za-z0-9\.]*@(student)[.](uns.ac.id)$/'],
+            'jenis_kelamin' => ['required', 'string'],
+            'kelas' => ['required', 'string', 'max:5'],
+            'no_hp' => ['required', 'max:13'],
+            'email' => [
+                'required',
+                // 'regex:/^[A-Za-z0-9\.]*@(student)[.](uns.ac.id)$/'
+            ],
             // Surat Bebas Labkom
             'tanggal' => 'required|date',
             'proses' => 'required',
@@ -94,7 +97,8 @@ class SuratBebasLabkomController extends Controller
             return Redirect::route('UserSuratBebasLabkom.index')
                 ->with([
                     'name' => 'Surat Bebas Labkom',
-                    'success' => 'Berhasil Ditambahkan!']);
+                    'success' => 'Berhasil Ditambahkan!'
+                ]);
         } catch (Exception $exception) {
             return Redirect::route('UserSuratBebasLabkom.index')
                 ->with([
