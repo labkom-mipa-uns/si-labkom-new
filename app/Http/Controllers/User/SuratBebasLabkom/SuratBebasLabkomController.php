@@ -67,14 +67,14 @@ class SuratBebasLabkomController extends Controller
             'no_hp' => ['required', 'max:13'],
             'email' => [
                 'required',
-                // 'regex:/^[A-Za-z0-9\.]*@(student)[.](uns.ac.id)$/'
+                'regex:/[a-zA-Z0-9_.]@(student\.uns\.ac\.id)$/'
             ],
             // Surat Bebas Labkom
             'tanggal' => 'required|date',
             'proses' => 'required',
         ]);
         try {
-            if (SuratBebasLabkom::with('mahasiswa')->where('nim', $request->nim)) {
+            if (SuratBebasLabkom::where('id_mahasiswa', Mahasiswa::where('nim', $request->nim)->first()->id)->first()) {
                 throw new RuntimeException('Kamu sudah mengajukan permohonan sebelumnya, silakan tunggu balasan konfirmasi dari kami');
             }
             if (is_null(Mahasiswa::where('nim', $request->nim)->first())) {
