@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Redirect;
 use PhpOffice\PhpWord\Exception\CopyFileException;
 use PhpOffice\PhpWord\Exception\CreateTemporaryFileException;
 use PhpOffice\PhpWord\TemplateProcessor;
+use RuntimeException;
 use Throwable;
 
 class SuratBebasLabkomController extends Controller
@@ -70,6 +71,9 @@ class SuratBebasLabkomController extends Controller
             'proses' => 'required',
         ]);
         try {
+            if (SuratBebasLabkom::with('mahasiswa')->where('nim', $request->nim)) {
+                throw new RuntimeException('Kamu sudah pernah mengajukan surat bebas labkom, silakan tunggu balasan konfirmasi dari kami');
+            }
             if (is_null(Mahasiswa::where('nim', $request->nim)->first())) {
                 $mahasiswa = new Mahasiswa();
                 $mahasiswa->nim = $request->nim;
@@ -163,7 +167,7 @@ class SuratBebasLabkomController extends Controller
             $template->setValue('nama_lengkap', $SuratBebasLabkom->mahasiswa->nama_mahasiswa);
             $template->setValue('nim', $SuratBebasLabkom->mahasiswa->nim);
             $template->setValue('prodi', $SuratBebasLabkom->mahasiswa->prodi->nama_prodi);
-            $template->setValue('tanggal', strftime( "%d %B %Y" , strtotime($SuratBebasLabkom->tanggal)));
+            $template->setValue('tanggal', strftime("%d %B %Y", strtotime($SuratBebasLabkom->tanggal)));
             $filename = "{$SuratBebasLabkom->mahasiswa->nim}-SuratBebasLabkom-{$SuratBebasLabkom->mahasiswa->prodi->nama_prodi}.docx";
             header("Content-Description: File Transfer");
             header('Content-Disposition: attachment; filename="' . $filename . '"');
