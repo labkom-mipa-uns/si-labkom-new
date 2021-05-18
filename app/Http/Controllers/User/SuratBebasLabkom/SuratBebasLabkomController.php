@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Redirect;
 use PhpOffice\PhpWord\Exception\CopyFileException;
 use PhpOffice\PhpWord\Exception\CreateTemporaryFileException;
 use PhpOffice\PhpWord\TemplateProcessor;
+use RuntimeException;
 use Throwable;
 
 class SuratBebasLabkomController extends Controller
@@ -73,6 +74,9 @@ class SuratBebasLabkomController extends Controller
             'proses' => 'required',
         ]);
         try {
+            if (SuratBebasLabkom::with('mahasiswa')->where('nim', $request->nim)) {
+                throw new RuntimeException('Kamu sudah mengajukan permohonan sebelumnya, silakan tunggu balasan konfirmasi dari kami');
+            }
             if (is_null(Mahasiswa::where('nim', $request->nim)->first())) {
                 $mahasiswa = new Mahasiswa();
                 $mahasiswa->nim = $request->nim;
@@ -98,14 +102,14 @@ class SuratBebasLabkomController extends Controller
         } catch (Exception $exception) {
             return Redirect::route('UserSuratBebasLabkom.index')
                 ->with([
-                    'name' => 'Surat Bebas Labkom',
-                    'error' => "Gagal Dihapus! {$exception->getMessage()}"
+                    'name' => 'Gagal Diajukan!',
+                    'error' => "{$exception->getMessage()}"
                 ]);
         } catch (Throwable $exception) {
             return Redirect::route('UserSuratBebasLabkom.index')
                 ->with([
-                    'name' => 'Surat Bebas Labkom',
-                    'error' => "Gagal Dihapus! {$exception->getMessage()}"
+                    'name' => 'Gagal Diajukan!',
+                    'error' => "{$exception->getMessage()}"
                 ]);
         }
     }
