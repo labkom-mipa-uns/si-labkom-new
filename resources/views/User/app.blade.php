@@ -459,7 +459,7 @@
                         return obj[keys[keys.length * Math.random() << 0]];
                     };
                     window.open(
-                        `https://api.whatsapp.com/send?phone=${getAsisten(asisten)}&text=Assalamualaikum,%20Saya%20meminta%20izin%20untuk%20meminjam%20lab%20____%20pada%tanggal%20____`
+                        `https://api.whatsapp.com/send?phone=${getAsisten(asisten)}&text=Assalamualaikum,%20Saya%20(nama)%20(nim)%20dari%20(prodi),%20meminta%20izin%20untuk%20meminjam%20lab%20____%20pada20%tanggal%20____`
                         , '_self');
                 }
             }
@@ -477,7 +477,7 @@
                         return obj[keys[keys.length * Math.random() << 0]];
                     };
                     window.open(
-                        `https://api.whatsapp.com/send?phone=${getAsisten(asisten)}&text=Assalamualaikum,%20Saya%20meminta%20izin%20untuk%20meminjam%20alat%20berupa%20_____%20dengan%20jumlah%20____buah`
+                        `https://api.whatsapp.com/send?phone=${getAsisten(asisten)}&text=Assalamualaikum,%20Saya%20(nama)%20(nim)%20dari%20(prodi),%20meminta%20izin%20untuk%20meminjam%20alat%20berupa%20_____%20dengan%20jumlah%20____buah`
                         , '_self')
                 }
             }
@@ -495,7 +495,7 @@
                         return obj[keys[keys.length * Math.random() << 0]];
                     };
                     window.open(
-                        `https://api.whatsapp.com/send?phone=${getAsisten(asisten)}&text=Assalamualaikum,%20Saya%20meminta%20izin%20untuk%20dibuatkan%20surat%20keterangan%20bebas%20labkom%20sebagai%20syarat%20untuk%20____`
+                        `https://api.whatsapp.com/send?phone=${getAsisten(asisten)}&text=Assalamualaikum,%20Saya%20(nama)%20(nim)%20dari%20(prodi),%20meminta%20izin%20untuk%20dibuatkan%20surat%20keterangan%20bebas%20labkom%20sebagai%20syarat%20untuk%20_____`
                     , '_self');
                 }
             }

@@ -63,31 +63,30 @@ class SuratBebasLabkomController extends Controller
             'id_prodi' => ['required'],
             'angkatan' => ['required'],
             'jenis_kelamin' => ['required', 'string'],
-            'kelas' => ['required', 'string', 'max:5'],
+            //'kelas' => ['required', 'string', 'max:5'],
             'no_hp' => ['required', 'max:13'],
             'email' => [
                 'required',
                 'regex:/[a-zA-Z0-9_.]@(student\.uns\.ac\.id)$/'
             ],
             // Surat Bebas Labkom
-            'tanggal' => 'required|date',
+//            'tanggal' => 'required|date',
             'proses' => 'required',
         ]);
         try {
-            if (SuratBebasLabkom::where('id_mahasiswa', Mahasiswa::where('nim', $request->nim)->first()->id)->first()) {
-                throw new RuntimeException('Kamu sudah mengajukan permohonan sebelumnya, silakan tunggu balasan konfirmasi dari kami');
-            }
             if (is_null(Mahasiswa::where('nim', $request->nim)->first())) {
                 $mahasiswa = new Mahasiswa();
                 $mahasiswa->nim = $request->nim;
                 $mahasiswa->nama_mahasiswa = $request->nama_mahasiswa;
                 $mahasiswa->jenis_kelamin = $request->jenis_kelamin;
-                $mahasiswa->kelas = $request->kelas;
+                // $mahasiswa->kelas = $request->kelas;
                 $mahasiswa->id_prodi = $request->id_prodi;
                 $mahasiswa->angkatan = $request->angkatan;
                 $mahasiswa->email = $request->email;
                 $mahasiswa->no_hp = $request->no_hp;
                 $mahasiswa->saveOrFail();
+            } else if (SuratBebasLabkom::where('id_mahasiswa', Mahasiswa::where('nim', $request->nim)->first()->id)->first()) {
+                throw new RuntimeException('Kamu sudah mengajukan permohonan sebelumnya, silakan tunggu balasan konfirmasi dari kami');              
             }
             $surat = new SuratBebasLabkom();
             $surat->id_mahasiswa = Mahasiswa::where('nim', $request->nim)->first()->id;
@@ -97,7 +96,7 @@ class SuratBebasLabkomController extends Controller
             return Redirect::route('UserSuratBebasLabkom.index')
                 ->with([
                     'name' => 'Surat Bebas Labkom',
-                    'success' => 'Berhasil Ditambahkan!'
+                    'success' => 'Berhasil Diajukan!'
                 ]);
         } catch (Exception $exception) {
             return Redirect::route('UserSuratBebasLabkom.index')

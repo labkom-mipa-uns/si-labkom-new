@@ -71,6 +71,7 @@ class PeminjamanLabController extends Controller
             'no_hp' => ['required', 'max:13'],
             'email' => [
                 'required',
+              	'regex:/[a-zA-Z0-9_.]@(student\.uns\.ac\.id)$/',
                 // 'regex:/^[A-Za-z0-9\.]*@(student)[.](uns.ac.id)$/'
             ],
             // Dosen

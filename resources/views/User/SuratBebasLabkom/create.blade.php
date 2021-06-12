@@ -75,14 +75,14 @@
                             <div class="form-error">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="pr-6 pb-8 w-full lg:w-1/2">
+{{--                    <div class="pr-6 pb-8 w-full lg:w-1/3">
                         <label class="form-label" for="kelas">Kelas</label>
                         <input id="kelas" name="kelas" class="form-input @error('kelas') error @enderror" type="text"
                             value="{{ old('kelas') }}" autocomplete="off" placeholder="Masukkan kelas" />
                         @error('kelas')
                             <div class="form-error">{{ $message }}</div>
                         @enderror
-                    </div>
+                    </div> --}}
                     <div class="pr-6 pb-8 w-full lg:w-1/2">
                         <label class="form-label" for="no_hp">Nomor WhatsApp</label>
                         <input id="no_hp" name="no_hp" class="form-input @error('no_hp') error @enderror" type="tel"
@@ -99,15 +99,21 @@
                             <div class="form-error">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="pr-6 pb-8 w-full lg:w-1/2">
+{{--                    <div class="pr-6 pb-8 w-full lg:w-1/2">
                         <label class="form-label" for="tanggal_pinjam">Tanggal</label>
                         <input id="tanggal" name="tanggal" class="form-input @error('tanggal') error @enderror"
                             autocomplete="off" type="date" value="{{ old('tanggal') }}" />
                         @error('tanggal')
                             <div class="form-error">{{ $message }}</div>
                         @enderror
-                    </div>
-                    <input type="hidden" name="proses" value="1">
+                    </div> --}}
+                  <?php
+					setlocale (LC_ALL, 'id_ID.UTF8', 'id_ID.UTF-8', 'id_ID.8859-1', 'id_ID', 'IND.UTF8', 'IND.UTF-8', 'IND.8859-1', 'IND', 'Indonesian.UTF8', 'Indonesian.UTF-8', 'Indonesian.8859-1', 'Indonesian', 'Indonesia', 'id', 'ID');
+					$date = strftime("%Y-%m-%d" , time());
+                  ?>
+                  <input type="hidden" id="kelas" name="kelas" value="-">
+                  <input type="hidden" id="tanggal" name="tanggal" class="form-control" value="<?php echo $date ?>">
+                  <input type="hidden" name="proses" value="1">
                 </div>
                 <div class="px-8 py-4 bg-gray-100 border-t border-gray-200 flex justify-end items-center">
                     <a href="{{ route('UserSuratBebasLabkom.index') }}"

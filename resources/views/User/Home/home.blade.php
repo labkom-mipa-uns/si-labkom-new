@@ -68,7 +68,7 @@
 
             <!-- Peminjaman Ruang -->
             <div
-                class="flex flex-wrap rounded shadow mb-4 hover:shadow-lg hover:scale-105 hover:bg-indigo-700 group transform transition ease-in-out duration-300">
+                class="flex flex-wrap rounded shadow mb-4 hover:shadow-lg hover:bg-indigo-700 group transform transition ease-in-out duration-300">
                 <div class="flex flex-col items-center w-5/6 sm:w-1/2 pl-8 py-8">
                     <h3 class="text-3xl text-gray-800 group-hover:text-white font-bold leading-none mb-3">
                         Peminjaman Ruang
@@ -264,7 +264,7 @@
 
             <!-- Peminjaman Alat -->
             <div
-                class="flex flex-wrap rounded shadow hover:shadow-lg hover:scale-105 hover:bg-indigo-700 group transform transition ease-in-out duration-300 flex-col-reverse sm:flex-row mt-4 mb-4">
+                class="flex flex-wrap rounded shadow hover:shadow-lg hover:bg-indigo-700 group transform transition ease-in-out duration-300 flex-col-reverse sm:flex-row mt-4 mb-4">
                 <div class="w-full sm:w-1/2 pr-8 py-8 mt-6">
                     <svg class="w-full sm:h-64 mx-auto" id="f1ba0080-3221-4c35-b110-ed68464d7aea" data-name="Layer 1"
                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 978 813.6343">
@@ -338,7 +338,7 @@
 
             <!-- Surat Bebas Labkom -->
             <div
-                class="flex flex-wrap rounded shadow hover:shadow-lg hover:scale-105 hover:bg-indigo-700 group transform transition ease-in-out duration-300 mt-4">
+                class="flex flex-wrap rounded shadow hover:shadow-lg hover:bg-indigo-700 group transform transition ease-in-out duration-300 mt-4">
                 <div class="flex flex-col items-center w-5/6 sm:w-1/2 pl-8 py-8">
                     <a class="text-3xl text-gray-800 group-hover:text-white font-bold leading-none mb-3">
                         Surat Bebas Labkom
